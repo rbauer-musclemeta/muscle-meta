@@ -1,0 +1,19 @@
+# muscle-meta.com — no build step. Only `site/` is published, so CLAUDE.md,
+# docs/ and anything else in the repo stay out of the public website.
+[build]
+  publish = "site"
+  command = ""
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+
+# Shared assets change rarely. Bump the ?v= query in the page links when they do.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"

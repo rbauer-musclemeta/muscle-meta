@@ -1,0 +1,16 @@
+# muscle-meta.com
+User-agent: *
+Allow: /
+
+# AI answer engines use crawlers separate from their training crawlers.
+# These are the ones that fetch pages to cite in answers.
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+Sitemap: https://muscle-meta.com/sitemap.xml

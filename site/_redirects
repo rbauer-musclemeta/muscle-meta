@@ -1,0 +1,12 @@
+# Legacy Netlify sites → new homes.
+# Add one line per old site AFTER that path exists here, then set the old
+# site's own _redirects to point at muscle-meta.com.
+#
+# Format:  /old-path   /new-path   301
+#
+# Planned:
+# (from osteosarcopenia-course.netlify.app)  /*  https://muscle-meta.com/courses/osteosarcopenia/:splat  301
+# (from mm-mitochondrial-guide.netlify.app)  /*  https://muscle-meta.com/tools/mitochondria/:splat      301
+# (from mm-vo2max-calculator.netlify.app)    /*  https://muscle-meta.com/tools/vo2max/:splat            301
+
+# SPA-style fallback is deliberately NOT set — every page is a real file.

@@ -1,3 +1,14 @@
+# --- Brand-protection domain -------------------------------------------------
+# musclemetamatrix.com is an alias on the same Netlify site. Netlify does NOT
+# redirect aliases to the primary domain on its own — it serves the site at
+# both, which is duplicate content. These rules force the 301.
+# The trailing ! makes the redirect win even though a matching file exists.
+
+http://musclemetamatrix.com/*       https://muscle-meta.com/:splat   301!
+https://musclemetamatrix.com/*      https://muscle-meta.com/:splat   301!
+http://www.musclemetamatrix.com/*   https://muscle-meta.com/:splat   301!
+https://www.musclemetamatrix.com/*  https://muscle-meta.com/:splat   301!
+
 # Legacy Netlify sites → new homes.
 # Add one line per old site AFTER that path exists here, then set the old
 # site's own _redirects to point at muscle-meta.com.

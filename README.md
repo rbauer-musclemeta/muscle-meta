@@ -14,6 +14,13 @@ netlify.toml   publish = "site", build = "npm run build", headers
 
 Blog workflow: see `docs/blog-workflow.md`.
 
+## Member app (app.muscle-meta.com)
+
+`app/` is the Next.js member app for programs, starting with the 30-Day
+Four-Lens Program. It deploys as a second Netlify site from this repo with
+base directory `app`. Database changes live in `supabase/`. Start with
+`docs/program-1/00-PROGRAM-1-HANDOFF.md`.
+
 Commit to `main` and Netlify deploys. Branches get preview URLs — check the
 preview before merging, and run `docs/deployment-checklist.md`.
 

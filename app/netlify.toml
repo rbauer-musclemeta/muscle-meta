@@ -1,0 +1,21 @@
+# app.muscle-meta.com — the Muscle-Meta member app (Next.js).
+# This is a SECOND Netlify site built from the same GitHub repo, with its
+# base directory set to "app". The public site (muscle-meta.com) keeps the
+# repo-root netlify.toml and is not affected by anything in this folder.
+[build]
+  command = "npm run build"
+  publish = ".next"
+  # Rebuild only when the app, the shared brand tokens or the scoring
+  # function change.
+  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- . ../site/assets ../supabase"
+
+[build.environment]
+  NODE_VERSION = "22"
+  NEXT_TELEMETRY_DISABLED = "1"
+  # Public by design; row-level security is the protection. The service-role
+  # key is never set here: privileged scoring runs in the Supabase edge
+  # function complete-assessment.
+  NEXT_PUBLIC_SUPABASE_URL = "https://bxpferfuwoiulnqnfqhf.supabase.co"
+  NEXT_PUBLIC_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ4cGZlcmZ1d29pdWxucW5mcWhmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDU2MDg4MzYsImV4cCI6MjA2MTE4NDgzNn0.fhCtzgfcyZcpeoxcp49KEmTwMmT_pUcA4cpGW_tdczM"
+
+# Netlify detects Next.js and applies its adapter (OpenNext) automatically.

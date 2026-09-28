@@ -1,8 +1,13 @@
-# muscle-meta.com — no build step. Only `site/` is published, so CLAUDE.md,
-# docs/ and anything else in the repo stay out of the public website.
+# muscle-meta.com. Only `site/` is published, so CLAUDE.md, docs/, content/
+# and anything else in the repo stay out of the public website.
+# The build step renders content/blog/*.md into site/blog/ (scripts/build-blog.mjs).
+# Every other page is still a hand-written file served as-is.
 [build]
   publish = "site"
-  command = ""
+  command = "npm run build"
+
+[build.environment]
+  NODE_VERSION = "22"
 
 [[headers]]
   for = "/*"
@@ -17,3 +22,10 @@
   for = "/assets/*"
   [headers.values]
     Cache-Control = "public, max-age=3600"
+
+# The content editor must never be cached stale or framed elsewhere.
+[[headers]]
+  for = "/cms/*"
+  [headers.values]
+    Cache-Control = "no-cache"
+    X-Robots-Tag = "noindex, nofollow"

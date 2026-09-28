@@ -193,7 +193,8 @@ site/
 /                     hub
 /tools/<slug>/        interactive tools — free, self-contained HTML
 /learn/<pillar>/      pillar hubs and category pages — must be real HTML
-/blog/<slug>/         articles — must be real HTML
+/blog/<slug>/         articles — GENERATED from content/blog/*.md; never hand-edit
+/cms/                 Sveltia CMS content editor (noindex); saves to content/blog/
 /courses/<slug>/      course shells — content from the database
 /downloads/<slug>/    free lead magnets, each behind an email capture
 /legal/               privacy, terms, medical disclaimer
@@ -203,6 +204,22 @@ site/
 
 Rules: every page links `assets/mm.css` and `assets/mm.js`. No page redefines a
 token. No page ships its own copy of the tier labels or the pillar list.
+
+### The blog build (added 2026-09-28)
+The site has exactly one build step: `npm run build` runs
+`scripts/build-blog.mjs`, which renders `content/blog/*.md` into
+`site/blog/<slug>/`, regenerates `site/blog/index.html` and `site/blog/feed.xml`,
+and inserts post URLs into `site/sitemap.xml` between the `blog:start` /
+`blog:end` markers. Every other page is still a hand-written file.
+
+The build **refuses to publish** a post that breaks the rules in this file:
+non-canonical pillar or category key, a reference without an evidence grade,
+a PMID whose PubMed first author and year do not match the citation, gate or
+upgrade wording, emoji, or a literal hex colour. A failed build leaves the live
+site unchanged. `content/pmid-cache.json` holds PMIDs already read in PubMed;
+anything not in it is checked live against PubMed on every build. Drafts
+(`draft: true`) render on deploy previews only, never on production.
+Full workflow: `docs/blog-workflow.md`.
 
 ---
 

@@ -1,0 +1,16 @@
+{
+  "name": "muscle-meta-site",
+  "private": true,
+  "type": "module",
+  "description": "muscle-meta.com — static site plus the blog build. Netlify runs `npm run build`.",
+  "scripts": {
+    "build": "node scripts/build-blog.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "marked": "18.0.14",
+    "yaml": "2.9.1"
+  }
+}

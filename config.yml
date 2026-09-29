@@ -1,0 +1,166 @@
+# Sveltia CMS configuration for muscle-meta.com
+# Editor: https://muscle-meta.com/cms/
+# Every save is a commit to the GitHub repo. Netlify rebuilds, and
+# scripts/build-blog.mjs checks the post before it can go live.
+
+backend:
+  name: github
+  repo: rbauer-musclemeta/muscle-meta
+  branch: main
+  # Sign-in: "Sign In with Token" (GitHub fine-grained token, this repo only,
+  # Contents: read and write) works with no further setup. For a
+  # "Sign in with GitHub" button, register a GitHub OAuth app and add it in
+  # Netlify under Access & security > OAuth; no change is needed here.
+  commit_messages:
+    create: "Blog: create {{slug}}"
+    update: "Blog: update {{slug}}"
+    delete: "Blog: delete {{slug}}"
+    uploadMedia: "Blog: upload {{path}}"
+    deleteMedia: "Blog: delete {{path}}"
+
+site_url: https://muscle-meta.com
+display_url: https://muscle-meta.com/blog/
+logo_url: /assets/favicon.svg
+
+media_folder: site/assets/blog
+public_folder: /assets/blog
+
+collections:
+  - name: blog
+    label: Blog posts
+    label_singular: Blog post
+    description: >-
+      Articles for muscle-meta.com/blog/. New posts start as drafts: a draft
+      is never published to the live site. Switch "Draft" off to publish.
+    folder: content/blog
+    create: true
+    extension: md
+    format: frontmatter
+    slug: "{{slug}}"
+    identifier_field: title
+    summary: "{{title}} — {{date}}"
+    sortable_fields: [date, title]
+    preview_path: blog/{{slug}}/
+    fields:
+      - name: title
+        label: Title
+        widget: string
+        hint: Sentence case. Say what the reader learns, e.g. "Three field tests that estimate your VO2max".
+      - name: description
+        label: Summary
+        widget: text
+        hint: 70 to 170 characters. Shown under the title, in search results and on the articles page.
+      - name: date
+        label: Publish date
+        widget: datetime
+        format: YYYY-MM-DD
+        date_format: YYYY-MM-DD
+        time_format: false
+      - name: updated
+        label: Last updated
+        widget: datetime
+        format: YYYY-MM-DD
+        date_format: YYYY-MM-DD
+        time_format: false
+        required: false
+        hint: Only when you revise an older post in a meaningful way.
+      - name: draft
+        label: Draft
+        widget: boolean
+        default: true
+        hint: On = saved but not on the live site. Turn off to publish.
+      - name: featured
+        label: Feature on the articles page
+        widget: boolean
+        default: false
+        hint: Up to three featured posts appear at the top of /blog/.
+      - name: newsletter
+        label: Show the newsletter sign-up
+        widget: boolean
+        default: true
+      - name: pillar
+        label: Pillar
+        widget: select
+        options:
+          - { label: "Exercise & Mobility", value: exercise-mobility }
+          - { label: "Nutrition & Metabolism", value: nutrition-metabolism }
+          - { label: "Recovery & Stress", value: recovery-stress }
+          - { label: "Balance & Brain Health", value: balance-brain-health }
+      - name: categories
+        label: Categories
+        widget: select
+        multiple: true
+        min: 1
+        hint: Pick every category the post covers. Cross-pillar is fine.
+        options:
+          - { label: "P1-C1 Joint Health", value: P1-C1 }
+          - { label: "P1-C2 Functional Independence", value: P1-C2 }
+          - { label: "P1-C3 Mobility", value: P1-C3 }
+          - { label: "P1-C4 Strength", value: P1-C4 }
+          - { label: "P1-C5 Endurance", value: P1-C5 }
+          - { label: "P2-C6 Nutrition", value: P2-C6 }
+          - { label: "P2-C7 Metabolic Flexibility", value: P2-C7 }
+          - { label: "P3-C8 Recovery", value: P3-C8 }
+          - { label: "P3-C9 Lifestyle", value: P3-C9 }
+          - { label: "P3-C10 Stress Management", value: P3-C10 }
+          - { label: "P4-C11 Balance", value: P4-C11 }
+          - { label: "P4-C12 Brain Health", value: P4-C12 }
+      - name: image
+        label: Header image
+        widget: image
+        required: false
+      - name: image_alt
+        label: Header image description
+        widget: string
+        required: false
+        hint: Required when there is a header image. Describe what it shows.
+      - name: related_tool
+        label: Tool or course button
+        widget: object
+        required: false
+        collapsed: true
+        fields:
+          - { name: url, label: Link, widget: string, hint: "e.g. /tools/oxygen-engine/" }
+          - { name: label, label: Button text, widget: string }
+      - name: keywords
+        label: Extra search keywords
+        widget: list
+        required: false
+      - name: body
+        label: Article
+        widget: markdown
+        hint: Cite a reference by typing its number in square brackets, e.g. [1]. Every reference must be cited at least once.
+      - name: references
+        label: References
+        widget: list
+        required: false
+        summary: "{{fields.grade}} — {{fields.citation}}"
+        hint: Numbered in this order. [1] in the article is the first reference.
+        fields:
+          - name: claim
+            label: Claim it supports
+            widget: text
+          - name: grade
+            label: Evidence grade
+            widget: select
+            options: [Established, Promising, Unproven-Bridge]
+          - name: pmid
+            label: PMID
+            widget: string
+            required: false
+            hint: The build checks this against PubMed and stops if it is the wrong paper.
+          - name: citation
+            label: Citation
+            widget: text
+            hint: Must include the first author's surname and the year.
+          - name: url
+            label: Link (only when there is no PMID)
+            widget: string
+            required: false
+      - name: faq
+        label: Common questions
+        widget: list
+        required: false
+        fields:
+          - { name: q, label: Question, widget: string }
+          - { name: a, label: Answer, widget: text }

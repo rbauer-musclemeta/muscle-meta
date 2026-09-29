@@ -193,7 +193,8 @@ site/
 /                     hub
 /tools/<slug>/        interactive tools — free, self-contained HTML
 /learn/<pillar>/      pillar hubs and category pages — must be real HTML
-/blog/<slug>/         articles — must be real HTML
+/blog/<slug>/         articles — GENERATED from content/blog/*.md; never hand-edit
+/cms/                 Sveltia CMS content editor (noindex); saves to content/blog/
 /courses/<slug>/      course shells — content from the database
 /downloads/<slug>/    free lead magnets, each behind an email capture
 /legal/               privacy, terms, medical disclaimer
@@ -201,23 +202,63 @@ site/
 /assets/mm.js         the ONLY copy of auth, entitlement, capture, analytics
 ```
 
+Outside `site/` (never published by the public site):
+
+```
+app/                  member app → app.muscle-meta.com (Next.js; see docs/program-1/)
+app/src/engine/       scoring + routing engine: pure TS, fixture-tested, versioned
+supabase/migrations/  every schema change, in order; apply through a migration only
+supabase/functions/   edge functions (complete-assessment writes results)
+supabase/tests/       SQL access tests; run after any schema change
+content/, scripts/    blog source and the blog build
+```
+
 Rules: every page links `assets/mm.css` and `assets/mm.js`. No page redefines a
 token. No page ships its own copy of the tier labels or the pillar list.
+
+### The blog build (added 2026-09-28)
+The site has exactly one build step: `npm run build` runs
+`scripts/build-blog.mjs`, which renders `content/blog/*.md` into
+`site/blog/<slug>/`, regenerates `site/blog/index.html` and `site/blog/feed.xml`,
+and inserts post URLs into `site/sitemap.xml` between the `blog:start` /
+`blog:end` markers. Every other page is still a hand-written file.
+
+The build **refuses to publish** a post that breaks the rules in this file:
+non-canonical pillar or category key, a reference without an evidence grade,
+a PMID whose PubMed first author and year do not match the citation, gate or
+upgrade wording, emoji, or a literal hex colour. A failed build leaves the live
+site unchanged. `content/pmid-cache.json` holds PMIDs already read in PubMed;
+anything not in it is checked live against PubMed on every build. Drafts
+(`draft: true`) render on deploy previews only, never on production.
+Full workflow: `docs/blog-workflow.md`.
 
 ---
 
 ## 4. Supabase
 
-Project ref `bxpferfuwoiulnqnfqhf` — 34 tables, row-level security on all of them.
-Schema already covers taxonomy, content, assessments, user results, commerce.
+Project ref `bxpferfuwoiulnqnfqhf`. Row-level security on every table. Every
+schema change is a file in `supabase/migrations/` (the 2026-09-12 baseline
+migrations were applied before this folder existed; see
+`supabase/schema/2026-09-28-inventory.md`).
 
-- The **publishable key belongs in the HTML**, in plain text, committed. It is
-  public by design and RLS is the protection. With no build step, Netlify
-  environment variables cannot reach the browser, so there is no alternative.
-- The **service role key must never appear in this repo**, in any file, in any
-  comment. Edge function environments only.
-- Adding an assessment or course is **rows, not code**. Reach for a migration
-  before reaching for a new page.
+- The **publishable (anon) key is public** and may appear in HTML and in
+  `app/netlify.toml`. RLS is the protection.
+- The **service role key must never appear in this repo** or in the member
+  app. It exists only inside Supabase edge functions.
+- Members can never write derived results, grant access or edit definitions.
+  Results are written only by `supabase/functions/complete-assessment`, which
+  scores from the stored answers with the engine in `app/src/engine/`
+  (copied into the function by `app/scripts/sync-engine.mjs`; a test fails if
+  the copies differ).
+- Published assessment versions and derived results are immutable (triggers).
+  Corrections are a new version or an appended `result_overrides` row.
+- Roles: `user_roles` (member, coach, admin, owner, agent_service). Staff
+  checks use `private.is_staff()`. Owner alone manages roles.
+- After any schema change: run `supabase/tests/rls_program1.sql` (must end
+  `RLS_TESTS_PASSED`) and the Supabase security advisors.
+- Adding an assessment or program is **rows, not code**: a new
+  `assessment_versions` row, `metric_definitions`, a program and course.
+  New scoring logic is a new versioned engine module with its own fixtures.
 
 ---
 
@@ -238,32 +279,34 @@ appears in `sitemap.xml`.
 
 ## 5b. Domain architecture — one domain, many assets
 
-**Subfolder by default. A subdomain only when a third-party platform physically
-cannot serve from a folder.** Topical authority, internal link equity and the
-accumulated trust that lets a solo clinician rank in YMYL health do not pool
-across a subdomain boundary. Splitting starts a second authority account.
+**Subfolder by default. A subdomain only for a surface that must never rank.**
+Topical authority, internal link equity and the accumulated trust that lets a
+solo clinician rank in YMYL health do not pool across a subdomain boundary.
 
 | Surface | Lives at | Why |
 |---|---|---|
-| Course sales and description pages | `muscle-meta.com/courses/<slug>/` | Indexable, citable, carries the evidence and the credential. This is the marketing surface. |
-| Course delivery (logged-in member area) | `learn.muscle-meta.com` (Kajabi) | Kajabi cannot serve from a folder of a Netlify site. A member area was never going to rank, so the subdomain costs nothing here. |
-| Assessments and tools | `muscle-meta.com/assess/`, `/tools/` | Own HTML, nothing forces a split. Never a subdomain. |
+| Course and program sales pages | `muscle-meta.com/courses/<slug>/`, `/programs/<slug>/` | Indexable, citable, carries the evidence and the credential. |
+| Member area: programs, assessments, results, dashboard, admin | `app.muscle-meta.com` (Next.js, `app/` in this repo, its own Netlify site) | Private and `noindex`. Never competes with the sales pages. |
+| Free tools and screeners | `muscle-meta.com/tools/`, `/assess/` | Own HTML. Never a subdomain. |
 | Blog, about, guides | `muscle-meta.com/blog/`, `/about/`, `/downloads/` | Same. |
 
-The rule in one line: **marketing surface on the main domain, delivery on the
-subdomain.** A course's `/courses/<slug>/` page ranks and gets cited; its enrol
-button points at Kajabi. Never publish course *content* to `learn.` and expect
-it to earn search or AI citations, and never put the member area on the main
-domain.
+**Decided 2026-09-27/28 (replaces the 2026-09-20 Kajabi rule):** course
+delivery and payments leave Kajabi. Stripe takes payments (M4), Kit stays for
+email, Supabase owns identity, access and results. `learn.muscle-meta.com`
+(Kajabi) is retired once existing students are migrated; redirect it to
+`app.muscle-meta.com`.
 
-`learn.muscle-meta.com` should be `noindex` (set it in Kajabi, not here) so the
-member area never competes with its own sales page for the same query.
-
-Decided 2026-09-20.
-
----
+The member app follows every rule in this file: tokens come from
+`site/assets/mm.css` (copied at build by `app/scripts/sync-tokens.mjs`, never
+edited in `app/`), no emoji, sentence case, canonical pillar and category keys,
+nothing gated by pillar or category.
 
 ## 6. Known stale things — do not trust these blindly
+
+- Until 2026-09-28 the database numbered Endurance 4 and Strength 5 and marked
+  Pillar 4 as gated. Both were fixed by migration `20260928120000`; any export,
+  spreadsheet or asset made from the database before that date may carry the
+  reversed numbers.
 
 - `mm-kajabi-landing-builder` encodes the **Encore** theme. The Kajabi site now
   builds landing pages on **Nova**. Its block schema is wrong for new pages.

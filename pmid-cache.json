@@ -1,0 +1,33 @@
+{
+  "_about": "PMIDs already resolved through PubMed. The build checks each reference against this file first and only calls PubMed for PMIDs not listed here. Add an entry ONLY after reading the title in PubMed yourself.",
+  "5694044": {
+    "firstAuthor": "Cooper",
+    "year": "1968",
+    "title": "A means of assessing maximal oxygen intake. Correlation between field and treadmill testing.",
+    "journal": "JAMA",
+    "verified": "2026-09-28"
+  },
+  "3600239": {
+    "firstAuthor": "Kline",
+    "year": "1987",
+    "title": "Estimation of VO2max from a one-mile track walk, gender, age, and body weight.",
+    "journal": "Med Sci Sports Exerc",
+    "verified": "2026-09-28"
+  },
+  "21673494": {
+    "firstAuthor": "Burr",
+    "year": "2011",
+    "title": "The 6-minute walk test as a predictor of objectively measured aerobic fitness in healthy working-aged adults.",
+    "journal": "Phys Sportsmed",
+    "doi": "10.3810/psm.2011.05.1904",
+    "verified": "2026-09-28"
+  },
+  "30646252": {
+    "firstAuthor": "Mandsager",
+    "year": "2018",
+    "title": "Association of Cardiorespiratory Fitness With Long-term Mortality Among Adults Undergoing Exercise Treadmill Testing.",
+    "journal": "JAMA Netw Open",
+    "doi": "10.1001/jamanetworkopen.2018.3605",
+    "verified": "2026-09-28"
+  }
+}

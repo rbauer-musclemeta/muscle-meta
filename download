@@ -1,0 +1,9 @@
+node_modules/
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+.env*.local
+# copied from site/assets at build time; site/assets is the only source
+public/mm.css
+public/favicon.svg

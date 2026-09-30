@@ -2,12 +2,15 @@
 title: Three field tests that estimate your VO2max, and which one fits you
 description: A 12-minute run, a one-mile walk or a six-minute walk can each estimate your aerobic fitness. Here is how they differ and how to choose.
 date: 2026-09-28
+updated: ''
+draft: false
+featured: true
+newsletter: true
 pillar: exercise-mobility
 categories:
   - P1-C5
-featured: true
-draft: false
-newsletter: true
+image: /assets/blog/Gemini_Generated_Image_553r75553r75553r.jpg
+image_alt: How Fit is Your Oxygen Engine?
 related_tool:
   url: /tools/oxygen-engine/
   label: Estimate your VO2max with the Oxygen Engine
@@ -17,22 +20,26 @@ keywords:
   - six-minute walk test
   - cardiorespiratory fitness after 50
 references:
-  - pmid: "30646252"
-    citation: "Mandsager K, Harb S, Cremer P, et al. Association of cardiorespiratory fitness with long-term mortality among adults undergoing exercise treadmill testing. JAMA Netw Open. 2018;1(6):e183605."
-    claim: In 122,007 adults followed for a median of 8.4 years, lower treadmill fitness was linked to higher all-cause mortality, with below-average versus above-average fitness carrying a risk similar to smoking or diabetes.
+  - claim: In 122,007 adults followed for a median of 8.4 years, lower treadmill fitness was linked to higher all-cause mortality, with below-average versus above-average fitness carrying a risk similar to smoking or diabetes.
     grade: Established
-  - pmid: "5694044"
-    citation: "Cooper KH. A means of assessing maximal oxygen intake: correlation between field and treadmill testing. JAMA. 1968;203(3):201-204."
-    claim: Distance covered in 12 minutes of running correlates with treadmill-measured maximal oxygen intake. The original sample was men.
+    pmid: '30646252'
+    citation: Mandsager K, Harb S, Cremer P, et al. Association of cardiorespiratory fitness with long-term mortality among adults undergoing exercise treadmill testing. JAMA Netw Open. 2018;1(6):e183605.
+    url: ''
+  - claim: Distance covered in 12 minutes of running correlates with treadmill-measured maximal oxygen intake. The original sample was men.
     grade: Established
-  - pmid: "3600239"
-    citation: "Kline GM, Porcari JP, Hintermeister R, et al. Estimation of VO2max from a one-mile track walk, gender, age, and body weight. Med Sci Sports Exerc. 1987;19(3):253-259."
-    claim: A brisk one-mile walk, with finishing heart rate, age, sex and weight, estimated VO2max closely (r = 0.92 on cross-validation) in 343 adults aged 30 to 69.
+    pmid: '5694044'
+    citation: 'Cooper KH. A means of assessing maximal oxygen intake: correlation between field and treadmill testing. JAMA. 1968;203(3):201-204.'
+    url: ''
+  - claim: A brisk one-mile walk, with finishing heart rate, age, sex and weight, estimated VO2max closely (r = 0.92 on cross-validation) in 343 adults aged 30 to 69.
     grade: Established
-  - pmid: "21673494"
-    citation: "Burr JF, Bredin SSD, Faktor MD, Warburton DER. The 6-minute walk test as a predictor of objectively measured aerobic fitness in healthy working-aged adults. Phys Sportsmed. 2011;39(2):133-139."
-    claim: Six-minute walk distance, combined with weight, sex, resting heart rate and age, explained 72% of the variation in measured VO2max in 44 healthy working-aged adults. The sample was small and younger than most readers here, so treat results as directional.
+    pmid: '3600239'
+    citation: Kline GM, Porcari JP, Hintermeister R, et al. Estimation of VO2max from a one-mile track walk, gender, age, and body weight. Med Sci Sports Exerc. 1987;19(3):253-259.
+    url: ''
+  - claim: Six-minute walk distance, combined with weight, sex, resting heart rate and age, explained 72% of the variation in measured VO2max in 44 healthy working-aged adults. The sample was small and younger than most readers here, so treat results as directional.
     grade: Promising
+    pmid: '21673494'
+    citation: Burr JF, Bredin SSD, Faktor MD, Warburton DER. The 6-minute walk test as a predictor of objectively measured aerobic fitness in healthy working-aged adults. Phys Sportsmed. 2011;39(2):133-139.
+    url: ''
 faq:
   - q: Do I need a lab test to know my VO2max?
     a: No. A lab test measures it directly and is the most accurate, but a well-chosen field test gives a useful estimate you can repeat every few months to see whether your training is working.

@@ -1,13 +1,25 @@
 # muscle-meta.com
 
-One domain, many assets. Static HTML on Netlify, data in Supabase. No build step.
+One domain, many assets. Static HTML on Netlify, data in Supabase. One small
+build step: blog posts are written in Markdown and rendered to HTML on deploy.
 
 ```
 CLAUDE.md      house rules — read before changing anything
+content/blog/  blog posts in Markdown (edited at muscle-meta.com/cms/)
+scripts/       build-blog.mjs: Markdown -> site/blog/, feed, sitemap, schema
 docs/          internal notes; never published
 site/          the website. Netlify publishes ONLY this directory.
-netlify.toml   publish = "site", security headers, no build command
+netlify.toml   publish = "site", build = "npm run build", headers
 ```
+
+Blog workflow: see `docs/blog-workflow.md`.
+
+## Member app (app.muscle-meta.com)
+
+`app/` is the Next.js member app for programs, starting with the 30-Day
+Four-Lens Program. It deploys as a second Netlify site from this repo with
+base directory `app`. Database changes live in `supabase/`. Start with
+`docs/program-1/00-PROGRAM-1-HANDOFF.md`.
 
 Commit to `main` and Netlify deploys. Branches get preview URLs — check the
 preview before merging, and run `docs/deployment-checklist.md`.

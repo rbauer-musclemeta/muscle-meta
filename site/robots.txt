@@ -1,6 +1,7 @@
 # muscle-meta.com
 User-agent: *
 Allow: /
+Disallow: /cms/
 
 # AI answer engines use crawlers separate from their training crawlers.
 # These are the ones that fetch pages to cite in answers.

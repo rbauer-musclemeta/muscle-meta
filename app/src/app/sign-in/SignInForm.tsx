@@ -34,7 +34,7 @@ export default function SignInForm() {
       {codeState.error && <p className="app-note error" role="alert">{codeState.error}</p>}
       <div className="app-actions" style={{ marginTop: 'var(--s-5)' }}>
         <button className="mmm-btn mmm-btn-primary" disabled={verifying}>{verifying ? 'Checking…' : 'Sign in'}</button>
-        <a className="app-small-btn" href="/sign-in">Use a different email</a>
+        <a className="app-small-btn" href="/app/sign-in">Use a different email</a>
       </div>
     </form>
   );

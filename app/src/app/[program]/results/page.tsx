@@ -1,13 +1,14 @@
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
-import { requireProgramAccess, getJourney } from '@/lib/program';
+import { getJourney, requireProgram } from '@/lib/program';
+import { stepPath } from '@/programs/registry';
 import Steps from '@/components/Steps';
 import ResultView from '@/components/ResultView';
 
-export default async function ResultsPage() {
-  const member = await requireProgramAccess();
-  const j = await getJourney(member.id);
-  if (!j.result) redirect('/program/readiness');
+export default async function ResultsPage({ params }: { params: Promise<{ program: string }> }) {
+  const { member, program } = await requireProgram((await params).program);
+  const j = await getJourney(member.id, program);
+  if (!j.result) redirect(stepPath(program, 'readiness'));
   return (
     <div className="app-wrap">
       <Steps current="results" />
@@ -15,7 +16,7 @@ export default async function ResultsPage() {
       <p className="lede">What your answers suggest about where to begin, and where to focus first.</p>
       <ResultView result={j.result} overrides={j.overrides} />
       <div className="app-actions">
-        <Link className="mmm-btn mmm-btn-primary" href={j.baseline ? '/dashboard' : '/program/baseline'}>
+        <Link className="mmm-btn mmm-btn-primary" href={j.baseline ? stepPath(program, 'dashboard') : stepPath(program, 'baseline')}>
           {j.baseline ? 'Go to my dashboard' : 'Next: record my baseline'}
         </Link>
       </div>

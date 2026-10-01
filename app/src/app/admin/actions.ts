@@ -2,9 +2,8 @@
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { supabaseServer } from '@/lib/supabase/server';
-import { requireStaff, PROGRAM_ACCESS, COACHING_ACCESS } from '@/lib/program';
-
-const FEATURES = new Set([PROGRAM_ACCESS, COACHING_ACCESS]);
+import { requireStaff } from '@/lib/program';
+import { GRANTABLE_KEYS, PROGRAMS } from '@/programs/registry';
 
 /* Manual access for the pilot (payments arrive in M4). Recorded in the
    audit log by a database trigger. */
@@ -12,7 +11,7 @@ export async function grantAccess(form: FormData) {
   await requireStaff();
   const userId = String(form.get('user_id'));
   const feature = String(form.get('feature'));
-  if (!FEATURES.has(feature)) return;
+  if (!GRANTABLE_KEYS.has(feature)) return;
   const supabase = await supabaseServer();
   await supabase.from('entitlements').insert({ user_id: userId, feature_key: feature, source: 'manual' });
   revalidatePath('/admin');
@@ -47,6 +46,8 @@ export async function addOverride(form: FormData) {
 export async function registerAsset(form: FormData) {
   const staff = await requireStaff();
   const supabase = await supabaseServer();
+  const program = PROGRAMS.find(p => p.route === String(form.get('program_route')));
+  if (!program) return { ok: false, message: 'Unknown program.' };
   const moduleId = String(form.get('module_id') || '') || null;
   const lessonId = String(form.get('lesson_id') || '') || null;
   const { error } = await supabase.from('assets').insert({
@@ -55,7 +56,7 @@ export async function registerAsset(form: FormData) {
     program_id: String(form.get('program_id')),
     module_id: moduleId,
     lesson_id: lessonId,
-    access_key: PROGRAM_ACCESS,
+    access_key: program.access,
     storage_path: String(form.get('storage_path')),
     mime_type: String(form.get('mime_type') || '') || null,
     size_bytes: Number(form.get('size_bytes') || 0) || null,

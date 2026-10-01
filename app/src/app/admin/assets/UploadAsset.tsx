@@ -8,8 +8,8 @@ type Opt = { id: string; title: string };
 /* Uploads straight from the browser to the private bucket (the storage
    policy allows staff only), then records the asset and where it belongs.
    Going direct avoids the serverless request-size limit on large files. */
-export default function UploadAsset({ programId, modules, lessons }: {
-  programId: string; modules: Opt[]; lessons: (Opt & { module_id: string })[];
+export default function UploadAsset({ programId, programRoute, modules, lessons }: {
+  programId: string; programRoute: string; modules: Opt[]; lessons: (Opt & { module_id: string })[];
 }) {
   const [status, setStatus] = useState<{ kind: 'idle' | 'busy' | 'ok' | 'error'; text?: string }>({ kind: 'idle' });
   const [moduleId, setModuleId] = useState('');
@@ -30,6 +30,7 @@ export default function UploadAsset({ programId, modules, lessons }: {
     reg.set('title', title);
     reg.set('kind', String(data.get('kind') || 'download'));
     reg.set('program_id', programId);
+    reg.set('program_route', programRoute);
     reg.set('module_id', String(data.get('module_id') || ''));
     reg.set('lesson_id', String(data.get('lesson_id') || ''));
     reg.set('storage_path', path);

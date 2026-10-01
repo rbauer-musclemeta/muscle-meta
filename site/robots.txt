@@ -2,16 +2,24 @@
 User-agent: *
 Allow: /
 Disallow: /cms/
+Disallow: /app/
 
 # AI answer engines use crawlers separate from their training crawlers.
-# These are the ones that fetch pages to cite in answers.
+# These are the ones that fetch pages to cite in answers. A crawler that
+# matches its own group ignores the * group, so the private paths repeat.
 User-agent: OAI-SearchBot
 Allow: /
+Disallow: /cms/
+Disallow: /app/
 
 User-agent: PerplexityBot
 Allow: /
+Disallow: /cms/
+Disallow: /app/
 
 User-agent: Claude-SearchBot
 Allow: /
+Disallow: /cms/
+Disallow: /app/
 
 Sitemap: https://muscle-meta.com/sitemap.xml

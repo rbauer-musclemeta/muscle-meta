@@ -1,6 +1,11 @@
 import Link from 'next/link';
 import { supabaseServer } from '@/lib/supabase/server';
-import { PROGRAM_ACCESS, COACHING_ACCESS } from '@/lib/program';
+import { programByRoute } from '@/programs/registry';
+
+// The member table's status columns come from admin_members(), which reports
+// the Four-Lens journey. Other programs get their own columns as they ship.
+const FOUR_LENS = programByRoute('four-lens')!;
+const ONE_TO_ONE = FOUR_LENS.addOns[0];
 import { ROUTE_COPY, ABILITY_COPY, LENS_COPY } from '@/lib/copy';
 import { grantAccess, revokeAccess } from './actions';
 
@@ -32,7 +37,7 @@ export default async function AdminMembers() {
   const withResult = rows.filter(r => r.latest_result_at).length;
   return (
     <>
-      <h1 className="app-h1">Members and Program 1 status</h1>
+      <h1 className="app-h1">Members and {FOUR_LENS.title} status</h1>
       {error && <p className="app-note error">{error.message}</p>}
       <dl className="app-kv">
         <div><dt>Accounts</dt><dd>{rows.length}</dd></div>
@@ -55,8 +60,8 @@ export default async function AdminMembers() {
                 <td style={{ display: 'grid', gap: 6 }}>
                   <span>{r.four_lens_access ? <span className="app-pill">Program</span> : <span className="app-pill grey">No program</span>}{' '}
                     {r.coaching_access && <span className="app-pill gold">One-to-one</span>}</span>
-                  <span><AccessButton userId={r.user_id} feature={PROGRAM_ACCESS} has={r.four_lens_access} label="program" /></span>
-                  <span><AccessButton userId={r.user_id} feature={COACHING_ACCESS} has={r.coaching_access} label="one-to-one" /></span>
+                  <span><AccessButton userId={r.user_id} feature={FOUR_LENS.access} has={r.four_lens_access} label="program" /></span>
+                  <span><AccessButton userId={r.user_id} feature={ONE_TO_ONE.key} has={r.coaching_access} label="one-to-one" /></span>
                 </td>
                 <td>{r.orientation_completed_at ? d(r.orientation_completed_at) : <span className="app-muted">Not yet</span>}</td>
                 <td>{r.safety_review_status === 'no' ? 'Clear' : r.safety_review_status ? <span className="app-pill red">{r.safety_review_status === 'yes' ? 'Yes' : 'Not sure'}</span> : ''}</td>

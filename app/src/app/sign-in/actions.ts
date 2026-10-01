@@ -1,15 +1,9 @@
 'use server';
-import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { supabaseServer } from '@/lib/supabase/server';
+import { publicOrigin, withBase } from '@/lib/paths';
 
 export type SignInState = { step: 'email' | 'code'; email?: string; message?: string; error?: string };
-
-async function origin() {
-  const h = await headers();
-  const proto = h.get('x-forwarded-proto') ?? 'https';
-  return `${proto}://${h.get('x-forwarded-host') ?? h.get('host')}`;
-}
 
 export async function requestCode(_prev: SignInState, form: FormData): Promise<SignInState> {
   const email = String(form.get('email') || '').trim().toLowerCase();
@@ -17,7 +11,7 @@ export async function requestCode(_prev: SignInState, form: FormData): Promise<S
   const supabase = await supabaseServer();
   const { error } = await supabase.auth.signInWithOtp({
     email,
-    options: { emailRedirectTo: `${await origin()}/auth/callback`, shouldCreateUser: true }
+    options: { emailRedirectTo: `${await publicOrigin()}${withBase('/auth/callback')}`, shouldCreateUser: true }
   });
   if (error) return { step: 'email', email, error: 'We could not send the email. Wait a minute and try again.' };
   return { step: 'code', email, message: `We sent a sign-in email to ${email}. Open the link in it, or type the code from the email below.` };

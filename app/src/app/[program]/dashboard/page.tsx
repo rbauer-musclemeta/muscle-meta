@@ -1,19 +1,21 @@
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
-import { requireProgramAccess, getJourney, programDay, STEP_PATH } from '@/lib/program';
+import { getJourney, programDay, requireProgram } from '@/lib/program';
+import { stepPath } from '@/programs/registry';
 import { supabaseServer } from '@/lib/supabase/server';
 import { METRICS } from '@/engine/definitions';
 import { GOAL_LABEL, ROUTE_COPY, ABILITY_COPY, LENS_COPY } from '@/lib/copy';
 import ResultView from '@/components/ResultView';
 import { formatValue } from '@/lib/format';
 
-export default async function Dashboard({ searchParams }: { searchParams: Promise<{ saved?: string }> }) {
-  const member = await requireProgramAccess();
-  const j = await getJourney(member.id);
-  if (!j.result) redirect(STEP_PATH[j.next]);
+export default async function Dashboard({ params, searchParams }: { params: Promise<{ program: string }>; searchParams: Promise<{ saved?: string }> }) {
+  const { member, program } = await requireProgram((await params).program);
+  const j = await getJourney(member.id, program);
+  if (!j.result) redirect(stepPath(program, j.next));
   const { saved } = await searchParams;
   const r = j.result;
   const day = programDay(j.enrolledOn);
+  const total = program.durationDays ?? 30;
   const goal = j.orientation?.valued_function_goal;
 
   const byCode = Object.fromEntries(j.measurements.map(m => [m.metric_code, m]));
@@ -33,8 +35,8 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
     return { ...a, url: data?.signedUrl ?? null };
   }));
 
-  const nextAction = !j.baseline ? { href: '/program/baseline', label: 'Choose your baseline measures' }
-    : j.measurements.length < j.baseline.selected_metrics.length ? { href: '/program/baseline', label: 'Finish recording your baseline' }
+  const nextAction = !j.baseline ? { href: stepPath(program, 'baseline'), label: 'Choose your baseline measures' }
+    : j.measurements.length < j.baseline.selected_metrics.length ? { href: stepPath(program, 'baseline'), label: 'Finish recording your baseline' }
     : null;
 
   return (
@@ -44,7 +46,7 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
       {saved === 'baseline' && <p className="app-note" role="status">Baseline saved. You will repeat these measures at Day 30.</p>}
       <dl className="app-kv">
         <div><dt>Goal</dt><dd style={{ fontSize: 18 }}>{goal ? GOAL_LABEL[goal] ?? goal : 'Not chosen'}</dd></div>
-        <div><dt>Day in program</dt><dd>{day ? `${Math.min(day, 30)} of 30` : '1 of 30'}</dd></div>
+        <div><dt>Day in program</dt><dd>{day ? `${Math.min(day, total)} of ${total}` : `1 of ${total}`}</dd></div>
         <div><dt>Route</dt><dd style={{ fontSize: 18 }}>{ROUTE_COPY[r.readiness_route].label}</dd></div>
         <div><dt>Ability level</dt><dd>{ABILITY_COPY[r.ability_level].label}</dd></div>
         <div><dt>Primary lens</dt><dd>{r.primary_lens ? LENS_COPY[r.primary_lens].name : 'Balanced'}</dd></div>
@@ -82,7 +84,7 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
                   <tr key={code}>
                     <td>{def?.title ?? code}</td>
                     <td>{def ? LENS_COPY[def.lens].name : ''}</td>
-                    <td>{got ? formatValue(got.value, got.unit) : <Link href="/program/baseline">Add</Link>}</td>
+                    <td>{got ? formatValue(got.value, got.unit) : <Link href={stepPath(program, 'baseline')}>Add</Link>}</td>
                     <td>{got ? new Date(got.measured_at).toLocaleDateString('en-US', { dateStyle: 'medium' }) : ''}</td>
                   </tr>
                 );
@@ -98,7 +100,7 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
           <ul>{links.map(a => <li key={a.id}>{a.url ? <a href={a.url}>{a.title}</a> : a.title} <span className="app-muted">· {a.kind}</span></li>)}</ul>
         </div>
       )}
-      <p className="app-footer-note"><Link href="/program/orientation">Update my goal or pace</Link></p>
+      <p className="app-footer-note"><Link href={stepPath(program, 'orientation')}>Update my goal or pace</Link></p>
     </div>
   );
 }

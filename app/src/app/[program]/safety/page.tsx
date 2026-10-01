@@ -1,13 +1,14 @@
 import { redirect } from 'next/navigation';
-import { requireProgramAccess, getJourney } from '@/lib/program';
+import { getJourney, requireProgram } from '@/lib/program';
+import { stepPath } from '@/programs/registry';
 import { SAFETY_GATE } from '@/engine/definitions';
 import Steps from '@/components/Steps';
 import { saveSafety } from '../actions';
 
-export default async function SafetyPage({ searchParams }: { searchParams: Promise<{ error?: string }> }) {
-  const member = await requireProgramAccess();
-  const j = await getJourney(member.id);
-  if (!j.orientation?.completed_at) redirect('/program/orientation');
+export default async function SafetyPage({ params, searchParams }: { params: Promise<{ program: string }>; searchParams: Promise<{ error?: string }> }) {
+  const { member, program } = await requireProgram((await params).program);
+  const j = await getJourney(member.id, program);
+  if (!j.orientation?.completed_at) redirect(stepPath(program, 'orientation'));
   const { error } = await searchParams;
   const current = j.orientation.safety_review_status;
   return (
@@ -17,7 +18,7 @@ export default async function SafetyPage({ searchParams }: { searchParams: Promi
       <p className="lede">This answer never changes a score. It decides whether a professional review should come before any new activity recommendations.</p>
       {error === 'choose' && <p className="app-note error" role="alert">Please choose an answer.</p>}
       {error === 'save' && <p className="app-note error" role="alert">That did not save. Please try again.</p>}
-      <form action={saveSafety} className="app-card">
+      <form action={saveSafety.bind(null, program.route)} className="app-card">
         <fieldset className="app-q" style={{ marginTop: 0, paddingTop: 0 }}>
           <legend>{SAFETY_GATE.title}</legend>
           <div className="app-options">

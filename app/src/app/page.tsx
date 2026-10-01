@@ -1,41 +1,57 @@
 import Link from 'next/link';
-import { requireProgramAccess, getJourney, STEP_PATH, programDay } from '@/lib/program';
-import { GOAL_LABEL } from '@/lib/copy';
+import { requireMember, hasAccess, getJourney, programDay } from '@/lib/program';
+import { PROGRAMS, programHome, stepPath } from '@/programs/registry';
+import { PUBLIC_SITE_URL } from '@/lib/env';
 
-const NEXT_COPY = {
-  orientation: { title: 'Start with orientation', body: 'Four short questions about what brings you here and what matters most. Nothing here is scored.', cta: 'Begin orientation' },
-  safety: { title: 'A quick safety check', body: 'One question about how activity feels for you right now.', cta: 'Continue' },
-  readiness: { title: 'Your readiness and ability check', body: 'Ten questions, about four minutes. You can save and come back.', cta: 'Open the check' },
-  results: { title: 'See your results', body: 'Your readiness route, ability level and Four-Lens profile.', cta: 'View results' },
-  baseline: { title: 'Record your baseline', body: 'Choose and record the few measures that match your goal. You will repeat them at Day 30.', cta: 'Set up my baseline' },
-  dashboard: { title: 'Your dashboard', body: 'Your profile, your baseline and your next step.', cta: 'Open dashboard' }
-} as const;
+/* MatrixApp home: every program the member has, with where they are in it,
+   followed by the programs they could add. Programs come from the registry;
+   access comes from the member's entitlements (and RLS behind them). */
+export default async function MyPrograms() {
+  const member = await requireMember();
+  const mine = PROGRAMS.filter(p => hasAccess(member, p.access));
+  const others = PROGRAMS.filter(p => !hasAccess(member, p.access));
 
-export default async function Home({ searchParams }: { searchParams: Promise<{ saved?: string }> }) {
-  const member = await requireProgramAccess();
-  const j = await getJourney(member.id);
-  const { saved } = await searchParams;
-  const next = NEXT_COPY[j.next];
-  const day = programDay(j.enrolledOn);
+  const cards = await Promise.all(mine.map(async p => {
+    const j = await getJourney(member.id, p);
+    const day = programDay(j.enrolledOn);
+    const total = p.durationDays;
+    const status = !j.enrolledOn ? 'Not started'
+      : j.next === 'dashboard' ? (day && total ? `Day ${Math.min(day, total)} of ${total}` : 'In progress')
+      : 'In progress';
+    const href = j.enrolledOn ? (j.next === 'dashboard' ? stepPath(p, 'dashboard') : programHome(p)) : programHome(p);
+    return { p, status, href, cta: j.enrolledOn ? 'Continue' : 'Start' };
+  }));
+
   return (
     <div className="app-wrap">
-      <span className="eyebrow">{j.programTitle}</span>
-      <h1 className="app-h1">{day ? `Day ${Math.min(day, 30)} of 30` : 'Welcome'}</h1>
-      <p className="lede">Where should I start? What should I measure? What changed after 30 days? What should I do next?</p>
-      {saved && <p className="app-note" role="status">Your answers are saved. Pick up where you left off whenever you are ready.</p>}
-      <div className="app-card">
-        <span className="app-pill">Next step</span>
-        <h2 style={{ marginTop: 'var(--s-3)' }}>{next.title}</h2>
-        <p>{next.body}</p>
-        <div className="app-actions" style={{ marginTop: 'var(--s-5)' }}>
-          <Link className="mmm-btn mmm-btn-primary" href={STEP_PATH[j.next]}>{next.cta}</Link>
+      <span className="eyebrow">MatrixApp</span>
+      <h1 className="app-h1">My programs</h1>
+      {cards.length === 0 && (
+        <p className="lede">You are signed in as {member.email}. You do not have a program yet; the ones below are available.</p>
+      )}
+      {cards.map(({ p, status, href, cta }) => (
+        <div key={p.route} className="app-card">
+          <span className="app-pill">{status}</span>
+          <h2 style={{ marginTop: 'var(--s-3)' }}>{p.title}</h2>
+          <p>{p.summary}</p>
+          <div className="app-actions" style={{ marginTop: 'var(--s-5)' }}>
+            <Link className="mmm-btn mmm-btn-primary" href={href}>{cta}</Link>
+          </div>
         </div>
-      </div>
-      {j.orientation?.valued_function_goal && (
-        <p className="app-muted" style={{ marginTop: 'var(--s-5)' }}>
-          Your goal: <strong>{GOAL_LABEL[j.orientation.valued_function_goal] ?? j.orientation.valued_function_goal}</strong>
-          {' · '}<Link href="/program/orientation">Change</Link>
-        </p>
+      ))}
+      {others.length > 0 && (
+        <>
+          <h2 style={{ marginTop: 'var(--s-8)' }}>Available programs</h2>
+          {others.map(p => (
+            <div key={p.route} className="app-card">
+              <h3>{p.title}</h3>
+              <p>{p.summary}</p>
+              <div className="app-actions" style={{ marginTop: 'var(--s-4)' }}>
+                <a className="mmm-btn mmm-btn-ghost" href={`${PUBLIC_SITE_URL}${p.salesPath}`}>See the program</a>
+              </div>
+            </div>
+          ))}
+        </>
       )}
     </div>
   );

@@ -205,7 +205,8 @@ site/
 Outside `site/` (never published by the public site):
 
 ```
-app/                  member app → app.muscle-meta.com (Next.js; see docs/program-1/)
+app/                  MatrixApp, the member app → muscle-meta.com/app/ (Next.js; see docs/matrixapp.md)
+app/src/programs/     program registry: every /app/<program>/ and how it is wired
 app/src/engine/       scoring + routing engine: pure TS, fixture-tested, versioned
 supabase/migrations/  every schema change, in order; apply through a migration only
 supabase/functions/   edge functions (complete-assessment writes results)
@@ -286,7 +287,7 @@ solo clinician rank in YMYL health do not pool across a subdomain boundary.
 | Surface | Lives at | Why |
 |---|---|---|
 | Course and program sales pages | `muscle-meta.com/courses/<slug>/`, `/programs/<slug>/` | Indexable, citable, carries the evidence and the credential. |
-| Member area: programs, assessments, results, dashboard, admin | `app.muscle-meta.com` (Next.js, `app/` in this repo, its own Netlify site) | Private and `noindex`. Never competes with the sales pages. |
+| MatrixApp (member area): programs, assessments, courses, downloads, dashboard, admin | `muscle-meta.com/app/`, each program at `/app/<program>/` (Next.js, `app/` in this repo, its own Netlify site `mm-matrixapp`, proxied by the main site) | Private: `noindex` header and `Disallow: /app/`. Never competes with the sales pages. |
 | Free tools and screeners | `muscle-meta.com/tools/`, `/assess/` | Own HTML. Never a subdomain. |
 | Blog, about, guides | `muscle-meta.com/blog/`, `/about/`, `/downloads/` | Same. |
 
@@ -294,7 +295,22 @@ solo clinician rank in YMYL health do not pool across a subdomain boundary.
 delivery and payments leave Kajabi. Stripe takes payments (M4), Kit stays for
 email, Supabase owns identity, access and results. `learn.muscle-meta.com`
 (Kajabi) is retired once existing students are migrated; redirect it to
-`app.muscle-meta.com`.
+`muscle-meta.com/app/`.
+
+**Decided 2026-09-30 (replaces the 2026-09-28 app.muscle-meta.com rule):** the
+member area is **MatrixApp**, served from the main domain at
+`muscle-meta.com/app/`. It stays a separate Netlify site (`mm-matrixapp`,
+base directory `app`, Next.js `basePath: '/app'`); the root `netlify.toml`
+proxies `/app/*` to it, so there is no subdomain and one sign-in cookie on
+muscle-meta.com. Every program, course, assessment or digital product a
+member owns lives at `/app/<program>/…` and is registered in
+`app/src/programs/registry.ts`. Two rules the proxy makes non-negotiable:
+
+- Never build a redirect or an email link from `request.url` or the Host
+  header: behind the proxy those name `mm-matrixapp.netlify.app`. Use
+  `originForHost()` / `publicOrigin()` (`app/src/lib/origin.ts`, `paths.ts`).
+- Raw `<a>`, `<link>`, metadata URLs and Location headers need the `/app`
+  prefix by hand (`withBase()`); `<Link>` and `redirect()` add it themselves.
 
 The member app follows every rule in this file: tokens come from
 `site/assets/mm.css` (copied at build by `app/scripts/sync-tokens.mjs`, never

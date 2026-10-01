@@ -29,3 +29,30 @@
   [headers.values]
     Cache-Control = "no-cache"
     X-Robots-Tag = "noindex, nofollow"
+
+# --- MatrixApp at muscle-meta.com/app/ ---------------------------------------
+# The member app (Next.js, app/ in this repo) is its own Netlify site,
+# mm-matrixapp, built with base directory "app" and base path /app. This
+# rewrite serves it under the main domain, so members only ever see
+# muscle-meta.com/app/… and the sign-in cookie belongs to muscle-meta.com.
+# Status 200 = proxy (the address bar does not change); force = true so no
+# file in site/ can shadow it. Every program follows /app/<program>/…
+[[redirects]]
+  from = "/app"
+  to = "https://mm-matrixapp.netlify.app/app"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/app/*"
+  to = "https://mm-matrixapp.netlify.app/app/:splat"
+  status = 200
+  force = true
+
+# Member pages never rank. The app sends the same header itself; this is the
+# belt to its braces.
+[[headers]]
+  for = "/app/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+    Cache-Control = "private, no-store"

@@ -1,12 +1,13 @@
-import { requireProgramAccess, getJourney } from '@/lib/program';
+import { getJourney, requireProgram } from '@/lib/program';
+import { stepPath } from '@/programs/registry';
 import { ORIENTATION } from '@/engine/definitions';
 import Steps from '@/components/Steps';
 import OrientationForm from './OrientationForm';
 import { saveOrientation } from '../actions';
 
-export default async function OrientationPage({ searchParams }: { searchParams: Promise<{ error?: string }> }) {
-  const member = await requireProgramAccess();
-  const j = await getJourney(member.id);
+export default async function OrientationPage({ params, searchParams }: { params: Promise<{ program: string }>; searchParams: Promise<{ error?: string }> }) {
+  const { member, program } = await requireProgram((await params).program);
+  const j = await getJourney(member.id, program);
   const { error } = await searchParams;
   const o = j.orientation;
   return (
@@ -16,7 +17,7 @@ export default async function OrientationPage({ searchParams }: { searchParams: 
       <p className="lede">A few questions so the program fits you. There are no right answers, and <strong>nothing here changes a score</strong>. You can skip any question.</p>
       {error && <p className="app-note error" role="alert">That did not save. Please try again.</p>}
       <OrientationForm
-        action={saveOrientation}
+        action={saveOrientation.bind(null, program.route)}
         questions={ORIENTATION.questions as unknown as OrientationQuestion[]}
         initial={{
           orientation_reason: o?.orientation_reason ?? [],

@@ -12,25 +12,26 @@ Built 2026-09-28. Branch `feature/program-1-foundation`.
 | Piece | Where | Notes |
 | --- | --- | --- |
 | Public site | `site/` → muscle-meta.com (existing Netlify site) | Unchanged apart from the blog build. Astro migration deferred until after the pilot. |
-| Member app | `app/` → app.muscle-meta.com (second Netlify site, base directory `app`) | Next.js 16 App Router, TypeScript, `@supabase/ssr`. `noindex` on every response. |
+| Member app (MatrixApp) | `app/` → muscle-meta.com/app/four-lens/ (second Netlify site `mm-matrixapp`, base directory `app`, proxied at /app) | Next.js 16 App Router, TypeScript, `@supabase/ssr`. `noindex` on every response. |
 | Scoring engine | `app/src/engine/` | Pure TypeScript, no dependencies. Runs in Node, the browser and Deno. |
 | Result writer | `supabase/functions/complete-assessment/` | Edge function; the only code that writes `assessment_results`. Holds the service role inside Supabase, so the app never has it. |
 | Database | Supabase project `bxpferfuwoiulnqnfqhf` | Migrations in `supabase/migrations/`, access tests in `supabase/tests/`. |
 | Content editor | `site/cms/` (Sveltia) | Public blog only. Paid content never lives in the repo. |
 
-Deviation from the handoff: none on the app location (it is
-app.muscle-meta.com, as specified). The plan document's earlier
-`muscle-meta.com/app/` idea was dropped in favour of the handoff on 2026-09-28.
+App location: decided 2026-09-30 by Randy — MatrixApp at muscle-meta.com/app/,
+with this program at /app/four-lens/. This replaces the handoff's
+app.muscle-meta.com. See docs/matrixapp.md.
 
 ## Member journey (02-user-flow)
 
-`/sign-in` (email link or code) → `/` shows the next step → `/program/orientation`
-→ `/program/safety` → `/program/readiness` → `/program/results` →
-`/program/baseline` (choose, then enter) → `/dashboard`.
+All under muscle-meta.com/app: `/sign-in` (email link or code) → `/` (My
+programs) → `/four-lens` shows the next step → `/four-lens/orientation` →
+`/four-lens/safety` → `/four-lens/readiness` → `/four-lens/results` →
+`/four-lens/baseline` (choose, then enter) → `/four-lens/dashboard`.
 The next step is derived from stored state in `app/src/lib/program.ts#getJourney`,
 so leaving and returning, or signing in on another device, resumes in place.
 
-Access: every program screen calls `requireProgramAccess()`; the database
+Access: every program screen calls `requireProgram(route)`; the database
 independently refuses orientation, sessions and baseline rows for anyone
 without the `program:four-lens` entitlement (RLS).
 
@@ -154,19 +155,8 @@ here.
 ## Deployment (12-deployment-plan)
 
 1. Merge nothing to `main` until the preview passes.
-2. Netlify → Add new site → same repo → **Base directory `app`**. Build
-   settings come from `app/netlify.toml`. Domain: `app.muscle-meta.com`
-   (CNAME at GoDaddy to the new site's `*.netlify.app` address).
-3. Supabase → Authentication → URL configuration: Site URL
-   `https://app.muscle-meta.com`; redirect URLs `https://app.muscle-meta.com/**`,
-   `https://*--<new-site-name>.netlify.app/**`, `http://localhost:3000/**`.
-4. Supabase → Authentication → Email templates → Magic link: include both
-   `{{ .ConfirmationURL }}` and `{{ .Token }}` so members can click or type
-   the code.
-5. Supabase → Authentication → set email OTP expiry to 3600 seconds or less;
-   Settings → Infrastructure → upgrade Postgres (both advisor warnings).
-6. Sign in once as rbauer@bauerpt.com (becomes owner), then give yourself and
-   a test account program access from `/admin`.
+2–6. Superseded 2026-09-30: follow "Setting it up" in `docs/matrixapp.md`
+   (MatrixApp at muscle-meta.com/app, no subdomain, no DNS change).
 
 ## Open approvals (owner)
 

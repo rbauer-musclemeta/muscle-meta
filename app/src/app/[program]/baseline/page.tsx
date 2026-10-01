@@ -1,5 +1,6 @@
 import { redirect } from 'next/navigation';
-import { requireProgramAccess, getJourney } from '@/lib/program';
+import { getJourney, requireProgram } from '@/lib/program';
+import { stepPath } from '@/programs/registry';
 import { METRICS } from '@/engine/definitions';
 import { LENS_COPY, PHYSICAL_TESTS, GOAL_LABEL } from '@/lib/copy';
 import Steps from '@/components/Steps';
@@ -11,10 +12,10 @@ const ERR: Record<string, string> = {
   save: 'That did not save. Please try again.'
 };
 
-export default async function BaselinePage({ searchParams }: { searchParams: Promise<{ error?: string; metric?: string }> }) {
-  const member = await requireProgramAccess();
-  const j = await getJourney(member.id);
-  if (!j.result) redirect('/program/readiness');
+export default async function BaselinePage({ params, searchParams }: { params: Promise<{ program: string }>; searchParams: Promise<{ error?: string; metric?: string }> }) {
+  const { member, program } = await requireProgram((await params).program);
+  const j = await getJourney(member.id, program);
+  if (!j.result) redirect(stepPath(program, 'readiness'));
   const { error, metric } = await searchParams;
   const reviewFirst = j.result.readiness_route === 'professional_review';
   const goal = j.orientation?.valued_function_goal;
@@ -37,7 +38,7 @@ export default async function BaselinePage({ searchParams }: { searchParams: Pro
           <p className="app-note warn">Because a professional review comes first, physical tests are left out for now. Your clinician can add them once you have been reviewed.</p>
         )}
         {errorText && <p className="app-note error" role="alert">{errorText}</p>}
-        <form action={chooseBaseline} className="app-card">
+        <form action={chooseBaseline.bind(null, program.route)} className="app-card">
           <fieldset className="app-q" style={{ marginTop: 0, paddingTop: 0 }}>
             <legend>Recommended for you</legend>
             <div className="app-options">
@@ -74,7 +75,7 @@ export default async function BaselinePage({ searchParams }: { searchParams: Pro
       <p className="lede">Enter what you measure today. Leave any blank and add it later. These are your raw numbers; nothing is judged yet.</p>
       {errorText && <p className="app-note error" role="alert">{errorText}</p>}
       <p className="app-note warn">For any physical test: warm up first, use a stable support, and stop straight away if you feel chest pain, dizziness, unusual breathlessness or sharp pain.</p>
-      <form action={saveMeasurements} className="app-card">
+      <form action={saveMeasurements.bind(null, program.route)} className="app-card">
         {j.baseline.selected_metrics.map(code => {
           const m = METRICS.find(x => x.code === code);
           if (!m) return null;

@@ -1,20 +1,16 @@
 import 'server-only';
 import { cache } from 'react';
-import { redirect } from 'next/navigation';
+import { redirect, notFound } from 'next/navigation';
 import { supabaseServer } from './supabase/server';
-
-export const PROGRAM_SLUG = 'four-lens-30';
-export const PROGRAM_ACCESS = 'program:four-lens';
-export const COACHING_ACCESS = 'coaching:four-lens-1to1';
-export const ASSESSMENT_CODE = 'FLR_READINESS_01';
+import { programByRoute, stepPath, type ProgramConfig, type JourneyStep } from '@/programs/registry';
 
 export type Member = {
   id: string;
   email: string;
   roles: string[];
   isStaff: boolean;
-  hasProgram: boolean;
-  hasCoaching: boolean;
+  /* Active entitlement keys. Staff see every program for support. */
+  access: string[];
 };
 
 /* The signed-in member, their roles and what they are entitled to.
@@ -29,18 +25,20 @@ export const getMember = cache(async (): Promise<Member | null> => {
   ]);
   const now = Date.now();
   const active = (ents ?? []).filter(e => !e.revoked_at && (!e.expires_at || Date.parse(e.expires_at) > now))
-    .map(e => e.feature_key);
+    .map(e => e.feature_key as string);
   const roleList = (roles ?? []).map(r => r.role as string);
-  const isStaff = roleList.includes('admin') || roleList.includes('owner');
   return {
     id: auth.user.id,
     email: auth.user.email ?? '',
     roles: roleList,
-    isStaff,
-    hasProgram: isStaff || active.includes(PROGRAM_ACCESS),
-    hasCoaching: active.includes(COACHING_ACCESS)
+    isStaff: roleList.includes('admin') || roleList.includes('owner'),
+    access: active
   };
 });
+
+export function hasAccess(member: Member, key: string): boolean {
+  return member.isStaff || member.access.includes(key);
+}
 
 export async function requireMember(): Promise<Member> {
   const m = await getMember();
@@ -48,10 +46,15 @@ export async function requireMember(): Promise<Member> {
   return m;
 }
 
-export async function requireProgramAccess(): Promise<Member> {
-  const m = await requireMember();
-  if (!m.hasProgram) redirect('/no-access');
-  return m;
+/* Resolves /app/<route>/… to a known program and checks the member may use
+   it. Unknown routes are a 404; signed-in members without the entitlement
+   see that program's no-access page. RLS enforces the same rule again. */
+export async function requireProgram(route: string): Promise<{ member: Member; program: ProgramConfig }> {
+  const program = programByRoute(route);
+  if (!program) notFound();
+  const member = await requireMember();
+  if (!hasAccess(member, program.access)) redirect(`/no-access?program=${program.route}`);
+  return { member, program };
 }
 
 export async function requireStaff(): Promise<Member> {
@@ -99,22 +102,25 @@ export type Journey = {
   baseline: { id: string; selected_metrics: string[]; started_at: string } | null;
   measurements: { metric_code: string; value: number; unit: string; measured_at: string }[];
   enrolledOn: string | null;
-  next: 'orientation' | 'safety' | 'readiness' | 'results' | 'baseline' | 'dashboard';
+  next: JourneyStep;
 };
 
 /* Everything the member app needs to decide the member's next step. */
-export async function getJourney(userId: string): Promise<Journey> {
+export async function getJourney(userId: string, config: ProgramConfig): Promise<Journey> {
   const supabase = await supabaseServer();
-  const { data: program } = await supabase.from('programs').select('id, title').eq('slug', PROGRAM_SLUG).single();
-  if (!program) throw new Error('Program 1 is not published');
+  const { data: program } = await supabase.from('programs').select('id, title').eq('slug', config.dbSlug).single();
+  if (!program) throw new Error(`Program ${config.dbSlug} is not published`);
 
   const [orientation, openSession, result, baseline, enrollment] = await Promise.all([
     supabase.from('orientation_sessions')
       .select('id, completed_at, safety_review_status, valued_function_goal, preferred_pace, orientation_reason, assessment_support_need')
       .eq('user_id', userId).eq('program_id', program.id).order('created_at', { ascending: false }).limit(1).maybeSingle(),
     supabase.from('assessment_sessions').select('id').eq('user_id', userId).eq('status', 'in_progress')
-      .order('started_at', { ascending: false }).limit(1).maybeSingle(),
-    supabase.from('assessment_results').select('*').eq('user_id', userId)
+      .eq('program_id', program.id).order('started_at', { ascending: false }).limit(1).maybeSingle(),
+    // Scoped to this program through the session, so a member's results in
+    // one program never appear in another.
+    supabase.from('assessment_results').select('*, assessment_sessions!inner(program_id)').eq('user_id', userId)
+      .eq('assessment_sessions.program_id', program.id)
       .order('derived_at', { ascending: false }).limit(1).maybeSingle(),
     supabase.from('progress_cycles').select('id, selected_metrics, started_at')
       .eq('user_id', userId).eq('program_id', program.id).eq('kind', 'baseline').maybeSingle(),
@@ -143,7 +149,7 @@ export async function getJourney(userId: string): Promise<Journey> {
     programTitle: program.title,
     orientation: o ?? null,
     openSessionId: openSession.data?.id ?? null,
-    result: (result.data as ResultRow) ?? null,
+    result: result.data ? stripJoin(result.data) : null,
     overrides: overrides.data ?? [],
     baseline: baseline.data ?? null,
     measurements: (measurements.data ?? []) as Journey['measurements'],
@@ -152,16 +158,17 @@ export async function getJourney(userId: string): Promise<Journey> {
   };
 }
 
-export const STEP_PATH: Record<Journey['next'], string> = {
-  orientation: '/program/orientation',
-  safety: '/program/safety',
-  readiness: '/program/readiness',
-  results: '/program/results',
-  baseline: '/program/baseline',
-  dashboard: '/dashboard'
-};
+function stripJoin(row: Record<string, unknown>): ResultRow {
+  const { assessment_sessions: _joined, ...rest } = row;
+  return rest as unknown as ResultRow;
+}
 
-/* Day N of the 30-day program, counted from enrollment (day 1 = start day). */
+/* Where the member should go next inside a program. */
+export function nextPath(program: ProgramConfig, j: Journey): string {
+  return stepPath(program, j.next);
+}
+
+/* Day N of the program, counted from enrollment (day 1 = start day). */
 export function programDay(enrolledOn: string | null): number | null {
   if (!enrolledOn) return null;
   const start = Date.parse(enrolledOn + 'T00:00:00Z');

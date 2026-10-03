@@ -75,6 +75,7 @@ fieldset.app-q{margin-top:var(--s-6);padding-top:var(--s-5)}
 .app-input{min-height:48px;padding:12px 14px;border:1.5px solid var(--border);border-radius:var(--r-2);font-family:var(--font-body);font-size:16px;background:var(--white);color:var(--ink);width:100%;max-width:320px}
 .app-input:focus{outline:none;border-color:var(--teal)}
 select.app-input{max-width:100%}
+select.app-unit-select{width:auto;max-width:150px}
 .app-input-row{display:flex;gap:var(--s-3);align-items:center;flex-wrap:wrap}
 .app-unit{font-size:14px;color:var(--ink-muted)}
 .app-pill{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:var(--r-pill);background:var(--teal-muted);color:var(--teal-dark)}

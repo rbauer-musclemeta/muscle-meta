@@ -6,6 +6,7 @@ import { LENS_COPY, PHYSICAL_TESTS, GOAL_LABEL } from '@/lib/copy';
 import Steps from '@/components/Steps';
 import { chooseBaseline, saveMeasurements } from '../actions';
 import { ActionForm, SubmitButton } from '@/components/ActionForm';
+import { ENTRY_UNITS } from '@/lib/units';
 
 const ERR: Record<string, string> = {
   none: 'Choose at least one measure.',
@@ -80,14 +81,23 @@ export default async function BaselinePage({ params, searchParams }: { params: P
         {j.baseline.selected_metrics.map(code => {
           const m = METRICS.find(x => x.code === code);
           if (!m) return null;
+          const units = ENTRY_UNITS[code];
           return (
             <div key={code} className="app-field">
               <label htmlFor={code}>{m.title}</label>
               <p className="method">{m.method}</p>
               <div className="app-input-row">
                 <input id={code} name={code} className="app-input" inputMode="decimal" type="number" step="any"
-                       min={m.min} max={m.max} defaultValue={values[code] ?? ''} style={{ maxWidth: 180 }} />
-                <span className="app-unit">{m.unit}</span>
+                       /* With a unit choice the range is checked after conversion, on the server. */
+                       min={units ? 0 : m.min} max={units ? undefined : m.max}
+                       defaultValue={values[code] ?? ''} style={{ maxWidth: 180 }} />
+                {units ? (
+                  <select name={`${code}__unit`} className="app-input app-unit-select" aria-label={`${m.title} unit`} defaultValue={units[0].unit}>
+                    {units.map(u => <option key={u.unit} value={u.unit}>{u.label}</option>)}
+                  </select>
+                ) : (
+                  <span className="app-unit">{m.unit}</span>
+                )}
               </div>
             </div>
           );

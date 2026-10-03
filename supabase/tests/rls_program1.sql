@@ -211,6 +211,16 @@ begin
   select count(*) into n from public.result_overrides where result_id = res_a;
   if n <> 1 then failures := failures || 'admin override not recorded'; end if;
 
+  -- 2026-10-03: staff open every program without an entitlement (can_access).
+  checks := checks + 1;
+  select count(*) into n from public.programs where id = prog;
+  if n <> 1 then failures := failures || 'admin without entitlement could not read the program'; end if;
+
+  checks := checks + 1; ok := true;
+  begin insert into public.orientation_sessions (program_id) values (prog);
+  exception when others then ok := false; end;
+  if not ok then failures := failures || 'admin without entitlement could not start orientation'; end if;
+
   execute 'reset role';
 
   -------------------------------------------------------- protected file access
@@ -245,4 +255,4 @@ begin
     raise exception 'RLS_TESTS_FAILED checks=% failures=%', checks, array_to_string(failures, ' | ');
   end if;
 end $$;
--- Last run 2026-09-28 against bxpferfuwoiulnqnfqhf: RLS_TESTS_PASSED checks=27
+-- Last run 2026-10-03 against bxpferfuwoiulnqnfqhf: RLS_TESTS_PASSED checks=29

@@ -5,6 +5,7 @@ import { stepPath, programHome } from '@/programs/registry';
 import { ORIENTATION, SAFETY_GATE, METRICS } from '@/engine/definitions';
 import { SUPABASE_URL, SUPABASE_ANON_KEY } from '@/lib/env';
 import type { StepResult } from '@/components/ActionForm';
+import { toCanonical } from '@/lib/units';
 
 /* Journey actions return the next address; the form loads it as a page
    (components/ActionForm.tsx explains why they do not call redirect()). */
@@ -145,10 +146,13 @@ export async function saveMeasurements(route: string, form: FormData): Promise<S
     const def = METRICS.find(m => m.code === code);
     const raw = String(form.get(code) ?? '').trim();
     if (!def || raw === '') return [];
-    const value = Number(raw);
-    if (!Number.isFinite(value)) return [];
-    return [{ cycle_id: journey.baseline!.id, user_id: member.id, metric_code: code, value, unit: def.unit,
-              method_note: String(form.get(`${code}__note`) || '') || null }];
+    const entered = Number(raw);
+    if (!Number.isFinite(entered)) return [];
+    // Stored in the measure's canonical unit; see lib/units.ts.
+    const converted = toCanonical(code, entered, form.get(`${code}__unit`) as string | null);
+    if (!converted) return [];
+    return [{ cycle_id: journey.baseline!.id, user_id: member.id, metric_code: code, value: converted.value, unit: def.unit,
+              method_note: converted.note ?? (String(form.get(`${code}__note`) || '') || null) }];
   });
   if (!rows.length) return go(`${stepPath(program, 'baseline')}?error=empty`);
   for (const row of rows) {

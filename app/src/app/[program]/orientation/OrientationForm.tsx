@@ -1,9 +1,10 @@
 'use client';
 import { useState } from 'react';
 import type { OrientationQuestion } from './page';
+import { ActionForm, SubmitButton, type StepResult } from '@/components/ActionForm';
 
 export default function OrientationForm({ action, questions, initial }: {
-  action: (form: FormData) => Promise<void>;
+  action: (form: FormData) => Promise<StepResult>;
   questions: OrientationQuestion[];
   initial: Record<string, string[]>;
 }) {
@@ -19,7 +20,7 @@ export default function OrientationForm({ action, questions, initial }: {
     });
   };
   return (
-    <form action={action} className="app-card">
+    <ActionForm action={action} className="app-card">
       {questions.map(q => (
         <fieldset key={q.field} className="app-q">
           <legend>{q.title}</legend>
@@ -41,8 +42,8 @@ export default function OrientationForm({ action, questions, initial }: {
         </fieldset>
       ))}
       <div className="app-actions">
-        <button className="mmm-btn mmm-btn-primary" type="submit">Continue</button>
+        <SubmitButton>Continue</SubmitButton>
       </div>
-    </form>
+    </ActionForm>
   );
 }

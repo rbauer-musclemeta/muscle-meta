@@ -5,6 +5,7 @@ import { METRICS } from '@/engine/definitions';
 import { LENS_COPY, PHYSICAL_TESTS, GOAL_LABEL } from '@/lib/copy';
 import Steps from '@/components/Steps';
 import { chooseBaseline, saveMeasurements } from '../actions';
+import { ActionForm, SubmitButton } from '@/components/ActionForm';
 
 const ERR: Record<string, string> = {
   none: 'Choose at least one measure.',
@@ -38,7 +39,7 @@ export default async function BaselinePage({ params, searchParams }: { params: P
           <p className="app-note warn">Because a professional review comes first, physical tests are left out for now. Your clinician can add them once you have been reviewed.</p>
         )}
         {errorText && <p className="app-note error" role="alert">{errorText}</p>}
-        <form action={chooseBaseline.bind(null, program.route)} className="app-card">
+        <ActionForm action={chooseBaseline.bind(null, program.route)} className="app-card">
           <fieldset className="app-q" style={{ marginTop: 0, paddingTop: 0 }}>
             <legend>Recommended for you</legend>
             <div className="app-options">
@@ -61,8 +62,8 @@ export default async function BaselinePage({ params, searchParams }: { params: P
               ))}
             </div>
           </fieldset>
-          <div className="app-actions"><button className="mmm-btn mmm-btn-primary" type="submit">Use these measures</button></div>
-        </form>
+          <div className="app-actions"><SubmitButton>Use these measures</SubmitButton></div>
+        </ActionForm>
       </div>
     );
   }
@@ -75,7 +76,7 @@ export default async function BaselinePage({ params, searchParams }: { params: P
       <p className="lede">Enter what you measure today. Leave any blank and add it later. These are your raw numbers; nothing is judged yet.</p>
       {errorText && <p className="app-note error" role="alert">{errorText}</p>}
       <p className="app-note warn">For any physical test: warm up first, use a stable support, and stop straight away if you feel chest pain, dizziness, unusual breathlessness or sharp pain.</p>
-      <form action={saveMeasurements.bind(null, program.route)} className="app-card">
+      <ActionForm action={saveMeasurements.bind(null, program.route)} className="app-card">
         {j.baseline.selected_metrics.map(code => {
           const m = METRICS.find(x => x.code === code);
           if (!m) return null;
@@ -91,8 +92,8 @@ export default async function BaselinePage({ params, searchParams }: { params: P
             </div>
           );
         })}
-        <div className="app-actions"><button className="mmm-btn mmm-btn-primary" type="submit">Save my baseline</button></div>
-      </form>
+        <div className="app-actions"><SubmitButton>Save my baseline</SubmitButton></div>
+      </ActionForm>
     </div>
   );
 }

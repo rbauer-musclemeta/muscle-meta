@@ -4,6 +4,7 @@ import { stepPath } from '@/programs/registry';
 import { supabaseServer } from '@/lib/supabase/server';
 import Steps from '@/components/Steps';
 import { submitReadiness } from '../actions';
+import { ActionForm, SubmitButton } from '@/components/ActionForm';
 
 type Definition = {
   version_label: string;
@@ -54,7 +55,7 @@ export default async function ReadinessPage({ params, searchParams }: { params: 
         <p className="app-note warn">You told us activity may not feel safe right now. Your results will recommend a professional review before any new activity plan.</p>
       )}
       {error && <p className="app-note error" role="alert">{ERRORS[error] ?? 'Something went wrong. Your answers are saved; please try again.'}</p>}
-      <form action={submitReadiness.bind(null, program.route)} className="app-card">
+      <ActionForm action={submitReadiness.bind(null, program.route)} className="app-card">
         {def.questions.map(q => (
           <fieldset key={q.field} className="app-q">
             <legend>{q.q}. {q.prompt}</legend>
@@ -70,11 +71,11 @@ export default async function ReadinessPage({ params, searchParams }: { params: 
           </fieldset>
         ))}
         <div className="app-actions">
-          <button className="mmm-btn mmm-btn-primary" type="submit" name="intent" value="finish">See my results</button>
-          <button className="mmm-btn mmm-btn-ghost" type="submit" name="intent" value="save">Save and finish later</button>
+          <SubmitButton name="intent" value="finish" pendingLabel="Calculating…">See my results</SubmitButton>
+          <SubmitButton className="mmm-btn mmm-btn-ghost" name="intent" value="save">Save and finish later</SubmitButton>
         </div>
         <p className="app-muted" style={{ marginTop: 'var(--s-4)' }}>Check version {def.version_label}. Your answers are stored as you gave them; the result is calculated from them on our server.</p>
-      </form>
+      </ActionForm>
     </div>
   );
 }

@@ -4,6 +4,7 @@ import { stepPath } from '@/programs/registry';
 import { SAFETY_GATE } from '@/engine/definitions';
 import Steps from '@/components/Steps';
 import { saveSafety } from '../actions';
+import { ActionForm, SubmitButton } from '@/components/ActionForm';
 
 export default async function SafetyPage({ params, searchParams }: { params: Promise<{ program: string }>; searchParams: Promise<{ error?: string }> }) {
   const { member, program } = await requireProgram((await params).program);
@@ -18,7 +19,7 @@ export default async function SafetyPage({ params, searchParams }: { params: Pro
       <p className="lede">This answer never changes a score. It decides whether a professional review should come before any new activity recommendations.</p>
       {error === 'choose' && <p className="app-note error" role="alert">Please choose an answer.</p>}
       {error === 'save' && <p className="app-note error" role="alert">That did not save. Please try again.</p>}
-      <form action={saveSafety.bind(null, program.route)} className="app-card">
+      <ActionForm action={saveSafety.bind(null, program.route)} className="app-card">
         <fieldset className="app-q" style={{ marginTop: 0, paddingTop: 0 }}>
           <legend>{SAFETY_GATE.title}</legend>
           <div className="app-options">
@@ -36,9 +37,9 @@ export default async function SafetyPage({ params, searchParams }: { params: Pro
           or rapidly worsening symptoms.
         </p>
         <div className="app-actions">
-          <button className="mmm-btn mmm-btn-primary" type="submit">Continue</button>
+          <SubmitButton>Continue</SubmitButton>
         </div>
-      </form>
+      </ActionForm>
     </div>
   );
 }

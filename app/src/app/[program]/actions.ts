@@ -1,18 +1,21 @@
 'use server';
-import { redirect } from 'next/navigation';
-import { revalidatePath } from 'next/cache';
 import { supabaseServer } from '@/lib/supabase/server';
 import { requireProgram, getJourney } from '@/lib/program';
 import { stepPath, programHome } from '@/programs/registry';
 import { ORIENTATION, SAFETY_GATE, METRICS } from '@/engine/definitions';
 import { SUPABASE_URL, SUPABASE_ANON_KEY } from '@/lib/env';
+import type { StepResult } from '@/components/ActionForm';
+
+/* Journey actions return the next address; the form loads it as a page
+   (components/ActionForm.tsx explains why they do not call redirect()). */
+const go = (next: string): StepResult => ({ next });
 
 const optionValues = (field: string) =>
   new Set<string>((ORIENTATION.questions.find(q => q.field === field)?.options ?? []).map(o => o.value));
 
 /* Orientation: stored as its own record, never read by scoring except the
    safety answer, which is collected on the next screen. */
-export async function saveOrientation(route: string, form: FormData) {
+export async function saveOrientation(route: string, form: FormData): Promise<StepResult> {
   const { member, program } = await requireProgram(route);
   const supabase = await supabaseServer();
   const journey = await getJourney(member.id, program);
@@ -39,44 +42,42 @@ export async function saveOrientation(route: string, form: FormData) {
   // after that, a change starts a new orientation record.
   if (journey.orientation && !journey.result) {
     const { error } = await supabase.from('orientation_sessions').update(row).eq('id', journey.orientation.id);
-    if (error) redirect(`${stepPath(program, 'orientation')}?error=save`);
+    if (error) return go(`${stepPath(program, 'orientation')}?error=save`);
   } else {
     const { error } = await supabase.from('orientation_sessions')
       .insert({ ...row, user_id: member.id, program_id: journey.programId });
-    if (error) redirect(`${stepPath(program, 'orientation')}?error=save`);
+    if (error) return go(`${stepPath(program, 'orientation')}?error=save`);
   }
-  revalidatePath('/', 'layout');
-  redirect(stepPath(program, 'safety'));
+  return go(stepPath(program, 'safety'));
 }
 
-export async function saveSafety(route: string, form: FormData) {
+export async function saveSafety(route: string, form: FormData): Promise<StepResult> {
   const { member, program } = await requireProgram(route);
   const value = String(form.get('safety_review_status') || '');
-  if (!SAFETY_GATE.options.some(o => o.value === value)) redirect(`${stepPath(program, 'safety')}?error=choose`);
+  if (!SAFETY_GATE.options.some(o => o.value === value)) return go(`${stepPath(program, 'safety')}?error=choose`);
   const journey = await getJourney(member.id, program);
-  if (!journey.orientation) redirect(stepPath(program, 'orientation'));
+  if (!journey.orientation) return go(stepPath(program, 'orientation'));
   const supabase = await supabaseServer();
   const { error } = await supabase.from('orientation_sessions')
     .update({ safety_review_status: value, safety_answered_at: new Date().toISOString() })
     .eq('id', journey.orientation.id);
-  if (error) redirect(`${stepPath(program, 'safety')}?error=save`);
-  revalidatePath('/', 'layout');
-  redirect(stepPath(program, 'readiness'));
+  if (error) return go(`${stepPath(program, 'safety')}?error=save`);
+  return go(stepPath(program, 'readiness'));
 }
 
 /* Saves answers; when all ten are present, asks the complete-assessment
    edge function to score from the STORED answers and write the result. */
-export async function submitReadiness(route: string, form: FormData) {
+export async function submitReadiness(route: string, form: FormData): Promise<StepResult> {
   const { member, program } = await requireProgram(route);
   const supabase = await supabaseServer();
   const journey = await getJourney(member.id, program);
-  if (!journey.orientation?.safety_review_status) redirect(stepPath(program, 'safety'));
+  if (!journey.orientation?.safety_review_status) return go(stepPath(program, 'safety'));
 
   const { data: version } = await supabase.from('assessment_versions')
     .select('id, definition, assessments!inner(code)')
     .eq('status', 'published').eq('assessments.code', program.assessmentCode ?? '')
     .order('published_at', { ascending: false }).limit(1).single();
-  if (!version) redirect(`${stepPath(program, 'readiness')}?error=unavailable`);
+  if (!version) return go(`${stepPath(program, 'readiness')}?error=unavailable`);
 
   let sessionId = journey.openSessionId;
   if (!sessionId) {
@@ -84,7 +85,7 @@ export async function submitReadiness(route: string, form: FormData) {
       user_id: member.id, assessment_version_id: version.id,
       orientation_session_id: journey.orientation.id, program_id: journey.programId
     }).select('id').single();
-    if (error || !created) redirect(`${stepPath(program, 'readiness')}?error=start`);
+    if (error || !created) return go(`${stepPath(program, 'readiness')}?error=start`);
     sessionId = created.id;
   }
 
@@ -96,10 +97,10 @@ export async function submitReadiness(route: string, form: FormData) {
   });
   if (rows.length) {
     const { error } = await supabase.from('assessment_responses').upsert(rows, { onConflict: 'session_id,question_code' });
-    if (error) redirect(`${stepPath(program, 'readiness')}?error=save`);
+    if (error) return go(`${stepPath(program, 'readiness')}?error=save`);
   }
-  if (form.get('intent') === 'save') redirect(`${programHome(program)}?saved=1`);
-  if (rows.length < questions.length) redirect(`${stepPath(program, 'readiness')}?error=missing`);
+  if (form.get('intent') === 'save') return go(`${programHome(program)}?saved=1`);
+  if (rows.length < questions.length) return go(`${stepPath(program, 'readiness')}?error=missing`);
 
   const { data: sess } = await supabase.auth.getSession();
   const res = await fetch(`${SUPABASE_URL}/functions/v1/complete-assessment`, {
@@ -114,33 +115,31 @@ export async function submitReadiness(route: string, form: FormData) {
   });
   if (!res.ok) {
     const body = await res.json().catch(() => ({}));
-    redirect(`${stepPath(program, 'readiness')}?error=${encodeURIComponent(body.error || 'score')}`);
+    return go(`${stepPath(program, 'readiness')}?error=${encodeURIComponent(body.error || 'score')}`);
   }
-  revalidatePath('/', 'layout');
-  redirect(stepPath(program, 'results'));
+  return go(stepPath(program, 'results'));
 }
 
-export async function chooseBaseline(route: string, form: FormData) {
+export async function chooseBaseline(route: string, form: FormData): Promise<StepResult> {
   const { member, program } = await requireProgram(route);
   const journey = await getJourney(member.id, program);
-  if (!journey.result) redirect(stepPath(program, 'readiness'));
+  if (!journey.result) return go(stepPath(program, 'readiness'));
   const known = new Set(METRICS.map(m => m.code));
   const picked = form.getAll('metric').map(String).filter(c => known.has(c));
-  if (!picked.length) redirect(`${stepPath(program, 'baseline')}?error=none`);
+  if (!picked.length) return go(`${stepPath(program, 'baseline')}?error=none`);
   const supabase = await supabaseServer();
   const { error } = await supabase.from('progress_cycles').insert({
     user_id: member.id, program_id: journey.programId, kind: 'baseline',
     assessment_result_id: journey.result.id, selected_metrics: picked
   });
-  if (error) redirect(`${stepPath(program, 'baseline')}?error=save`);
-  revalidatePath('/', 'layout');
-  redirect(stepPath(program, 'baseline'));
+  if (error) return go(`${stepPath(program, 'baseline')}?error=save`);
+  return go(stepPath(program, 'baseline'));
 }
 
-export async function saveMeasurements(route: string, form: FormData) {
+export async function saveMeasurements(route: string, form: FormData): Promise<StepResult> {
   const { member, program } = await requireProgram(route);
   const journey = await getJourney(member.id, program);
-  if (!journey.baseline) redirect(stepPath(program, 'baseline'));
+  if (!journey.baseline) return go(stepPath(program, 'baseline'));
   const supabase = await supabaseServer();
   const rows = journey.baseline.selected_metrics.flatMap(code => {
     const def = METRICS.find(m => m.code === code);
@@ -151,15 +150,14 @@ export async function saveMeasurements(route: string, form: FormData) {
     return [{ cycle_id: journey.baseline!.id, user_id: member.id, metric_code: code, value, unit: def.unit,
               method_note: String(form.get(`${code}__note`) || '') || null }];
   });
-  if (!rows.length) redirect(`${stepPath(program, 'baseline')}?error=empty`);
+  if (!rows.length) return go(`${stepPath(program, 'baseline')}?error=empty`);
   for (const row of rows) {
     const def = METRICS.find(m => m.code === row.metric_code)!;
     if (row.value < def.min || row.value > def.max) {
-      redirect(`${stepPath(program, 'baseline')}?error=range&metric=${row.metric_code}`);
+      return go(`${stepPath(program, 'baseline')}?error=range&metric=${row.metric_code}`);
     }
   }
   const { error } = await supabase.from('progress_measurements').upsert(rows, { onConflict: 'cycle_id,metric_code' });
-  if (error) redirect(`${stepPath(program, 'baseline')}?error=save`);
-  revalidatePath('/', 'layout');
-  redirect(`${stepPath(program, 'dashboard')}?saved=baseline`);
+  if (error) return go(`${stepPath(program, 'baseline')}?error=save`);
+  return go(`${stepPath(program, 'dashboard')}?saved=baseline`);
 }

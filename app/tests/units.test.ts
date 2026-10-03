@@ -28,3 +28,13 @@ describe('entry units', () => {
     expect(METRICS.find(m => m.code === 'chair_rise_30s')!.method).toContain('18 to 20 inches');
   });
 });
+
+describe('resting heart rate', () => {
+  it('is measured seated, resting, in the morning, in beats per minute', () => {
+    const m = METRICS.find(x => x.code === 'resting_heart_rate')!;
+    expect(m.unit).toBe('beats/min');
+    expect(m.method).toMatch(/morning/);
+    expect(m.method).toMatch(/seated and resting/);
+    expect(m.thresholdStatus).toBe('none_attached');
+  });
+});

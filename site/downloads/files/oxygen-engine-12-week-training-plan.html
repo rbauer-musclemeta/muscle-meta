@@ -1,0 +1,1323 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="robots" content="noindex, follow"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Oxygen Engine 12-week training plan</title><meta name="description" content="A three-level, 12-week aerobic training plan for adults over 50, with safety check, effort zones, weekly check and re-tests.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* =============================================================================
+   MUSCLE-META MATRIX™  •  BRAND TOKENS
+   Clinical Intelligence for Active Aging
+   ========================================================================== */
+
+:root {
+  /* ---------- CORE PALETTE --------------------------------------------------- */
+  --teal:          #009090;
+  --teal-dark:     #006b6b;
+  --teal-light:    #00b3b3;
+  --teal-muted:    #e6f5f5;
+  --teal-tint:     #f0f9f9;
+
+  --gold:          #D4AF37;
+  --gold-dark:     #B5952F;
+  --gold-light:    #e3c56a;
+  --gold-muted:    #faf6e8;
+
+  --purple:        #7c3aed;
+  --purple-dark:   #6d28d9;
+  --purple-muted:  #f3f0fd;
+
+  --green:         #16a34a;
+  --green-dark:    #15803d;
+  --green-muted:   #f0fdf4;
+
+  /* ---------- NEUTRALS ------------------------------------------------------- */
+  --ink:           #1a2332;   /* headlines */
+  --ink-soft:      #344256;   /* body */
+  --ink-muted:     #6b7b8f;   /* captions, eyebrows */
+  --ink-faint:     #a8b3c2;   /* disabled, subtle */
+
+  --surface:       #f7f6f3;   /* warm off-white page bg */
+  --surface-tint:  #fdfcfa;
+  --border:        #e8e6e1;
+  --border-soft:   #f0eeea;
+  --white:         #ffffff;
+
+  /* ---------- SEMANTIC (Risk Tier) ------------------------------------------- */
+  --tier-1: #009090;          /* Optimized (teal) */
+  --tier-2: #3b82f6;          /* Functional (blue) */
+  --tier-3: #f59e0b;          /* Declining (amber) */
+  --tier-4: #f97316;          /* At Risk (orange) */
+  --tier-5: #dc2626;          /* Critical (red) */
+
+  --tier-1-muted: #e6f5f5;
+  --tier-2-muted: #eff6ff;
+  --tier-3-muted: #fef3c7;
+  --tier-4-muted: #ffedd5;
+  --tier-5-muted: #fee2e2;
+
+  /* ---------- TYPOGRAPHY ----------------------------------------------------- */
+  --font-display:  'Cormorant Garamond', 'Cormorant', Georgia, serif;
+  --font-body:     'Outfit', 'Helvetica Neue', Arial, sans-serif;
+
+  --fs-eyebrow: 11px;        --lh-eyebrow: 1.4;     --tr-eyebrow: 0.18em;
+  --fs-caption: 12px;        --lh-caption: 1.5;
+  --fs-micro:   13px;        --lh-micro:   1.55;
+  --fs-body:    16px;        --lh-body:    1.65;
+  --fs-lede:    19px;        --lh-lede:    1.6;
+  --fs-h4:      22px;        --lh-h4:      1.25;
+  --fs-h3:      28px;        --lh-h3:      1.2;
+  --fs-h2:      40px;        --lh-h2:      1.12;
+  --fs-h1:      64px;        --lh-h1:      1.05;
+  --fs-display: 88px;        --lh-display: 1.02;
+
+  --fw-regular: 400;
+  --fw-medium:  500;
+  --fw-semi:    600;
+  --fw-bold:    700;
+
+  /* ---------- SPACING (8pt grid) --------------------------------------------- */
+  --s-1:   4px;
+  --s-2:   8px;
+  --s-3:  12px;
+  --s-4:  16px;
+  --s-5:  24px;
+  --s-6:  32px;
+  --s-7:  48px;
+  --s-8:  64px;
+  --s-9:  96px;
+  --s-10: 128px;
+
+  --content-max: 1200px;
+  --content-narrow: 880px;
+  --gutter: 32px;
+  --gutter-mobile: 20px;
+
+  /* ---------- RADII ---------------------------------------------------------- */
+  --r-1:  6px;
+  --r-2:  10px;
+  --r-3:  14px;
+  --r-4:  20px;
+  --r-5:  28px;
+  --r-pill: 999px;
+
+  /* ---------- SHADOWS (clinical luxury — low and soft) ---------------------- */
+  --shadow-xs:  0 1px 2px rgba(26, 35, 50, 0.04);
+  --shadow-sm:  0 2px 8px rgba(26, 35, 50, 0.05);
+  --shadow-md:  0 6px 20px rgba(26, 35, 50, 0.07);
+  --shadow-lg:  0 12px 40px rgba(26, 35, 50, 0.08);
+  --shadow-teal: 0 8px 30px rgba(0, 144, 144, 0.15);
+  --shadow-gold: 0 4px 16px rgba(212, 175, 55, 0.25);
+
+  /* ---------- MOTION --------------------------------------------------------- */
+  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast:    150ms;
+  --dur-base:    240ms;
+  --dur-slow:    420ms;
+  --dur-reveal:  900ms;
+
+  /* ---------- Z ------------------------------------------------------------- */
+  --z-grain: 1;
+  --z-nav:   50;
+  --z-sticky: 60;
+  --z-modal: 100;
+}
+
+/* =============================================================================
+   BASE ELEMENTS
+   ========================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--surface);
+  color: var(--ink-soft);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  font-weight: var(--fw-regular);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-display);
+  color: var(--ink);
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+h1 { font-size: var(--fs-h1); line-height: var(--lh-h1); letter-spacing: -0.02em; }
+h2 { font-size: var(--fs-h2); line-height: var(--lh-h2); letter-spacing: -0.015em; }
+h3 { font-size: var(--fs-h3); line-height: var(--lh-h3); }
+h4 { font-size: var(--fs-h4); line-height: var(--lh-h4); }
+
+p  { margin: 0; color: var(--ink-soft); }
+
+em { font-style: italic; }
+
+a { color: var(--teal); text-decoration: none; transition: color var(--dur-fast) var(--ease-out); }
+a:hover { color: var(--gold-dark); }
+
+button { font-family: var(--font-body); }
+
+::selection { background: var(--teal-muted); color: var(--ink); }
+
+/* =============================================================================
+   TYPE UTILITIES
+   ========================================================================== */
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-semi);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--teal);
+}
+.eyebrow-ink    { color: var(--ink); }
+.eyebrow-gold   { color: var(--gold-dark); }
+.eyebrow-muted  { color: var(--ink-muted); }
+
+.lede {
+  font-family: var(--font-body);
+  font-size: var(--fs-lede);
+  line-height: var(--lh-lede);
+  color: var(--ink-soft);
+  font-weight: var(--fw-regular);
+}
+
+.display {
+  font-family: var(--font-display);
+  font-size: var(--fs-display);
+  line-height: var(--lh-display);
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  font-weight: var(--fw-bold);
+}
+
+.serif-italic {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: var(--fw-medium);
+  color: var(--teal);
+}
+
+/* =============================================================================
+   BUTTONS
+   ========================================================================== */
+.mmm-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: var(--fw-semi);
+  letter-spacing: 0.01em;
+  border-radius: var(--r-pill);
+  padding: 14px 28px;
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  transition: all var(--dur-base) var(--ease-out);
+  text-decoration: none;
+  line-height: 1;
+}
+.mmm-btn-primary {
+  background: var(--teal);
+  color: var(--white);
+  box-shadow: var(--shadow-sm);
+}
+.mmm-btn-primary:hover {
+  background: var(--ink);
+  border-color: var(--gold);
+  box-shadow: var(--shadow-gold);
+  transform: translateY(-1px);
+}
+.mmm-btn-ghost {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--border);
+}
+.mmm-btn-ghost:hover {
+  border-color: var(--teal);
+  color: var(--teal);
+  background: var(--teal-tint);
+}
+.mmm-btn-gold {
+  background: var(--gold);
+  color: var(--ink);
+  box-shadow: var(--shadow-gold);
+}
+.mmm-btn-gold:hover {
+  background: var(--gold-dark);
+  color: var(--white);
+  transform: translateY(-1px);
+}
+.mmm-btn-dark {
+  background: var(--ink);
+  color: var(--white);
+}
+.mmm-btn-dark:hover {
+  background: var(--teal);
+  border-color: var(--gold);
+}
+.mmm-btn-lg { padding: 18px 36px; font-size: 16px; }
+.mmm-btn-sm { padding: 10px 20px; font-size: 13px; }
+
+/* =============================================================================
+   CARDS
+   ========================================================================== */
+.mmm-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r-3);
+  padding: var(--s-6);
+  transition: all var(--dur-base) var(--ease-out);
+}
+.mmm-card-hover:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+  border-color: transparent;
+}
+
+/* =============================================================================
+   GRAIN TEXTURE OVERLAY
+   ========================================================================== */
+.mmm-grain::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: var(--z-grain);
+  opacity: 0.018;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  mix-blend-mode: multiply;
+}
+
+/* =============================================================================
+   SCROLL REVEAL
+   ========================================================================== */
+.mmm-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity var(--dur-reveal) var(--ease-out),
+              transform var(--dur-reveal) var(--ease-out);
+}
+.mmm-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.mmm-reveal-delay-1 { transition-delay: 80ms; }
+.mmm-reveal-delay-2 { transition-delay: 160ms; }
+.mmm-reveal-delay-3 { transition-delay: 240ms; }
+.mmm-reveal-delay-4 { transition-delay: 320ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mmm-reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* =============================================================================
+   LAYOUT HELPERS
+   ========================================================================== */
+.mmm-container {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+.mmm-section { padding: var(--s-9) 0; }
+.mmm-section-sm { padding: var(--s-7) 0; }
+
+@media (max-width: 768px) {
+  :root {
+    --fs-h1: 40px;
+    --fs-h2: 30px;
+    --fs-h3: 24px;
+    --fs-display: 56px;
+    --gutter: var(--gutter-mobile);
+    --s-9: 64px;
+  }
+  .mmm-btn { padding: 13px 22px; font-size: 14px; }
+}
+
+/* ---------- Page layer: built only from the brand tokens above ---------- */
+html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+body { min-height: 100vh; }
+.wrap { max-width: 980px; margin: 0 auto; padding: 0 var(--gutter); }
+.skip { position: absolute; left: -999px; top: 8px; background: var(--ink); color: var(--white); padding: 10px 16px; border-radius: var(--r-pill); z-index: 200; }
+.skip:focus { left: 12px; }
+:focus-visible { outline: 3px solid var(--teal); outline-offset: 2px; border-radius: 4px; }
+
+/* top bar */
+.top { position: sticky; top: 0; z-index: var(--z-nav); background: rgba(247,246,243,.82); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
+.top .wrap { display: flex; align-items: center; gap: var(--s-4); min-height: 64px; flex-wrap: wrap; padding-top: 8px; padding-bottom: 8px; }
+.brand { font-family: var(--font-display); font-weight: 700; font-size: 20px; color: var(--ink); letter-spacing: -.01em; margin-right: auto; }
+.brand small { font-family: var(--font-body); font-weight: 600; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--teal); margin-left: 10px; }
+.nav { display: flex; gap: 4px; flex-wrap: wrap; }
+.nav a { font-size: 14px; font-weight: 500; color: var(--ink-soft); padding: 10px 12px; border-radius: var(--r-pill); min-height: 44px; display: inline-flex; align-items: center; }
+.nav a:hover { background: var(--teal-muted); color: var(--teal-dark); }
+
+/* hero */
+.hero { padding: var(--s-8) 0 var(--s-6); }
+.hero h1 { margin-top: var(--s-3); max-width: 16ch; }
+.hero h1 em { color: var(--teal); }
+.hero .lede { margin-top: var(--s-5); max-width: 60ch; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: var(--s-3); margin-top: var(--s-5); }
+.tag { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--ink); background: var(--white); border: 1px solid var(--border); border-radius: var(--r-pill); padding: 8px 14px; }
+.tag i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+
+/* sections */
+section.step { padding: var(--s-7) 0 var(--s-5); }
+.step-head { display: flex; align-items: baseline; gap: var(--s-4); margin-bottom: var(--s-3); }
+.step-num { font-family: var(--font-display); font-size: 40px; font-weight: 700; color: var(--gold-dark); line-height: 1; min-width: 40px; }
+.step h2 { font-size: var(--fs-h2); }
+.step .intro { margin-top: var(--s-3); max-width: 64ch; color: var(--ink-soft); }
+.card { background: var(--white); border: 1px solid var(--border); border-radius: var(--r-3); padding: var(--s-5); box-shadow: var(--shadow-sm); margin-top: var(--s-5); }
+.card h3 { font-size: 24px; }
+.micro { font-size: var(--fs-micro); line-height: var(--lh-micro); color: var(--ink-muted); }
+.hide { display: none !important; }
+
+/* questions and choices */
+fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+.q { padding: var(--s-4) 0; border-top: 1px solid var(--border-soft); }
+.q:first-of-type { border-top: 0; padding-top: 0; }
+.q legend, .q .qt { font-weight: 600; color: var(--ink); font-size: 16px; padding: 0; margin-bottom: var(--s-3); display: block; }
+.choices { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+.choice { position: relative; }
+.choice input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.choice span { display: inline-flex; align-items: center; min-height: 44px; padding: 10px 18px; border: 1.5px solid var(--border); border-radius: var(--r-pill); background: var(--white); font-size: 15px; font-weight: 500; color: var(--ink-soft); transition: all var(--dur-fast) var(--ease-out); }
+.choice input:hover + span { border-color: var(--teal); }
+.choice input:checked + span { background: var(--teal); border-color: var(--teal); color: var(--white); }
+.choice input:focus-visible + span { outline: 3px solid var(--teal); outline-offset: 2px; }
+.choices.stack { flex-direction: column; align-items: stretch; }
+.choices.stack .choice span { border-radius: var(--r-3); justify-content: flex-start; line-height: 1.4; padding: 12px 16px; }
+
+/* banners */
+.banner { border-radius: var(--r-3); padding: var(--s-4) var(--s-5); border: 1px solid; margin-top: var(--s-4); }
+.banner h4 { font-family: var(--font-body); font-size: 17px; font-weight: 700; color: var(--ink); letter-spacing: 0; }
+.banner p { margin-top: 6px; font-size: 15px; }
+.banner .btn-row { margin-top: var(--s-3); }
+.b-ok { background: var(--tier-1-muted); border-color: var(--tier-1); }
+.b-info { background: var(--tier-2-muted); border-color: var(--tier-2); }
+.b-warn { background: var(--tier-3-muted); border-color: var(--tier-3); }
+.b-alert { background: var(--tier-4-muted); border-color: var(--tier-4); }
+.b-stop { background: var(--tier-5-muted); border-color: var(--tier-5); }
+.chk { display: flex; gap: 12px; align-items: flex-start; margin-top: var(--s-3); cursor: pointer; min-height: 44px; }
+.chk input { width: 22px; height: 22px; margin-top: 2px; accent-color: var(--teal); flex: none; }
+
+.btn-row { display: flex; flex-wrap: wrap; gap: var(--s-3); align-items: center; }
+.mmm-btn[disabled] { opacity: .45; cursor: not-allowed; transform: none; box-shadow: none; }
+.mmm-btn { min-height: 44px; }
+
+/* level cards */
+.levels { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-4); margin-top: var(--s-4); }
+.lvl { position: relative; border: 1.5px solid var(--border); border-radius: var(--r-3); padding: var(--s-4); background: var(--white); cursor: pointer; display: block; transition: all var(--dur-base) var(--ease-out); }
+.lvl input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.lvl:hover { border-color: var(--teal); }
+.lvl:has(input:checked) { border-color: var(--teal); background: var(--teal-tint); box-shadow: var(--shadow-teal); }
+.lvl:has(input:focus-visible) { outline: 3px solid var(--teal); outline-offset: 2px; }
+.lvl h4 { font-size: 24px; }
+.lvl .sub { font-size: 13px; color: var(--ink-muted); margin-top: 2px; }
+.lvl ul { margin: var(--s-3) 0 0; padding-left: 18px; font-size: 14px; }
+.lvl li { margin-bottom: 4px; }
+.rec { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ink); background: var(--gold-muted); border: 1px solid var(--gold); border-radius: var(--r-pill); padding: 3px 10px; margin-bottom: 8px; }
+
+/* inputs */
+label.f { display: block; font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 6px; }
+input[type=number], input[type=date], select, textarea { font-family: var(--font-body); font-size: 16px; color: var(--ink); background: var(--white); border: 1.5px solid var(--border); border-radius: var(--r-2); padding: 10px 12px; min-height: 44px; width: 100%; }
+textarea { min-height: 88px; resize: vertical; }
+input[type=number]:focus, input[type=date]:focus, select:focus, textarea:focus { border-color: var(--teal); outline: none; box-shadow: 0 0 0 3px var(--teal-muted); }
+.row { display: flex; flex-wrap: wrap; gap: var(--s-4); align-items: flex-end; }
+.row > div { flex: 1 1 160px; max-width: 260px; }
+.big { font-family: var(--font-display); font-size: 36px; font-weight: 700; color: var(--ink); line-height: 1; }
+
+/* tables */
+.tw { overflow-x: auto; margin-top: var(--s-4); }
+table { border-collapse: collapse; width: 100%; font-size: 15px; }
+th { text-align: left; font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-muted); padding: 10px 12px; border-bottom: 2px solid var(--border); white-space: nowrap; }
+td { padding: 12px; border-bottom: 1px solid var(--border-soft); vertical-align: top; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+.zdot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 8px; }
+
+/* plan */
+.overview { display: grid; grid-template-columns: repeat(12, 1fr); gap: 6px; align-items: end; margin-top: var(--s-4); }
+.ov { background: none; border: 0; padding: 0; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 6px; min-height: 44px; font-family: var(--font-body); }
+.ov .col { width: 100%; height: 96px; display: flex; flex-direction: column; justify-content: flex-end; background: var(--border-soft); border-radius: 6px; overflow: hidden; border: 1.5px solid transparent; }
+.ov .easy { background: var(--teal-light); opacity: .75; }
+.ov .hardbar { background: var(--tier-4); }
+.ov .wk { font-size: 12px; font-weight: 600; color: var(--ink-muted); }
+.ov[aria-pressed=true] .col { border-color: var(--ink); }
+.ov[aria-pressed=true] .wk { color: var(--ink); }
+.ov.done .wk::after { content: " \2713"; color: var(--teal); }
+.legend { display: flex; gap: var(--s-4); flex-wrap: wrap; margin-top: var(--s-3); font-size: 13px; color: var(--ink-muted); }
+.legend span::before { content: ""; display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+.legend .l-easy::before { background: var(--teal-light); opacity: .75; }
+.legend .l-hard::before { background: var(--tier-4); }
+.prog { height: 10px; background: var(--border-soft); border-radius: var(--r-pill); overflow: hidden; margin-top: var(--s-2); }
+.prog > i { display: block; height: 100%; background: var(--teal); border-radius: var(--r-pill); transition: width var(--dur-slow) var(--ease-out); }
+.weekhead { display: flex; flex-wrap: wrap; gap: var(--s-4); justify-content: space-between; align-items: flex-end; }
+.stats { display: flex; gap: var(--s-5); flex-wrap: wrap; }
+.stat b { display: block; font-family: var(--font-display); font-size: 32px; color: var(--ink); line-height: 1; }
+.stat span { font-size: 12px; color: var(--ink-muted); letter-spacing: .08em; text-transform: uppercase; font-weight: 600; }
+.pager { display: flex; gap: var(--s-2); }
+.sess { border: 1px solid var(--border); border-radius: var(--r-3); background: var(--white); margin-top: var(--s-3); }
+.sess.done { background: var(--teal-tint); border-color: var(--teal); }
+.sess-top { display: flex; gap: var(--s-3); align-items: center; padding: var(--s-3) var(--s-4); }
+.sess-top input[type=checkbox] { width: 26px; height: 26px; accent-color: var(--teal); flex: none; }
+.sess-title { flex: 1; min-width: 0; }
+.sess-title b { display: block; color: var(--ink); font-size: 17px; }
+.sess-title span { font-size: 13px; color: var(--ink-muted); }
+.sess-more { background: none; border: 1.5px solid var(--border); border-radius: var(--r-pill); font-size: 13px; font-weight: 600; color: var(--ink); padding: 8px 14px; cursor: pointer; min-height: 44px; }
+.sess-more:hover { border-color: var(--teal); color: var(--teal); }
+.sess-body { padding: 0 var(--s-4) var(--s-4); }
+.sess-body .note { margin-top: var(--s-3); font-size: 14px; color: var(--ink-soft); }
+.badge { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; padding: 3px 9px; border-radius: var(--r-pill); }
+.k-z2 { background: var(--teal-muted); color: var(--teal-dark); }
+.k-hard { background: var(--tier-4-muted); color: #9a3412; }
+.k-test { background: var(--gold-muted); color: #7a6112; }
+.k-ez { background: var(--tier-2-muted); color: #1d4ed8; }
+.audit { margin-top: var(--s-5); padding-top: var(--s-4); border-top: 2px solid var(--border); }
+.audit h4 { font-family: var(--font-body); font-size: 18px; font-weight: 700; color: var(--ink); }
+.audit .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--s-4) var(--s-5); margin-top: var(--s-4); }
+.range-row { display: flex; align-items: center; gap: var(--s-3); }
+.range-row input[type=range] { flex: 1; accent-color: var(--teal); min-height: 44px; }
+.range-row output { font-weight: 700; color: var(--ink); min-width: 2ch; text-align: right; }
+
+/* tests */
+.tests { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-4); margin-top: var(--s-4); }
+.tcard { border: 1px solid var(--border); border-radius: var(--r-3); padding: var(--s-4); background: var(--white); }
+.tcard h4 { font-family: var(--font-body); font-size: 15px; font-weight: 700; color: var(--ink); }
+.tcard .two { display: grid; grid-template-columns: 1fr 96px; gap: var(--s-2); margin-top: var(--s-3); }
+.delta { margin-top: var(--s-3); font-size: 14px; color: var(--ink-soft); }
+.delta b { color: var(--ink); }
+.up { color: var(--green-dark); } .down { color: var(--tier-4); }
+
+/* evidence + footer */
+.cites { font-size: 13px; color: var(--ink-muted); padding-left: 18px; }
+.cites li { margin-bottom: 6px; }
+footer { margin-top: var(--s-8); padding: var(--s-6) 0 var(--s-8); border-top: 1px solid var(--border); font-size: 13px; color: var(--ink-muted); }
+footer p { color: var(--ink-muted); }
+.savestate { font-size: 13px; color: var(--ink-muted); }
+
+#printSheet { display: none; }
+
+@media (max-width: 768px) {
+  .hero { padding-top: var(--s-6); }
+  .levels, .tests, .audit .grid { grid-template-columns: 1fr; }
+  .overview { gap: 3px; }
+  .ov .col { height: 72px; }
+  .ov .wk { font-size: 11px; }
+  .step-num { font-size: 32px; min-width: 32px; }
+  .nav a { padding: 10px 9px; font-size: 13px; }
+  .top .wrap { min-height: 0; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+
+/* print: the plan as a clean sheet */
+@media print {
+  @page { margin: 14mm; }
+  html, body { background: #fff; font-size: 11pt; }
+  .top, .app, footer, .mmm-grain::before { display: none !important; }
+  #printSheet { display: block; }
+  #printSheet h1 { font-size: 26pt; }
+  #printSheet h2 { font-size: 15pt; margin: 14pt 0 6pt; }
+  #printSheet table { font-size: 9pt; page-break-inside: auto; }
+  #printSheet tr { page-break-inside: avoid; }
+  #printSheet th, #printSheet td { border: 1px solid #999; padding: 4pt 6pt; }
+  #printSheet .box { display: inline-block; width: 10pt; height: 10pt; border: 1px solid #333; margin-right: 6pt; vertical-align: -1pt; }
+  #printSheet .blank { display: inline-block; min-width: 90pt; border-bottom: 1px solid #333; height: 12pt; }
+  #printSheet p { margin: 4pt 0; }
+}
+.how{margin:var(--s-3) 0 0;padding-left:20px;font-size:15px}.how li{margin-bottom:8px}
+.h3s{font-family:var(--font-body);font-size:17px;font-weight:700;color:var(--ink);margin:var(--s-5) 0 var(--s-2)}.card>.h3s:first-child{margin-top:0}
+.faq dt{font-weight:700;color:var(--ink);margin-top:var(--s-4)}.faq dt:first-child{margin-top:0}.faq dd{margin:4px 0 0;font-size:15px}
+.step{scroll-margin-top:84px}
+
+
+.guidebox{margin:0 0 var(--s-6);background:var(--white);border:1px solid var(--border);border-radius:var(--r-3);box-shadow:var(--shadow-sm)}
+.guidebox>summary{cursor:pointer;list-style:none;padding:var(--s-4) var(--s-5);min-height:56px;display:flex;align-items:center;gap:var(--s-3);font-family:var(--font-display);font-size:24px;font-weight:700;color:var(--ink)}
+.guidebox>summary::-webkit-details-marker{display:none}
+.guidebox>summary::after{content:"Show";margin-left:auto;font-family:var(--font-body);font-size:13px;font-weight:600;color:var(--teal);border:1px solid var(--teal);border-radius:var(--r-pill);padding:6px 14px}
+.guidebox[open]>summary::after{content:"Hide"}
+.guidebox .gin{padding:0 var(--s-5) var(--s-5)}
+.guidebox .chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:var(--s-3)}
+.guidebox .chips a{font-size:13px;font-weight:600;color:var(--teal-dark);background:var(--teal-muted);border-radius:var(--r-pill);padding:10px 14px;min-height:44px;display:inline-flex;align-items:center}
+.guidebox .step{padding-top:var(--s-5)}
+.guidebox .step h2{font-size:30px}
+.guidebox .step-num{font-size:30px}
+@media print{.guidebox{display:none!important}}
+
+</style></head><body class="mmm-grain">
+<a class="skip" href="#plan">Skip to your plan</a>
+<header class="top">
+  <div class="wrap">
+    <div class="brand">Muscle-Meta Matrix™<small>The Oxygen Engine</small></div>
+    <nav class="nav" aria-label="Sections">
+      <a href="#guide">Guide</a><a href="#safety">Safety</a><a href="#level">Level</a><a href="#zones">Zones</a><a href="#plan">Plan</a><a href="#tests">Re-tests</a><a href="#keep">Save</a>
+    </nav>
+  </div>
+</header>
+
+<div class="app">
+<div class="wrap">
+  <div class="hero">
+    <span class="eyebrow">Oxygen Engine · Training program</span>
+    <h1>Your 12-week <em>aerobic</em> training plan</h1>
+    <p class="lede">An easy base first, harder efforts only when you are ready, and a re-test at weeks 6 and 12 so you can see what changed. Choose the level that fits where you are today, and move between levels if your body asks you to.</p>
+    <div class="hero-meta">
+      <span class="tag"><i style="background:var(--tier-2)"></i>Gentle start</span>
+      <span class="tag"><i style="background:var(--teal)"></i>Beginner</span>
+      <span class="tag"><i style="background:var(--gold)"></i>Advanced</span>
+      <span class="tag">Saved on your device only</span>
+    </div>
+    <p class="micro" style="margin-top:var(--s-4);max-width:62ch">Educational content, not medical advice. It does not diagnose and it is not a substitute for care from your physician or physical therapist.</p>
+  </div>
+
+<details class="guidebox" id="guide"><summary>How to use this plan</summary><div class="gin"><p class="micro">Seven short sections. Open any one when you need it.</p><div class="chips" role="navigation" aria-label="Guide sections"><a href="#g1">A. The plan in one minute</a><a href="#g2">B. Safety and level</a><a href="#g3">C. Working through weeks</a><a href="#g4">D. Weekly check</a><a href="#g5">E. Re-tests</a><a href="#g6">F. Saving progress</a><a href="#g7">G. Quick fixes</a></div><section class="step" id="g1"><div class="step-head"><span class="step-num">A</span><h2>The plan in one minute</h2></div>
+    <div class="card">
+      <p>The plan runs 12 weeks. You build an easy aerobic base first, add a few harder efforts only when you are ready, and re-test in weeks 6 and 12 to see what changed.</p>
+      <p style="margin-top:var(--s-3)">Open the plan file in any browser on your phone, tablet or computer. Work through it top to bottom the first time:</p>
+      <ol class="how"><li><b>Safety check</b> (step 1)</li><li><b>Find your level</b> (step 2)</li><li><b>Effort zones</b> (step 3)</li><li><b>Your plan</b> (step 4), then the <b>Re-tests</b> (step 5)</li><li><b>Keep your progress</b> (step 6)</li></ol>
+      <p class="micro">After that, you will mostly live in step 4, Your plan.</p>
+    </div></section>
+
+  <section class="step" id="g2"><div class="step-head"><span class="step-num">B</span><h2>Safety check and level</h2></div>
+    <div class="card">
+      <h3 class="h3s">Safety check</h3>
+      <p>Answer six yes or no questions about the past three months. The plan stays closed until you do.</p>
+      <ul class="how"><li><b>Nothing flagged:</b> you move straight on.</li><li><b>A clinician flag</b> (chest pain, dizziness, a limiting condition, recent surgery): take the plan to your physician or physical therapist first. Tick the box once they have reviewed it, and the plan opens.</li><li><b>Wiped out for a day or more after ordinary effort:</b> this progressive plan is not the right path yet. The page explains a gentler, pacing-first approach.</li></ul>
+      <h3 class="h3s">Choose your level</h3>
+      <p>Three quick questions suggest a level. You can pick a different one, and you can change it later.</p>
+      <ul class="how"><li><b>Gentle start:</b> easy minutes only, no hard efforts, 35 to 70 minutes a week. Best if you are returning after a long break or exertion leaves you breathless.</li><li><b>Beginner:</b> 3 sessions a week, one short interval session from week 5.</li><li><b>Advanced:</b> 4 sessions a week, intervals from week 3, and a second interval day later in the plan. Best if you already train regularly.</li></ul>
+      <p class="micro">When unsure, pick the lower level. Finishing a plan that fits beats struggling through one that does not.</p>
+    </div></section>
+
+  <section class="step" id="g3"><div class="step-head"><span class="step-num">C</span><h2>Working through your weeks</h2></div>
+    <div class="card">
+      <h3 class="h3s">Effort zones first</h3>
+      <p>Enter your age to see your estimated maximum heart rate and zone table. If you take a beta blocker or another medicine that slows your heart rate, tick the box and ignore heart rate numbers. Use effort out of ten and the talk test instead.</p>
+      <ul class="how"><li><b>Easy sessions:</b> you can speak in full sentences. This is most of the plan, and it is meant to feel comfortable.</li><li><b>Hard intervals:</b> short rounds where you can only say a few words. They are always followed by easy recovery.</li></ul>
+      <h3 class="h3s">Using the week view</h3>
+      <ul class="how"><li>The bar chart shows all 12 weeks. Tap a week to open it. Teal is easy minutes, orange is hard minutes.</li><li>Each week lists its sessions with the day suggested. Tap <b>Show steps</b> on a session to see the warm-up, the main work and the cool-down.</li><li>Tick a session when you finish it. The progress bar counts your ticks.</li><li>Set a <b>First Monday</b> date if you want weeks tied to the calendar. It is optional.</li><li>The days are suggestions. Moving a session by a day is fine. Doing two hard days back to back is not.</li></ul>
+      <div class="banner b-info"><h4>Intervals start only after a clear weekly check</h4><p>In the first interval week, the plan tells you if your previous check was not clear. You can use the easy version of that week and start intervals the week after.</p></div>
+    </div></section>
+
+  <section class="step" id="g4"><div class="step-head"><span class="step-num">D</span><h2>The weekly check</h2></div>
+    <div class="card">
+      <p>At the bottom of each week is a five-minute check, meant for Sunday. Answer four things: morning pulse compared with usual, energy out of ten, whether joints are sore, and whether your easy days stayed easy. Then press <b>Check my week</b>.</p>
+      <ul class="how"><li><b>Green light:</b> move on to next week as planned.</li><li><b>Hold steady:</b> one warning sign. Repeat this week once, then check again.</li><li><b>Pull back:</b> two or more signs. Use the <b>easy version</b> of next week, about a third less volume and no intervals, then resume.</li></ul>
+      <p class="micro" style="margin-top:var(--s-3)">Stepping back is part of the plan, not a failure. The notes box under each week is for anything you want to remember or tell your clinician.</p>
+    </div></section>
+
+  <section class="step" id="g5"><div class="step-head"><span class="step-num">E</span><h2>Re-tests</h2></div>
+    <div class="card">
+      <p>Two simple measures show whether the plan is working: the six-minute walk distance, and your resting heart rate taken in bed the same morning.</p>
+      <ol class="how"><li>Do a <b>baseline</b> before week 1.</li><li>Repeat in <b>week 6</b> and <b>week 12</b> (the plan marks those weeks).</li><li>Use the same route or machine, the same time of day, and similar footwear.</li><li>Walk the whole six minutes, no jogging. Stop for chest pain, dizziness or unusual breathlessness.</li></ol>
+      <p>Type your results into the Re-tests cards. Distances in yards are converted to meters, and the page shows the change against your baseline.</p>
+    </div></section>
+
+  <section class="step" id="g6"><div class="step-head"><span class="step-num">F</span><h2>How to save your progress</h2></div>
+    <div class="card">
+      <p>There is no account and no sign-in. Your ticks, weekly checks, notes and test results are saved automatically in the browser you are using, on that device. Nothing is sent anywhere.</p>
+      <h3 class="h3s">The four buttons in step 6</h3>
+      <ul class="how"><li><b>Print or save as PDF:</b> makes a clean one-page-per-week sheet for the fridge. In the print window, choose Save as PDF to keep a copy.</li><li><b>Download my progress:</b> saves a small file to your device. Do this every few weeks as a backup, and before switching devices.</li><li><b>Load saved progress:</b> pick that file to restore everything. Use it on a new phone, a new computer or after clearing your browser.</li><li><b>Start over:</b> erases everything. It asks you to press twice, so it cannot happen by accident.</li></ul>
+      <div class="banner b-warn"><h4>Know when your progress can disappear</h4><p>Progress is tied to one browser on one device. It can be lost if you clear browsing data, use a private or incognito window, or open the plan in a different browser or on another device. Download your progress file regularly and you can always restore it.</p></div>
+      <h3 class="h3s">Moving to another device</h3>
+      <ol class="how"><li>On the old device, press <b>Download my progress</b>.</li><li>Send the file to yourself by email or cloud storage.</li><li>Open the plan on the new device and press <b>Load saved progress</b>.</li></ol>
+    </div></section>
+
+  <section class="step" id="g7"><div class="step-head"><span class="step-num">G</span><h2>Quick fixes</h2></div>
+    <div class="card">
+      <dl class="faq">
+        <dt>The plan will not open.</dt><dd>Finish the safety check and choose a level. If a clinician flag appears, tick the review box.</dd>
+        <dt>I missed a few days or a week.</dt><dd>Pick up at the same week, not the next one. After more than a week away, drop back one week.</dd>
+        <dt>I changed my mind about my level.</dt><dd>Choose another level card in step 2. Your plan view switches. Tick marks are saved per level.</dd>
+        <dt>My progress disappeared.</dt><dd>Check you are in the same browser and not a private window, then try <b>Load saved progress</b> with your latest download.</dd>
+        <dt>A session felt too hard.</dt><dd>Slow down, shorten the intervals or skip them, and do the weekly check. The easy version of a week is always available.</dd>
+        <dt>I have chest pain, dizziness or unusual breathlessness.</dt><dd>Stop. Contact your physician before continuing.</dd>
+      </dl>
+    </div></section></div></details>
+  <!-- 1 SAFETY -->
+  <section class="step" id="safety" aria-labelledby="h-safety">
+    <div class="step-head"><span class="step-num">1</span><h2 id="h-safety">Safety check</h2></div>
+    <p class="intro">The plan screens before it prescribes. Answer for the past three months. Your answers stay in this file and are not sent anywhere.</p>
+    <div class="card">
+      <form id="safetyForm" autocomplete="off"><fieldset><legend class="micro" style="margin-bottom:var(--s-3)">In the past three months, have you had any of these?</legend><div id="safetyQs"></div></fieldset></form>
+      <div id="safetyResult" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- 2 LEVEL -->
+  <section class="step" id="level" aria-labelledby="h-level">
+    <div class="step-head"><span class="step-num">2</span><h2 id="h-level">Find your level</h2></div>
+    <p class="intro">Three quick questions suggest a starting level. You can choose a different one, and the weekly check at the end of each week tells you when to step back.</p>
+    <div class="card">
+      <form id="levelForm" autocomplete="off"><div id="levelQs"></div></form>
+      <div id="levelRec" aria-live="polite"></div>
+      <div class="levels" id="levelCards" role="radiogroup" aria-label="Training level"></div>
+      <div id="levelNote" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- 3 ZONES -->
+  <section class="step" id="zones" aria-labelledby="h-zones">
+    <div class="step-head"><span class="step-num">3</span><h2 id="h-zones">Your effort zones</h2></div>
+    <p class="intro">Effort is judged three ways: how it feels out of ten, whether you can talk, and heart rate if your medicines allow it. The talk test and the ten-point scale always work.</p>
+    <div class="card">
+      <div class="row">
+        <div><label class="f" for="age">Your age</label><input type="number" id="age" min="40" max="100" inputmode="numeric" placeholder="For example 60"></div>
+        <div><span class="micro">Estimated maximum heart rate</span><div class="big" id="hrmax">–</div><span class="micro">beats per minute</span></div>
+      </div>
+      <label class="chk" for="beta"><input type="checkbox" id="beta"><span>I take a beta blocker or another medicine that slows my heart rate. <span class="micro">Use effort and the talk test instead of heart rate.</span></span></label>
+      <p class="micro" style="margin-top:var(--s-3)">Maximum heart rate uses the Tanaka formula, 208 minus 0.7 times age, which fits adults over 50 better than 220 minus age.</p>
+      <div class="tw"><table id="zoneTable"></table></div>
+    </div>
+  </section>
+
+  <!-- 4 PLAN -->
+  <section class="step" id="plan" aria-labelledby="h-plan">
+    <div class="step-head"><span class="step-num">4</span><h2 id="h-plan">Your plan</h2></div>
+    <div id="planGate"></div>
+    <div id="planBody" class="hide">
+      <p class="intro" id="planIntro"></p>
+      <div class="card">
+        <div class="weekhead">
+          <div class="stats" id="planStats"></div>
+          <div style="min-width:210px;max-width:260px;flex:1">
+            <label class="f" for="startDate">First Monday (optional)</label>
+            <input type="date" id="startDate">
+          </div>
+        </div>
+        <div class="prog" aria-hidden="true"><i id="progBar" style="width:0"></i></div>
+        <p class="micro" id="progText" style="margin-top:6px"></p>
+        <div class="overview" id="overview" role="group" aria-label="Choose a week"></div>
+        <div class="legend"><span class="l-easy">Easy minutes</span><span class="l-hard">Hard minutes</span></div>
+      </div>
+      <div class="card" id="weekCard"></div>
+    </div>
+  </section>
+
+  <!-- 5 TESTS -->
+  <section class="step" id="tests" aria-labelledby="h-tests">
+    <div class="step-head"><span class="step-num">5</span><h2 id="h-tests">Re-tests</h2></div>
+    <p class="intro">The six-minute walk and your morning resting heart rate show whether the plan is working. Do a baseline before week 1, then repeat in weeks 6 and 12 on the same route or machine, at the same time of day.</p>
+    <div class="card">
+      <ol style="margin:0;padding-left:20px;font-size:15px">
+        <li>Warm up with easy walking.</li>
+        <li>Walk for six minutes, covering as much ground as you comfortably can. Walk the whole time, do not jog.</li>
+        <li>Note the distance. Take your resting heart rate the same morning, before getting up.</li>
+        <li>Stop if you have chest pain, dizziness, or unusual shortness of breath.</li>
+      </ol>
+      <div class="tests" id="testCards"></div>
+      <div id="testSummary" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- 6 KEEP -->
+  <section class="step" id="keep" aria-labelledby="h-keep">
+    <div class="step-head"><span class="step-num">6</span><h2 id="h-keep">Keep your progress</h2></div>
+    <div class="card">
+      <p>Your ticks, weekly checks and test results are stored in this browser on this device. Nothing is sent anywhere. Print the plan for the fridge, or save a copy of your progress to move it to another device.</p>
+      <p class="micro">Need a refresher? See <a href="#g6">guide section F, how to save your progress</a>.</p><p class="savestate" id="saveState" style="margin-top:var(--s-3)"></p>
+      <div class="btn-row" style="margin-top:var(--s-4)">
+        <button class="mmm-btn mmm-btn-primary" id="btnPrint" type="button">Print or save as PDF</button>
+        <button class="mmm-btn mmm-btn-ghost" id="btnExport" type="button">Download my progress</button>
+        <label class="mmm-btn mmm-btn-ghost" for="importFile" style="cursor:pointer">Load saved progress</label>
+        <input type="file" id="importFile" accept=".json,application/json" class="hide">
+        <button class="mmm-btn mmm-btn-ghost" id="btnReset" type="button">Start over</button>
+      </div>
+      <p class="micro" id="keepMsg" aria-live="polite" style="margin-top:var(--s-3)"></p>
+    </div>
+  </section>
+
+  <footer>
+    <p><b style="color:var(--ink)">Where the numbers come from.</b> Zones use the Tanaka maximum-heart-rate equation. The hard intervals follow the 4 by 4 format studied in Norwegian trials. Weekly progression, the weekly check and the level rules are Muscle-Meta Matrix™ clinical guidance, built for adults over 50.</p>
+    <ol class="cites" style="margin-top:var(--s-3)">
+      <li>Tanaka H, Monahan KD, Seals DR. Age-predicted maximal heart rate revisited. J Am Coll Cardiol. 2001;37(1):153–156. PMID 11153730. Evidence grade: Established.</li>
+      <li>Helgerud J, Høydal K, Wang E, et al. Aerobic high-intensity intervals improve VO₂max more than moderate training. Med Sci Sports Exerc. 2007;39(4):665–671. PMID 17414804. Evidence grade: Promising, a small trial in healthy young men.</li>
+      <li>Stensvold D, Viken H, Steinshamn SL, et al. Effect of exercise training for five years on all cause mortality in older adults, the Generation 100 study. BMJ. 2020;371:m3485. PMID 33028588. Evidence grade: Promising.</li>
+      <li>Burr JF, Bredin SSD, Faktor MD, Warburton DER. The 6-minute walk test as a predictor of objectively measured aerobic fitness in healthy working-aged adults. Phys Sportsmed. 2011;39(2):133–139. PMID 21673494. Evidence grade: Promising, a small validation sample.</li>
+    </ol>
+    <p style="margin-top:var(--s-4)">Educational content, not medical advice. <a href="https://muscle-meta.com/legal/medical-disclaimer/">Read the medical disclaimer</a>. Part of <a href="https://muscle-meta.com/courses/oxygen-engine/">The Oxygen Engine</a> course by Randy Bauer, PT, at <a href="https://muscle-meta.com/">muscle-meta.com</a>.</p>
+    <p style="margin-top:var(--s-3)">© Muscle-Meta Matrix™. Free to use for your own training. Please do not redistribute edited copies.</p>
+  </footer>
+</div>
+</div>
+
+<div id="printSheet" aria-hidden="true"></div>
+
+<script>
+(function () {
+'use strict';
+
+/* ================= DATA ================= */
+var DAYS = { 1: 'Mon', 3: 'Wed', 5: 'Fri', 6: 'Sat', 7: 'Sun' };
+var DAYFULL = { 1: 'Monday', 3: 'Wednesday', 5: 'Friday', 6: 'Saturday' };
+function z(m) { return { t: 'z2', m: m }; }
+function it(r) { return { t: 'int', r: r }; }
+var SHORT = { t: 'short' };
+var TEST = { t: 'test' };
+
+var TRACKS = {
+  gentle: {
+    name: 'Gentle start', color: 'var(--tier-2)', days: [1, 3, 5], testMin: 16, firstInt: null,
+    blurb: 'Short, easy sessions that build a base without hard efforts.',
+    points: ['3 sessions a week, 35 to 70 minutes in total', 'Easy effort throughout: you can talk in full sentences', 'No hard intervals. Finish, then move up to Beginner'],
+    hard: null,
+    weeks: [
+      ['Base', [z(10), z(10), z(15)]], ['Base', [z(10), z(15), z(15)]], ['Base', [z(15), z(15), z(15)]],
+      ['Lighter week', [z(10), z(10), z(15)]], ['Build', [z(15), z(15), z(20)]], ['Re-test', [z(15), z(15), TEST]],
+      ['Build', [z(15), z(20), z(20)]], ['Lighter week', [z(15), z(15), z(15)]], ['Build', [z(20), z(20), z(20)]],
+      ['Build', [z(20), z(20), z(25)]], ['Peak', [z(20), z(25), z(25)]], ['Taper and final test', [z(20), z(20), TEST]]
+    ]
+  },
+  beginner: {
+    name: 'Beginner', color: 'var(--teal)', days: [1, 3, 5], testMin: 21, firstInt: 5,
+    blurb: 'An easy base, then one interval session a week from week 5.',
+    points: ['3 sessions a week, 60 to 100 minutes in total', 'Hard efforts at 80 to 90% of maximum, 7 to 8 out of 10', 'One interval session a week, from week 5'],
+    hard: { lo: 80, hi: 90, rpe: '7 to 8' },
+    weeks: [
+      ['Base', [z(20), z(20), z(25)]], ['Base', [z(20), z(25), z(25)]], ['Base', [z(25), z(25), z(25)]],
+      ['Lighter week', [z(20), z(20), z(20)]], ['First intervals', [z(25), it(2), z(25)]], ['Re-test', [z(25), it(3), TEST]],
+      ['Build', [z(25), it(3), z(25)]], ['Lighter week', [z(20), it(2), z(20)]], ['Full intervals', [z(25), it(4), z(25)]],
+      ['Build', [z(30), it(4), z(25)]], ['Peak', [z(30), it(4), z(30)]], ['Taper and final test', [z(25), it(3), TEST]]
+    ]
+  },
+  advanced: {
+    name: 'Advanced', color: 'var(--gold)', days: [1, 3, 5, 6], testMin: 21, firstInt: 3,
+    blurb: 'Four sessions a week, intervals from week 3, and a second interval day from week 7.',
+    points: ['4 sessions a week, 100 to 162 minutes in total', 'Hard efforts at 85 to 95% of maximum, 8 to 9 out of 10', 'One interval session a week, two from week 7'],
+    hard: { lo: 85, hi: 95, rpe: '8 to 9' },
+    weeks: [
+      ['Base', [z(25), z(25), z(40), z(25)]], ['Base', [z(30), z(30), z(40), z(25)]], ['First intervals', [z(30), it(3), z(40), z(25)]],
+      ['Lighter week', [z(25), it(2), z(30), z(20)]], ['Full intervals', [z(30), it(4), z(40), z(25)]], ['Re-test', [z(30), it(4), z(40), TEST]],
+      ['Second interval day', [z(30), it(4), z(40), SHORT]], ['Lighter week', [z(25), it(3), z(35), z(25)]], ['Build', [z(30), it(4), z(45), SHORT]],
+      ['Build', [z(35), it(4), z(45), SHORT]], ['Peak', [z(35), it(4), z(50), SHORT]], ['Taper and final test', [z(30), it(3), z(40), TEST]]
+    ]
+  }
+};
+
+var SAFETY = [
+  { id: 's1', kind: 'review', q: 'Chest pain, pressure or tightness during activity' },
+  { id: 's2', kind: 'review', q: 'Dizziness, fainting, or unusual shortness of breath during activity' },
+  { id: 's3', kind: 'review', q: 'A heart, lung or blood-pressure condition that limits your activity, or advice from a physician to avoid exercise' },
+  { id: 's4', kind: 'pacing', q: 'Feeling wiped out for a day or more after ordinary exertion, as if you had used up your energy' },
+  { id: 's5', kind: 'review', q: 'A recent surgery, or a joint that is unstable or has newly got worse' },
+  { id: 's6', kind: 'beta', q: 'Taking a beta blocker or another medicine that slows your heart rate' }
+];
+
+var LEVELQ = [
+  { id: 'q1', q: 'In the past 8 weeks, how many days a week did you do 30 minutes or more of brisk walking, cycling, swimming or similar?',
+    o: [['0', '0 or 1 days'], ['1', '2 days'], ['2', '3 or more days']] },
+  { id: 'q2', q: 'Right now, how long could you keep going at a pace where you can still talk in full sentences?',
+    o: [['0', 'Under 15 minutes'], ['1', '15 to 29 minutes'], ['2', '30 minutes or more']] },
+  { id: 'q3', q: 'How do everyday tasks, such as a flight of stairs, feel?',
+    o: [['0', 'They often leave me breathless or drained'], ['1', 'Manageable, but tiring'], ['2', 'Comfortable']] }
+];
+
+var AUDITFLAGS = {
+  trend: 'your morning pulse is up more than five beats from usual',
+  energy: 'your energy is sitting at four out of ten or below',
+  joint: 'joint soreness lingered past twenty-four hours',
+  pace: 'your easy sessions drifted harder than intended'
+};
+
+/* ================= STATE ================= */
+var KEY = 'mm-oxygen-engine-12wk-v1';
+var mem = null;
+var storeOK = true;
+function load() {
+  try { var s = window.localStorage.getItem(KEY); if (s) return JSON.parse(s); } catch (e) { storeOK = false; }
+  return mem ? JSON.parse(mem) : null;
+}
+function persist() {
+  var s = JSON.stringify(S);
+  mem = s;
+  try { window.localStorage.setItem(KEY, s); storeOK = true; } catch (e) { storeOK = false; }
+  renderSaveState();
+}
+function blank() {
+  return { safety: {}, safetyAck: false, lvlAns: {}, level: null, age: '', beta: false, start: '',
+    sel: 1, checks: {}, audits: {}, modes: {}, notes: {}, tests: {} };
+}
+var S = load() || blank();
+function fix() { var b = blank(); for (var k in b) if (!(k in S)) S[k] = b[k]; }
+fix();
+
+/* ================= HELPERS ================= */
+function $(id) { return document.getElementById(id); }
+function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+function round5(n) { return Math.round(n / 5) * 5; }
+function maxHR() { var a = parseInt(S.age, 10); if (!a || a < 30 || a > 110) return null; return Math.round(208 - 0.7 * a); }
+function useHR() { return !S.beta && !!maxHR(); }
+function hrText(lo, hi) {
+  var pct = lo + '–' + hi + '% of max';
+  if (useHR()) { var m = maxHR(); return pct + ' (' + Math.round(m * lo / 100) + '–' + Math.round(m * hi / 100) + ' bpm)'; }
+  return pct;
+}
+function minutes(trk, s) {
+  if (s.t === 'z2' || s.t === 'ez') return s.m;
+  if (s.t === 'int') return 7 * s.r + 12;
+  if (s.t === 'short') return 37;
+  if (s.t === 'test') return trk.testMin;
+  return 0;
+}
+function hardMin(s) { return s.t === 'int' ? 4 * s.r : s.t === 'short' ? 12 : 0; }
+function sessionsFor(level, w) {
+  var trk = TRACKS[level];
+  var base = trk.weeks[w - 1][1];
+  if ((S.modes[level + ':' + w]) !== 'easy') return base.map(function (s) { return s; });
+  return base.map(function (s) {
+    if (s.t === 'test') return { t: 'ez', m: 15, postponed: true };
+    var tot = minutes(trk, s);
+    return { t: 'ez', m: Math.max(10, round5(tot * 2 / 3)) };
+  });
+}
+function weekTotals(level, w) {
+  var trk = TRACKS[level], list = sessionsFor(level, w), t = 0, h = 0;
+  list.forEach(function (s) { t += minutes(trk, s); h += hardMin(s); });
+  return { total: t, hard: h };
+}
+function sessionTitle(trk, s) {
+  if (s.t === 'z2') return 'Zone 2 base, ' + s.m + ' min';
+  if (s.t === 'ez') return 'Easy movement, ' + s.m + ' min';
+  if (s.t === 'int') return s.r + ' hard rounds, ' + minutes(trk, s) + ' min';
+  if (s.t === 'short') return 'Short intervals, 37 min';
+  return 'Six-minute walk re-test, ' + trk.testMin + ' min';
+}
+function kindBadge(s) {
+  if (s.t === 'z2') return '<span class="badge k-z2">Easy base</span>';
+  if (s.t === 'ez') return '<span class="badge k-ez">Easy version</span>';
+  if (s.t === 'test') return '<span class="badge k-test">Re-test</span>';
+  return '<span class="badge k-hard">Intervals</span>';
+}
+function steps(level, s) {
+  var trk = TRACKS[level], h = trk.hard, out = [];
+  var easyTalk = 'Full, unbroken sentences';
+  var zoneHR = level === 'gentle' ? hrText(50, 70) : hrText(60, 70);
+  var zoneEff = level === 'gentle' ? '3 to 4 out of 10' : '4 to 5 out of 10';
+  var z1 = { eff: '2 to 3 out of 10', hr: hrText(50, 60), talk: 'Easy conversation' };
+  if (s.t === 'z2') {
+    out.push({ l: 'Easy start', m: 3, eff: z1.eff, hr: z1.hr, talk: z1.talk });
+    out.push({ l: level === 'gentle' ? 'Steady easy pace' : 'Steady Zone 2', m: s.m - 5, eff: zoneEff, hr: zoneHR, talk: easyTalk });
+    out.push({ l: 'Easy finish', m: 2, eff: z1.eff, hr: z1.hr, talk: z1.talk });
+  } else if (s.t === 'ez') {
+    out.push({ l: 'Easy start', m: 3, eff: z1.eff, hr: z1.hr, talk: z1.talk });
+    out.push({ l: 'Easy movement', m: s.m - 5, eff: '2 to 4 out of 10', hr: hrText(50, 65), talk: 'Easy conversation' });
+    out.push({ l: 'Easy finish', m: 2, eff: z1.eff, hr: z1.hr, talk: z1.talk });
+  } else if (s.t === 'int') {
+    out.push({ l: 'Warm-up, building gradually', m: 10, eff: '2 to 5 out of 10', hr: hrText(50, 70), talk: 'Sentences, then slightly shorter' });
+    out.push({ l: s.r + ' rounds of 4 min hard and 3 min easy, no easy after the last', m: 7 * s.r - 3,
+      eff: 'Hard ' + h.rpe + ' out of 10. Easy 3 to 4', hr: 'Hard ' + hrText(h.lo, h.hi) + '. Easy Zone 1 to 2', talk: 'Hard: one or two words. Easy: sentences return' });
+    out.push({ l: 'Cool-down', m: 5, eff: '2 to 3 out of 10', hr: hrText(50, 60), talk: 'Easy conversation' });
+  } else if (s.t === 'short') {
+    out.push({ l: 'Warm-up, building gradually', m: 10, eff: '2 to 5 out of 10', hr: hrText(50, 70), talk: 'Sentences, then slightly shorter' });
+    out.push({ l: '6 rounds of 2 min hard and 2 min easy, no easy after the last', m: 22, eff: 'Hard 8 out of 10. Easy 3 to 4', hr: 'Hard ' + hrText(85, 90) + '. Easy Zone 1 to 2', talk: 'Hard: a few words. Easy: sentences return' });
+    out.push({ l: 'Cool-down', m: 5, eff: '2 to 3 out of 10', hr: hrText(50, 60), talk: 'Easy conversation' });
+  } else {
+    var wu = level === 'gentle' ? 5 : 10;
+    out.push({ l: 'Warm-up with easy walking', m: wu, eff: '2 to 4 out of 10', hr: hrText(50, 65), talk: 'Easy conversation' });
+    out.push({ l: 'Six-minute walk, as far as is comfortable', m: 6, eff: 'Brisk and steady, walking only', hr: '–', talk: 'Short sentences' });
+    out.push({ l: 'Cool-down', m: 5, eff: '2 to 3 out of 10', hr: hrText(50, 60), talk: 'Easy conversation' });
+  }
+  return out;
+}
+function auditKey(level, w) { return level + ':' + w; }
+function auditResult(a) {
+  var f = [];
+  if (a.trend === 'elevated') f.push(AUDITFLAGS.trend);
+  if (a.energy <= 4) f.push(AUDITFLAGS.energy);
+  if (a.joint === 'yes') f.push(AUDITFLAGS.joint);
+  if (a.pace === 'no') f.push(AUDITFLAGS.pace);
+  return f;
+}
+function weekDate(w) {
+  if (!S.start) return '';
+  var p = S.start.split('-'); if (p.length !== 3) return '';
+  var d = new Date(+p[0], +p[1] - 1, +p[2] + 7 * (w - 1));
+  if (isNaN(d)) return '';
+  return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+}
+
+/* ================= SAFETY ================= */
+function safetyStatus() {
+  var ans = S.safety, answered = 0, review = false, pacing = false;
+  SAFETY.forEach(function (q) {
+    if (ans[q.id] === 'yes' || ans[q.id] === 'no') answered++;
+    if (ans[q.id] === 'yes') { if (q.kind === 'review') review = true; if (q.kind === 'pacing') pacing = true; }
+  });
+  if (answered < SAFETY.length) return 'open';
+  if (pacing) return 'pacing';
+  if (review) return S.safetyAck ? 'cleared' : 'review';
+  return 'clear';
+}
+function renderSafety() {
+  var box = $('safetyQs');
+  if (!box.firstChild) {
+    box.innerHTML = SAFETY.map(function (q) {
+      return '<div class="q"><span class="qt" id="' + q.id + 'l">' + esc(q.q) + '</span><div class="choices" role="radiogroup" aria-labelledby="' + q.id + 'l">' +
+        '<label class="choice"><input type="radio" name="' + q.id + '" value="no"><span>No</span></label>' +
+        '<label class="choice"><input type="radio" name="' + q.id + '" value="yes"><span>Yes</span></label></div></div>';
+    }).join('');
+    box.addEventListener('change', function (e) {
+      var t = e.target; if (t.type !== 'radio') return;
+      S.safety[t.name] = t.value;
+      if (t.name === 's6') { S.beta = t.value === 'yes'; $('beta').checked = S.beta; }
+      S.safetyAck = false;
+      persist(); renderAll();
+    });
+  }
+  SAFETY.forEach(function (q) {
+    var v = S.safety[q.id];
+    var ins = document.getElementsByName(q.id);
+    for (var i = 0; i < ins.length; i++) ins[i].checked = ins[i].value === v;
+  });
+  var st = safetyStatus(), r = $('safetyResult'), h = '';
+  if (st === 'open') h = '<p class="micro" style="margin-top:var(--s-4)">Answer all six questions to continue.</p>';
+  else if (st === 'clear') h = '<div class="banner b-ok"><h4>Nothing in your answers holds the plan back</h4><p>Choose your level next. Stop any session for chest pain, dizziness, or unusual shortness of breath.</p></div>';
+  else if (st === 'cleared') h = '<div class="banner b-ok"><h4>Plan opened with your clinician’s review</h4><p>Stop any session for chest pain, dizziness, or unusual shortness of breath, and tell your clinician about it.</p></div>';
+  else if (st === 'review') h = '<div class="banner b-warn"><h4>Check in with your clinician before you start</h4><p>One or more answers mean a physician or physical therapist should review your starting point first. Take this plan to that visit.</p>' +
+    '<label class="chk" for="ack"><input type="checkbox" id="ack"><span>My physician or physical therapist has reviewed this plan and said I can start.</span></label></div>';
+  else h = '<div class="banner b-stop"><h4>This progressive plan is not the right path for you right now</h4><p>Feeling wiped out for a day or more after ordinary effort calls for pacing rather than building. Keep movement short and gentle, stay well below breathlessness, stop before you feel you have used up the day’s energy, and track how you feel the next morning. Talk to your physician before adding any interval work.</p></div>';
+  r.innerHTML = h;
+  var ack = $('ack');
+  if (ack) ack.addEventListener('change', function () { S.safetyAck = ack.checked; persist(); renderAll(); });
+}
+function planOpen() { var s = safetyStatus(); return (s === 'clear' || s === 'cleared') && !!S.level; }
+
+/* ================= LEVEL ================= */
+function recommended() {
+  var a = S.lvlAns; if (a.q1 == null || a.q2 == null || a.q3 == null) return null;
+  var p1 = +a.q1, p2 = +a.q2, p3 = +a.q3, tot = p1 + p2 + p3;
+  if (tot <= 2) return 'gentle';
+  if (p1 === 2 && p2 === 2 && p3 >= 1) return 'advanced';
+  return 'beginner';
+}
+function renderLevel() {
+  var qb = $('levelQs');
+  if (!qb.firstChild) {
+    qb.innerHTML = LEVELQ.map(function (q) {
+      return '<div class="q"><span class="qt" id="' + q.id + 'l">' + esc(q.q) + '</span><div class="choices stack" role="radiogroup" aria-labelledby="' + q.id + 'l">' +
+        q.o.map(function (o) { return '<label class="choice"><input type="radio" name="' + q.id + '" value="' + o[0] + '"><span>' + esc(o[1]) + '</span></label>'; }).join('') + '</div></div>';
+    }).join('');
+    qb.addEventListener('change', function (e) {
+      var t = e.target; if (t.type !== 'radio') return;
+      S.lvlAns[t.name] = t.value;
+      var rec = recommended(); if (rec) S.level = rec;
+      persist(); renderAll();
+    });
+    var cards = $('levelCards');
+    cards.innerHTML = ['gentle', 'beginner', 'advanced'].map(function (k) {
+      var t = TRACKS[k];
+      return '<label class="lvl" data-k="' + k + '"><input type="radio" name="lvl" value="' + k + '"><span class="rec hide">Suggested for you</span><h4>' + t.name + '</h4><div class="sub">' + esc(t.blurb) + '</div><ul>' +
+        t.points.map(function (p) { return '<li>' + esc(p) + '</li>'; }).join('') + '</ul></label>';
+    }).join('');
+    cards.addEventListener('change', function (e) {
+      var t = e.target; if (t.name !== 'lvl') return;
+      S.level = t.value; S.sel = 1; persist(); renderAll();
+    });
+  }
+  LEVELQ.forEach(function (q) {
+    var ins = document.getElementsByName(q.id), v = S.lvlAns[q.id];
+    for (var i = 0; i < ins.length; i++) ins[i].checked = ins[i].value === v;
+  });
+  var rec = recommended();
+  var cards = document.querySelectorAll('#levelCards .lvl');
+  for (var i = 0; i < cards.length; i++) {
+    var k = cards[i].getAttribute('data-k');
+    cards[i].querySelector('input').checked = S.level === k;
+    cards[i].querySelector('.rec').classList.toggle('hide', rec !== k);
+  }
+  var rb = $('levelRec');
+  rb.innerHTML = rec ? '<div class="banner b-info"><h4>Suggested starting level: ' + TRACKS[rec].name + '</h4><p>Based on your answers. You can choose a different level below.</p></div>' : '';
+  var ln = $('levelNote'), n = '';
+  if (S.level && rec && S.level !== rec) {
+    var order = { gentle: 0, beginner: 1, advanced: 2 };
+    n = order[S.level] > order[rec]
+      ? '<div class="banner b-warn"><h4>You chose a level above the suggestion</h4><p>That is your call. The weekly check at the end of each week will tell you when to repeat a week or step down.</p></div>'
+      : '<div class="banner b-info"><h4>You chose a gentler level than suggested</h4><p>That is a sound way to start. Once a week feels easy, you can move up to the next level.</p></div>';
+  }
+  ln.innerHTML = n;
+}
+
+/* ================= ZONES ================= */
+function renderZones() {
+  var m = maxHR();
+  $('hrmax').textContent = (m && !S.beta) ? m : (S.beta ? 'Not used' : '–');
+  var lvl = S.level || 'beginner', h = TRACKS[lvl].hard;
+  var rows = [
+    ['var(--tier-2)', 'Zone 1, easy start and finish', 50, 60, '2 to 3', 'Easy conversation'],
+    ['var(--tier-1)', 'Zone 2, the base', 60, 70, '4 to 5', 'Full, unbroken sentences']
+  ];
+  if (lvl === 'gentle') rows[1] = ['var(--tier-1)', 'Easy base (Zone 1 to 2)', 50, 70, '3 to 4', 'Full, unbroken sentences'];
+  if (h) rows.push([lvl === 'advanced' ? 'var(--tier-5)' : 'var(--tier-4)', 'Hard interval, ' + TRACKS[lvl].name, h.lo, h.hi, h.rpe, 'One or two words at a time']);
+  var head = '<thead><tr><th>Effort</th><th>Heart rate</th><th class="n">Out of 10</th><th>Talk test</th></tr></thead>';
+  var body = '<tbody>' + rows.map(function (r) {
+    var hr = S.beta ? 'Not used. Go by effort and talk test.' : hrText(r[2], r[3]);
+    return '<tr><td><span class="zdot" style="background:' + r[0] + '"></span>' + r[1] + '</td><td>' + hr + '</td><td class="n">' + r[4] + '</td><td>' + r[5] + '</td></tr>';
+  }).join('') + '</tbody>';
+  $('zoneTable').innerHTML = head + body;
+  $('age').value = S.age;
+  $('beta').checked = S.beta;
+}
+
+/* ================= PLAN ================= */
+var openSess = {};
+function renderPlan() {
+  var gate = $('planGate'), body = $('planBody');
+  var st = safetyStatus();
+  if (!planOpen()) {
+    var msg = st === 'pacing' ? 'The plan stays closed because of your safety answers. See step 1.'
+      : (st === 'review' ? 'Your plan opens after you confirm your clinician’s review in step 1.'
+      : (st === 'open' ? 'Complete the safety check in step 1 and choose a level in step 2 to open your plan.'
+      : 'Choose a level in step 2 to open your plan.'));
+    gate.innerHTML = '<div class="banner b-info"><h4>Your plan opens after steps 1 and 2</h4><p>' + msg + '</p></div>';
+    body.classList.add('hide'); return;
+  }
+  gate.innerHTML = ''; body.classList.remove('hide');
+  var lvl = S.level, trk = TRACKS[lvl], w = S.sel;
+  $('planIntro').textContent = trk.name + ' level. ' + trk.blurb;
+  // overview
+  var maxT = 0, k;
+  for (k = 1; k <= 12; k++) maxT = Math.max(maxT, weekTotals(lvl, k).total);
+  var ovh = '', doneAll = 0, totalAll = 0, peak = 0;
+  for (k = 1; k <= 12; k++) {
+    var tt = weekTotals(lvl, k), lst = sessionsFor(lvl, k), dn = 0;
+    lst.forEach(function (s, i) { totalAll++; if (S.checks[lvl + ':' + k + ':' + i]) { dn++; doneAll++; } });
+    peak = Math.max(peak, tt.total);
+    var eh = Math.round((tt.total - tt.hard) / maxT * 96), hh = Math.round(tt.hard / maxT * 96);
+    ovh += '<button type="button" class="ov' + (dn === lst.length ? ' done' : '') + '" data-w="' + k + '" aria-pressed="' + (k === w) + '" aria-label="Week ' + k + ', ' + tt.total + ' minutes, ' + dn + ' of ' + lst.length + ' sessions done">' +
+      '<div class="col"><div class="hardbar" style="height:' + hh + 'px"></div><div class="easy" style="height:' + eh + 'px"></div></div><span class="wk">' + k + '</span></button>';
+  }
+  $('overview').innerHTML = ovh;
+  var pct = totalAll ? Math.round(doneAll / totalAll * 100) : 0;
+  $('progBar').style.width = pct + '%';
+  $('progText').textContent = doneAll + ' of ' + totalAll + ' sessions done';
+  $('planStats').innerHTML = '<div class="stat"><b>' + trk.weeks.length + '</b><span>Weeks</span></div><div class="stat"><b>' + trk.days.length + '</b><span>Sessions a week</span></div><div class="stat"><b>' + peak + '</b><span>Peak minutes</span></div>';
+  $('startDate').value = S.start;
+  // week detail
+  var tot = weekTotals(lvl, w), list = sessionsFor(lvl, w), mode = S.modes[lvl + ':' + w] === 'easy';
+  var wd = weekDate(w);
+  var h = '<div class="weekhead"><div><span class="eyebrow">Week ' + w + (wd ? ' · week of ' + wd : '') + '</span><h3 style="margin-top:4px">' + esc(trk.weeks[w - 1][0]) + (mode ? ' <span class="badge k-ez" style="vertical-align:middle">Easy version</span>' : '') + '</h3></div>' +
+    '<div class="stats"><div class="stat"><b>' + tot.total + '</b><span>Minutes</span></div><div class="stat"><b>' + tot.hard + '</b><span>Hard minutes</span></div></div>' +
+    '<div class="pager"><button type="button" class="mmm-btn mmm-btn-ghost mmm-btn-sm" id="prevW"' + (w === 1 ? ' disabled' : '') + '>Previous</button><button type="button" class="mmm-btn mmm-btn-ghost mmm-btn-sm" id="nextW"' + (w === 12 ? ' disabled' : '') + '>Next week</button></div></div>';
+  // gate banner for first interval week
+  var fi = trk.firstInt;
+  if (fi && w === fi && !mode) {
+    var pa = S.audits[auditKey(lvl, w - 1)];
+    if (!pa || auditResult(pa).length > 0) {
+      h += '<div class="banner b-warn"><h4>Intervals start this week, when your last weekly check is flag-free</h4><p>' + (pa ? 'Your check for week ' + (w - 1) + ' showed a flag.' : 'You have not done the week ' + (w - 1) + ' check yet.') + ' Do the check at the end of week ' + (w - 1) + ', or use the easy version this week and start intervals next week.</p>' +
+        '<div class="btn-row"><button type="button" class="mmm-btn mmm-btn-ghost mmm-btn-sm" id="useEasy">Use the easy version this week</button></div></div>';
+    }
+  }
+  if (mode) {
+    h += '<div class="banner b-info"><h4>Easy version of this week</h4><p>About two-thirds of the planned time, at an easy effort, with no hard intervals' + (list.some(function (s) { return s.postponed; }) ? '. Do the re-test next week instead' : '') + '. <button type="button" class="mmm-btn mmm-btn-ghost mmm-btn-sm" id="useFull" style="margin-left:8px">Switch back to the planned week</button></p></div>';
+  }
+  list.forEach(function (s, i) {
+    var day = trk.days[i], key = lvl + ':' + w + ':' + i, done = !!S.checks[key], open = !!openSess[key];
+    h += '<div class="sess' + (done ? ' done' : '') + '"><div class="sess-top">' +
+      '<input type="checkbox" data-chk="' + key + '" id="c' + i + '" aria-label="Done: day ' + day + ', ' + esc(sessionTitle(trk, s)) + '"' + (done ? ' checked' : '') + '>' +
+      '<div class="sess-title"><b>' + esc(sessionTitle(trk, s)) + '</b><span>Day ' + day + ' · ' + DAYFULL[day] + ' ' + kindBadge(s) + '</span></div>' +
+      '<button type="button" class="sess-more" data-open="' + key + '" aria-expanded="' + open + '">' + (open ? 'Hide steps' : 'Show steps') + '</button></div>';
+    if (open) {
+      var st = steps(lvl, s);
+      h += '<div class="sess-body"><div class="tw"><table><thead><tr><th>Step</th><th class="n">Min</th><th>Effort</th><th>Heart rate</th><th>Talk test</th></tr></thead><tbody>' +
+        st.map(function (r) { return '<tr><td>' + esc(r.l) + '</td><td class="n">' + r.m + '</td><td>' + esc(r.eff) + '</td><td>' + esc(r.hr) + '</td><td>' + esc(r.talk) + '</td></tr>'; }).join('') +
+        '</tbody></table></div>' + (s.t === 'test' ? '<p class="note">Log your distance and resting heart rate in step 5.</p>' : '') +
+        '<p class="note">Stop for chest pain, dizziness, or unusual shortness of breath. If a joint complains, switch to the equipment that suits it: walking, cycling, elliptical or pool work keep the same minutes and effort.</p></div>';
+    }
+    h += '</div>';
+  });
+  h += '<p class="micro" style="margin-top:var(--s-3)">Day 7 · Sunday is your weekly check, below.</p>';
+  // audit
+  var ak = auditKey(lvl, w), a = S.audits[ak] || { trend: 'steady', energy: 7, joint: 'no', pace: 'yes', done: false };
+  h += '<div class="audit"><span class="eyebrow">Day 7 · Sunday</span><h4 style="margin-top:4px">Weekly check, five minutes</h4>' +
+    '<p class="micro" style="margin-top:4px">It decides what next week looks like. Answer for this past week.</p>' +
+    '<div class="grid">' +
+    '<div><span class="qt">Morning pulse compared with usual</span><div class="choices"><label class="choice"><input type="radio" name="a_trend" value="steady"' + (a.trend === 'steady' ? ' checked' : '') + '><span>About the same</span></label><label class="choice"><input type="radio" name="a_trend" value="elevated"' + (a.trend === 'elevated' ? ' checked' : '') + '><span>5+ beats higher</span></label></div></div>' +
+    '<div><label class="qt" for="a_energy">Energy this week, out of 10</label><div class="range-row"><input type="range" id="a_energy" min="1" max="10" value="' + a.energy + '"><output id="a_energy_o">' + a.energy + '</output></div></div>' +
+    '<div><span class="qt">Did joint soreness last past 24 hours?</span><div class="choices"><label class="choice"><input type="radio" name="a_joint" value="no"' + (a.joint === 'no' ? ' checked' : '') + '><span>No</span></label><label class="choice"><input type="radio" name="a_joint" value="yes"' + (a.joint === 'yes' ? ' checked' : '') + '><span>Yes</span></label></div></div>' +
+    '<div><span class="qt">Did your easy sessions stay easy?</span><div class="choices"><label class="choice"><input type="radio" name="a_pace" value="yes"' + (a.pace === 'yes' ? ' checked' : '') + '><span>Yes</span></label><label class="choice"><input type="radio" name="a_pace" value="no"' + (a.pace === 'no' ? ' checked' : '') + '><span>No, drifted harder</span></label></div></div>' +
+    '</div><div class="btn-row" style="margin-top:var(--s-4)"><button type="button" class="mmm-btn mmm-btn-primary mmm-btn-sm" id="doAudit">Check my week</button></div><div id="auditOut" aria-live="polite"></div></div>';
+  h += '<div style="margin-top:var(--s-5)"><label class="f" for="wkNote">Notes for week ' + w + '</label><textarea id="wkNote" placeholder="How did it feel? Anything to tell your clinician?"></textarea></div>';
+  var wc = $('weekCard'); wc.innerHTML = h;
+  $('wkNote').value = S.notes[lvl + ':' + w] || '';
+  if (a.done) showAudit(a);
+}
+function showAudit(a) {
+  var f = auditResult(a), out = $('auditOut'), lvl = S.level, w = S.sel, h;
+  if (f.length >= 2) {
+    h = '<div class="banner b-alert"><h4>Pull back next week</h4><p>Two or more signals point the same way: ' + f.join(', and ') + '. Drop your volume by roughly a third, replace interval work with easy movement, and protect sleep. Recovering deliberately now is faster than recovering from a setback later.</p>' +
+      (w < 12 ? '<div class="btn-row"><button type="button" class="mmm-btn mmm-btn-primary mmm-btn-sm" id="pullNext">Use the easy version for week ' + (w + 1) + '</button></div>' : '') + '</div>';
+  } else if (f.length === 1) {
+    h = '<div class="banner b-warn"><h4>Hold steady</h4><p>One signal worth respecting: ' + f[0] + '. Repeat this week’s plan once more before you move on: same volume, same intensity, nothing new. Then check again next Sunday.</p></div>';
+  } else {
+    h = '<div class="banner b-ok"><h4>Green light</h4><p>Pulse is stable, energy is good, joints settled, and your easy days stayed easy. Move on to ' + (w < 12 ? 'week ' + (w + 1) : 'your final re-test') + ' as planned. The plan already holds the next step, so do not add more on top.</p></div>';
+  }
+  out.innerHTML = h;
+}
+
+/* ================= TESTS ================= */
+var TESTS = [['base', 'Baseline', 'Before week 1'], ['w6', 'Week 6', 'Re-test'], ['w12', 'Week 12', 'Final test']];
+function toM(t) { if (!t || t.dist === '' || t.dist == null || isNaN(+t.dist)) return null; return t.unit === 'yd' ? +t.dist * 0.9144 : +t.dist; }
+function renderTests() {
+  var box = $('testCards');
+  if (!box.firstChild) {
+    box.innerHTML = TESTS.map(function (t) {
+      return '<div class="tcard"><h4>' + t[1] + '</h4><span class="micro">' + t[2] + '</span>' +
+        '<div class="two"><div><label class="f" for="d_' + t[0] + '">Six-minute walk</label><input type="number" id="d_' + t[0] + '" min="0" max="2000" inputmode="decimal"></div>' +
+        '<div><label class="f" for="u_' + t[0] + '">Unit</label><select id="u_' + t[0] + '"><option value="m">meters</option><option value="yd">yards</option></select></div></div>' +
+        '<div style="margin-top:var(--s-3)"><label class="f" for="h_' + t[0] + '">Resting heart rate, beats per minute</label><input type="number" id="h_' + t[0] + '" min="30" max="140" inputmode="numeric"></div></div>';
+    }).join('');
+    box.addEventListener('input', function (e) {
+      var id = e.target.id; if (!id) return;
+      var k = id.slice(2), f = id[0];
+      S.tests[k] = S.tests[k] || { dist: '', unit: 'm', hr: '' };
+      if (f === 'd') S.tests[k].dist = e.target.value;
+      else if (f === 'u') S.tests[k].unit = e.target.value;
+      else if (f === 'h') S.tests[k].hr = e.target.value;
+      persist(); renderTestSummary();
+    });
+  }
+  TESTS.forEach(function (t) {
+    var v = S.tests[t[0]] || { dist: '', unit: 'm', hr: '' };
+    $('d_' + t[0]).value = v.dist; $('u_' + t[0]).value = v.unit; $('h_' + t[0]).value = v.hr;
+  });
+  renderTestSummary();
+}
+function renderTestSummary() {
+  var b = S.tests.base, bm = toM(b), out = '';
+  function line(label, key) {
+    var t = S.tests[key], m = toM(t), parts = [];
+    if (m != null && bm != null && key !== 'base') {
+      var d = m - bm; parts.push('Walk: <b class="' + (d >= 0 ? 'up' : 'down') + '">' + (d >= 0 ? '+' : '') + Math.round(d) + ' m</b> from baseline (' + Math.round(m) + ' m)');
+    }
+    if (t && t.hr !== '' && b && b.hr !== '' && key !== 'base') {
+      var dh = (+t.hr) - (+b.hr); parts.push('Resting heart rate: <b>' + (dh > 0 ? '+' : '') + dh + ' bpm</b> from baseline');
+    }
+    return parts.length ? '<p class="delta"><b>' + label + '.</b> ' + parts.join(' · ') + '</p>' : '';
+  }
+  out = line('Week 6', 'w6') + line('Week 12', 'w12');
+  if (!out) out = '<p class="micro" style="margin-top:var(--s-3)">Enter your baseline and a later test to see the change. Distances in yards are converted to meters for the comparison.</p>';
+  $('testSummary').innerHTML = out;
+}
+
+/* ================= SAVE / PRINT ================= */
+function renderSaveState() {
+  var el = $('saveState'); if (!el) return;
+  el.textContent = storeOK ? 'Saved on this device as you go.' : 'This browser is not keeping saved data. Use “Download my progress” to keep a copy.';
+}
+function buildPrint() {
+  var lvl = S.level || 'beginner', trk = TRACKS[lvl], i, w, h = '';
+  h += '<p style="font-size:9pt;letter-spacing:.18em;text-transform:uppercase;color:#009090;font-weight:600">Muscle-Meta Matrix™ · The Oxygen Engine</p><h1>12-week training plan: ' + trk.name + '</h1>';
+  h += '<p>' + esc(trk.blurb) + (maxHR() && !S.beta ? ' Estimated maximum heart rate ' + maxHR() + ' bpm (age ' + esc(S.age) + ').' : '') + '</p>';
+  h += '<h2>Effort at a glance</h2><table><tr><th>Effort</th><th>Out of 10</th><th>Talk test</th></tr>' +
+    '<tr><td>Easy start and finish</td><td>2 to 3</td><td>Easy conversation</td></tr>' +
+    '<tr><td>' + (lvl === 'gentle' ? 'Easy base' : 'Zone 2 base (' + hrText(60, 70) + ')') + '</td><td>' + (lvl === 'gentle' ? '3 to 4' : '4 to 5') + '</td><td>Full, unbroken sentences</td></tr>' +
+    (trk.hard ? '<tr><td>Hard interval (' + hrText(trk.hard.lo, trk.hard.hi) + ')</td><td>' + trk.hard.rpe + '</td><td>One or two words at a time</td></tr>' : '') + '</table>';
+  h += '<h2>Week by week</h2><table><tr><th>Week</th><th>Focus</th>' + trk.days.map(function (d) { return '<th>Day ' + d + ' ' + DAYS[d] + '</th>'; }).join('') + '<th>Total min</th><th>Weekly check</th></tr>';
+  for (w = 1; w <= 12; w++) {
+    var list = TRACKS[lvl].weeks[w - 1][1], tot = 0;
+    h += '<tr><td>' + w + (weekDate(w) ? '<br>' + weekDate(w) : '') + '</td><td>' + esc(trk.weeks[w - 1][0]) + '</td>';
+    list.forEach(function (s) { tot += minutes(trk, s); h += '<td><span class="box"></span>' + esc(sessionTitle(trk, s)) + '</td>'; });
+    h += '<td>' + tot + '</td><td><span class="box"></span></td></tr>';
+  }
+  h += '</table><p style="font-size:9pt">Interval rounds are 4 minutes hard and 3 minutes easy, with no easy minutes after the last round. Warm up for 10 minutes and cool down for 5. Short intervals are 6 rounds of 2 minutes hard and 2 minutes easy.</p>';
+  h += '<h2>Weekly check (Sunday)</h2><p>Count your flags: morning pulse 5+ beats above usual; energy 4 out of 10 or below; joint soreness past 24 hours; easy sessions drifted harder. <b>0 flags:</b> move on as planned. <b>1 flag:</b> repeat the week. <b>2 or more:</b> pull back by about a third and swap intervals for easy movement.</p>';
+  h += '<h2>Re-test log</h2><table><tr><th></th><th>Six-minute walk distance</th><th>Resting heart rate</th><th>Date</th></tr>' +
+    TESTS.map(function (t) {
+      var v = S.tests[t[0]], d = v && v.dist !== '' ? esc(v.dist) + ' ' + (v.unit === 'yd' ? 'yd' : 'm') : '<span class="blank"></span>', hr = v && v.hr !== '' ? esc(v.hr) + ' bpm' : '<span class="blank"></span>';
+      return '<tr><td>' + t[1] + '</td><td>' + d + '</td><td>' + hr + '</td><td><span class="blank"></span></td></tr>';
+    }).join('') + '</table>';
+  h += '<p style="font-size:9pt;margin-top:10pt">Stop any session for chest pain, dizziness, or unusual shortness of breath. Educational content, not medical advice. muscle-meta.com</p>';
+  $('printSheet').innerHTML = h;
+}
+
+/* ================= RENDER + EVENTS ================= */
+function renderAll() {
+  renderSafety(); renderLevel(); renderZones(); renderPlan(); renderTests(); renderSaveState();
+}
+
+function wire() {
+  $('age').addEventListener('input', function (e) { S.age = e.target.value; persist(); renderZones(); renderPlanSoft(); });
+  $('beta').addEventListener('change', function (e) { S.beta = e.target.checked; persist(); renderZones(); renderPlanSoft(); });
+  $('startDate').addEventListener('change', function (e) { S.start = e.target.value; persist(); renderPlanSoft(); });
+  $('overview').addEventListener('click', function (e) {
+    var b = e.target.closest('.ov'); if (!b) return;
+    S.sel = +b.getAttribute('data-w'); persist(); renderPlan();
+  });
+  $('weekCard').addEventListener('click', function (e) {
+    var t = e.target, id = t.id, lvl = S.level, w = S.sel;
+    if (t.getAttribute('data-open')) { var k = t.getAttribute('data-open'); openSess[k] = !openSess[k]; renderPlan(); return; }
+    if (id === 'prevW') { S.sel = Math.max(1, w - 1); persist(); renderPlan(); scrollWeek(); return; }
+    if (id === 'nextW') { S.sel = Math.min(12, w + 1); persist(); renderPlan(); scrollWeek(); return; }
+    if (id === 'useEasy') { S.modes[lvl + ':' + w] = 'easy'; persist(); renderPlan(); return; }
+    if (id === 'useFull') { delete S.modes[lvl + ':' + w]; persist(); renderPlan(); return; }
+    if (id === 'doAudit') {
+      var a = readAudit(); a.done = true; S.audits[auditKey(lvl, w)] = a; persist(); showAudit(a); renderOverviewOnly(); return;
+    }
+    if (id === 'pullNext') { S.modes[lvl + ':' + (w + 1)] = 'easy'; S.sel = w + 1; persist(); renderPlan(); scrollWeek(); return; }
+  });
+  $('weekCard').addEventListener('change', function (e) {
+    var t = e.target;
+    if (t.getAttribute('data-chk')) { S.checks[t.getAttribute('data-chk')] = t.checked; persist(); renderPlan(); return; }
+    if (t.name && t.name.indexOf('a_') === 0) { markAuditStale(); }
+  });
+  $('weekCard').addEventListener('input', function (e) {
+    var t = e.target;
+    if (t.id === 'a_energy') { $('a_energy_o').textContent = t.value; markAuditStale(); }
+    if (t.id === 'wkNote') { S.notes[S.level + ':' + S.sel] = t.value; persist(); }
+  });
+  $('btnPrint').addEventListener('click', function () { buildPrint(); window.print(); });
+  window.addEventListener('beforeprint', buildPrint);
+  $('btnExport').addEventListener('click', function () {
+    var blob = new Blob([JSON.stringify({ app: 'mm-oxygen-engine-12wk', version: 1, saved: new Date().toISOString(), data: S }, null, 2)], { type: 'application/json' });
+    var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'oxygen-engine-12-week-progress.json';
+    document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+    $('keepMsg').textContent = 'Progress file downloaded.';
+  });
+  $('importFile').addEventListener('change', function (e) {
+    var f = e.target.files[0]; if (!f) return;
+    var r = new FileReader();
+    r.onload = function () {
+      try {
+        var j = JSON.parse(r.result);
+        if (!j || j.app !== 'mm-oxygen-engine-12wk' || !j.data) throw new Error('bad');
+        S = j.data; fix(); persist(); renderAll(); $('keepMsg').textContent = 'Progress loaded.';
+      } catch (err) { $('keepMsg').textContent = 'That file is not an Oxygen Engine progress file.'; }
+    };
+    r.readAsText(f); e.target.value = '';
+  });
+  var armed = false, rb = $('btnReset');
+  rb.addEventListener('click', function () {
+    if (!armed) { armed = true; rb.textContent = 'Press again to erase everything'; setTimeout(function () { armed = false; rb.textContent = 'Start over'; }, 4000); return; }
+    armed = false; rb.textContent = 'Start over';
+    S = blank(); openSess = {}; persist(); renderAll(); $('keepMsg').textContent = 'Everything has been cleared.';
+  });
+}
+function readAudit() {
+  function rv(n) { var r = document.querySelector('input[name="' + n + '"]:checked'); return r ? r.value : ''; }
+  return { trend: rv('a_trend') || 'steady', energy: +$('a_energy').value, joint: rv('a_joint') || 'no', pace: rv('a_pace') || 'yes', done: false };
+}
+function markAuditStale() { var o = $('auditOut'); if (o) o.innerHTML = ''; var k = auditKey(S.level, S.sel); if (S.audits[k]) { S.audits[k].done = false; persist(); } }
+function scrollWeek() { var el = $('weekCard'); if (el && el.scrollIntoView) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+function renderOverviewOnly() { var sel = S.sel; renderPlanSoft(); S.sel = sel; }
+function renderPlanSoft() { if (planOpen()) { var y = window.scrollY; var out = $('auditOut') ? $('auditOut').innerHTML : ''; renderPlan(); window.scrollTo(0, y); if (out && $('auditOut')) $('auditOut').innerHTML = out; } }
+
+wire();
+renderAll();
+// test hooks (harmless in production)
+window.__oe = { TRACKS: TRACKS, minutes: minutes, hardMin: hardMin, weekTotals: weekTotals, recommended: recommended, safetyStatus: safetyStatus, state: function () { return S; } };
+})();
+
+</script>
+<script>
+(function(){var d=document.getElementById('guide');if(!d)return;
+function openFor(h){if(!h||h.length<2)return;var t=document.getElementById(h.slice(1));if(t&&d.contains(t)||h==='#guide'){d.open=true;setTimeout(function(){(t||d).scrollIntoView({behavior:'smooth',block:'start'})},30)}}
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href^="#"]');if(a)openFor(a.getAttribute('href'))});
+window.addEventListener('hashchange',function(){openFor(location.hash)});openFor(location.hash)})();
+</script></body></html>

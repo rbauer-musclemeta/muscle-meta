@@ -1,22 +1,29 @@
 # Sveltia CMS configuration for muscle-meta.com
 # Editor: https://muscle-meta.com/cms/
 # Every save is a commit to the GitHub repo. Netlify rebuilds, and
-# scripts/build-blog.mjs checks the post before it can go live.
+# scripts/build-blog.mjs / scripts/build-downloads.mjs check the entry before
+# it can go live.
+#
+# Blog posts save straight to main (use the Draft switch to hold one back).
+# Downloads use the Editorial Workflow: each one is saved to its own branch
+# with a pull request, Netlify builds a deploy preview for it, and nothing
+# reaches the live site until you press Publish in the editor.
 
 backend:
   name: github
   repo: rbauer-musclemeta/muscle-meta
   branch: main
   # Sign-in: "Sign In with Token" (GitHub fine-grained token, this repo only,
-  # Contents: read and write) works with no further setup. For a
+  # Contents: read and write, Pull requests: read and write) works with no
+  # further setup. Pull requests access is needed for the Downloads workflow. For a
   # "Sign in with GitHub" button, register a GitHub OAuth app and add it in
   # Netlify under Access & security > OAuth; no change is needed here.
   commit_messages:
-    create: "Blog: create {{slug}}"
-    update: "Blog: update {{slug}}"
-    delete: "Blog: delete {{slug}}"
-    uploadMedia: "Blog: upload {{path}}"
-    deleteMedia: "Blog: delete {{path}}"
+    create: "{{collection}}: create {{slug}}"
+    update: "{{collection}}: update {{slug}}"
+    delete: "{{collection}}: delete {{slug}}"
+    uploadMedia: "Upload {{path}}"
+    deleteMedia: "Delete {{path}}"
 
 site_url: https://muscle-meta.com
 display_url: https://muscle-meta.com/blog/
@@ -164,3 +171,187 @@ collections:
         fields:
           - { name: q, label: Question, widget: string }
           - { name: a, label: Answer, widget: text }
+
+  # ---------------------------------------------------------------------------
+  # Downloads: one entry = one free download. scripts/build-downloads.mjs turns
+  # it into /downloads/<slug>/, a card on /downloads/ and a sitemap entry.
+  # ---------------------------------------------------------------------------
+  - name: downloads
+    label: Downloads
+    label_singular: Download
+    description: >-
+      Free downloads: interactive plans, handouts and guides. Upload the file,
+      fill in the page, then Save. A preview link appears once Netlify has built
+      it; press Publish when it looks right. Nothing goes live before that.
+    folder: content/downloads
+    create: true
+    publish_mode: editorial_workflow
+    extension: md
+    format: frontmatter
+    slug: "{{slug}}"
+    identifier_field: title
+    summary: "{{title}}"
+    sortable_fields: [order, title, date]
+    preview_path: downloads/{{slug}}/
+    fields:
+      - name: title
+        label: Title
+        widget: string
+        hint: Sentence case. Used for the browser tab and search results, e.g. "The Oxygen Engine 12-week aerobic training plan".
+      - name: card_title
+        label: Title on the free guides page
+        widget: string
+        required: false
+        hint: Only if the card on /downloads/ should be shorter than the title.
+      - name: heading
+        label: Page heading
+        widget: string
+        hint: The big heading on the download page, e.g. "Your 12-week aerobic training plan".
+      - name: eyebrow
+        label: Label above the heading
+        widget: string
+        required: false
+        hint: Shown as "Free download · <this>". Usually the course or series name.
+      - name: description
+        label: Search summary
+        widget: text
+        hint: 70 to 170 characters. Shown in search results and link previews.
+      - name: og_description
+        label: Social share summary
+        widget: text
+        required: false
+        hint: Optional shorter version for link previews.
+      - name: summary
+        label: Card summary
+        widget: text
+        hint: One sentence for the card on /downloads/.
+      - name: lede
+        label: Introduction
+        widget: text
+        hint: The opening paragraph under the heading.
+      - name: file
+        label: The file
+        widget: file
+        media_folder: /site/downloads/files
+        public_folder: /downloads/files
+        choose_url: false
+        hint: Upload the HTML plan, PDF handout or other file people will get. Use a clear, lowercase file name with hyphens.
+      - name: access
+        label: How people get it
+        widget: select
+        default: email
+        options:
+          - { label: "Email first (newsletter, blog, landing pages)", value: email }
+          - { label: "Open link (resources area, no email)", value: open }
+        hint: Free inside a course is handled by linking the file from the course itself.
+      - name: kit_tag
+        label: Kit tag
+        widget: string
+        required: false
+        hint: Required for "Email first". Lowercase words with hyphens, e.g. plan-oxygen-engine-12wk. Kit uses it to send the right file.
+      - name: noun
+        label: What it is, in one word
+        widget: string
+        required: false
+        default: guide
+        hint: Used in "We send the <plan> and occasional clinical notes", e.g. plan, guide, handout.
+      - name: get_heading
+        label: Heading on the sign-up box
+        widget: string
+        required: false
+        default: Get the guide
+      - name: get_note
+        label: Note on the sign-up box
+        widget: text
+        required: false
+        hint: One or two sentences on the format, e.g. "One file that opens in any browser."
+      - name: button_label
+        label: Button text
+        widget: string
+        required: false
+        hint: Default is "Send it to me" (email) or "Open it" (open link).
+      - name: pillar
+        label: Pillar
+        widget: select
+        options:
+          - { label: "Exercise & Mobility", value: exercise-mobility }
+          - { label: "Nutrition & Metabolism", value: nutrition-metabolism }
+          - { label: "Recovery & Stress", value: recovery-stress }
+          - { label: "Balance & Brain Health", value: balance-brain-health }
+      - name: categories
+        label: Categories
+        widget: select
+        multiple: true
+        min: 1
+        options:
+          - { label: "P1-C1 Joint Health", value: P1-C1 }
+          - { label: "P1-C2 Functional Independence", value: P1-C2 }
+          - { label: "P1-C3 Mobility", value: P1-C3 }
+          - { label: "P1-C4 Strength", value: P1-C4 }
+          - { label: "P1-C5 Endurance", value: P1-C5 }
+          - { label: "P2-C6 Nutrition", value: P2-C6 }
+          - { label: "P2-C7 Metabolic Flexibility", value: P2-C7 }
+          - { label: "P3-C8 Recovery", value: P3-C8 }
+          - { label: "P3-C9 Lifestyle", value: P3-C9 }
+          - { label: "P3-C10 Stress Management", value: P3-C10 }
+          - { label: "P4-C11 Balance", value: P4-C11 }
+          - { label: "P4-C12 Brain Health", value: P4-C12 }
+      - name: course
+        label: Part of a course
+        widget: object
+        required: false
+        collapsed: true
+        fields:
+          - { name: name, label: Course name, widget: string, hint: "e.g. The Oxygen Engine" }
+          - { name: url, label: Course link, widget: string, hint: "e.g. /courses/oxygen-engine/" }
+      - name: inside
+        label: What is inside
+        widget: list
+        required: false
+        summary: "{{fields.lead}}"
+        fields:
+          - { name: lead, label: Lead (bold), widget: string, hint: "e.g. A safety check first." }
+          - { name: text, label: Sentence, widget: text }
+      - name: body
+        label: More sections
+        widget: markdown
+        required: false
+        hint: Optional. Start each section with a heading (## Saving your progress).
+      - name: sources
+        label: Sources
+        widget: list
+        required: false
+        summary: "{{fields.short}}"
+        hint: Each PMID is checked against PubMed at build time; the citation must name the first author and year.
+        fields:
+          - { name: short, label: Short form, widget: string, hint: "e.g. Tanaka 2001" }
+          - { name: pmid, label: PMID, widget: string, required: false }
+          - { name: citation, label: Full citation, widget: text }
+      - name: listed
+        label: Show on the free guides page
+        widget: boolean
+        default: true
+      - name: order
+        label: Position on the free guides page
+        widget: number
+        value_type: int
+        required: false
+        hint: Lower numbers come first.
+      - name: date
+        label: Date added
+        widget: datetime
+        format: YYYY-MM-DD
+        date_format: YYYY-MM-DD
+        time_format: false
+      - name: updated
+        label: Last updated
+        widget: datetime
+        format: YYYY-MM-DD
+        date_format: YYYY-MM-DD
+        time_format: false
+        required: false
+      - name: draft
+        label: Draft
+        widget: boolean
+        default: false
+        hint: On = only on previews, even after Publish.

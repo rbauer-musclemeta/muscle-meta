@@ -15,7 +15,7 @@
 const MM_CONFIG = {
   supabaseUrl: 'https://bxpferfuwoiulnqnfqhf.supabase.co',
   supabaseKey: '',            // ← paste the publishable key here
-  kitFormId:   '',            // ← Kit (ConvertKit) form id for email capture
+  kitFormId:   '',            // ← fallback Kit form id; each download sets its own data-kit-form
   siteUrl:     'https://muscle-meta.com',
   debug:       true           // set false in production to quiet the warnings
 };
@@ -41,7 +41,7 @@ const MM = (() => {
   } catch (err) {
     problems.push('Supabase client failed to initialise: ' + err.message);
   }
-  if (!MM_CONFIG.kitFormId) problems.push('kitFormId is empty — email capture is disabled.');
+  if (!MM_CONFIG.kitFormId && !document.querySelector('form[data-kit-form]:not([data-kit-form=""])')) problems.push('kitFormId is empty and this page has no data-kit-form — email capture is disabled here.');
 
   /* Degrade gracefully, but never silently: a misconfigured deploy that looks
      fine is how a broken signup form survives for a month. */
@@ -146,14 +146,21 @@ const MM = (() => {
       return { courses: courses.data ?? [], programs: programs.data ?? [], error };
     },
 
-    /* ---- Email capture. Every free asset ends in one of these. ---- */
-    async capture(email, { source = document.title, tag = '' } = {}) {
-      if (!MM_CONFIG.kitFormId) return { ok: false, reason: 'unconfigured' };
+    /* ---- Email capture. Every free asset ends in one of these. ----
+       Each download has its own Kit form (data-kit-form on the <form>), whose
+       incentive email delivers the file. kitFormId above is the fallback for
+       blocks without one. Sent as FormData, like Kit's own embed, so the
+       browser makes a simple request with no CORS preflight. */
+    async capture(email, { formId = '' } = {}) {
+      const id = String(formId || MM_CONFIG.kitFormId || '').trim();
+      if (!id) return { ok: false, reason: 'unconfigured' };
       try {
-        const res = await fetch(`https://app.kit.com/forms/${MM_CONFIG.kitFormId}/subscriptions`, {
+        const body = new FormData();
+        body.append('email_address', email);
+        const res = await fetch(`https://app.kit.com/forms/${encodeURIComponent(id)}/subscriptions`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify({ email_address: email, fields: { source, tag } })
+          headers: { 'Accept': 'application/json' },
+          body
         });
         if (!res.ok) console.warn('[MM] capture rejected:', res.status);
         return { ok: res.ok, status: res.status };
@@ -171,7 +178,7 @@ const MM = (() => {
           const href = form.dataset.deliver || '';
           if (!input.value || !status) return;
           status.textContent = 'Sending…'; status.className = 'status';
-          const res = await MM.capture(input.value, { tag: form.dataset.tag || '' });
+          const res = await MM.capture(input.value, { formId: form.dataset.kitForm || '' });
           if (res.ok) {
             status.className = 'status ok';
             status.innerHTML = href

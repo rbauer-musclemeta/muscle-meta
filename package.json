@@ -4,7 +4,7 @@
   "type": "module",
   "description": "muscle-meta.com — static site plus the blog build. Netlify runs `npm run build`.",
   "scripts": {
-    "build": "node scripts/build-blog.mjs"
+    "build": "node scripts/build-blog.mjs && node scripts/build-downloads.mjs"
   },
   "engines": {
     "node": ">=20"

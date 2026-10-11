@@ -29,5 +29,26 @@
     "journal": "JAMA Netw Open",
     "doi": "10.1001/jamanetworkopen.2018.3605",
     "verified": "2026-09-28"
+  },
+  "11153730": {
+    "firstAuthor": "Tanaka",
+    "year": "2001",
+    "title": "Age-predicted maximal heart rate revisited.",
+    "journal": "J Am Coll Cardiol",
+    "verified": "2026-10-10"
+  },
+  "17414804": {
+    "firstAuthor": "Helgerud",
+    "year": "2007",
+    "title": "Aerobic high-intensity intervals improve VO2max more than moderate training.",
+    "journal": "Med Sci Sports Exerc",
+    "verified": "2026-10-10"
+  },
+  "33028588": {
+    "firstAuthor": "Stensvold",
+    "year": "2020",
+    "title": "Effect of exercise training for five years on all cause mortality in older adults-the Generation 100 study: randomised controlled trial.",
+    "journal": "BMJ",
+    "verified": "2026-10-10"
   }
 }

@@ -194,9 +194,10 @@ site/
 /tools/<slug>/        interactive tools — free, self-contained HTML
 /learn/<pillar>/      pillar hubs and category pages — must be real HTML
 /blog/<slug>/         articles — GENERATED from content/blog/*.md; never hand-edit
-/cms/                 Sveltia CMS content editor (noindex); saves to content/blog/
+/cms/                 Sveltia CMS content editor (noindex); saves to content/blog/ and content/downloads/
 /courses/<slug>/      course shells — content from the database
-/downloads/<slug>/    free lead magnets, each behind an email capture
+/downloads/<slug>/    free downloads — GENERATED from content/downloads/*.md; never hand-edit
+/downloads/files/     the downloadable files themselves (uploaded, not generated)
 /legal/               privacy, terms, medical disclaimer
 /assets/mm.css        the ONLY copy of the design tokens
 /assets/mm.js         the ONLY copy of auth, entitlement, capture, analytics
@@ -211,7 +212,7 @@ app/src/engine/       scoring + routing engine: pure TS, fixture-tested, version
 supabase/migrations/  every schema change, in order; apply through a migration only
 supabase/functions/   edge functions (complete-assessment writes results)
 supabase/tests/       SQL access tests; run after any schema change
-content/, scripts/    blog source and the blog build
+content/, scripts/    blog and downloads source, and their builds
 ```
 
 Rules: every page links `assets/mm.css` and `assets/mm.js`. No page redefines a
@@ -232,6 +233,28 @@ site unchanged. `content/pmid-cache.json` holds PMIDs already read in PubMed;
 anything not in it is checked live against PubMed on every build. Drafts
 (`draft: true`) render on deploy previews only, never on production.
 Full workflow: `docs/blog-workflow.md`.
+
+### The downloads build (added 2026-10-10)
+`npm run build` then runs `scripts/build-downloads.mjs`, which renders each
+`content/downloads/<slug>.md` into `site/downloads/<slug>/`, writes its card on
+`site/downloads/index.html` between the `downloads:start` / `downloads:end`
+markers, and adds its URL to `site/sitemap.xml` between the same markers. The
+file people get lives in `site/downloads/files/` and is named in `file:`.
+
+- `access: email` shows the Kit sign-up form. Each download has its OWN Kit form
+  (`kit_form_id`), whose incentive email links to the file; `kit_tag` is a short
+  report label. Without a `kit_form_id` the build warns and the form says capture
+  is not connected. `access: open` shows a plain "Open it" button.
+- `mm.js` posts to `app.kit.com/forms/<id>/subscriptions` as FormData (no CORS
+  preflight). Kit custom fields are not sent; Kit cannot see `data-tag`. A download that is free
+  inside a course is linked from the course page directly.
+- Same refusals as the blog (category keys, PMIDs, gate wording, emoji, hex),
+  plus: the file must exist, and an email download must carry a Kit tag.
+- In the CMS, Downloads use the Editorial Workflow: every save is a PR with a
+  deploy preview, and Publish merges it. Blog posts still save straight to main.
+- Two cards on `/downloads/` (mitochondria guide, osteosarcopenia protocol) are
+  still hand-written above the markers because they have no file yet; move
+  them into `content/downloads/` when their files exist.
 
 ---
 

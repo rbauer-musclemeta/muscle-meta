@@ -244,11 +244,16 @@ collections:
           - { label: "Email first (newsletter, blog, landing pages)", value: email }
           - { label: "Open link (resources area, no email)", value: open }
         hint: Free inside a course is handled by linking the file from the course itself.
-      - name: kit_tag
-        label: Kit tag
+      - name: kit_form_id
+        label: Kit form ID
         widget: string
         required: false
-        hint: Required for "Email first". Lowercase words with hyphens, e.g. plan-oxygen-engine-12wk. Kit uses it to send the right file.
+        hint: For "Email first". Make one Kit form per download, with an incentive email that links to the file. The ID is the number in the form's address in Kit (app.kit.com/forms/1234567/edit).
+      - name: kit_tag
+        label: Short name for reports
+        widget: string
+        required: false
+        hint: Required for "Email first". Lowercase words with hyphens, e.g. plan-oxygen-engine-12wk.
       - name: noun
         label: What it is, in one word
         widget: string

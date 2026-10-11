@@ -241,8 +241,12 @@ Full workflow: `docs/blog-workflow.md`.
 markers, and adds its URL to `site/sitemap.xml` between the same markers. The
 file people get lives in `site/downloads/files/` and is named in `file:`.
 
-- `access: email` shows the Kit sign-up form (`kit_tag` required); `access: open`
-  shows a plain "Open it" button for the resources area. A download that is free
+- `access: email` shows the Kit sign-up form. Each download has its OWN Kit form
+  (`kit_form_id`), whose incentive email links to the file; `kit_tag` is a short
+  report label. Without a `kit_form_id` the build warns and the form says capture
+  is not connected. `access: open` shows a plain "Open it" button.
+- `mm.js` posts to `app.kit.com/forms/<id>/subscriptions` as FormData (no CORS
+  preflight). Kit custom fields are not sent; Kit cannot see `data-tag`. A download that is free
   inside a course is linked from the course page directly.
 - Same refusals as the blog (category keys, PMIDs, gate wording, emoji, hex),
   plus: the file must exist, and an email download must carry a Kit tag.

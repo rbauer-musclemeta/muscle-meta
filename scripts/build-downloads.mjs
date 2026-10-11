@@ -111,7 +111,7 @@ async function verifySources(dl, cache, errors) {
 }
 
 /* ---- Rule checks on one download. ---- */
-function check(dl, errors) {
+function check(dl, errors, warnings) {
   const d = dl.data, f = dl.file;
   for (const k of ['title', 'heading', 'description', 'summary', 'lede', 'file']) {
     if (!d[k]) errors.push(`${f}: ${k} is missing`);
@@ -121,8 +121,14 @@ function check(dl, errors) {
   }
   if (!ACCESS.includes(d.access)) errors.push(`${f}: access must be "email" or "open"`);
   if (d.access === 'email') {
-    if (!d.kit_tag) errors.push(`${f}: an email download needs a kit_tag so Kit knows what was requested`);
+    if (!d.kit_tag) errors.push(`${f}: an email download needs a kit_tag (a label for reports, e.g. plan-oxygen-engine-12wk)`);
     else if (!SLUG.test(d.kit_tag)) errors.push(`${f}: kit_tag "${d.kit_tag}" must be lowercase words joined by hyphens`);
+    if (d.kit_form_id && !/^\d{5,10}$/.test(String(d.kit_form_id))) {
+      errors.push(`${f}: kit_form_id "${d.kit_form_id}" must be the number from the Kit form's URL`);
+    }
+    /* Not an error: the page still builds and its form says capture is not
+       connected yet. Loud in the log so it is not forgotten. */
+    if (!d.kit_form_id) warnings.push(`${f}: no kit_form_id yet, so its sign-up form cannot send anything. Create the Kit form and add its ID.`);
   }
   if (d.file) {
     const rel = String(d.file);
@@ -181,8 +187,8 @@ const FOOT = `<footer class="mm-footer">
 /* The email form or the open button. Shared by the landing page and the card. */
 function getBlock(d, { heading, note, marginTop }) {
   const action = d.access === 'email'
-    ? `        <!-- data-tag routes the Kit subscriber; data-deliver is the "open it now" link. -->
-        <form data-tag="${esc(d.kit_tag)}" data-deliver="${esc(d.file)}">
+    ? `        <!-- data-kit-form is the Kit form whose incentive email sends the file; data-deliver is the "open it now" link. -->
+        <form${d.kit_form_id ? ` data-kit-form="${esc(d.kit_form_id)}"` : ''} data-tag="${esc(d.kit_tag)}" data-deliver="${esc(d.file)}">
           <input type="email" placeholder="you@example.com" aria-label="Email address" required>
           <button type="submit" class="mmm-btn mmm-btn-primary">${esc(d.button_label || 'Send it to me')}</button>
         </form>`
@@ -284,6 +290,7 @@ async function main() {
   console.log(`[downloads] context=${CONTEXT}${BUILD_DRAFTS ? ' (drafts included)' : ''}${OFFLINE ? ' (PMID check offline)' : ''}`);
   const files = existsSync(CONTENT) ? (await readdir(CONTENT)).filter(f => f.endsWith('.md')) : [];
   const errors = [];
+  const warnings = [];
   const cache = await loadCache();
   const items = [];
 
@@ -295,7 +302,7 @@ async function main() {
     if (!SLUG.test(slug)) { errors.push(`${file}: slug "${slug}" must be lowercase words joined by hyphens`); continue; }
     const dl = { file, slug, data: parsed.data, body: parsed.body };
     if (dl.data.draft && !BUILD_DRAFTS) { console.log(`[downloads] skip draft ${file}`); continue; }
-    check(dl, errors);
+    check(dl, errors, warnings);
     await verifySources(dl, cache, errors);
     items.push(dl);
   }
@@ -316,6 +323,8 @@ async function main() {
     console.error('');
     process.exit(1);
   }
+
+  warnings.forEach(w => console.warn('[downloads] WARNING ' + w));
 
   /* Listed order: `order` ascending (unset last), then title. */
   items.sort((a, b) => (a.data.order ?? 999) - (b.data.order ?? 999) || String(a.data.title).localeCompare(String(b.data.title)));

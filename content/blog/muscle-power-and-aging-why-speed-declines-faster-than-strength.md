@@ -10,7 +10,7 @@ categories: [P1-C4, P1-C2]
 keywords: [muscle power aging, power vs strength, chair stand power, power training older adults, power decline after 65]
 references:
   - pmid: "41094174"
-    citation: "Baltasar-Fernandez I, Alcazar J, Gómez-Cabello A, et al. Changes and major determinants of relative muscle power loss in older adults: results from an 8-year longitudinal study. Eur J Appl Physiol. 2025;126(3):1737-1750. doi:10.1007/s00421-025-05947-3"
+    citation: "Baltasar-Fernandez I, Alcazar J, Gómez-Cabello A, et al. Changes and major determinants of relative muscle power loss in older adults: results from an 8-year longitudinal study. Eur J Appl Physiol. 2026;126(3):1737-1750. Epub 2025 Oct 15. doi:10.1007/s00421-025-05947-3"
     claim: In 565 adults aged 65 and older followed for 8 years, relative sit-to-stand power fell 11.8% in men and 8.0% in women, and about 95% of the decline came from lower power per unit of muscle.
     grade: Promising
   - pmid: "35953775"

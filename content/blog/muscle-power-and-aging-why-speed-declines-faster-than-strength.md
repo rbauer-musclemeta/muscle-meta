@@ -1,42 +1,60 @@
 ---
-title: "Muscle power and aging: why speed declines faster than strength"
+title: 'Muscle power and aging: why speed declines faster than strength'
 description: Muscle power, how fast you can produce force, declines faster than strength after 65. What the research shows and how to train for it safely.
 date: 2026-10-25
+updated: ''
 draft: false
-featured: false
+featured: true
 newsletter: true
 pillar: exercise-mobility
-categories: [P1-C4, P1-C2]
-keywords: [muscle power aging, power vs strength, chair stand power, power training older adults, power decline after 65]
+categories:
+  - P1-C4
+  - P1-C2
+image: /assets/blog/exec-6daeea66-1d85-4bf7-9a48-7d731179cd65.png
+image_alt: sit to stand muscle power
+related_tool: null
+keywords:
+  - muscle power aging
+  - power vs strength
+  - chair stand power
+  - power training older adults
+  - power decline after 65
 references:
-  - pmid: "41094174"
-    citation: "Baltasar-Fernandez I, Alcazar J, Gómez-Cabello A, et al. Changes and major determinants of relative muscle power loss in older adults: results from an 8-year longitudinal study. Eur J Appl Physiol. 2026;126(3):1737-1750. Epub 2025 Oct 15. doi:10.1007/s00421-025-05947-3"
-    claim: In 565 adults aged 65 and older followed for 8 years, relative sit-to-stand power fell 11.8% in men and 8.0% in women, and about 95% of the decline came from lower power per unit of muscle.
+  - claim: In 565 adults aged 65 and older followed for 8 years, relative sit-to-stand power fell 11.8% in men and 8.0% in women, and about 95% of the decline came from lower power per unit of muscle.
     grade: Promising
-  - pmid: "35953775"
-    citation: "El Hadouchi M, Kiers H, de Vries R, Veenhof C, van Dieën J. Effectiveness of power training compared to strength training in older adults: a systematic review and meta-analysis. Eur Rev Aging Phys Act. 2022;19:18. doi:10.1186/s11556-022-00297-x"
-    claim: In a meta-analysis of 15 randomized trials with 583 older adults, power training produced a larger benefit on muscle power than strength training.
+    pmid: '41094174'
+    citation: 'Baltasar-Fernandez I, Alcazar J, Gómez-Cabello A, et al. Changes and major determinants of relative muscle power loss in older adults: results from an 8-year longitudinal study. Eur J Appl Physiol. 2026;126(3):1737-1750. Epub 2025 Oct 15. doi:10.1007/s00421-025-05947-3'
+    url: ''
+  - claim: In a meta-analysis of 15 randomized trials with 583 older adults, power training produced a larger benefit on muscle power than strength training.
     grade: Established
-  - pmid: "15972618"
-    citation: "de Vos NJ, Singh NA, Ross DA, et al. Optimal load for increasing muscle power during explosive resistance training in older adults. J Gerontol A Biol Sci Med Sci. 2005;60(5):638-647. doi:10.1093/gerona/60.5.638"
-    claim: Peak muscle power rose 14 to 15% with explosive training at 20%, 50%, or 80% of one-repetition maximum, compared with 3% in controls, in 112 older adults around age 69.
+    pmid: '35953775'
+    citation: 'El Hadouchi M, Kiers H, de Vries R, Veenhof C, van Dieën J. Effectiveness of power training compared to strength training in older adults: a systematic review and meta-analysis. Eur Rev Aging Phys Act. 2022;19:18. doi:10.1186/s11556-022-00297-x'
+    url: ''
+  - claim: Peak muscle power rose 14 to 15% with explosive training at 20%, 50%, or 80% of one-repetition maximum, compared with 3% in controls, in 112 older adults around age 69.
     grade: Promising
-  - pmid: "35564788"
-    citation: "Martins AD, Fernandes O, Pereira A, Oliveira R, Alderete Goñi FD, Leite NJC, Brito JP. The Effects of High-Speed Resistance Training on Health Outcomes in Independent Older Adults: A Systematic Review and Meta-Analysis. Int J Environ Res Public Health. 2022;19(9). doi:10.3390/ijerph19095390"
-    claim: In a systematic review and meta-analysis of independent older adults, high-speed resistance training improved cognitive, neuromuscular, and physical function.
+    pmid: '15972618'
+    citation: de Vos NJ, Singh NA, Ross DA, et al. Optimal load for increasing muscle power during explosive resistance training in older adults. J Gerontol A Biol Sci Med Sci. 2005;60(5):638-647. doi:10.1093/gerona/60.5.638
+    url: ''
+  - claim: In a systematic review and meta-analysis of independent older adults, high-speed resistance training improved cognitive, neuromuscular, and physical function.
     grade: Promising
-  - pmid: "22016147"
-    citation: "Reid KF, Fielding RA. Skeletal muscle power: a critical determinant of physical functioning in older adults. Exerc Sport Sci Rev. 2012;40(1):4-12. doi:10.1097/JES.0b013e31823b5f13"
-    claim: Muscle power declines earlier and more precipitously with age than strength, and is an important predictor of functional limitation in older adults.
+    pmid: '35564788'
+    citation: 'Martins AD, Fernandes O, Pereira A, Oliveira R, Alderete Goñi FD, Leite NJC, Brito JP. The Effects of High-Speed Resistance Training on Health Outcomes in Independent Older Adults: A Systematic Review and Meta-Analysis. Int J Environ Res Public Health. 2022;19(9). doi:10.3390/ijerph19095390'
+    url: ''
+  - claim: Muscle power declines earlier and more precipitously with age than strength, and is an important predictor of functional limitation in older adults.
     grade: Promising
-  - pmid: "17530980"
-    citation: "Sayers SP. High-speed power training: a novel approach to resistance training in older men and women. A brief review and pilot study. J Strength Cond Res. 2007;21(2):518-526. doi:10.1519/R-20546.1"
-    claim: High-speed power training is a novel approach with preliminary evidence of benefit in older men and women.
+    pmid: '22016147'
+    citation: 'Reid KF, Fielding RA. Skeletal muscle power: a critical determinant of physical functioning in older adults. Exerc Sport Sci Rev. 2012;40(1):4-12. doi:10.1097/JES.0b013e31823b5f13'
+    url: ''
+  - claim: High-speed power training is a novel approach with preliminary evidence of benefit in older men and women.
     grade: Promising
-  - pmid: "31343601"
-    citation: "Fragala MS, Cadore EL, Dorgo S, Izquierdo M, Kraemer WJ, Peterson MD, Ryan ED. Resistance training for older adults: position statement from the National Strength and Conditioning Association. J Strength Cond Res. 2019;33(8):2019-2052. doi:10.1519/JSC.0000000000003230"
-    claim: The National Strength and Conditioning Association recommends resistance training that includes power for older adults.
+    pmid: '17530980'
+    citation: 'Sayers SP. High-speed power training: a novel approach to resistance training in older men and women. A brief review and pilot study. J Strength Cond Res. 2007;21(2):518-526. doi:10.1519/R-20546.1'
+    url: ''
+  - claim: The National Strength and Conditioning Association recommends resistance training that includes power for older adults.
     grade: Established
+    pmid: '31343601'
+    citation: 'Fragala MS, Cadore EL, Dorgo S, Izquierdo M, Kraemer WJ, Peterson MD, Ryan ED. Resistance training for older adults: position statement from the National Strength and Conditioning Association. J Strength Cond Res. 2019;33(8):2019-2052. doi:10.1519/JSC.0000000000003230'
+    url: ''
 faq:
   - q: What is muscle power, and how is it different from strength?
     a: Strength is how much force a muscle can produce. Power is force multiplied by velocity, so it measures how quickly you can produce that force. Standing from a chair, climbing stairs, and catching a stumble all depend on fast force.

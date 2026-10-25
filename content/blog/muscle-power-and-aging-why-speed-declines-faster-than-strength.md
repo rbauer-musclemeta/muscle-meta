@@ -16,8 +16,49 @@ related_tool: null
 keywords:
   - strength decline with age
   - loss of power in legs
-references: []
-faq: []
+references:
+  - claim: In 565 adults aged 65 and older followed for 8 years, chair-rise power fell 11.8% in men and 8.0% in women, and about 95% of the loss came from lower power per unit of muscle.
+    grade: Promising
+    pmid: '41094174'
+    citation: Baltasar-Fernandez I, et al. 2025. Eur J Appl Physiol
+    url: ''
+  - claim: Muscle power is a predictor of physical function in older adults.
+    grade: Promising
+    pmid: '35953775'
+    citation: El Hadouchi M, et al. 2022. Eur Rev Aging Phys Act.
+    url: ''
+  - claim: Muscle power declines with age more steeply than muscle strength.
+    grade: Promising
+    pmid: '15972618'
+    citation: de Vos NJ, et al. 2005. J Gerontol A Biol Sci Med Sci.
+    url: ''
+  - claim: In a pooled analysis of 15 randomized trials with 583 older adults, power training produced larger gains in muscle power than strength training.
+    grade: Established
+    pmid: '35564788'
+    citation: Martins AD, et al. 2022. Int J Environ Res Public Healt
+    url: ''
+  - claim: Muscle power is a key determinant of function in older adults and is lost faster than strength.
+    grade: Established
+    pmid: '22016147'
+    citation: Reid KF, Fielding RA. 2012. Exerc Sport Sci Rev.
+    url: ''
+  - claim: High-velocity training is a practical way to build power in older adults
+    grade: Promising
+    pmid: '17530980'
+    citation: Sayers SP. 2007. J Strength Cond Res.
+    url: ''
+  - claim: The National Strength and Conditioning Association recommends resistance training that includes power for older adults.
+    grade: Established
+    pmid: '31343601'
+    citation: Fragala MS, et al. 2019. J Strength Cond Res. NSCA position statement.
+    url: ''
+faq:
+  - q: What is muscle power, and how is it different from strength?
+    a: Strength is how much force a muscle can produce. Power is force multiplied by velocity, so it measures how quickly you can produce that force. Standing from a chair, climbing stairs, and catching a stumble all depend on fast force.
+  - q: How much muscle power do you lose with age?
+    a: In an 8-year study of 565 adults aged 65 and older, men lost 11.8% of their chair-rise power and women lost 8.0%. The annual loss reached about 2.0% after age 75. The study shows an association with age and sex, not a cause.
+  - q: Can older adults improve muscle power with training?
+    a: Yes. A pooled analysis of 15 randomized trials with 583 older adults found that power training built more muscle power than strength training. Check with your clinician before starting fast or heavy training, especially with joint, heart, or balance concerns.
 ---
 
 ## What is muscle power?

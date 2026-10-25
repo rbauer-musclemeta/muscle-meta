@@ -3,8 +3,8 @@ title: 'Muscle power and aging: why speed declines faster than strength'
 description: Muscle power, how fast you can produce force, declines faster than strength after 65. What the research shows and how to train for it safely.
 date: 2026-10-24
 updated: 2026-10-24
-draft: true
-featured: false
+draft: false
+featured: true
 newsletter: true
 pillar: exercise-mobility
 categories:

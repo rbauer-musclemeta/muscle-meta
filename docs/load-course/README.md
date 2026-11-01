@@ -19,11 +19,11 @@ Files for the joint-health build, placed from Randy's upload list. Start with
 | `source/Load as Medicine_ A Clinical Framework for Joint Health and Osteoarthritis Management.md` | Upload item 12 (unchanged) |
 | `source/MM-JointHealth-Assessment.html` | Upload item 13 (unchanged). **Reference only, never publish:** shows a composite risk percentage and tiers that A3 must remove. |
 | `source/SKILL.md` | Upload item 14, randy-brand-voice (unchanged) |
+| `source/references/*.md` (voice-core, modes-and-personas, cbt-informed-coaching, language-guardrails, source-basis) | randy-brand-voice reference files, unchanged. Placed beside `SKILL.md` so its `references/...` links resolve. `source-basis.md` cites the source workspace's local files (memory-os, Persona_Profiles, the manifesto); those links don't resolve in this repo, so treat them as a record of where the voice came from. |
 
 ## Still missing (do not start the orchestrator until these are in)
 
 - **Agent prompts.** `agents/A1` (evidence), `A2` (safety), `A8` (course), `A9` (QA) and `A10` (legal). Wave 1 needs A1, A2 and A10.
-- **randy-brand-voice reference files** that `source/SKILL.md` points to: `references/voice-core.md`, `modes-and-personas.md`, `cbt-informed-coaching.md`, `language-guardrails.md`, `source-basis.md`. Place them in `source/randy-brand-voice/references/`.
 - **Skill `marketing:email-sequence`.** A7 names it, but it is not installed. A7 runs without it and reports that, unless it is installed.
 
 ## Notes for A1 and A2 from the setup read-through (sources are not edited)

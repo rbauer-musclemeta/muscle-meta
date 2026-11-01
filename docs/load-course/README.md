@@ -5,7 +5,14 @@ Files for the joint-health build, placed from Randy's upload list. Start with
 
 ## Overrides recorded on 2026-11-01 (Randy)
 
-- **Supabase.** Use project `ikjadymjalaelkpivveh` only. Do not use `bxpferfuwoiulnqnfqhf`. This overrides item 3 of the upload list.
+- **Supabase, two projects.**
+  - **`bxpferfuwoiulnqnfqhf`** (`https://bxpferfuwoiulnqnfqhf.supabase.co`) is **production**: muscle-meta.com and the MatrixApp site both run on it. This workstream does nothing to it until Randy approves a merge.
+  - **`ikjadymjalaelkpivveh`** (`https://ikjadymjalaelkpivveh.supabase.co`) is the **development** project: anything database-related is built and tested here first. It reaches production only through a reviewed PR that Randy approves. This overrides item 3 of the upload list.
+- **Who touches a database.** Only A8 (paid course, wave 4, after Stripe milestone M4), plus A9b QA reading it. Waves 1 to 3 (evidence, safety, free check, downloads, blog, sales page, email copy) use no database.
+- **Keep Randy informed (his request).**
+  - Before any action on `ikjadymjalaelkpivveh`, the orchestrator or agent tells Randy in chat, in one or two plain lines: what is about to happen, why, and whether it only reads or also changes something.
+  - Afterwards it reports the result.
+  - The orchestrator keeps a "Database use" log in `STATUS.md`: date, agent, action, read or write, result.
 - **Orchestrator.** It runs in its own dedicated session on this branch.
 
 ## Placed
@@ -24,7 +31,7 @@ Files for the joint-health build, placed from Randy's upload list. Start with
 ## Still missing (do not start the orchestrator until these are in)
 
 - **Agent prompt `agents/A10` (legal).** It is a wave 1 task, so A10 cannot be dispatched until it arrives. The other wave 1 tasks (A1, A2, A3, A7) can run.
-- **A8 runs against Supabase `ikjadymjalaelkpivveh`.** Its "Supabase branch" means a branch of that project, never `bxpferfuwoiulnqnfqhf`.
+- **A8 runs against Supabase `ikjadymjalaelkpivveh`.** Its "Supabase branch" means a branch of that project, never `bxpferfuwoiulnqnfqhf` (see Overrides).
 - **Skill `marketing:email-sequence`.** A7 names it, but it is not installed. A7 runs without it and reports that, unless it is installed.
 
 ## Notes for A1 and A2 from the setup read-through (sources are not edited)

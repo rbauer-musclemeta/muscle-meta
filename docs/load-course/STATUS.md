@@ -6,18 +6,18 @@ Branch: `feature/load-course-setup`. Last updated: 2026-11-01.
 ## Current position
 
 - Phase: **P1**. Gate G0 passed 2026-11-01 (Randy confirmed all defaults).
-- Wave 1 (A1, A2, A3, A7, A10) ready to dispatch.
+- Wave 1 (A1, A2, A3, A7, A10) dispatched 2026-11-01, in parallel, each in its own worktree.
 
 ## Task table
 
 | ID | Agent | Wave | Depends on | Branch | Status | Open items |
 |---|---|---|---|---|---|---|
 | G0 | Orchestrator with Randy | 0 | none | `feature/load-course-setup` | done (2026-11-01) | Clinical reviewer name still needed before G1 |
-| A1 | Evidence | 1 | G0 | `load-course/A1` | not started | |
-| A2 | Safety and clinical copy | 1 | G0 | `load-course/A2` | not started | |
-| A3 | Assessment tool | 1 | G0 | `load-course/A3` | not started | |
-| A7 | Email copy | 1 | G0 | `load-course/A7` | not started | `marketing:email-sequence` not installed; A7 runs without it |
-| A10 | Legal | 1 | G0 | `load-course/A10` | not started | |
+| A1 | Evidence | 1 | G0 | `load-course/A1-evidence` | dispatched 2026-11-01 | |
+| A2 | Safety and clinical copy | 1 | G0 | `load-course/A2-safety` | dispatched 2026-11-01 | |
+| A3 | Assessment tool | 1 | G0 | `load-course/A3-tool` | dispatched 2026-11-01 | |
+| A7 | Email copy | 1 | G0 | `load-course/A7-email` | dispatched 2026-11-01 (phase A copy only) | `marketing:email-sequence` not installed; A7 runs without it |
+| A10 | Legal | 1 | G0 | `load-course/A10-legal` | dispatched 2026-11-01 | |
 | A4 | Downloads | 2 | G1 (A1, A2) | `load-course/A4` | not started | |
 | A5 | Blog | 2 | G1 (A1, A2) | `load-course/A5` | not started | |
 | A6 | Sales page and category hub | 2 | G1 (A1), A3 merged | `load-course/A6` | not started | |
@@ -38,6 +38,8 @@ Branch: `feature/load-course-setup`. Last updated: 2026-11-01.
 | D6 | Clinical review and data | Second clinical reviewer signs off red flags and claims before launch; only email and download tag reach Kit; no health answers to Kit or Stripe | confirmed default; reviewer not yet named | 2026-11-01 |
 | D7 | Public title | "Load as Medicine", subtitle "An educational course, not treatment." | confirmed default | 2026-11-01 |
 | D8 | Consent | Double opt-in in Kit | confirmed default | 2026-11-01 |
+
+Also decided 2026-11-01: **audience is adults 50 and over** (replaces the course's 45–75).
 
 Already answered in PLAN.md: D2 (site-hosted, Stripe, $37.00 one-time, assumed),
 D4 (Randy on camera, about two minutes per lesson), D5 (core launch scope).

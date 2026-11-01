@@ -12,7 +12,7 @@ Branch: `feature/load-course-setup`. Last updated: 2026-11-01.
 
 | ID | Agent | Wave | Depends on | Branch | Status | Open items |
 |---|---|---|---|---|---|---|
-| G0 | Orchestrator with Randy | 0 | none | `feature/load-course-setup` | done (2026-11-01) | Clinical reviewer name still needed before G1 |
+| G0 | Orchestrator with Randy | 0 | none | `feature/load-course-setup` | done (2026-11-01) | |
 | A1 | Evidence | 1 | G0 | `load-course/A1-evidence` | dispatched 2026-11-01 | |
 | A2 | Safety and clinical copy | 1 | G0 | `load-course/A2-safety` | dispatched 2026-11-01 | |
 | A3 | Assessment tool | 1 | G0 | `load-course/A3-tool` | dispatched 2026-11-01 | |
@@ -35,7 +35,7 @@ Branch: `feature/load-course-setup`. Last updated: 2026-11-01.
 |---|---|---|---|---|
 | D1 | Main magnet and host | Free check plus downloads; sales page at `/courses/load-course/`; no composite score for users | confirmed default | 2026-11-01 |
 | D3 | Email platform | Kit only | confirmed default | 2026-11-01 |
-| D6 | Clinical review and data | Second clinical reviewer signs off red flags and claims before launch; only email and download tag reach Kit; no health answers to Kit or Stripe | confirmed default; reviewer not yet named | 2026-11-01 |
+| D6 | Clinical review and data | Second clinical reviewer signs off red flags and claims before launch; only email and download tag reach Kit; no health answers to Kit or Stripe | confirmed; clinical reviewer named as Randy (Randall) Bauer, PT, so there is no separate second reviewer | 2026-11-01 |
 | D7 | Public title | "Load as Medicine", subtitle "An educational course, not treatment." | confirmed default | 2026-11-01 |
 | D8 | Consent | Double opt-in in Kit | confirmed default | 2026-11-01 |
 
@@ -119,4 +119,5 @@ wording, "unlocking", Lesson 3 timing, audience age), for A1 and A2:
 | Date | Summary |
 |---|---|
 | 2026-11-01 | Setup read-through done; G0 question asked. |
+| 2026-11-01 | Clinical reviewer named: Randy (Randall) Bauer, PT. |
 | 2026-11-01 | G0 passed: D1, D3, D6, D7, D8 confirmed as defaults. Open: clinical reviewer name (needed for G1); audience age 45–75 (course) vs 50+ (PLAN). |

@@ -6,7 +6,8 @@ Branch: `feature/load-course-setup`. Last updated: 2026-11-01.
 ## Current position
 
 - Phase: **P1**. Gate G0 passed 2026-11-01 (Randy confirmed all defaults).
-- Wave 1 (A1, A2, A3, A7, A10) dispatched 2026-11-01, in parallel, each in its own worktree.
+- Wave 1 (A1, A2, A3, A7, A10) all reported 2026-11-01. A3, A7, A10 done; A1 and A2 need Randy's decisions.
+- Next: Randy answers A1's 7 evidence decisions and A2's red-flag review; then A2 follow-up pass (map claims to register, apply red-flag edits) and A3 placeholder pass; then G1 is put to Randy. Wave 2 waits on G1.
 
 ## Task table
 
@@ -15,7 +16,7 @@ Branch: `feature/load-course-setup`. Last updated: 2026-11-01.
 | G0 | Orchestrator with Randy | 0 | none | `feature/load-course-setup` | done (2026-11-01) | |
 | A1 | Evidence | 1 | G0 | `load-course/A1-evidence` | needs-decision 2026-11-01 (report checked: required checks present, writes limited to register, notes, pmid-cache) | 24 claims: 4 Established, 10 Promising, 10 Unproven-Bridge. 14 verified, 4 mismatch (C02, C03, C09, C18: right author and year, but the paper does not support the claim), 5 needs-review, 1 not-found (C17). All 7 source citations match PubMed on author and year. 3 PMIDs used but not cached (26564575, 34916210, 29934429; issue year to confirm). ESCEO tiers unverified: name OARSI only. Build's live PubMed check could not run in this session (proxy blocks E-utilities); Netlify build will run it. 7 decisions put to Randy 2026-11-01. |
 | A2 | Safety and clinical copy | 1 | G0 | `load-course/A2-safety` | needs-decision 2026-11-01 (report checked: required checks present, writes limited to `docs/load-course/safety/`) | 8 files incl. 50 copy fixes. Claims still `[CLAIM-Cnn]`/`[CLAIM-NEW-1..6]` placeholders (A2 ran before A1 finished); needs a follow-up pass to map onto A1's register once Randy answers A1's 7 decisions. Report says reviewer unnamed: superseded, Randy is reviewer. Disclaimer keeps legal "if you have a heart condition" verbatim. Lesson 3 script timing (F23). For A3: red-flag answers never stored or sent; analytics may record only that the screen stopped. Clinical decisions for Randy: RF1–RF7 wording and levels, RF8–RF10 proposed additions, "not sure" counts as yes, "cut back to about half" as his own guidance. |
-| A3 | Assessment tool | 1 | G0 | `load-course/A3-tool` | dispatched 2026-11-01 | |
+| A3 | Assessment tool | 1 | G0 | `load-course/A3-tool` | done 2026-11-01 (report checked: required checks present incl. 390px local render; orchestrator spot-check: no hex, no composite/tier, no storage; writes limited to `site/tools/joint-load-check/`) | Netlify preview URL not yet confirmed (checked locally only). TODO-A2 and TODO-A1 placeholders to replace after the A2 follow-up pass. TODO-A6: next step links /downloads/ until the sales page exists. Outside A3 scope: add to sitemap, /tools/ hub, P1-C1 page (A6). Shared header logo/nav under 44px site-wide (scoped fix on this page only). Decisions: stop screen offers only start over (allow going back?); keep GLP-1 question; "gets stuck" for locking (clinical). |
 | A7 | Email copy | 1 | G0 | `load-course/A7-email` | phase A done 2026-11-01 (report checked: required checks present, writes limited to `docs/load-course/emails/`) | 9 emails drafted, ran without `marketing:email-sequence`; `[CLAIM-Cnn]` and `[A2-...]` placeholders until A1/A2 merge; Kit footer placeholders (phase B); tracker and blog slugs to re-check after A4/A5; nurture exit on purchase needs a non-health purchase signal into Kit (phase B design). Decisions for Randy: approve copy (G5), sequence lengths 1/4/3/1, send days (welcome 1,3,6,10; nurture 14,18,22), newsletter extra links, nurture subscribers also get newsletter, price $37 |
 | A10 | Legal | 1 | G0 | `load-course/A10-legal` | done 2026-11-01 (report checked: required checks present, writes limited to 4 legal drafts) | 45 to-confirm items in `docs/load-course/legal/review-notes.md` (on branch); privacy page is still a placeholder and must be approved and live before any Kit capture (G2), not only before payment; payment must not open before counsel reviews terms and refunds; `[A2-red-flag-screen]` placeholder; existing `site/legal/*` pages use a literal hex colour (fix when approved text is applied) |
 | A4 | Downloads | 2 | G1 (A1, A2) | `load-course/A4` | not started | |
@@ -119,5 +120,6 @@ wording, "unlocking", Lesson 3 timing, audience age), for A1 and A2:
 | Date | Summary |
 |---|---|
 | 2026-11-01 | Setup read-through done; G0 question asked. |
+| 2026-11-01 | Wave 1 reported: A3, A7, A10 done; A1, A2 need decisions (evidence and red-flag review). G1 pending. |
 | 2026-11-01 | Clinical reviewer named: Randy (Randall) Bauer, PT. |
 | 2026-11-01 | G0 passed: D1, D3, D6, D7, D8 confirmed as defaults. Open: clinical reviewer name (needed for G1); audience age 45–75 (course) vs 50+ (PLAN). |

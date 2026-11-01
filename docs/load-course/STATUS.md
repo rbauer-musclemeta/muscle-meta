@@ -5,14 +5,14 @@ Branch: `feature/load-course-setup`. Last updated: 2026-11-01.
 
 ## Current position
 
-- Phase: **P0**. Waiting on Gate G0 (Randy confirms D1, D3, D6, D7, D8).
-- No sub-agent has been dispatched. None will be until G0 is recorded below.
+- Phase: **P1**. Gate G0 passed 2026-11-01 (Randy confirmed all defaults).
+- Wave 1 (A1, A2, A3, A7, A10) ready to dispatch.
 
 ## Task table
 
 | ID | Agent | Wave | Depends on | Branch | Status | Open items |
 |---|---|---|---|---|---|---|
-| G0 | Orchestrator with Randy | 0 | none | `feature/load-course-setup` | in progress (question asked 2026-11-01) | Randy's answers |
+| G0 | Orchestrator with Randy | 0 | none | `feature/load-course-setup` | done (2026-11-01) | Clinical reviewer name still needed before G1 |
 | A1 | Evidence | 1 | G0 | `load-course/A1` | not started | |
 | A2 | Safety and clinical copy | 1 | G0 | `load-course/A2` | not started | |
 | A3 | Assessment tool | 1 | G0 | `load-course/A3` | not started | |
@@ -33,11 +33,11 @@ Branch: `feature/load-course-setup`. Last updated: 2026-11-01.
 
 | ID | Decision | Default (PLAN.md) | Randy's answer | Date |
 |---|---|---|---|---|
-| D1 | Main magnet and host | Free check plus downloads; sales page at `/courses/load-course/`; no composite score for users | pending | |
-| D3 | Email platform | Kit only | pending | |
-| D6 | Clinical review and data | Second clinical reviewer signs off red flags and claims before launch; only email and download tag reach Kit; no health answers to Kit or Stripe | pending | |
-| D7 | Public title | "Load as Medicine", subtitle "An educational course, not treatment." | pending | |
-| D8 | Consent | Double opt-in in Kit | pending | |
+| D1 | Main magnet and host | Free check plus downloads; sales page at `/courses/load-course/`; no composite score for users | confirmed default | 2026-11-01 |
+| D3 | Email platform | Kit only | confirmed default | 2026-11-01 |
+| D6 | Clinical review and data | Second clinical reviewer signs off red flags and claims before launch; only email and download tag reach Kit; no health answers to Kit or Stripe | confirmed default; reviewer not yet named | 2026-11-01 |
+| D7 | Public title | "Load as Medicine", subtitle "An educational course, not treatment." | confirmed default | 2026-11-01 |
+| D8 | Consent | Double opt-in in Kit | confirmed default | 2026-11-01 |
 
 Already answered in PLAN.md: D2 (site-hosted, Stripe, $37.00 one-time, assumed),
 D4 (Randy on camera, about two minutes per lesson), D5 (core launch scope).
@@ -46,7 +46,7 @@ D4 (Randy on camera, about two minutes per lesson), D5 (core launch scope).
 
 | Gate | Status |
 |---|---|
-| G0 | in progress |
+| G0 | passed 2026-11-01 (Randy) |
 | G1 | not reached |
 | G2 | not reached |
 | G3 | not reached |
@@ -117,3 +117,4 @@ wording, "unlocking", Lesson 3 timing, audience age), for A1 and A2:
 | Date | Summary |
 |---|---|
 | 2026-11-01 | Setup read-through done; G0 question asked. |
+| 2026-11-01 | G0 passed: D1, D3, D6, D7, D8 confirmed as defaults. Open: clinical reviewer name (needed for G1); audience age 45–75 (course) vs 50+ (PLAN). |

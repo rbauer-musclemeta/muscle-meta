@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Joint-load check — Muscle-Meta Matrix™</title>
+<meta name="description" content="A free joint-load check for adults 50 and over with knee or hip arthritis. A safety screen first, then questions on how you think about movement and how your joint handles load, with plain guidance and one next step. No score, no sign-in.">
+<link rel="canonical" href="https://muscle-meta.com/tools/joint-load-check/">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<meta property="og:site_name" content="Muscle-Meta Matrix">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Free joint-load check for knee and hip arthritis">
+<meta property="og:description" content="A safety screen, a few questions about movement and load, and one plain next step. For adults 50 and over.">
+<meta property="og:url" content="https://muscle-meta.com/tools/joint-load-check/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/mm.css">
+<style>
+/* Joint-load check. Tokens only: every colour, font and spacing value comes
+   from /assets/mm.css. No literal colour values in this file. */
+.jl-tm{color:var(--teal);font-size:55%}
+/* Hit targets on the shared header, scoped to this page. */
+.mm-nav .mm-logo{display:inline-block;padding:4px 0}
+@media(min-width:901px){.mm-navlinks a{display:inline-flex;align-items:center;min-height:44px}}
+.jl-wrap{max-width:var(--content-narrow);margin:0 auto;padding:var(--s-6) var(--gutter) var(--s-7)}
+.jl-intro h1{font-size:var(--fs-h2);margin:var(--s-3) 0 var(--s-4)}
+.jl-intro .lede{max-width:680px}
+
+.jl-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-4);box-shadow:var(--shadow-md);padding:var(--s-6);margin-top:var(--s-6)}
+
+.jl-progress{display:none;margin-bottom:var(--s-5)}
+.jl-progress.show{display:block}
+.jl-progress-track{height:8px;border-radius:var(--r-pill);background:var(--border-soft);overflow:hidden}
+.jl-progress-fill{display:block;height:100%;width:0;background:var(--teal);border-radius:var(--r-pill);transition:width var(--dur-slow) var(--ease-out)}
+.jl-progress-meta{display:flex;justify-content:space-between;gap:var(--s-3);flex-wrap:wrap;font-size:var(--fs-micro);color:var(--ink-muted);margin-top:var(--s-2)}
+
+.jl-step{display:none}
+.jl-step.active{display:block;animation:jlIn var(--dur-slow) var(--ease-out)}
+@keyframes jlIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.jl-step.active{animation:none}.jl-progress-fill{transition:none}}
+
+.jl-kicker{display:inline-block;font-size:var(--fs-micro);font-weight:var(--fw-semi);letter-spacing:.12em;text-transform:uppercase;color:var(--teal-dark);background:var(--teal-muted);padding:6px 12px;border-radius:var(--r-pill)}
+.jl-kicker.gold{color:var(--ink);background:var(--gold-muted)}
+.jl-step h2{font-size:var(--fs-h3);margin:var(--s-3) 0 var(--s-3);outline:none}
+.jl-step h3{font-size:var(--fs-h4);margin:0 0 var(--s-2)}
+.jl-sub{font-size:var(--fs-body);color:var(--ink-soft);margin-bottom:var(--s-5)}
+.jl-step p + p{margin-top:var(--s-3)}
+
+.jl-notice{background:var(--teal-tint);border-left:3px solid var(--teal);border-radius:0 var(--r-2) var(--r-2) 0;padding:var(--s-5);margin:var(--s-5) 0}
+.jl-notice h3{font-size:var(--fs-h4)}
+.jl-notice ul{margin:var(--s-3) 0 0;padding-left:var(--s-5)}
+.jl-notice li{margin-bottom:var(--s-2)}
+
+fieldset.jl-q{border:0;margin:0 0 var(--s-6);padding:0;min-width:0}
+fieldset.jl-q legend{font-family:var(--font-display);font-size:var(--fs-h4);font-weight:var(--fw-bold);color:var(--ink);line-height:1.25;padding:0;margin-bottom:var(--s-2)}
+fieldset.jl-q .hint{display:block;font-size:var(--fs-body);color:var(--ink-muted);margin-bottom:var(--s-3)}
+.jl-opt-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-3)}
+.jl-opt-grid.one{grid-template-columns:1fr}
+@media(max-width:600px){.jl-opt-grid{grid-template-columns:1fr}}
+.jl-opt{display:flex;gap:var(--s-3);align-items:flex-start;min-height:56px;padding:var(--s-3) var(--s-4);border:1.5px solid var(--border);border-radius:var(--r-3);background:var(--white);cursor:pointer;transition:border-color var(--dur-fast) var(--ease-out),background var(--dur-fast) var(--ease-out)}
+.jl-opt:hover{border-color:var(--teal)}
+.jl-opt input{flex-shrink:0;width:22px;height:22px;margin:2px 0 0;accent-color:var(--teal);cursor:pointer}
+.jl-opt .t{display:block;font-size:var(--fs-body);font-weight:var(--fw-semi);color:var(--ink);line-height:1.45}
+.jl-opt .d{display:block;font-size:var(--fs-body);color:var(--ink-muted);line-height:1.5;margin-top:2px}
+.jl-opt:has(input:checked){border-color:var(--teal);background:var(--teal-tint)}
+.jl-opt:has(input:focus-visible){outline:2px solid var(--teal);outline-offset:2px}
+
+.jl-yn{border-top:1px solid var(--border-soft);padding:var(--s-4) 0}
+.jl-yn:first-of-type{border-top:0}
+.jl-yn legend{font-family:var(--font-body)!important;font-size:var(--fs-body)!important;font-weight:var(--fw-semi)!important;color:var(--ink);line-height:1.5}
+.jl-yn .jl-opt-grid{grid-template-columns:1fr 1fr;max-width:360px;margin-top:var(--s-3)}
+.jl-yn .jl-opt{min-height:48px;align-items:center}
+.jl-yn .jl-opt input{margin-top:0}
+
+.jl-field label{display:block;font-family:var(--font-display);font-size:var(--fs-h4);font-weight:var(--fw-bold);color:var(--ink);margin-bottom:var(--s-2)}
+.jl-field .hint{display:block;font-size:var(--fs-body);color:var(--ink-muted);margin-bottom:var(--s-3)}
+.jl-field input[type=text]{width:100%;max-width:420px;min-height:48px;padding:12px 14px;border:1.5px solid var(--border);border-radius:var(--r-2);font-family:var(--font-body);font-size:var(--fs-body);color:var(--ink);background:var(--surface-tint)}
+.jl-field input[type=text]:focus{outline:none;border-color:var(--teal);background:var(--white)}
+.jl-field{margin-bottom:var(--s-6)}
+
+.jl-sub-q{display:none;margin:calc(-1 * var(--s-3)) 0 var(--s-6);padding:var(--s-4);border:1px dashed var(--border);border-radius:var(--r-3);background:var(--surface)}
+.jl-sub-q.show{display:block}
+.jl-sub-q fieldset.jl-q{margin-bottom:0}
+
+.jl-error{display:none;margin-top:var(--s-4);padding:var(--s-3) var(--s-4);border-left:3px solid var(--tier-5);background:var(--tier-5-muted);border-radius:0 var(--r-2) var(--r-2) 0;color:var(--ink);font-weight:var(--fw-semi)}
+.jl-error.show{display:block}
+
+.jl-nav{display:flex;justify-content:space-between;align-items:center;gap:var(--s-3);flex-wrap:wrap;margin-top:var(--s-6)}
+.jl-nav .spacer{flex:1}
+
+.jl-reframe{background:var(--gold-muted);border-left:4px solid var(--gold);border-radius:0 var(--r-3) var(--r-3) 0;padding:var(--s-5)}
+.jl-reframe h2{margin-top:var(--s-3)}
+.jl-placeholder{margin-top:var(--s-4);padding:var(--s-3) var(--s-4);border:1.5px dashed var(--ink-faint);border-radius:var(--r-2);background:var(--white);color:var(--ink-muted)}
+
+.jl-draft{display:inline-block;font-size:var(--fs-body);font-weight:var(--fw-semi);color:var(--ink);background:var(--gold-muted);border:1px dashed var(--gold-dark);border-radius:var(--r-pill);padding:2px 10px;margin-bottom:var(--s-3)}
+
+.jl-panel{border:1px solid var(--border);border-radius:var(--r-3);padding:var(--s-5);margin-top:var(--s-5);background:var(--white)}
+.jl-panel h3{font-size:var(--fs-h4)}
+.jl-panel ul{margin:var(--s-3) 0 0;padding-left:var(--s-5)}
+.jl-panel li{margin-bottom:var(--s-2)}
+.jl-panel.safe{border-left:4px solid var(--teal)}
+.jl-panel.next{border-left:4px solid var(--gold);background:var(--gold-muted)}
+.jl-panel.rules{background:var(--teal-tint)}
+.jl-panel .note{margin-top:var(--s-4);padding-top:var(--s-4);border-top:1px dashed var(--border)}
+.jl-panel .note strong{color:var(--ink)}
+
+.jl-stop{border-left:4px solid var(--tier-5);background:var(--tier-5-muted);border-radius:0 var(--r-3) var(--r-3) 0;padding:var(--s-5)}
+.jl-stop h2{margin-top:var(--s-3)}
+.jl-stop .urgent{margin-top:var(--s-4);padding:var(--s-4);background:var(--white);border-radius:var(--r-2);border:1px solid var(--border)}
+.jl-stop .urgent strong{color:var(--ink)}
+
+.jl-keep{display:flex;gap:var(--s-4);align-items:center;justify-content:space-between;flex-wrap:wrap;margin-top:var(--s-5);padding:var(--s-5);border:1.5px solid var(--gold);border-radius:var(--r-3);background:var(--white)}
+.jl-keep .actions{display:flex;gap:var(--s-3);flex-wrap:wrap}
+.jl-keep p.k{font-weight:var(--fw-semi);color:var(--ink)}
+.jl-keep p.micro{font-size:var(--fs-body);margin-top:4px}
+
+.jl-meta{font-size:var(--fs-body);color:var(--ink-muted);margin-top:var(--s-2)}
+.jl-disclaimer{margin-top:var(--s-5);padding:var(--s-4) var(--s-5);background:var(--surface);border:1px solid var(--border);border-radius:var(--r-2);font-size:var(--fs-body);color:var(--ink-soft)}
+.jl-disclaimer a,.jl-panel a,.jl-notice a{text-decoration:underline;text-underline-offset:3px}
+
+.jl-gap{margin-top:var(--s-3)}
+.jl-tagline{margin-top:6px}
+.jl-sr{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.jl-footer-disclaimer{margin-top:var(--s-5);max-width:820px}
+.jl-footer-links{margin-top:var(--s-4)}
+
+@media(max-width:768px){
+  .jl-wrap{padding:var(--s-5) var(--gutter-mobile) var(--s-7)}
+  .jl-card{padding:var(--s-5) var(--s-4)}
+  .jl-intro h1{font-size:34px}
+  .jl-step h2{font-size:26px}
+  .mmm-btn{padding:13px 22px}
+  .jl-nav .mmm-btn{flex:1 1 auto}
+}
+
+/* Print: only the outcome that is showing (results or the safety stop). */
+@media print{
+  .mm-nav,.jl-intro,.jl-progress,.jl-nav,.jl-keep,.jl-noprint{display:none!important}
+  body{background:var(--white)}
+  .jl-wrap{padding:0;max-width:100%}
+  .jl-card{box-shadow:none;border:0;padding:0;margin:0}
+  .jl-step{display:none!important}
+  .jl-step.active#step-results,.jl-step.active#step-stop{display:block!important;animation:none}
+  .jl-panel,.jl-stop,.jl-disclaimer{break-inside:avoid}
+  .jl-print-only{display:block!important}
+}
+.jl-print-only{display:none}
+</style>
+</head>
+<body data-category="P1-C1">
+
+<header class="mm-nav">
+  <div class="mm-nav-inner">
+    <a href="/" class="mm-logo">Muscle-Meta Matrix<sup class="jl-tm">™</sup><span>Clinical intelligence for active aging</span></a>
+    <button class="mm-navtoggle" aria-label="Menu" aria-expanded="false"><span></span></button>
+    <nav class="mm-navlinks">
+      <a href="/courses/">Courses</a>
+      <a href="/tools/">Tools</a>
+      <a href="/learn/">Learn</a>
+      <a href="/blog/">Articles</a>
+      <a href="/downloads/">Free guides</a>
+    </nav>
+  </div>
+</header>
+
+<main class="jl-wrap" id="top">
+
+  <section class="jl-intro">
+    <span class="eyebrow">Exercise &amp; Mobility · Joint Health</span>
+    <h1>The joint-load check</h1>
+    <p class="lede">A free check for adults 50 and over living with knee or hip arthritis, including people after a joint replacement and players who want to keep playing. It starts with a short safety screen, then asks how you think about movement and how your joint handles load. You get a plain reading of your answers and one next step. There is no score.</p>
+  </section>
+
+  <div class="jl-card">
+
+    <div class="jl-progress" id="progress" aria-hidden="true">
+      <div class="jl-progress-track"><span class="jl-progress-fill" id="progressFill"></span></div>
+      <div class="jl-progress-meta"><span id="progressLabel">Step 1 of 8</span><span id="progressName">Safety check</span></div>
+    </div>
+
+    <noscript><p class="jl-notice">This check needs JavaScript to move between questions. Your answers would still stay on this device.</p></noscript>
+
+    <!-- ===================== START: what is asked + privacy ===================== -->
+    <section class="jl-step active" id="step-start" data-name="Before you start" aria-labelledby="h-start">
+      <span class="jl-kicker">Before you start</span>
+      <h2 id="h-start" tabindex="-1">What this check asks, and where your answers go</h2>
+      <p class="jl-sub">It takes about five minutes. Nothing here is a diagnosis. It is a starting point you can take to your own doctor or physical therapist.</p>
+
+      <div class="jl-notice" id="privacy">
+        <h3>Your privacy</h3>
+        <p>What we ask:</p>
+        <ul>
+          <li>Seven safety questions about warning signs in the joint.</li>
+          <li>Which joint bothers you, your surgery and injury history, and any diagnosis a clinician has given you.</li>
+          <li>Everyday things that load the joint, how you think about movement, what you do when it flares, and the activities you want to keep doing.</li>
+          <li>Your first name, if you want it on your printed summary. It is optional.</li>
+        </ul>
+        <p class="jl-gap">Where your answers go: <strong>nowhere</strong>. They stay in this browser tab on this device. Nothing is saved, nothing is stored in your browser, and nothing is sent to us, to Kit (our email service) or to Stripe (our payment service). There is no email field and no sign-in. When you close or reload the page, your answers are gone. To keep a copy, print the summary or save it as a PDF at the end.</p>
+      </div>
+
+      <div class="jl-nav">
+        <span class="spacer"></span>
+        <button type="button" class="mmm-btn mmm-btn-primary" data-go="safety">Start with the safety check</button>
+      </div>
+    </section>
+
+    <!-- ===================== SAFETY SCREEN (before step 1) ===================== -->
+    <!-- TODO-A2: replace every red-flag question below with the approved wording
+         from docs/load-course/safety/red-flag-screen.md. Draft items follow the
+         list in docs/load-course/agents/A2-safety-clinical.md deliverable 1. -->
+    <section class="jl-step" id="step-safety" data-name="Safety check" data-progress="1" aria-labelledby="h-safety">
+      <span class="jl-kicker gold">Safety check</span>
+      <h2 id="h-safety" tabindex="-1">First, a few safety questions</h2>
+      <p class="jl-sub">These are signs that a joint should be looked at by a clinician before you add load. If you answer yes to any of them, the check stops here and tells you what to do instead.</p>
+      <p class="jl-draft" data-todo="TODO-A2">Draft wording, pending clinical review</p>
+
+      <form id="safetyForm" novalidate>
+        <fieldset class="jl-q jl-yn" data-required>
+          <legend>Does the joint ever get stuck so you cannot bend or straighten it, or suddenly give way under you?</legend>
+          <div class="jl-opt-grid">
+            <label class="jl-opt"><input type="radio" name="rf1" value="yes"><span class="t">Yes</span></label>
+            <label class="jl-opt"><input type="radio" name="rf1" value="no"><span class="t">No</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="jl-q jl-yn" data-required>
+          <legend>Is the joint hot, red or swollen, and do you also have a fever or feel unwell all over?</legend>
+          <div class="jl-opt-grid">
+            <label class="jl-opt"><input type="radio" name="rf2" value="yes"><span class="t">Yes</span></label>
+            <label class="jl-opt"><input type="radio" name="rf2" value="no"><span class="t">No</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="jl-q jl-yn" data-required>
+          <legend>Over the last few days, have you suddenly lost a lot of the movement in this joint?</legend>
+          <div class="jl-opt-grid">
+            <label class="jl-opt"><input type="radio" name="rf3" value="yes"><span class="t">Yes</span></label>
+            <label class="jl-opt"><input type="radio" name="rf3" value="no"><span class="t">No</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="jl-q jl-yn" data-required>
+          <legend>Since a joint replacement or other leg surgery, have you noticed new pain, swelling, warmth or tenderness in your calf? If there was no surgery, answer no.</legend>
+          <div class="jl-opt-grid">
+            <label class="jl-opt"><input type="radio" name="rf4" value="yes"><span class="t">Yes</span></label>
+            <label class="jl-opt"><input type="radio" name="rf4" value="no"><span class="t">No</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="jl-q jl-yn" data-required>
+          <legend>Is there joint pain at rest or at night that does not ease when you change position?</legend>
+          <div class="jl-opt-grid">
+            <label class="jl-opt"><input type="radio" name="rf5" value="yes"><span class="t">Yes</span></label>
+            <label class="jl-opt"><input type="radio" name="rf5" value="no"><span class="t">No</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="jl-q jl-yn" data-required>
+          <legend>Have you lost weight recently without trying to?</legend>
+          <div class="jl-opt-grid">
+            <label class="jl-opt"><input type="radio" name="rf6" value="yes"><span class="t">Yes</span></label>
+            <label class="jl-opt"><input type="radio" name="rf6" value="no"><span class="t">No</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="jl-q jl-yn" data-required>
+          <legend>Have you had a recent fall or injury after which the joint looks out of shape, or you cannot put weight on the leg?</legend>
+          <div class="jl-opt-grid">
+            <label class="jl-opt"><input type="radio" name="rf7" value="yes"><span class="t">Yes</span></label>
+            <label class="jl-opt"><input type="radio" name="rf7" value="no"><span class="t">No</span></label>
+          </div>
+        </fieldset>
+
+        <p class="jl-error" role="alert" id="err-safety">Please answer yes or no to each question.</p>
+        <div class="jl-nav">
+          <button type="button" class="mmm-btn mmm-btn-ghost" data-back>Back</button>
+          <button type="submit" class="mmm-btn mmm-btn-primary">Continue</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- ===================== SAFETY STOP ===================== -->
+    <!-- TODO-A2: clinician message from docs/load-course/safety/red-flag-screen.md -->
+    <section class="jl-step" id="step-stop" data-name="Check with a clinician" aria-labelledby="h-stop">
+      <div class="jl-stop">
+        <span class="jl-kicker gold">Safety check</span>
+        <h2 id="h-stop" tabindex="-1">Please check with a clinician before going further</h2>
+        <p class="jl-draft" data-todo="TODO-A2">Draft wording, pending clinical review</p>
+        <p>You answered yes to at least one safety question. That does not mean something serious is wrong. It does mean the joint is worth having a doctor or physical therapist look at before you start building load, so this check stops here rather than give you guidance that may not fit.</p>
+        <p>Take this page to your appointment, or tell your clinician which question you answered yes to.</p>
+        <div class="urgent">
+          <p><strong>Do not wait for a routine appointment</strong> if the joint is hot and swollen with a fever, if there is new calf pain or swelling after surgery, or if you cannot put weight on the leg after a fall. Contact your doctor today or go to urgent care. For chest pain or sudden shortness of breath, call emergency services.</p>
+        </div>
+      </div>
+      <div class="jl-disclaimer" data-todo="TODO-A2">
+        <p><strong>Medical disclaimer.</strong> This check is educational. It does not provide medical advice, diagnosis or treatment, and it is not a substitute for an examination by a qualified clinician. <a href="/legal/medical-disclaimer/">Read the full medical disclaimer</a>.</p>
+      </div>
+      <div class="jl-keep">
+        <div>
+          <p class="k">Keep this message.</p>
+          <p class="micro">Print it or save it as a PDF to take with you. Your answers are not saved anywhere.</p>
+        </div>
+        <div class="actions">
+          <button type="button" class="mmm-btn mmm-btn-gold mmm-btn-sm" data-print>Print or save as PDF</button>
+          <button type="button" class="mmm-btn mmm-btn-ghost mmm-btn-sm" data-restart>Start over</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== STEP 2: ABOUT YOU ===================== -->
+    <section class="jl-step" id="step-about" data-name="About you" data-progress="2" aria-labelledby="h-about">
+      <span class="jl-kicker">About you</span>
+      <h2 id="h-about" tabindex="-1">Thank you. Now a little about you</h2>
+      <p class="jl-sub">You answered no to every safety question, so the check continues.</p>
+
+      <div class="jl-field">
+        <label for="firstName">Your first name (optional)</label>
+        <span class="hint" id="firstNameHint">Only used as the title of your printed summary. It is not saved or sent anywhere.</span>
+        <input type="text" id="firstName" autocomplete="off" maxlength="40" aria-describedby="firstNameHint">
+      </div>
+
+      <fieldset class="jl-q" data-required>
+        <legend>Which joint concerns you most?</legend>
+        <div class="jl-opt-grid">
+          <label class="jl-opt"><input type="radio" name="joint" value="knee"><span><span class="t">Knee</span><span class="d">One or both knees</span></span></label>
+          <label class="jl-opt"><input type="radio" name="joint" value="hip"><span><span class="t">Hip</span><span class="d">One or both hips</span></span></label>
+          <label class="jl-opt"><input type="radio" name="joint" value="both"><span><span class="t">Knee and hip</span><span class="d">Concerns in both</span></span></label>
+          <label class="jl-opt"><input type="radio" name="joint" value="other"><span><span class="t">Another joint</span><span class="d">Shoulder, ankle or elsewhere</span></span></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="jl-q" data-required>
+        <legend>Are you taking a GLP-1 medicine for weight management?</legend>
+        <span class="hint">For example semaglutide or tirzepatide.</span>
+        <div class="jl-opt-grid">
+          <label class="jl-opt"><input type="radio" name="glp1" value="yes"><span class="t">Yes, I take one now</span></label>
+          <label class="jl-opt"><input type="radio" name="glp1" value="no"><span class="t">No</span></label>
+        </div>
+      </fieldset>
+
+      <p class="jl-error" role="alert">Please answer each question to continue.</p>
+      <div class="jl-nav">
+        <button type="button" class="mmm-btn mmm-btn-ghost" data-back>Back</button>
+        <button type="button" class="mmm-btn mmm-btn-primary" data-next="history">Continue</button>
+      </div>
+    </section>
+
+    <!-- ===================== STEP 3: HISTORY ===================== -->
+    <section class="jl-step" id="step-history" data-name="Joint history" data-progress="3" aria-labelledby="h-history">
+      <span class="jl-kicker">Joint history</span>
+      <h2 id="h-history" tabindex="-1">Your joint's history</h2>
+
+      <fieldset class="jl-q" data-required>
+        <legend>Have you had a significant injury to this joint?</legend>
+        <span class="hint">A ligament tear, fracture, meniscus or labral tear, or another major injury.</span>
+        <div class="jl-opt-grid one">
+          <label class="jl-opt"><input type="radio" name="injury" value="none"><span class="t">No significant injury</span></label>
+          <label class="jl-opt"><input type="radio" name="injury" value="recovered"><span><span class="t">Yes, and it fully recovered</span><span class="d">Healed with no lasting limit</span></span></label>
+          <label class="jl-opt"><input type="radio" name="injury" value="ongoing"><span><span class="t">Yes, and it still bothers me</span><span class="d">It still affects movement or causes pain</span></span></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="jl-q" data-required>
+        <legend>Have you had surgery on this joint?</legend>
+        <div class="jl-opt-grid one">
+          <label class="jl-opt"><input type="radio" name="surgery" value="none"><span class="t">No surgery</span></label>
+          <label class="jl-opt"><input type="radio" name="surgery" value="scope"><span><span class="t">A minor procedure</span><span class="d">Arthroscopy (a scope)</span></span></label>
+          <label class="jl-opt"><input type="radio" name="surgery" value="reconstruction"><span><span class="t">A major repair</span><span class="d">Such as a ligament repair, not a joint replacement</span></span></label>
+          <label class="jl-opt"><input type="radio" name="surgery" value="replacement"><span><span class="t">Joint replacement</span><span class="d">Partial or total, or one is being considered</span></span></label>
+        </div>
+      </fieldset>
+
+      <div class="jl-sub-q" id="replacementSub">
+        <fieldset class="jl-q" data-required data-when="replacement">
+          <legend>Where are you with the joint replacement?</legend>
+          <div class="jl-opt-grid one">
+            <label class="jl-opt"><input type="radio" name="replacement" value="considering"><span><span class="t">Considering it</span><span class="d">Not yet scheduled</span></span></label>
+            <label class="jl-opt"><input type="radio" name="replacement" value="scheduled"><span><span class="t">Scheduled</span><span class="d">A date is set</span></span></label>
+            <label class="jl-opt"><input type="radio" name="replacement" value="recent"><span class="t">Done, less than 6 months ago</span></label>
+            <label class="jl-opt"><input type="radio" name="replacement" value="healed"><span class="t">Done, 6 months ago or more</span></label>
+          </div>
+        </fieldset>
+      </div>
+
+      <fieldset class="jl-q" data-required>
+        <legend>Has a clinician told you what the joint condition is?</legend>
+        <div class="jl-opt-grid">
+          <label class="jl-opt"><input type="radio" name="condition" value="oa"><span class="t">Osteoarthritis</span></label>
+          <label class="jl-opt"><input type="radio" name="condition" value="inflammatory"><span class="t">Rheumatoid or another inflammatory arthritis</span></label>
+          <label class="jl-opt"><input type="radio" name="condition" value="undiagnosed"><span class="t">No, it has not been diagnosed</span></label>
+          <label class="jl-opt"><input type="radio" name="condition" value="unsure"><span class="t">Something else, or I am not sure</span></label>
+        </div>
+      </fieldset>
+
+      <p class="jl-error" role="alert">Please answer each question to continue.</p>
+      <div class="jl-nav">
+        <button type="button" class="mmm-btn mmm-btn-ghost" data-back>Back</button>
+        <button type="button" class="mmm-btn mmm-btn-primary" data-next="daily">Continue</button>
+      </div>
+    </section>
+
+    <!-- ===================== STEP 4: EVERYDAY LOAD ===================== -->
+    <section class="jl-step" id="step-daily" data-name="Everyday life" data-progress="4" aria-labelledby="h-daily">
+      <span class="jl-kicker">Everyday life</span>
+      <h2 id="h-daily" tabindex="-1">Which of these are true for you right now?</h2>
+      <p class="jl-sub">Tick any that apply, or none. A long list is fine. It only shapes the guidance you see.</p>
+
+      <fieldset class="jl-q">
+        <legend class="jl-sr">Things that apply to you</legend>
+        <div class="jl-opt-grid one">
+          <label class="jl-opt"><input type="checkbox" name="factor" value="work"><span class="t">My work or daily routine involves a lot of kneeling, squatting, heavy lifting or long hours standing</span></label>
+          <label class="jl-opt"><input type="checkbox" name="factor" value="weight"><span class="t">My body weight puts noticeable strain on this joint</span></label>
+          <label class="jl-opt"><input type="checkbox" name="factor" value="family"><span class="t">A parent, brother or sister has had osteoarthritis or a joint replacement</span></label>
+          <label class="jl-opt"><input type="checkbox" name="factor" value="smoking"><span class="t">I smoke or use tobacco</span></label>
+          <label class="jl-opt"><input type="checkbox" name="factor" value="metabolic"><span class="t">I have diabetes or another condition that slows healing</span></label>
+          <label class="jl-opt"><input type="checkbox" name="factor" value="balance"><span class="t">I have had a fall or trouble with balance in the past year</span></label>
+          <label class="jl-opt"><input type="checkbox" name="factor" value="sedentary"><span class="t">I have been mostly inactive for weeks or longer</span></label>
+        </div>
+      </fieldset>
+
+      <div class="jl-nav">
+        <button type="button" class="mmm-btn mmm-btn-ghost" data-back>Back</button>
+        <button type="button" class="mmm-btn mmm-btn-primary" data-next="belief">Continue</button>
+      </div>
+    </section>
+
+    <!-- ===================== STEP 5: BELIEFS ===================== -->
+    <section class="jl-step" id="step-belief" data-name="How you see movement" data-progress="5" aria-labelledby="h-belief">
+      <span class="jl-kicker">How you see movement</span>
+      <h2 id="h-belief" tabindex="-1">Which of these sounds most like you?</h2>
+      <p class="jl-sub">There is no wrong answer. Pick the one closest to what you believe today.</p>
+
+      <fieldset class="jl-q" data-required>
+        <legend>How do exercise and load affect a painful joint?</legend>
+        <div class="jl-opt-grid one">
+          <label class="jl-opt"><input type="radio" name="belief" value="wear"><span><span class="t">"Movement wears the joint down, like sandpaper on a tire."</span><span class="d">Every step uses up cartilage, so I should keep weight-bearing exercise to a minimum.</span></span></label>
+          <label class="jl-opt"><input type="radio" name="belief" value="rest"><span><span class="t">"Exercise is healthy, but rest is the safe choice."</span><span class="d">When the joint aches I skip activity and rely on rest and medicine.</span></span></label>
+          <label class="jl-opt"><input type="radio" name="belief" value="feeds"><span><span class="t">"Movement is part of how the joint stays healthy."</span><span class="d">The right amount of load helps keep the joint working well.</span></span></label>
+        </div>
+      </fieldset>
+
+      <p class="jl-error" role="alert">Please choose one answer to continue.</p>
+      <div class="jl-nav">
+        <button type="button" class="mmm-btn mmm-btn-ghost" data-back>Back</button>
+        <button type="button" class="mmm-btn mmm-btn-primary" data-next="@belief">Continue</button>
+      </div>
+    </section>
+
+    <!-- ===================== STEP 5b: REFRAME (only after "wear" or "rest") ===================== -->
+    <!-- TODO-A2: replace with the approved wording from docs/load-course/safety/copy-fixes.md
+         ("living tissue, not a rubber tire" and "rest is starving the joint" with its carve-out).
+         TODO-A1: add the graded figure for movers vs sedentary adults, or leave it out.
+         The source's stat box is deliberately not reproduced until A1 grades it. -->
+    <section class="jl-step" id="step-reframe" data-name="A different way to see it" data-progress="5" aria-labelledby="h-reframe">
+      <div class="jl-reframe">
+        <span class="jl-kicker gold">A different way to see it</span>
+        <h2 id="h-reframe" tabindex="-1">Your joint is living tissue, not a tire</h2>
+        <p class="jl-draft" data-todo="TODO-A2">Draft wording, pending clinical review</p>
+        <p>Many people are told their joints "wear out" with use. It is an easy picture to believe, and it is worth a second look.</p>
+        <p>Cartilage has no blood supply of its own. It relies on the joint moving and taking weight, then easing off, to move fluid in and out. That is one reason joint specialists now recommend exercise as a first treatment for knee and hip osteoarthritis.</p>
+        <!-- TODO-A1: grade the two claims above (cartilage nourishment by loading; exercise as first-line care) -->
+        <p><strong>Short rest during a bad flare is fine.</strong> Long stretches of avoiding movement are what tend to leave a joint weaker and stiffer.</p>
+        <div class="jl-placeholder" data-todo="TODO-A1">Research note to come: the graded figure comparing active and inactive adults will appear here once it has been checked.</div>
+      </div>
+      <div class="jl-nav">
+        <button type="button" class="mmm-btn mmm-btn-ghost" data-back>Back</button>
+        <button type="button" class="mmm-btn mmm-btn-primary" data-go="flare">Continue</button>
+      </div>
+    </section>
+
+    <!-- ===================== STEP 6: FLARES ===================== -->
+    <section class="jl-step" id="step-flare" data-name="When it flares" data-progress="6" aria-labelledby="h-flare">
+      <span class="jl-kicker">When it flares</span>
+      <h2 id="h-flare" tabindex="-1">What do you usually do when the joint flares up?</h2>
+
+      <fieldset class="jl-q" data-required>
+        <legend>Your usual approach to a flare</legend>
+        <div class="jl-opt-grid one">
+          <label class="jl-opt"><input type="radio" name="flare" value="stop"><span><span class="t">Full rest and medicine</span><span class="d">I stop moving and rely on pain medicine, anti-inflammatories or injections.</span></span></label>
+          <label class="jl-opt"><input type="radio" name="flare" value="wait"><span><span class="t">I pull back and wait</span><span class="d">I stop exercising until the flare goes away, however long that takes.</span></span></label>
+          <label class="jl-opt"><input type="radio" name="flare" value="adjust"><span><span class="t">I keep moving, but adjust</span><span class="d">I cut back how often, how far or how long, and keep the pain at a level I can manage.</span></span></label>
+        </div>
+      </fieldset>
+
+      <p class="jl-error" role="alert">Please choose one answer to continue.</p>
+      <div class="jl-nav">
+        <button type="button" class="mmm-btn mmm-btn-ghost" data-back>Back</button>
+        <button type="button" class="mmm-btn mmm-btn-primary" data-next="load">Continue</button>
+      </div>
+    </section>
+
+    <!-- ===================== STEP 7: LOAD RESPONSE ===================== -->
+    <section class="jl-step" id="step-load" data-name="How the joint handles load" data-progress="7" aria-labelledby="h-load">
+      <span class="jl-kicker">How the joint handles load</span>
+      <h2 id="h-load" tabindex="-1">How does the joint respond to 20 minutes of easy activity?</h2>
+      <p class="jl-sub">Easy activity means walking on flat ground, moving in a pool, or riding a stationary bike.</p>
+
+      <fieldset class="jl-q" data-required>
+        <legend>After 20 minutes of easy activity</legend>
+        <div class="jl-opt-grid one">
+          <label class="jl-opt"><input type="radio" name="load" value="poor"><span><span class="t">I cannot manage it</span><span class="d">Pain climbs above 5 out of 10 quickly and stays bad for days.</span></span></label>
+          <label class="jl-opt"><input type="radio" name="load" value="lingers"><span><span class="t">I can do it, but it lingers</span><span class="d">Pain often goes above 5 out of 10, or lasts more than 24 hours.</span></span></label>
+          <label class="jl-opt"><input type="radio" name="load" value="settles"><span><span class="t">It goes well</span><span class="d">Any ache stays at 5 out of 10 or below and settles within 24 hours.</span></span></label>
+        </div>
+      </fieldset>
+
+      <p class="jl-error" role="alert">Please choose one answer to continue.</p>
+      <div class="jl-nav">
+        <button type="button" class="mmm-btn mmm-btn-ghost" data-back>Back</button>
+        <button type="button" class="mmm-btn mmm-btn-primary" data-next="goals">Continue</button>
+      </div>
+    </section>
+
+    <!-- ===================== STEP 8: GOALS ===================== -->
+    <section class="jl-step" id="step-goals" data-name="Your goals" data-progress="8" aria-labelledby="h-goals">
+      <span class="jl-kicker">Your goals</span>
+      <h2 id="h-goals" tabindex="-1">What do you want to keep doing, or get back to?</h2>
+
+      <fieldset class="jl-q">
+        <legend>Tick every activity that matters to you</legend>
+        <div class="jl-opt-grid">
+          <label class="jl-opt"><input type="checkbox" name="goal" value="pickleball"><span class="t">Pickleball</span></label>
+          <label class="jl-opt"><input type="checkbox" name="goal" value="tennis"><span class="t">Tennis</span></label>
+          <label class="jl-opt"><input type="checkbox" name="goal" value="golf"><span class="t">Golf</span></label>
+          <label class="jl-opt"><input type="checkbox" name="goal" value="hiking"><span class="t">Hiking</span></label>
+          <label class="jl-opt"><input type="checkbox" name="goal" value="walkrun"><span class="t">Walking or running</span></label>
+          <label class="jl-opt"><input type="checkbox" name="goal" value="daily"><span><span class="t">Everyday life</span><span class="d">Stairs, standing, getting up from a chair</span></span></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="jl-q" data-required>
+        <legend>Where are you today with the activity that matters most?</legend>
+        <div class="jl-opt-grid one">
+          <label class="jl-opt"><input type="radio" name="level" value="stopped"><span class="t">I stopped because of joint pain</span></label>
+          <label class="jl-opt"><input type="radio" name="level" value="limited"><span class="t">I still do it, but it is a real struggle</span></label>
+          <label class="jl-opt"><input type="radio" name="level" value="mild"><span class="t">I do it with a little difficulty</span></label>
+          <label class="jl-opt"><input type="radio" name="level" value="none"><span class="t">No difficulty, I want to keep it that way</span></label>
+        </div>
+      </fieldset>
+
+      <p class="jl-error" role="alert">Please answer the last question to see your summary.</p>
+      <div class="jl-nav">
+        <button type="button" class="mmm-btn mmm-btn-ghost" data-back>Back</button>
+        <button type="button" class="mmm-btn mmm-btn-primary" data-next="results">See my summary</button>
+      </div>
+    </section>
+
+    <!-- ===================== RESULTS ===================== -->
+    <!-- TODO-A2: results wording follows docs/load-course/safety/scoring-direction.md
+         once merged. Three parts only: safety outcome, a reading of the belief and
+         load answers, one next step. No number that rises with risk. -->
+    <section class="jl-step" id="step-results" data-name="Your summary" aria-labelledby="resultTitle">
+      <span class="jl-kicker">Your summary</span>
+      <h2 id="resultTitle" tabindex="-1">Your joint-load check summary</h2>
+      <p class="jl-meta" id="resultMeta"></p>
+      <p class="jl-draft" data-todo="TODO-A2">Draft wording, pending clinical review</p>
+
+      <div class="jl-panel safe">
+        <h3>1. Safety check</h3>
+        <p>You answered no to each safety question. Stop and check with a doctor or physical therapist if any of these appear later:</p>
+        <ul>
+          <li>the joint gets stuck or gives way</li>
+          <li>a hot, red or swollen joint with a fever</li>
+          <li>a sudden loss of movement</li>
+          <li>new calf pain or swelling after surgery</li>
+          <li>pain at rest or at night that does not ease</li>
+          <li>weight loss you cannot explain</li>
+          <li>a fall or injury that leaves the joint out of shape</li>
+        </ul>
+        <div id="contextNotes"></div>
+      </div>
+
+      <div class="jl-panel">
+        <h3>2. What your answers suggest</h3>
+        <p id="readBelief"></p>
+        <p id="readFlare"></p>
+        <p id="readLoad"></p>
+      </div>
+
+      <div class="jl-panel next">
+        <h3>3. Your next step</h3>
+        <p><strong id="nextTitle"></strong></p>
+        <p id="nextBody"></p>
+        <p id="nextGoal"></p>
+        <p class="jl-noprint" id="nextLinkWrap"></p>
+      </div>
+
+      <!-- TODO-A2: pain-rule wording from docs/load-course/safety/pain-rule-wording.md -->
+      <div class="jl-panel rules" data-todo="TODO-A2">
+        <h3>Two practical guidelines while you build</h3>
+        <p>These are practical guidelines that many physical therapists use, not hard rules:</p>
+        <ul>
+          <li><strong>During activity,</strong> joint ache stays at 5 out of 10 or below.</li>
+          <li><strong>By the next day,</strong> any extra ache has settled back to your usual level within 24 hours.</li>
+        </ul>
+        <p>Follow your surgeon's or clinician's protocol if there is one. A hot, swollen or stuck joint needs a clinician, not a guideline. Neither rule replaces advice from someone who knows your history.</p>
+      </div>
+
+      <div class="jl-disclaimer" data-todo="TODO-A2">
+        <p><strong>Medical disclaimer.</strong> This summary is educational. It does not provide medical advice, diagnosis or treatment, and it is not a substitute for an examination by a qualified clinician. Talk with your doctor or physical therapist before starting a new exercise program, especially after surgery or with a heart condition. <a href="/legal/medical-disclaimer/">Read the full medical disclaimer</a>.</p>
+      </div>
+
+      <div class="jl-keep">
+        <div>
+          <p class="k">Keep this summary.</p>
+          <p class="micro">Print it or save it as a PDF to take to your doctor or physical therapist. Your answers are not saved anywhere, so this is the only copy.</p>
+        </div>
+        <div class="actions">
+          <button type="button" class="mmm-btn mmm-btn-gold mmm-btn-sm" data-print>Print or save as PDF</button>
+          <button type="button" class="mmm-btn mmm-btn-ghost mmm-btn-sm" data-restart>Start over</button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer class="mm-footer">
+  <div class="mmm-container">
+    <span class="wordmark">Muscle-Meta Matrix&trade;</span>
+    <p class="jl-tagline">Clinical intelligence for active aging &middot; Randy Bauer, PT</p>
+    <!-- TODO-A2: footer disclaimer from docs/load-course/safety/disclaimer.md -->
+    <p class="jl-footer-disclaimer">This page is educational content. It does not provide medical advice, diagnosis or treatment, and it is not a substitute for evaluation by a qualified clinician. Talk with your physician or physical therapist before beginning a new exercise program, particularly after joint surgery, with a heart condition or chest pain on exertion, or after a long spell of inactivity.</p>
+    <p class="jl-footer-links"><a href="/legal/privacy/">Privacy</a> &middot; <a href="/legal/terms/">Terms</a> &middot; <a href="/legal/medical-disclaimer/">Medical disclaimer</a></p>
+  </div>
+</footer>
+
+<script src="/assets/mm.js"></script>
+<script>
+/* =============================================================================
+   Joint-load check. Answers live only in the `answers` object below, in this
+   tab's memory. No localStorage, no cookies, no network requests, no analytics.
+   There is no score: the result is the safety outcome, a plain reading of the
+   belief and load answers, and one next step.
+   ========================================================================== */
+(() => {
+  const FLOW = ['start', 'safety', 'about', 'history', 'daily', 'belief', 'reframe', 'flare', 'load', 'goals', 'results'];
+  const TOTAL = 8;
+  const history = [];
+  let current = 'start';
+
+  const $ = sel => document.querySelector(sel);
+  const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+  const pane = id => document.getElementById('step-' + id);
+  const val = name => { const el = $('input[name="' + name + '"]:checked'); return el ? el.value : null; };
+  const vals = name => $$('input[name="' + name + '"]:checked').map(el => el.value);
+
+  function show(id, { push = true } = {}) {
+    if (push && current !== id) history.push(current);
+    $$('.jl-step').forEach(s => s.classList.remove('active'));
+    const p = pane(id);
+    p.classList.add('active');
+    $$('.jl-error', p).forEach(e => e.classList.remove('show'));
+    current = id;
+
+    const step = Number(p.dataset.progress || 0);
+    const prog = $('#progress');
+    prog.classList.toggle('show', step > 0);
+    if (step > 0) {
+      $('#progressFill').style.width = Math.round((step / TOTAL) * 100) + '%';
+      $('#progressLabel').textContent = 'Step ' + step + ' of ' + TOTAL;
+      $('#progressName').textContent = p.dataset.name;
+    }
+    const heading = p.querySelector('h2');
+    $('.jl-card').scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+    if (heading) heading.focus({ preventScroll: true });
+  }
+
+  function back() {
+    const prev = history.pop();
+    if (prev) show(prev, { push: false });
+  }
+
+  /* A fieldset marked data-required must have an answer when it is visible. */
+  function valid(p) {
+    const missing = $$('fieldset[data-required]', p).filter(fs => {
+      if (fs.offsetParent === null) return false;
+      return !fs.querySelector('input:checked');
+    });
+    const err = p.querySelector('.jl-error');
+    if (err) err.classList.toggle('show', missing.length > 0);
+    if (missing.length) {
+      const first = missing[0].querySelector('input');
+      if (first) first.focus();
+      return false;
+    }
+    return true;
+  }
+
+  /* ---------- Safety screen: any yes stops the check ---------- */
+  $('#safetyForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const p = pane('safety');
+    if (!valid(p)) return;
+    const anyYes = $$('input[type=radio][value="yes"]:checked', p).length > 0;
+    show(anyYes ? 'stop' : 'about');
+  });
+
+  /* ---------- Replacement follow-up ---------- */
+  $$('input[name="surgery"]').forEach(r => r.addEventListener('change', () => {
+    const on = val('surgery') === 'replacement';
+    $('#replacementSub').classList.toggle('show', on);
+    if (!on) $$('input[name="replacement"]').forEach(x => { x.checked = false; });
+  }));
+
+  /* ---------- Buttons ---------- */
+  document.addEventListener('click', e => {
+    const t = e.target.closest('button');
+    if (!t) return;
+    if (t.hasAttribute('data-back')) return back();
+    if (t.hasAttribute('data-print')) return window.print();
+    if (t.hasAttribute('data-restart')) return restart();
+    if (t.dataset.go) return show(t.dataset.go);
+    if (t.dataset.next) {
+      const p = t.closest('.jl-step');
+      if (!valid(p)) return;
+      let next = t.dataset.next;
+      if (next === '@belief') next = (val('belief') === 'feeds') ? 'flare' : 'reframe';
+      if (next === 'results') renderResults();
+      show(next);
+    }
+  });
+
+  function restart() {
+    $$('input[type=radio],input[type=checkbox]').forEach(i => { i.checked = false; });
+    $('#firstName').value = '';
+    $('#replacementSub').classList.remove('show');
+    history.length = 0;
+    current = 'start';
+    show('start', { push: false });
+  }
+
+  /* ---------- Results copy (TODO-A2: replace with approved wording).
+     TODO-A1: the "current guidance" sentences need a graded claim ID
+     (exercise as first-line care for knee and hip OA) before launch. ---------- */
+  const BELIEF = {
+    wear: 'You said movement wears the joint down. That is one of the most common beliefs about arthritis, and it is understandable. Current guidance for knee and hip osteoarthritis points the other way: the right amount of load is part of looking after a joint, and long periods of avoiding it tend to leave the joint weaker and stiffer.',
+    rest: 'You said rest feels like the safe choice when the joint aches. Short rest during a bad flare is reasonable. The trouble comes when rest becomes the default, because a joint that is rarely loaded tends to get weaker and stiffer over time.',
+    feeds: 'You already see movement as part of keeping the joint healthy. That view fits current guidance for knee and hip osteoarthritis, and it is a good base to build on.'
+  };
+  const FLARE = {
+    stop: 'When the joint flares, you stop moving and rely on medicine. Medicine can be part of a plan, but many people find a flare settles just as well, and the joint stays stronger, when they keep some easy movement going.',
+    wait: 'When the joint flares, you pull back and wait. Waiting can stretch into weeks. Many people do better by scaling activity down rather than stopping, so they keep some of the strength they have built.',
+    adjust: 'When the joint flares, you keep moving and adjust the amount. That is the approach most physical therapists teach.'
+  };
+  const LOAD = {
+    poor: 'Twenty minutes of easy activity is hard on the joint right now, and the pain stays for days. That points to starting much smaller, and it is worth having a clinician look at the joint, because pain that lasts days after easy activity has more than one possible cause.',
+    lingers: 'You can manage twenty minutes of easy activity, but the ache lingers. That usually means the amount is a little too much for now. Shorter or gentler sessions, built up slowly, often settle better.',
+    settles: 'Your joint handles twenty minutes of easy activity well, and any ache settles within a day. That suggests there is room to build gradually from here.'
+  };
+  const GOAL_NAMES = { pickleball: 'pickleball', tennis: 'tennis', golf: 'golf', hiking: 'hiking', walkrun: 'walking or running', daily: 'everyday life' };
+  const GOAL_NOTE = {
+    pickleball: 'Quick stops and changes of direction ask a lot of the knee and hip. Building leg strength before you add more court time tends to work better than waiting for symptoms.',
+    tennis: 'Like pickleball, tennis asks for quick stops and turns. Leg strength first, then more court time.',
+    golf: 'Golf turns through the hips. Build hip movement and strength gradually, and use the guidelines below to judge how much practice to add.',
+    hiking: 'Hills and uneven ground load the joint more, especially going downhill. Build time on your feet gradually; trekking poles can take some load on descents.',
+    walkrun: 'Bring walking or running back gradually, especially after a break, and use the guidelines below to judge each step up.',
+    daily: 'Stairs, standing and getting up from a chair all come back to the same thing: steady strength in the thigh and hip muscles.'
+  };
+  const listWords = arr => arr.length < 2 ? arr.join('') : arr.slice(0, -1).join(', ') + ' and ' + arr[arr.length - 1];
+
+  function note(title, body, todo) {
+    const div = document.createElement('div');
+    div.className = 'note';
+    if (todo) div.dataset.todo = todo;
+    const p = document.createElement('p');
+    const s = document.createElement('strong');
+    s.textContent = title + ' ';
+    p.append(s, document.createTextNode(body));
+    div.append(p);
+    return div;
+  }
+
+  function renderResults() {
+    const a = {
+      name: $('#firstName').value.trim(),
+      glp1: val('glp1'), injury: val('injury'), surgery: val('surgery'), replacement: val('replacement'),
+      condition: val('condition'), factors: vals('factor'), belief: val('belief'), flare: val('flare'),
+      load: val('load'), goals: vals('goal'), level: val('level')
+    };
+
+    /* Neutral title when no name is given (fixes "Your's Joint Health Report"). */
+    $('#resultTitle').textContent = a.name ? 'Joint-load check summary for ' + a.name : 'Your joint-load check summary';
+    $('#resultMeta').textContent = 'Completed ' + new Date().toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' }) + '. Educational summary, not a diagnosis.';
+
+    /* Context notes that belong with the safety outcome. */
+    const notes = $('#contextNotes');
+    notes.replaceChildren();
+    const recentSurgery = a.surgery === 'reconstruction' || (a.surgery === 'replacement' && (a.replacement === 'scheduled' || a.replacement === 'recent'));
+    if (recentSurgery) notes.append(note('Surgery:', "Your surgeon's or physical therapist's protocol comes first. Use anything here only alongside it, and ask them before you add load or return to sport.", 'TODO-A2'));
+    if (a.condition === 'inflammatory') notes.append(note('Inflammatory arthritis:', 'This check is built around osteoarthritis. Rheumatoid and other inflammatory arthritis flare differently, so use this alongside your rheumatologist\'s advice, not in place of it.', 'TODO-A2'));
+    if (a.condition === 'undiagnosed' || a.condition === 'unsure') notes.append(note('No diagnosis yet:', 'It is worth having a doctor or physical therapist examine the joint, so you know what you are working with before you build load.', 'TODO-A2'));
+    if (a.injury === 'ongoing') notes.append(note('Old injury:', 'An injury that still bothers you is worth mentioning to your clinician, because it can change which exercises suit the joint.', 'TODO-A2'));
+    if (a.glp1 === 'yes') notes.append(note('GLP-1 medicine:', 'Ask your prescriber or physical therapist how to keep your leg strength up while you lose weight. Strength training is usually part of that conversation.', 'TODO-A1'));
+
+    /* Reading of beliefs and load, in plain words. */
+    $('#readBelief').textContent = BELIEF[a.belief] || '';
+    $('#readFlare').textContent = FLARE[a.flare] || '';
+    $('#readLoad').textContent = LOAD[a.load] || '';
+
+    /* One next step. First matching rule wins. */
+    let title, body, link = null;
+    if (a.surgery === 'replacement' && (a.replacement === 'scheduled' || a.replacement === 'recent')) {
+      title = 'Take this summary to your surgeon or physical therapist.';
+      body = a.replacement === 'scheduled'
+        ? 'Before surgery, ask them which exercises you can do now to go in as strong as possible.'
+        : 'In the first months after a replacement, their protocol sets the pace. Ask them how and when to add load.';
+    } else if (a.load === 'poor') {
+      title = 'Book a visit with a physical therapist or your doctor.';
+      body = 'Pain that stays for days after easy activity is worth having examined. A physical therapist can also find a starting amount your joint can manage.';
+    } else if (a.condition === 'inflammatory') {
+      title = 'Talk with your rheumatologist about building activity.';
+      body = 'Ask how to plan activity around your flare pattern, then use the two guidelines below with their advice.';
+    } else if (a.belief !== 'feeds' || a.flare !== 'adjust') {
+      title = 'Try one small, easy session this week, and see how the joint feels the next day.';
+      body = 'Pick something gentle, such as ten minutes of flat walking, a stationary bike or a pool session. Use the two guidelines below to judge it. If the joint has settled by the next day, that is your starting point.';
+      link = { href: '/downloads/', text: 'Browse the free guides' };
+    } else {
+      title = 'Build gradually, one small step at a time.';
+      body = 'Add a little time or a little effort each week, not both at once, and use the two guidelines below to judge each step.';
+      link = { href: '/downloads/', text: 'Browse the free guides' };
+    }
+    $('#nextTitle').textContent = title;
+    $('#nextBody').textContent = body;
+
+    const goals = a.goals.filter(g => GOAL_NAMES[g]);
+    $('#nextGoal').textContent = goals.length
+      ? 'With ' + listWords(goals.map(g => GOAL_NAMES[g])) + ' in mind: ' + GOAL_NOTE[goals[0]]
+      : '';
+
+    /* TODO-A6: point to /courses/load-course/ once the sales page exists. */
+    const wrap = $('#nextLinkWrap');
+    wrap.replaceChildren();
+    if (link) {
+      const el = document.createElement('a');
+      el.href = link.href; el.textContent = link.text;
+      el.className = 'mmm-btn mmm-btn-ghost mmm-btn-sm';
+      wrap.append(el);
+    }
+  }
+
+})();
+</script>
+</body>
+</html>

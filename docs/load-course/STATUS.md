@@ -17,7 +17,7 @@ Branch: `feature/load-course-setup`. Last updated: 2026-11-01.
 | A2 | Safety and clinical copy | 1 | G0 | `load-course/A2-safety` | dispatched 2026-11-01 | |
 | A3 | Assessment tool | 1 | G0 | `load-course/A3-tool` | dispatched 2026-11-01 | |
 | A7 | Email copy | 1 | G0 | `load-course/A7-email` | dispatched 2026-11-01 (phase A copy only) | `marketing:email-sequence` not installed; A7 runs without it |
-| A10 | Legal | 1 | G0 | `load-course/A10-legal` | dispatched 2026-11-01 | |
+| A10 | Legal | 1 | G0 | `load-course/A10-legal` | done 2026-11-01 (report checked: required checks present, writes limited to 4 legal drafts) | 45 to-confirm items in `docs/load-course/legal/review-notes.md` (on branch); privacy page is still a placeholder and must be approved and live before any Kit capture (G2), not only before payment; payment must not open before counsel reviews terms and refunds; `[A2-red-flag-screen]` placeholder; existing `site/legal/*` pages use a literal hex colour (fix when approved text is applied) |
 | A4 | Downloads | 2 | G1 (A1, A2) | `load-course/A4` | not started | |
 | A5 | Blog | 2 | G1 (A1, A2) | `load-course/A5` | not started | |
 | A6 | Sales page and category hub | 2 | G1 (A1), A3 merged | `load-course/A6` | not started | |

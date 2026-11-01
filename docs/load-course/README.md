@@ -21,16 +21,15 @@ Files for the joint-health build, placed from Randy's upload list. Start with
 |---|---|
 | `PLAN.md`, `ORCHESTRATOR.md`, `TASKS.md`, `REPORT-CONTRACT.md` | Upload items 4, 6, 7, 8 (unchanged) |
 | `CLAUDE.md` section 7 | Upload item 5, appended |
-| `agents/A1-evidence.md` … `agents/A9-qa-verify.md` | Upload item 9 (9 of 10; A10 legal still missing) |
+| `agents/A1-evidence.md` … `agents/A10-legal.md` | Upload item 9 (all 10, unchanged) |
 | `source/Load as Medicine_ Rebuilding the Arthritic Joint.md` | Upload item 11 (unchanged) |
 | `source/Load as Medicine_ A Clinical Framework for Joint Health and Osteoarthritis Management.md` | Upload item 12 (unchanged) |
 | `source/MM-JointHealth-Assessment.html` | Upload item 13 (unchanged). **Reference only, never publish:** shows a composite risk percentage and tiers that A3 must remove. |
 | `source/SKILL.md` | Upload item 14, randy-brand-voice (unchanged) |
 | `source/references/*.md` (voice-core, modes-and-personas, cbt-informed-coaching, language-guardrails, source-basis) | randy-brand-voice reference files, unchanged. Placed beside `SKILL.md` so its `references/...` links resolve. `source-basis.md` cites the source workspace's local files (memory-os, Persona_Profiles, the manifesto); those links don't resolve in this repo, so treat them as a record of where the voice came from. |
 
-## Still missing (do not start the orchestrator until these are in)
+## Notes for the orchestrator
 
-- **Agent prompt `agents/A10` (legal).** It is a wave 1 task, so A10 cannot be dispatched until it arrives. The other wave 1 tasks (A1, A2, A3, A7) can run.
 - **A8 runs against Supabase `ikjadymjalaelkpivveh`.** Its "Supabase branch" means a branch of that project, never `bxpferfuwoiulnqnfqhf` (see Overrides).
 - **Skill `marketing:email-sequence`.** A7 names it, but it is not installed. A7 runs without it and reports that, unless it is installed.
 

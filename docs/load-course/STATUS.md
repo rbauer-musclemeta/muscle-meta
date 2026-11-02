@@ -57,6 +57,17 @@ D4 (Randy on camera, about two minutes per lesson), D5 (core launch scope).
 | 6 | C03 / C18 | Cite Gilbert 2021 for C03; drop the "brittle sponge" claim, keep "movement feeds the joint fluid" |
 | 7 | C12 medication wording | Approved as clinical reviewer, with Randy's addition: medicines and joint injections are prescribed by a medical doctor, so the closing line points to the reader's doctor |
 
+## Clinical decisions (red-flag screen and free check), Randy as clinical reviewer, 2026-11-02
+
+- RF1 stops the check only when giving way or getting stuck is new or getting worse.
+- RF5 adds "most nights for two weeks or more". RF6 adds "about 10 pounds or more without trying".
+- RF8, RF9, RF10 kept.
+- "Not sure" counts as "yes".
+- RF2, RF3, RF4, RF7 approved as written.
+- "Cut back to about half" kept, labelled as Randy Bauer, PT's clinical guidance.
+- Free check (A3): add "Go back and change an answer" to the stop screen; keep the GLP-1 question with its neutral prescriber line; "gets stuck so you can't fully bend or straighten it" approved in place of "locking".
+- Still open: C20 grade (currently Unproven-Bridge; orchestrator suggests Promising).
+
 ## Gates
 
 | Gate | Status |
@@ -132,6 +143,7 @@ wording, "unlocking", Lesson 3 timing, audience age), for A1 and A2:
 | Date | Summary |
 |---|---|
 | 2026-11-01 | Setup read-through done; G0 question asked. |
+| 2026-11-02 | Randy signed off the red-flag screen, the half rule and A3's three questions. A2 follow-up pass dispatched; A3 pass follows A2. |
 | 2026-11-02 | Randy answered A1's 7 evidence decisions (see table). Red-flag review (A2) and A3's 3 questions still open. |
 | 2026-11-01 | Wave 1 reported: A3, A7, A10 done; A1, A2 need decisions (evidence and red-flag review). G1 pending. |
 | 2026-11-01 | Clinical reviewer named: Randy (Randall) Bauer, PT. |

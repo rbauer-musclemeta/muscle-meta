@@ -354,3 +354,62 @@ nothing gated by pillar or category.
   expectation of search real estate.
 - Postgres needs a version check before launch; it was behind on patches as of
   September 2026. Check the current state rather than trusting this line.
+
+## 7. Load as Medicine workstream (added for the joint-health build)
+
+Applies to every agent and to the orchestrator working on the joint-health
+build. Read `docs/load-course/PLAN.md` and `docs/load-course/TASKS.md` before
+starting. Where this section and any skill disagree, this section wins, and
+CLAUDE.md sections 1 to 6 win over both.
+
+### 7.1 Roles
+
+- The orchestrator (`docs/load-course/ORCHESTRATOR.md`) plans, dispatches,
+  checks gates and reports to Randy. It writes only `docs/load-course/STATUS.md`.
+- Sub-agents (`docs/load-course/agents/A*.md`) each own one task. They write
+  only the paths their prompt lists. They report using `REPORT-CONTRACT.md`.
+- Randy approves every gate, every merge to `main`, every Kit or Stripe action
+  and every clinical or legal sign-off. No agent does these.
+
+### 7.2 Branches and previews
+
+- One branch per task: `load-course/<task-id>`, for example `load-course/A3-tool`.
+- Netlify builds a preview for each branch. Check the preview renders before
+  asking for a merge.
+- Never push to `main`. Never merge a branch yourself.
+
+### 7.3 Things that must never appear in this workstream
+
+- Kajabi, in any form: links, copy, skill names, code.
+- A composite risk percentage or any "risk score" shown to users.
+- Hex colours, inline style colour values or fonts other than Cormorant Garamond and Outfit.
+- Emoji.
+- Gating of a pillar or category, including words such as "locked", "unlock", "upgrade to see", "members only" or "founding member".
+- A PMID that has not been read in PubMed. Add a PMID to `content/pmid-cache.json` only after reading it yourself.
+- Diagnosis language, such as "you have", "this confirms", "your joint is damaged".
+- Health answers in any Kit field, Stripe field or analytics event.
+- Service role keys, Kit API secrets or Stripe secret keys in any file.
+
+### 7.4 Evidence
+
+- Every claim gets a grade on the claims register (`evidence/claims-register.csv`
+  under `docs/load-course/`): Established, Promising or Unproven-Bridge.
+- Cite a claim in copy only if its row is graded and its PMID is verified.
+- Where a source says "emerging" or "still being studied", the copy says so.
+- Associations stay associations. Write "adults who run regularly had lower
+  rates of arthritis in this study", not "running protects your knees".
+
+### 7.5 Copy
+
+- Voice: randy-brand-voice. Plain, warm, science-backed, for adults 50 and over.
+- Run mm-humanizer-voice on every draft before it leaves a branch.
+- Headings, buttons and labels in sentence case.
+- Each lesson, tool and download ends with the medical disclaimer.
+
+### 7.6 Paid content
+
+- Paid lesson text lives only in Supabase (`lessons.body_md`). The repository
+  holds shells, never the paid text.
+- Video files live only in a private bucket and are reached through signed links.
+- Do not build any course access until milestone M4 (Stripe) is merged and
+  its gate in `TASKS.md` is passed.

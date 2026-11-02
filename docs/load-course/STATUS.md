@@ -45,6 +45,18 @@ Also decided 2026-11-01: **audience is adults 50 and over** (replaces the course
 Already answered in PLAN.md: D2 (site-hosted, Stripe, $37.00 one-time, assumed),
 D4 (Randy on camera, about two minutes per lesson), D5 (core launch scope).
 
+## Evidence decisions (A1), Randy 2026-11-02
+
+| # | Claim | Decision |
+|---|---|---|
+| 1 | C02 5/10 acceptable pain rule | Keep as labelled clinical guidance, Unproven-Bridge, A1's wording |
+| 2 | C08 Wei 2024 resistance after knee replacement | Grade Promising |
+| 3 | C11 "60% less arthritis" | Drop the 60% figure; raw 3.5% vs 10.2% only, as an association. Randy: "movement is good" stays the message |
+| 4 | C20 exercise vs medication | Use A1's wording ("about as much as anti-inflammatory tablets ... serious side effects not reported") |
+| 5 | C13 GLP-1 | Include in first release, graded Promising (Randy: "GLP-1s are promising"). C19 protein and vitamin C not addressed: held out of first release unless Randy says otherwise |
+| 6 | C03 / C18 | Cite Gilbert 2021 for C03; drop the "brittle sponge" claim, keep "movement feeds the joint fluid" |
+| 7 | C12 medication wording | Approved as clinical reviewer, with Randy's addition: medicines and joint injections are prescribed by a medical doctor, so the closing line points to the reader's doctor |
+
 ## Gates
 
 | Gate | Status |
@@ -120,6 +132,7 @@ wording, "unlocking", Lesson 3 timing, audience age), for A1 and A2:
 | Date | Summary |
 |---|---|
 | 2026-11-01 | Setup read-through done; G0 question asked. |
+| 2026-11-02 | Randy answered A1's 7 evidence decisions (see table). Red-flag review (A2) and A3's 3 questions still open. |
 | 2026-11-01 | Wave 1 reported: A3, A7, A10 done; A1, A2 need decisions (evidence and red-flag review). G1 pending. |
 | 2026-11-01 | Clinical reviewer named: Randy (Randall) Bauer, PT. |
 | 2026-11-01 | G0 passed: D1, D3, D6, D7, D8 confirmed as defaults. Open: clinical reviewer name (needed for G1); audience age 45–75 (course) vs 50+ (PLAN). |

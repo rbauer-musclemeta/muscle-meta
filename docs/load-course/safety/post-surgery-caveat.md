@@ -6,8 +6,8 @@ and above any post-surgery section of a lesson. Arthroplasty means joint
 replacement surgery; say "joint replacement" in reader copy.
 
 The caveat makes no research claim, so it carries no claim ID. Any evidence
-sentence that follows it (for example the Wei 2024 results, `[CLAIM-C08]`)
-comes from `copy-fixes.md`, not from here.
+sentence that follows it (for example the Wei 2024 results, C08, Promising)
+comes from `copy-fixes.md` (F24 to F26), not from here.
 
 ## Full version (top of the guide, top of a lesson section)
 
@@ -59,8 +59,10 @@ After surgery these can be signs of a blood clot, which needs urgent care.
 ## Rules for copy around this caveat
 
 - Do not call active resistance exercise "superior", "the evidence-based
-  default" or a way to "maximise surgical outcomes". See `copy-fixes.md` F20
-  to F22 for the replacement.
+  default" or a way to "maximise surgical outcomes". See `copy-fixes.md` F24
+  to F26 for the replacement.
+- Do not call usual rehab "passive". The trials compared resistance exercise
+  with standard exercise (C08).
 - Do not set week-by-week timelines (for example "by week 6 you should") unless
   the clinical reviewer supplies and approves them.
 - Do not use "protection" as the opposite of exercise. The surgical team's

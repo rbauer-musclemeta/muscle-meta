@@ -1,8 +1,9 @@
 # Red-flag screen
 
-Shown before the first question of the joint-load check. Any "yes" stops the
-check: no further questions, no reading of answers, no next step other than the
-clinician message. Draft for clinical review; see "Approval" at the end.
+Shown before the first question of the joint-load check. Any "yes" or "not
+sure" stops the check: no further questions, no reading of answers, no next
+step other than the clinician message. Approved by the clinical reviewer on
+2026-11-02; see "Approval" at the end.
 
 These are safety screens, not research claims, so they carry no claim ID. Their
 wording and their urgency levels are approved by the clinical reviewer, not by
@@ -11,19 +12,20 @@ the claims register.
 ## Notes for A3 (build)
 
 - Show all questions on one screen, each with "Yes", "No" and "Not sure".
-- "Not sure" counts as "yes". The message for "Not sure" is the same as for
-  "yes" (reviewer to confirm; see "Approval").
+- "Not sure" counts as "yes" and shows the same message.
 - The check cannot continue until every question has an answer.
-- If more than one answer is "yes", show the most urgent message only: "Get
-  help now" beats "Contact a clinician today", which beats "Book an
+- If more than one answer stops the check, show the most urgent message only:
+  "Get help now" beats "Contact a clinician today", which beats "Book an
   appointment".
 - Do not store, send or log the answers. Not to Kit, not to analytics, not to
   any form (CLAUDE.md 7.3). If an analytics event fires, it may say only that
   the screen stopped the check, never which question.
 - Each message ends with the medical disclaimer (page version, from
   `disclaimer.md`).
-- Buttons on the stop screen: "Read the medical disclaimer" and "Back to
-  muscle-meta.com". No "continue anyway" button.
+- Buttons on the stop screen, in this order: "Go back and change an answer",
+  "Start over", "Read the medical disclaimer". No "continue anyway" button.
+  "Go back and change an answer" returns to the red-flag questions with the
+  previous answers still selected; it never skips the screen.
 
 ## Screen copy
 
@@ -35,8 +37,8 @@ Before we start: a quick safety check
 
 A few signs point to a problem that needs a clinician to look at it first, not
 an exercise plan. Please answer each question about the knee or hip you are
-checking. If you answer yes to any of them, we will stop here and tell you who
-to see.
+checking. If you answer yes or not sure to any of them, we will stop here and
+tell you who to see.
 
 ### Questions
 
@@ -45,23 +47,13 @@ never shown.
 
 | ID | Question shown to the reader | Message level |
 |---|---|---|
-| RF1 | Has your knee or hip started to give way under you, or to catch and get stuck so you cannot fully bend or straighten it? | Book an appointment |
+| RF1 | Is your knee or hip giving way under you, or catching and getting stuck so you can't fully bend or straighten it, and is this new or getting worse? | Book an appointment |
 | RF2 | Is the joint hot, red or swollen, and do you also have a fever or feel unwell, as if you are coming down with the flu? | Contact a clinician today |
 | RF3 | In the last few days, have you suddenly lost the ability to bend or straighten the joint as far as you usually can? | Book an appointment |
 | RF4 | Have you had a knee or hip replaced, and do you now have pain, swelling, warmth or tenderness in your calf or the back of your thigh? | Get help now |
-| RF5 | Does the joint hurt when you are resting or in bed at night, in a way that does not ease when you change position? | Book an appointment |
-| RF6 | Have you lost weight in the last few months without trying to? | Book an appointment |
+| RF5 | Most nights for two weeks or more, has the joint hurt when you are resting or in bed, in a way that does not ease when you change position? | Book an appointment |
+| RF6 | Have you lost about 10 pounds or more in the last few months without trying to? | Book an appointment |
 | RF7 | Have you had a fall or injury to this joint recently, and does it now look out of shape, or can you not put weight on it? | Contact a clinician today |
-
-### Proposed additions (reviewer to accept or remove)
-
-These were not in the brief. They are standard stop signs for adults with knee
-or hip pain, especially after surgery. A3 should build them in but behind a
-single switch, so they can be removed without a code change if the reviewer
-says no.
-
-| ID | Question shown to the reader | Message level |
-|---|---|---|
 | RF8 | Right now or in the last day, have you had chest pain, or suddenly become short of breath? | Get help now |
 | RF9 | After surgery on this joint, is the wound red, hot, leaking, or opening up? | Contact a clinician today |
 | RF10 | Have you noticed new numbness, tingling or weakness in your leg, or new trouble controlling your bladder or bowels? | Get help now |
@@ -77,8 +69,8 @@ that applies.
 
 What you described can point to a problem that needs to be checked today,
 before any exercise. After a joint replacement, pain or swelling in the calf can
-be a sign of a blood clot, and chest pain or sudden breathlessness always needs
-urgent care.
+be a sign of a blood clot. Chest pain, sudden breathlessness, or new trouble
+with your bladder or bowels always needs urgent care.
 
 Call 911 (or your local emergency number), or go to the nearest emergency
 department. If your surgeon gave you an after-hours number, you can call it too,
@@ -108,10 +100,11 @@ until a clinician has looked at the joint.
 **Heading:** A clinician should look at this first
 
 What you described is worth checking with a clinician before you start a new
-exercise plan. A joint that gives way or gets stuck, a sudden loss of movement,
-pain at rest or at night that does not ease, or weight loss you cannot explain
-can each have causes that an exercise plan does not address. A clinician can
-tell you what is going on and whether loading the joint is right for you now.
+exercise plan. A joint that has started giving way or getting stuck, a sudden
+loss of movement, pain at rest or at night that does not ease, or weight loss
+you cannot explain can each have causes that an exercise plan does not
+address. A clinician can tell you what is going on and whether loading the
+joint is right for you now.
 
 Please book an appointment with your doctor or a physical therapist in the next
 few days. If anything gets suddenly worse, contact them sooner.
@@ -125,12 +118,21 @@ back once they have.
 This check is educational. It does not diagnose, and it does not replace a
 clinician who can examine you.
 
+### Button copy
+
+- **Go back and change an answer.** Helper line under the button: "Tapped the
+  wrong answer? Go back and fix it. If your answers were right, please follow
+  the advice above before you start any exercises."
+- **Start over.** Helper line: "Clears every answer and starts the check from
+  the beginning."
+- **Read the medical disclaimer.** Links to `/legal/medical-disclaimer/`.
+
 ## Clear-screen line
 
 Shown when every answer is "No". It sits above the first real question.
 
-> Thank you. You did not report any of these signs, so let's carry on. If
-> any of these signs appear later, stop the exercises and contact a clinician.
+> Thank you. You did not report any of these signs, so let's carry on. If any
+> of them appear later, stop the exercises and contact a clinician.
 
 Note for A3: do not write "you are safe" or "you are cleared". The screen only
 says that none of these signs was reported.
@@ -142,34 +144,38 @@ compact version is needed. Keep the list in this order.
 
 **Heading:** Stop and contact a clinician if
 
-- your calf hurts or swells after a joint replacement, or you get chest pain
-  or sudden breathlessness (call 911 or your local emergency number);
+- your calf hurts or swells after a joint replacement, or you get chest pain,
+  sudden breathlessness, or new trouble controlling your bladder or bowels
+  (call 911 or your local emergency number);
 - the joint is hot, red or swollen and you feel feverish or unwell;
 - a surgical wound is red, hot, leaking or opening up;
 - the joint looks out of shape or cannot take weight after a fall or injury;
-- the joint gives way, or catches and gets stuck;
+- the joint starts giving way, or catching and getting stuck so you can't
+  fully bend or straighten it, or this gets worse;
 - you suddenly cannot bend or straighten it as far as usual;
-- pain at rest or at night does not ease when you change position;
-- you are losing weight without trying.
+- pain at rest or at night does not ease when you change position, most nights
+  for two weeks or more;
+- new numbness, tingling or weakness appears in your leg;
+- you lose about 10 pounds or more without trying.
 
 These signs are worth checking before you exercise. They are not a diagnosis.
 
-(If the reviewer removes RF8, RF9 or RF10, remove the matching words from the
-first and third bullets.)
-
 ## Approval
 
-Only the second clinical reviewer named by Randy (D6) can approve this
-wording. Each question, its message level, the "Not sure counts as yes" rule and
-the three proposed additions need that reviewer's decision before Gate G1.
-Points for the reviewer:
+**Signed off 2026-11-02 by Randy (Randall) Bauer, PT, clinical reviewer
+(decision D6).** Decisions recorded:
 
-- RF1: giving way is common in knee osteoarthritis. As written, any giving way
-  stops the check. Should it stop only if it is new or getting worse?
-- RF5: should "keeps you awake most nights" or a time frame (for example,
-  "for more than a few weeks") be added, so ordinary night aching does not
-  stop the check?
-- RF6: should a threshold be added (an amount of weight or a time span)?
-- RF7: "cannot put weight on it" was added to "looks out of shape". Keep?
-- RF4 and RF8: the emergency wording uses 911. Confirm for the audience.
-- RF8 to RF10: accept or remove each one.
+| Item | Decision |
+|---|---|
+| RF1 | Stops the check only when giving way or getting stuck is new or getting worse. Wording changed to match. |
+| RF2, RF3, RF4, RF7 | Approved as written. |
+| RF5 | "Most nights for two weeks or more" added. |
+| RF6 | "About 10 pounds or more" added. |
+| RF8, RF9, RF10 | Kept; moved from proposed into the main list. No switch needed. |
+| "Not sure" | Counts as yes. |
+| Wording for a joint that catches | "Gets stuck so you can't fully bend or straighten it" approved in place of the clinical term. |
+| Stop screen buttons | "Go back and change an answer" and "Start over" added; copy above. |
+| Emergency number | 911, with "or your local emergency number", approved as part of RF4 as written. |
+
+Any later change to a question, a message level or the button copy needs the
+clinical reviewer's sign-off again.

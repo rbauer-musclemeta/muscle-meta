@@ -27,7 +27,9 @@ bar, or any number that rises as things look worse.
   like that reads as precise and is not.
 - The check is a belief and loading conversation. A risk number works against
   that: it can make a reader more afraid to move, which is the problem the
-  course addresses [CLAIM-C10].
+  course addresses. In one study of people with arthritis, fear of movement
+  was more closely linked with how well they managed daily activities than
+  their X-ray findings were (C10, Promising).
 
 ## What is removed from the source tool
 
@@ -63,15 +65,15 @@ describes the joint.
 
 | Answer in the check | Reading |
 |---|---|
-| Movement wears the joint out, like sandpaper on a tire | You told us you see movement as something that wears the joint down. Many people were told exactly that. The picture has changed: cartilage is living tissue that relies on movement to get its nutrients [CLAIM-NEW-1], and in one large review, recreational runners had lower rates of knee and hip arthritis than people who did not run [CLAIM-C01]. That is an association, not proof, but it does not fit the "wearing out" idea. Lesson 1 explains why. |
-| Exercise is healthy, but rest is the safe default when it aches | You told us rest is your default when the joint aches. Short rest makes sense for a hot, swollen joint or after surgery. As an everyday default, though, long periods of rest can leave a joint and the muscles around it less able to handle load [CLAIM-NEW-2]. The acceptable pain guide below gives you another option. |
+| Movement wears the joint out, like sandpaper on a tire | You told us you see movement as something that wears the joint down. Many people were told exactly that. The picture has changed. Cartilage has no blood supply of its own; movement helps circulate the joint fluid that nourishes it (C18, Unproven-Bridge). And in one pooled analysis, 3.5% of recreational runners had hip or knee arthritis, compared with 10.2% of non-runners. That is a link, not proof that running prevents arthritis (C11, Promising), but it does not fit the "wearing out" idea. Lesson 1 explains more. |
+| Exercise is healthy, but rest is the safe default when it aches | You told us rest is your default when the joint aches. Short rest makes sense for a hot, swollen joint or after surgery. As an everyday default, though, long stretches of very little loading are linked with thinner cartilage on scans (C15, Promising), and avoiding activity is linked with weaker muscles and more difficulty with daily tasks (C10, Promising). The acceptable pain guide below gives you another option. |
 | Movement is what feeds the cartilage | You already see movement as part of joint care. That is the starting point the course builds on. |
 
 ### Flare strategy
 
 | Answer | Reading |
 |---|---|
-| Total rest and regular medication | When the joint flares, you stop moving and rely on medication. That is an understandable response to pain. International guidelines place exercise and education as the first treatment for knee and hip osteoarthritis, alongside, not instead of, the medicines your clinician recommends [CLAIM-C05]. |
+| Total rest and regular medication | When the joint flares, you stop moving and rely on medication. That is an understandable response to pain. The OARSI guidelines (2019) list education and structured exercise as core treatments for knee and hip osteoarthritis, recommended for essentially everyone with the condition (C05, Established). Medicines can sit alongside exercise; talk them through with your doctor. |
 | Pull back and wait for the flare to pass | When the joint flares, you pull back and wait. Easing off for a few days is reasonable. The aim is to come back with a smaller dose rather than wait indefinitely. |
 | Keep moving and adjust | When the joint flares, you adjust and keep going. That is the approach the course teaches. |
 
@@ -92,9 +94,12 @@ from `pain-rule-wording.md`.
   `inflammatory-arthritis-note.md`.
 - Joint replacement scheduled or completed: the short version from
   `post-surgery-caveat.md`.
-- GLP-1 medicine selected: no claim-bearing note until A1 grades
-  `[CLAIM-C13]`. Until then, use only: "If you are using a GLP-1 medicine for
-  weight loss, ask your clinician how strength work and protein fit your plan."
+- GLP-1 medicine selected: "GLP-1 weight-loss medicines lead to some loss of
+  muscle along with fat. In older adults losing weight by diet, strength
+  training and more protein helped keep more muscle. Those studies were not
+  done in people taking GLP-1 medicines, so the benefit there is likely but not
+  yet proven (C13, Promising). Ask your clinician how strength work and protein
+  fit your plan."
 
 ## 3. One next step
 

@@ -22,10 +22,10 @@ described as "wear and tear". Rheumatoid arthritis and other inflammatory types 
 In these conditions the body's immune system drives swelling inside the joint,
 and that swelling can come and go in flares.
 
-Movement and strength work are often part of care for inflammatory arthritis
-too [CLAIM-NEW-4]. But the right amount, and the right time to do it, depend
-on how active the condition is, and that is something your rheumatology team
-tracks.
+[UNREGISTERED-1: Movement and strength work are often part of care for
+inflammatory arthritis too.] The right amount of movement, and the right time
+to do it, depend on how active the condition is, and that is something your
+rheumatology team tracks.
 
 So please:
 
@@ -51,5 +51,6 @@ So please:
 - Do not say the course "does not work" or "is not for" people with
   inflammatory arthritis. The point is coordination, not exclusion.
 - Do not name medicines or suggest changing them.
-- If A1 does not grade `[CLAIM-NEW-4]`, remove the sentence that carries it.
-  The rest of the note stands without it.
+- `[UNREGISTERED-1]` has no row in the claims register. It must not ship as
+  written. Either A1 sources and grades it, or the bracketed sentence is cut.
+  The rest of the note makes no research claim and stands without it.

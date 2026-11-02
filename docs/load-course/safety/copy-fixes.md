@@ -10,11 +10,17 @@ Sources:
 - **Framework**: `source/Load as Medicine_ A Clinical Framework for Joint Health and Osteoarthritis Management.md`
 - **Tool**: `source/MM-JointHealth-Assessment.html` (reference only; A3 rebuilds it)
 
-Claim tags: `[CLAIM-Cnn]` is a seed claim in `agents/A1-evidence.md`.
-`[CLAIM-NEW-n]` is a claim outside the seed list; see "Claims for A1 to add"
-at the end. Every tag is replaced by its grade once A1's register merges. If a
-claim fails, cut the sentence that carries it; each replacement below is written
-so the rest of the passage still reads without it.
+Claim tags: "(C06, Established)" names the row in A1's claims register and its
+grade. Each replacement is written from that row's safe wording, in plain
+voice, and never says more. `[UNREGISTERED-n]` marks a claim with no register
+row: it must be sourced and graded, or its sentence cut, before it ships.
+"(C20, grade pending)" waits on Randy.
+
+Claims that are a mismatch or not found in the register are cut, except C02
+(kept by Randy as labelled clinical guidance), C17 (kept only as Randy Bauer,
+PT's labelled clinical guidance) and C18 (Randy kept "movement circulates the
+joint fluid that nourishes cartilage" on 2026-11-02; the "brittle" part is
+dropped and nothing is cited). C09 is cut everywhere.
 
 Quoted source text below sometimes contains words that are banned in this
 workstream ("unlocking", "gated", "safe signal"). They appear only inside the
@@ -24,8 +30,8 @@ workstream ("unlocking", "gated", "safe signal"). They appear only inside the
 
 ### R1. Rebuild: bound it
 
-Human evidence that exercise regrows cartilage is weak [CLAIM-NEW-5]. The
-course uses "rebuild" about cartilage and the joint throughout.
+Exercise has not been shown to regrow cartilage in people (C14,
+Unproven-Bridge).
 
 - **Allowed:** rebuild strength, rebuild confidence, rebuild capacity, build
   back up, rebuild your routine.
@@ -34,10 +40,11 @@ course uses "rebuild" about cartilage and the joint throughout.
   rebuilding, "choose rebuilding over breakdown", "improves the physical
   integrity of the joint".
 - **When the cell-level mechanism is needed**, use this pair, together:
-  "In lab studies, cartilage cells respond to regular load by making new
-  tissue around themselves [CLAIM-C03]. That has not been shown to regrow
-  cartilage in people. What trials in people do show is less pain and better
-  function [CLAIM-NEW-5] [CLAIM-C06]."
+  "Lab and animal studies suggest that cartilage cells sense everyday joint
+  loading and use it to balance building and breakdown of cartilage (C03,
+  Unproven-Bridge). In people, exercise that loads the knee does not appear to
+  harm cartilage, but it has not been shown to regrow cartilage that has been
+  lost (C14, Unproven-Bridge)."
 
 ### R2. Rest: always with the carve-out
 
@@ -48,10 +55,18 @@ Standard carve-out sentence:
 > clinician is managing, or when your surgical team has asked for it. The
 > problem is long stretches of rest as the everyday default.
 
+When evidence is needed: "When a leg is barely loaded for weeks, as after an
+ankle fracture, knee cartilage gets measurably thinner on scans (C15,
+Promising)." Never "within days".
+
 ### R3. Associations stay associations
 
-"Protective", "prevents", "proves" and "the data proves" are removed. Use "was
-linked with", "had lower rates of ... in this study".
+"Protective", "prevents", "proves" and "the data proves" are removed.
+Recreational runners "had lower rates of hip and knee arthritis than
+non-runners in this analysis. That is a link, not proof that running protects
+the joint" (C21, Promising). No relative-reduction figure ("60% less", "about a
+third the rate", "66% lower") is ever printed: the raw 3.5% and 10.2% only
+(C11, Promising).
 
 ### R4. Audience
 
@@ -63,6 +78,11 @@ linked with", "had lower rates of ... in this study".
 "The latest research shows", "Research shows", "Research indicates",
 "According to the latest meta-analysis" are replaced by the finding itself,
 with its source beside it (randy-brand-voice language guardrails).
+
+### R6. Medicines
+
+Name OARSI only, never ESCEO. Medicine and injection copy closes with "talk
+them through with your doctor" (C12, Established).
 
 ## Course
 
@@ -90,11 +110,12 @@ with its source beside it (randy-brand-voice language guardrails).
   living, metabolic tissue that actually requires mechanical load to stay
   healthy."
 - **Replace with:** "The picture has changed. Cartilage is living tissue. It
-  has no blood supply of its own and relies on the squeeze and release of
-  movement to bring in nutrients [CLAIM-NEW-1], and its cells respond to the
-  loads placed on them [CLAIM-C03]."
-- **Why:** "completely overturned" overstates; "requires load" stated as a
-  fact needs a graded claim.
+  has no blood supply of its own, and movement helps circulate the joint fluid
+  that nourishes it (C18, Unproven-Bridge). Lab and animal studies suggest its
+  cells sense everyday loading and use it to balance building and breakdown
+  (C03, Unproven-Bridge)."
+- **Why:** "completely overturned" overstates; "requires load" is stronger
+  than C03 and C18 allow.
 
 ### F03. Overview, highest-leverage
 
@@ -102,8 +123,9 @@ with its source beside it (randy-brand-voice language guardrails).
   is medicine' is the highest-leverage intervention you can make for your
   long-term mobility."
 - **Replace with:** "Seeing movement as something your joint uses, rather than
-  something that wears it out, is a useful first step. Fear of moving can keep
-  people away from the very activity that helps [CLAIM-C10]."
+  something that wears it out, is a useful first step. In one study of people
+  with arthritis, fear of movement was more closely linked with how well they
+  managed daily activities than their X-ray findings were (C10, Promising)."
 - **Why:** unsupported superlative.
 
 ### F04. Overview, "unlocking the biological signals"
@@ -111,10 +133,9 @@ with its source beside it (randy-brand-voice language guardrails).
 - **As written:** "By shifting this mindset, you move from a state of
   fear-avoidance to active recovery, unlocking the biological signals your
   body needs to maintain and rebuild its joint surfaces."
-- **Replace with:** "As the fear eases, it gets easier to give the joint the
-  regular movement it relies on. In lab studies, cartilage cells respond to
-  that kind of load by making new tissue [CLAIM-C03]. In people, the clearest
-  benefits of exercise are less pain and better function [CLAIM-C06]."
+- **Replace with:** "As the fear eases, it gets easier to give the joint
+  regular movement. In trials, exercise on land eased knee arthritis pain and
+  helped people do more (C06, Established)."
 - **Why:** "unlocking" is on the CLAUDE.md 7.3 list; "rebuild its joint
   surfaces" breaks R1; "shifting this mindset" is close to the guardrail's
   banned "change your mindset".
@@ -131,15 +152,14 @@ with its source beside it (randy-brand-voice language guardrails).
   that joints simply wear out with use. This course offers a more useful
   picture, which we call 'load as medicine'. It is written for adults 50 and
   over with knee or hip osteoarthritis. Over three short lessons you will
-  learn how movement helps feed cartilage, through the fluid inside the joint
-  [CLAIM-NEW-1] and through mechanotransduction, the way cartilage cells sense
-  pressure and respond to it [CLAIM-C03]; how to rate your ache with a
-  practical guideline physical therapists use [CLAIM-C02]; and how to choose a
-  type of exercise to try first, based on what bothers you most [CLAIM-C07].
-  By the end you will have a plan you can start this week, and a way to adjust
+  learn how movement helps circulate the fluid that nourishes cartilage (C18,
+  Unproven-Bridge); how to rate your ache with a practical guideline many
+  clinicians use (C02, Unproven-Bridge); and how to choose a type of exercise to
+  try first, from the options studied in knee arthritis (C07, Promising). By
+  the end you will have a plan you can start this week, and a way to adjust
   it."
-- **Why:** R1, R4; "clinical safety rules" overstates a heuristic; "repair"
-  cartilage breaks R1.
+- **Why:** R1, R4; "clinical safety rules" overstates a heuristic;
+  mechanotransduction "to repair" breaks R1.
 
 ### F06. Overview, bridge
 
@@ -147,16 +167,16 @@ with its source beside it (randy-brand-voice language guardrails).
   very thing that accelerates joint decline."
 - **Replace with:** "...why resting a sore joint, the natural instinct, is
   often not the help it seems."
-- **Why:** R2; "accelerates joint decline" is causal and unsourced
-  [CLAIM-NEW-2].
+- **Why:** R2; "accelerates joint decline" is causal and not in the register.
 
 ### F07. Lesson 1 opening, "the latest research"
 
 - **As written:** "However, the latest research shows that rest is often a
   counterproductive prescription."
 - **Replace with:** "But long stretches of rest are often not the protection
-  they seem [CLAIM-NEW-2]."
-- **Why:** R5, R2.
+  they seem. When a leg is barely loaded for weeks, as after an ankle fracture,
+  knee cartilage gets measurably thinner on scans (C15, Promising)."
+- **Why:** R2, R5.
 
 ### F08. Lesson 1: "rest is starving the joint" (required)
 
@@ -166,20 +186,20 @@ with its source beside it (randy-brand-voice language guardrails).
   2021). Without this movement, the tissue is effectively starved."
 - **As written (video hook):** "But as a physical therapist, I can tell you:
   resting your joint is actually like starving it."
-- **Replace text with:** "Think of your cartilage like a sponge. Each time you
-  load the joint and then release it, fluid is squeezed out and drawn back in,
-  carrying nutrients with it [CLAIM-NEW-1]. Without regular movement, that
-  exchange slows down. Short rest is the right call for a hot, swollen joint,
-  during a flare your clinician is managing, or when your surgical team has
-  asked for it. The problem is long stretches of rest as the everyday default
-  [CLAIM-NEW-2]."
+- **Replace text with:** "Cartilage has no blood supply of its own. It gets its
+  nourishment from the fluid inside the joint, and movement helps that fluid
+  move in and out of the cartilage (C18, Unproven-Bridge). Picture a sponge
+  being gently squeezed and let go. Short rest is the right call for a hot,
+  swollen joint, during a flare your clinician is managing, or when your
+  surgical team has asked for it. The problem is long stretches of rest as the
+  everyday default."
 - **Replace hook with:** "We've all been told that if our joints hurt, we
   should rest them so we don't end up 'bone on bone'. As a physical therapist,
-  I see it differently. A short rest has its place. But weeks of rest can
-  leave your cartilage without the movement it relies on."
-- **Why:** R2. "Brittle and breaks down" pushes the metaphor past the
-  evidence. Gilbert 2021 is kept only if A1 confirms it supports the nutrition
-  claim.
+  I see it differently. A short rest has its place. But weeks of rest leave
+  your cartilage without the movement that circulates the fluid it lives on."
+- **Why:** R2. The "brittle" claim is dropped (Randy, 2026-11-02, C18).
+  Gilbert 2021 is not cited for this claim (register: mismatch). The sponge is
+  kept only as a picture of fluid moving, not as a claim about brittleness.
 
 ### F09. Lesson 1 video, mechanism and the AMPK sentence (required)
 
@@ -190,18 +210,18 @@ with its source beside it (randy-brand-voice language guardrails).
   mitochondria—the same energy sensors that govern muscle health—telling your
   body to keep the cartilage matrix strong."
 - **Replace with:** "Your cartilage cells, called chondrocytes, are living
-  sensors. Through a process called mechanotransduction, they turn the squeeze
-  of movement into chemical signals. In lab studies, those signals help the
-  cells look after the tissue around them [CLAIM-C03]. Researchers are also
-  looking at whether an energy sensor inside these cells, called AMPK, links
-  loading to how well the cells produce energy. That work is early, mostly in
-  cells and animals, and it is not yet a guide to how much to exercise
-  [CLAIM-C04]."
-- **Why:** grade expected Unproven-Bridge for C04 (STATUS notes). The source
-  also places AMPK "in your mitochondria"; AMPK is an energy sensor in the
-  cell, not a mitochondrial pathway, so that phrase is dropped. "Tell the PCM
-  to rebuild" breaks R1. "Researchers are also looking at" is kept on purpose:
-  it marks the level of evidence, which the guardrails allow.
+  sensors. Lab and animal studies suggest they sense everyday joint loading
+  through the material around them, and use it to balance building and
+  breakdown of cartilage. Scientists call this mechanotransduction (C03,
+  Unproven-Bridge; Gilbert 2021). Researchers have also proposed that an energy
+  sensor inside these cells, called AMPK, may link joint loading to the health
+  of the cell's mitochondria, its energy centres. That idea comes from lab
+  research and has not been tested in people (C04, Unproven-Bridge)."
+- **Why:** C04 is a hypothesis with no human data. The source places AMPK "in
+  your mitochondria"; it is a sensor in the cell, so that phrase is dropped.
+  Jiang 2021 is not cited for the matrix claim (register moved C03 to Gilbert
+  2021). "Tell the PCM to rebuild" breaks R1. "Researchers have proposed" is
+  kept on purpose: it marks the level of evidence, which the guardrails allow.
 
 ### F10. Lesson 1 video, evidence point
 
@@ -210,28 +230,26 @@ with its source beside it (randy-brand-voice language guardrails).
   10.2% (Alentorn-Geli 2017). Movement is protective. However, balance is key:
   'Elite' competitive volume can raise risk to 13.3%. We want that
   recreational 'sweet spot' where load acts as medicine."
-- **Replace with:** "In one large
-  review of studies covering 125,810 people, recreational runners had hip or
-  knee arthritis at a rate of 3.5%. People who did not run had a rate of
-  10.2%, and long-time competitive runners 13.3% [CLAIM-C01]. That is an
-  association. It does not prove that running prevents arthritis. But it does
-  not fit the idea that every step wears the joint down."
-- **Why:** R3. "The data proves" is a banned phrase. A1 to confirm the
-  comparison group's wording ("did not run" or "sedentary") and the joints
-  covered.
+- **Replace with:** "In a pooled analysis of 17 studies, 3.5% of recreational
+  runners had hip or knee arthritis, compared with 10.2% of non-runners and
+  13.3% of competitive runners. The study could not tell whether running
+  caused the difference (C01, Promising). So it is a link, not proof. But it
+  does not fit the idea that every step wears the joint down."
+- **Why:** R3. "The data proves" is a banned phrase. "Sweet spot" and
+  "competitive volume raises risk" go beyond C01 (the competitive figure was
+  not statistically different either). "Movement is good" stays as Randy's
+  message, carried by the link, not by a claim of protection.
 
 ### F11. "Movers have 60% less arthritis than sitters" (required)
 
 - **As written (Asset 3, question 1):** "(If Yes, re-read Lesson 1: movers
   have 60% less arthritis than sitters)."
-- **Replace with:** "(If yes, start with Lesson 1. In one large review,
-  recreational runners had lower rates of hip and knee arthritis than people
-  who did not run [CLAIM-C11].)"
-- **Why:** 60% is not in any source; 3.5% against 10.2% is about 66% lower, and
-  the framework says "roughly a third". "Movers" and "sitters" also widen
-  runners to everyone. Use only the comparison A1 picks for C11. If A1 adds a
-  ratio ("about a third the rate"), it goes here and in F10, nowhere else, and
-  it stays tied to runners.
+- **Replace with:** "(If yes, start with Lesson 1. In one pooled analysis,
+  3.5% of recreational runners had hip or knee arthritis, compared with 10.2%
+  of non-runners. This is a link, not proof that running prevents arthritis.)"
+  (C11, Promising)
+- **Why:** Randy's decision 2026-11-02: no "60% less", raw figures only, as an
+  association. "Movers" and "sitters" also widened runners to everyone.
 
 ### F12. Lesson 1 short step, clinical cue
 
@@ -243,8 +261,9 @@ with its source beside it (randy-brand-voice language guardrails).
 
 - **As written:** "Every repetition is a vital nutrient delivery to your
   joints; you are retraining your body to choose rebuilding over breakdown."
-- **Replace with:** "Each easy repetition moves fluid through the joint
-  [CLAIM-NEW-1]. Small, regular doses are how confidence and capacity build."
+- **Replace with:** "Each easy repetition helps move fluid through the joint
+  (C18, Unproven-Bridge). Small, regular doses are how confidence and capacity
+  build."
 - **Why:** R1.
 
 ### F14. Lesson 2, "Acceptable Pain Rule" (required)
@@ -255,16 +274,16 @@ with its source beside it (randy-brand-voice language guardrails).
   a joint, we must apply the 'Acceptable Pain Rule.' This framework allows you
   to distinguish between a productive 'loading signal' and an actual injury."
 - **Replace title with:** "Lesson 2: The acceptable pain guide"
-- **Replace text with:** "Pain works like an alarm. It deserves attention, but
-  it does not always measure damage to the joint [CLAIM-NEW-3]. To help people
-  keep moving without guessing, physical therapists often use a practical
-  guideline, which we call the acceptable pain guide. It is not a hard limit,
-  and on its own it cannot tell an ache from an injury. What it does is help
-  you judge whether a dose of activity was one your joint recovered from
-  [CLAIM-C02]."
-- **Why:** the brief requires it to be labelled a practical guideline. "Way
-  before any actual harm" is unsupported; "to rebuild a joint" breaks R1. Full
-  wording of the guideline is in `pain-rule-wording.md`.
+- **Replace text with:** "Pain is your body's alarm system. With arthritis, a
+  moderate ache during exercise does not by itself mean the joint is being
+  damaged (C23, Unproven-Bridge). To help people keep moving without guessing,
+  many clinicians use a practical guideline, which we call the acceptable pain
+  guide. It is clinical guidance, not a tested safety limit, and on its own it
+  cannot tell an ache from an injury (C02, Unproven-Bridge). What it does is
+  help you judge whether a dose of activity was one your joint recovered from."
+- **Why:** labelled as clinical guidance (Randy, 2026-11-02). "Way before any
+  actual harm" is not sourced (C23); "to rebuild a joint" breaks R1. Full
+  wording in `pain-rule-wording.md`.
 
 ### F15. Lesson 2, the OARSI sentence
 
@@ -272,14 +291,14 @@ with its source beside it (randy-brand-voice language guardrails).
   as a 'Core Treatment,' placing it above NSAIDs, injections, and opioids
   (Bannuru 2019). Exercise is not just a way to mask pain; it is a biological
   intervention that improves the physical integrity of the joint."
-- **Replace with:** "The international guideline from OARSI (the
-  Osteoarthritis Research Society International) lists structured exercise as
-  a core treatment for knee and hip osteoarthritis, recommended for almost
-  everyone. Medicines and injections are added depending on the person
-  [CLAIM-C05] [CLAIM-C12]. In trials, exercise eases pain and helps people do
-  more [CLAIM-C06]."
-- **Why:** "improves the physical integrity of the joint" breaks R1. Medicine
-  rankings stay as A1 confirms them.
+- **Replace with:** "International guidelines from OARSI (the Osteoarthritis
+  Research Society International, 2019) list arthritis education and
+  structured exercise as core treatments for knee and hip osteoarthritis,
+  recommended for essentially everyone with the condition (C05, Established).
+  In trials, exercise eased knee arthritis pain and helped people do more
+  (C06, Established)."
+- **Why:** the guideline does not use the word "above" (C05). "Improves the
+  physical integrity of the joint" breaks R1.
 
 ### F16. Lesson 2 video, reframe
 
@@ -289,12 +308,15 @@ with its source beside it (randy-brand-voice language guardrails).
   that protective reflex. Think of that mild ache as the sound of your joint
   getting fed and stimulated to rebuild."
 - **Replace with:** "We use what I call the acceptable pain guide. On a scale
-  of 0 to 10, an ache up to about 5 during activity is generally acceptable
-  [CLAIM-C02]. It's a practical guideline, not a hard limit. I know that
-  feeling pain while you move is unsettling. Some people find that as they keep
-  moving within the guide, the same activity starts to feel less alarming."
-- **Why:** "safe" overpromises; "fed and stimulated to rebuild" breaks R1;
-  "retraining your nervous system" is an unsourced mechanism.
+  of 0 to 10, many clinicians treat an ache that stays at about 5 or below as
+  acceptable during exercise, as long as it settles within 24 hours. That's
+  clinical guidance, not a tested safety limit (C02, Unproven-Bridge). I know
+  that feeling pain while you move is unsettling. In one study of people with
+  knee or hip pain, the small rise in pain after each session shrank over 8
+  weeks (C02, Unproven-Bridge)."
+- **Why:** "safe" overpromises; Gilbert 2021 does not support the rule; "fed
+  and stimulated to rebuild" breaks R1; "retraining your nervous system" is an
+  unsourced mechanism.
 
 ### F17. Lesson 2 video, Fransen evidence point
 
@@ -302,14 +324,17 @@ with its source beside it (randy-brand-voice language guardrails).
   that land-based exercise reduces pain by 12 points and improves function by
   10 points on a 100-point scale (Fransen 2015). These improvements are often
   more durable and significantly safer than relying on long-term medication."
-- **Replace with:** "In a large
-  review of exercise trials for knee osteoarthritis, exercise on land lowered
-  pain by about 12 points and improved function by about 10 points on a 0 to
-  100 scale, compared with not exercising. The benefits were still there two
-  to six months after the programmes ended [CLAIM-C06]."
+- **Replace with:** "A Cochrane review of 54 trials found that exercise on land
+  reduced knee arthritis pain by about 12 points and improved function by about
+  10 points on a 0 to 100 scale, right after the programme. Smaller benefits,
+  about 6 points for pain and 3 for function, were still there 2 to 6 months
+  later (C06, Established). In those trials, exercise eased pain about as much
+  as anti-inflammatory tablets do, and serious side effects from exercise were
+  not reported (C20, grade pending)."
 - **Why:** the trials did not test the 5 out of 10 guideline, so "following
-  this rule leads to" is removed. "Significantly safer than medication" has
-  no claim behind it. R5. A1 confirms the comparator and duration.
+  this rule leads to" is removed. The 12 and 10 points are immediate, not
+  lasting. "More durable and significantly safer" is not supported; C20 gives
+  the approved replacement. R5.
 
 ### F18. Lesson 2 video, action
 
@@ -322,7 +347,7 @@ with its source beside it (randy-brand-voice language guardrails).
 - **As written:** "...by respecting the 5/10 rule, you are teaching your joints
   and your brain that movement is safe again."
 - **Replace with:** "Each session that settles within the guide is useful
-  evidence: this amount of movement is one your joint can recover from."
+  information: this amount of movement is one your joint can recover from."
 
 ### F20. Lesson 3, muscles as shock absorbers
 
@@ -332,16 +357,13 @@ with its source beside it (randy-brand-voice language guardrails).
 - **As written (video):** "When you strengthen your quads, you create a
   muscular 'brace' that offloads the cartilage. ... for those biological
   changes to take hold."
-- **Replace with:** "Strong thigh and hip muscles help control how force passes
-  through the knee and hip [CLAIM-C09]. Whether they take load off the
-  cartilage itself is still being studied. What is clearer is that stronger
-  muscles make everyday things, like stairs and getting up from a chair,
-  easier."
-- **Replace video line with:** "...so you stay consistent long enough for the
+- **Replace with:** cut the sentence. Lesson 3 moves straight from "the best
+  exercise is the one you will actually do" to the options studied (F21).
+- **Replace video lines with:** "Consistency matters more than the exact
+  choice. Pick something you enjoy, so you keep doing it long enough for the
   benefits to build."
-- **Why:** STATUS notes Wei 2024 may not measure this; C09 is likely inference.
-  Adjust once graded. The "everyday things" sentence is a plain-function
-  statement; drop it if the reviewer wants it graded.
+- **Why:** C09 is a mismatch (Wei 2024 does not measure load redistribution)
+  and its re-sourced PMID may not be cited. Rule: cut mismatch claims.
 
 ### F21. Lesson 3, the Mo 2023 ranking
 
@@ -350,13 +372,15 @@ with its source beside it (randy-brand-voice language guardrails).
   aquatic exercise are most effective. If your biggest hurdle is stiffness,
   yoga provides the most relief. If you need general symptom control and better
   function, resistance training is your best bet."
-- **Replace with:** "One analysis that compared many trials (Mo 2023) gives us
-  some clues. Cycling and exercise in water ranked highest for pain, yoga
-  ranked highest for stiffness, and resistance training did well for overall
-  symptoms and function [CLAIM-C07]. Rankings like these are a place to start,
-  not a rule. The type you will keep doing matters most."
-- **Why:** a network meta-analysis ranking is not "most effective" (STATUS
-  notes). R5.
+- **Replace with:** "One analysis of 39 trials in knee arthritis (Mo 2023)
+  found that all five types of exercise it studied helped. Cycling ranked
+  highest for one pain score and for walking distance, exercise in water for
+  another pain score, yoga for stiffness and daily function, and resistance
+  training for overall symptoms. These rankings are options studied, not proof
+  that one type is best for you (C07, Promising). The type you will keep doing
+  matters most."
+- **Why:** a network ranking is not "most effective"; "sharp pain" is not an
+  outcome in the paper; knee only. R5.
 
 ### F22. Lesson 3 close, "biological rebuilding"
 
@@ -388,14 +412,16 @@ Put the full `post-surgery-caveat.md` and the red-flag box at the top.
   protocol outperforms conventional rehab on 6 out of 9 major functional
   measures, helping patients regain independence faster (Wei 2024)."
 - **Replace with:** "After a knee replacement (total knee arthroplasty),
-  rebuilding strength in the thigh and hip is a big part of recovery. In one
-  review of trials (Wei 2024), people who did active resistance exercise
-  (exercise against a weight, band or machine) after knee replacement did
-  better on several measures than people who had usual rehab [CLAIM-C08]. Your
-  surgical team decides when and how this fits your recovery."
-- **Why:** "conventional, passive rehab" misdescribes usual care and reads as
-  an attack on clinicians. "Superior" and "6 out of 9" wait for A1. "Regain
-  independence faster" is not measured.
+  getting strength back in the leg is a big part of recovery. A review of 14
+  trials, covering 880 people after knee replacement, found that resistance
+  exercise for the legs (exercise against a weight, band or machine) led to
+  somewhat better walking speed, a slightly faster sit-stand-walk test (about
+  1 second), more leg strength and a little more knee bend (about 3 degrees)
+  than standard exercise, measured right after the programme. The overall
+  quality of the evidence was low (C08, Promising; Wei 2024). Your surgical
+  team decides when and how this fits your recovery."
+- **Why:** usual care was standard exercise, not "passive" rehab; "superior",
+  "6 out of 9 major" and "regain independence faster" overstate.
 
 ### F25. Results table
 
@@ -404,20 +430,28 @@ Put the full `post-surgery-caveat.md` and the red-flag box at the top.
   "Limited by stiffness"; and "Active Resistance (ARE) Advantage" with
   "Significantly faster (MD +0.13)", "Nearly 1-second faster mobility",
   "Greater strength", "Significant reduction in pain scores", "+2.74°".
-- **Replace with:** two columns, "What was measured" and "What the review found
-  for active resistance, compared with usual rehab [CLAIM-C08]". Each cell
-  states the number with its unit, exactly as A1 confirms it, in plain words:
-  for example "Walking speed: faster, by [value and unit from A1]". Remove the
-  whole conventional rehab column. Remove any row A1 cannot confirm.
-- **Why:** the conventional column characterises usual care without data; "MD"
-  is unexplained jargon; "significant" wording waits for A1.
+- **Replace with:** two columns, "What was measured" and "Resistance exercise
+  compared with standard exercise, right after the programme (C08,
+  Promising)". Rows:
+  - Walking speed (fastest pace): somewhat faster
+  - Sit-stand-walk test: about 1 second faster
+  - Leg strength (straightening and bending the knee): stronger
+  - Knee bend: about 3 degrees more
+  - Six-minute walk, stair climbing, straightening the knee: no clear
+    difference
+  - Footnote: "Low-quality evidence; the effects were small and measured only
+    right after the programme."
+- **Why:** remove the conventional rehab column (it characterised usual care
+  without data). Do not print a unit for walking speed (the paper does not
+  state one). The pain row is removed: the pain scale is not stated and
+  "significant reduction" overstates.
 
 ### F26. Table footnote
 
 - **As written:** "Source: Wei 2024. Active resistance is the evidence-based
   default for maximizing surgical outcomes."
-- **Replace with:** "Source: Wei 2024 [CLAIM-C08]. One review of trials. Ask
-  your surgical team how resistance exercise fits your recovery."
+- **Replace with:** "Source: Wei 2024 (C08, Promising). One review of trials.
+  Ask your surgical team how resistance exercise fits your recovery."
 
 ## Downloadable asset 2: Acceptable pain loading tracker
 
@@ -435,7 +469,7 @@ top; short pain-guide version below it.
   capacity, and doing too much, which can bring on a flare. This log helps you
   find a dose your joint recovers from, then build on it."
 - **Why:** "tissue stagnation", "the exact dose" and "stimulates the
-  cartilage" are unsourced.
+  cartilage" are not in the register.
 
 ### F28. Column headings
 
@@ -451,12 +485,9 @@ top; short pain-guide version below it.
   volume by 50% for the next session until the joint stabilizes."
 - **Replace with:** the "Tracker adjustment rules" in `pain-rule-wording.md`.
   Heading "Adjusting your next session" (the red-flag box is separate).
-- **Decision on 50%:** kept, but only as labelled clinical guidance: "about
-  half the time, distance or sets", followed by "This is Randy's clinical
-  guidance from practice, not a figure from a research study." No source
-  supports 50%, so it is not presented as evidence. Randy confirms he stands
-  behind the figure; if he does not, drop the number and keep "cut the amount
-  back".
+- **Decision on 50%:** kept as "cut back to about half", labelled "This is
+  Randy Bauer, PT's clinical guidance, not a research-tested rule" (C17,
+  Unproven-Bridge; no source found). Approved by Randy 2026-11-02.
 - **Why:** "you have over-loaded" is a verdict; "until the joint stabilizes"
   implies instability.
 
@@ -480,10 +511,10 @@ See F11.
 ### F32. "Passive default"
 
 - **As written:** "Your plan is missing the 'Core Treatment.'"
-- **Replace with:** "International guidelines list exercise as a core
-  treatment for knee and hip osteoarthritis [CLAIM-C05], and it is not yet part
-  of your plan. The sit-to-stand short step in Lesson 2 is an easy place to
-  begin."
+- **Replace with:** "The OARSI guidelines list structured exercise as a core
+  treatment for knee and hip osteoarthritis (C05, Established), and it is not
+  yet part of your plan. The sit-to-stand short step in Lesson 2 is an easy
+  place to begin."
 
 ### F33. Closing line
 
@@ -499,10 +530,12 @@ See F11.
   a passive surface that thins with use. Instead, OA is better modeled as an
   active, whole-joint metabolic and inflammatory disease. ... chondrocytes rely
   on the mechanical pumping of joint movement ..."
-- **Replace with:** "Osteoarthritis is now seen as a condition of the whole
-  joint, not just thinning cartilage [CLAIM-NEW-6]. Cartilage relies on joint
-  movement to circulate the fluid that feeds it [CLAIM-NEW-1]."
-- **Why:** "refutes" overstates.
+- **Replace with:** "[UNREGISTERED-2: Osteoarthritis is now seen as a
+  condition of the whole joint, not just thinning cartilage.] Cartilage has no
+  blood supply of its own, and movement helps circulate the joint fluid that
+  nourishes it (C18, Unproven-Bridge)."
+- **Why:** "refutes" overstates. The whole-joint sentence has no register row:
+  source and grade it, or cut it.
 
 ### F35. "Movement is a nutrient" and "within days"
 
@@ -510,11 +543,12 @@ See F11.
   effectively starves the tissue, tipping the signaling balance toward a
   catabolic state within days." and "Chondrocyte nutrition and waste clearance
   are entirely dependent on the mechanical circulation of synovial fluid."
-- **Replace with:** "Long periods without movement are linked with changes in
-  cartilage and in the muscles around the joint [CLAIM-NEW-2]. Cartilage gets
-  much of its nutrition from joint fluid moved by loading [CLAIM-NEW-1]."
-  Followed by the R2 carve-out.
-- **Why:** R2; "within days" and "entirely" are unsourced.
+- **Replace with:** "When a leg is barely loaded for weeks, as after an ankle
+  fracture, knee cartilage gets measurably thinner on scans. Long-term loss of
+  loading, as after spinal cord injury, is linked with steady thinning over
+  months (C15, Promising)." Followed by the R2 carve-out.
+- **Why:** R2; "within days" has no human data; "entirely dependent" is not in
+  the register.
 
 ### F36. Running myth rebuttal, population table, FAQ "running is protective"
 
@@ -523,40 +557,50 @@ See F11.
   factor for OA."; FAQ: "No, for recreational doses, running is protective.
   Recreational runners have roughly one-third the rate of arthritis compared to
   sedentary people. Only elite-level volume increases risk."
-- **Replace table notes with:** "Lowest rate in this review"; "Higher rate than
-  recreational runners in this review"; "Highest rate in this review, after
-  many years of competitive running" [CLAIM-C01].
+- **Replace table notes with:** "Lowest rate in this analysis"; "Higher rate
+  than recreational runners in this analysis"; "Highest rate in this analysis"
+  (C01, Promising). Add under the table: "The study could not tell whether
+  running caused the difference."
 - **Replace FAQ answer with:** "Not for most people who run for fun, based on
-  what we know so far. In one large review, recreational runners had lower
-  rates of knee and hip arthritis than people who did not run, and long-time
-  competitive runners had higher rates [CLAIM-C01]. That is an association, not
-  proof that running protects the knee. If running is part of your life, the
-  acceptable pain guide can help you judge your dose."
-- **Why:** R3. The ratio wording waits for C11.
+  what we know so far. Recreational runners had lower rates of hip and knee
+  arthritis than non-runners in one pooled analysis: 3.5% compared with 10.2%.
+  That is a link, not proof that running protects the joint (C21, Promising).
+  If running is part of your life, the acceptable pain guide can help you judge
+  your dose."
+- **Why:** R3. "Roughly one-third" is a relative figure (C11: raw figures
+  only). "Only elite-level volume increases risk" goes beyond C01.
 
 ### F37. Guideline table
 
-- **As written:** "explicitly above opioids and acetaminophen"; the tier table.
-- **Replace with:** the table only as A1 confirms it [CLAIM-C05] [CLAIM-C12].
-  In reader copy, keep medicine detail to one line: "Which medicine, if any,
-  suits you is a question for your doctor or pharmacist."
+- **As written:** "explicitly above opioids and acetaminophen"; the tier table,
+  including OARSI/ESCEO labels.
+- **Replace with:** in reader copy, one passage: "OARSI guidelines (2019)
+  strongly recommend topical anti-inflammatory gels for knee arthritis,
+  conditionally advise against acetaminophen (paracetamol), and strongly advise
+  against opioids. Other medicines and joint injections depend on the joint and
+  on your other health conditions, so talk them through with your doctor (C12,
+  Established)." Drop ESCEO. If the table is kept for clinicians, correct it
+  from the register notes on C12 (injections are not recommended for hip).
 
 ### F38. Mitochondrial mechanotransduction and "Mitochondrial Crisis"
 
 - **As written:** "Mitochondrial dysfunction in chondrocytes is a primary
   driver of OA pathogenesis." and the pattern name "Mitochondrial Crisis".
-- **Replace with:** the F09 wording [CLAIM-C04]. Rename the pattern
-  "Mitochondrial signal (early research)".
-- **Why:** "primary driver" is unsupported; "crisis" is reserved for real acute
-  conditions (language guardrails).
+- **Replace with:** "Scientists have found signs of poorly working
+  mitochondria (the cell's energy centres) in cartilage cells from arthritic
+  joints, and they are studying whether this helps drive the disease (C16,
+  Unproven-Bridge)." Then the AMPK lines from F09 (C04, Unproven-Bridge).
+  Rename the pattern "Mitochondrial signal (early research)".
+- **Why:** "primary driver" is never used (C16); "crisis" is reserved for real
+  acute conditions (language guardrails).
 
 ### F39. Population profiles
 
 - **As written:** "Maintainers (Active Adults 45–75)"; "which accelerates
   deconditioning and cartilage starvation".
-- **Replace with:** "Maintainers (active adults 50 and over)"; "which can
-  leave the joint and the muscles around it less ready for load
-  [CLAIM-NEW-2]".
+- **Replace with:** "Maintainers (active adults 50 and over)"; "Avoiding
+  activity is linked with weaker muscles and more difficulty with daily tasks
+  (C10, Promising)."
 
 ### F40. "Clinical outcomes are gated by the patient's belief system"
 
@@ -565,49 +609,58 @@ See F11.
   (X-ray/MRI) severity. Clinicians must explain that cartilage is a living
   tissue that requires load to survive before prescribing exercise."
 - **Replace with:** "What a person believes about their joint shapes what they
-  are willing to do. Fear of movement has been linked with more difficulty in
-  daily activities [CLAIM-C10]. So the explanation comes before the exercise
-  plan: cartilage is living tissue that relies on movement [CLAIM-NEW-1]."
-- **Why:** "gated" is on the 7.3 list. "Predicts more accurately than X-ray"
-  is unsourced; restore a comparison only if A1 grades one. "Requires load to
-  survive" overstates.
+  are willing to do. In one study of people with arthritis, fear of movement
+  was more closely linked with how well they managed daily activities than
+  their X-ray findings were (C10, Promising). So the explanation comes before
+  the exercise plan: cartilage is living tissue, and movement helps circulate
+  the joint fluid that nourishes it (C18, Unproven-Bridge)."
+- **Why:** "gated" is on the 7.3 list. "Predicts" becomes "linked with"
+  (cross-sectional study); MRI was not studied. "Requires load to survive"
+  overstates.
 
 ### F41. Acceptable pain rule in the framework
 
 - **As written:** "If these conditions are met, the activity is safe and does
   not signal joint damage."
 - **Replace with:** "If both are met, the dose is generally acceptable to
-  continue and build on [CLAIM-C02]."
+  continue and build on. This is clinical guidance, not a tested safety limit
+  (C02, Unproven-Bridge)."
 
 ### F42. Nutrition substrates and GLP-1
 
 - **As written:** "Nutrition provides the substrates (protein, Vitamin C) for
   matrix repair; weight management lowers systemic inflammation." and the
   GLP-1 profile.
-- **Replace with:** nothing in the first release unless A1 sources them
-  ([CLAIM-C13] for GLP-1). STATUS lists both as out of scope.
+- **Nutrition:** do not use. C19 is held by Randy for the first release. The
+  "systemic inflammation" part is not sourced (C22 notes).
+- **GLP-1, replace with:** "GLP-1 weight-loss medicines lead to some loss of
+  muscle along with fat. In older adults losing weight by diet, strength
+  training and more protein helped keep more muscle. Those studies were not
+  done in people taking GLP-1 medicines, so the benefit there is likely but not
+  yet proven (C13, Promising)."
 
 ### F43. FAQ "Why does my joint feel better when I move it?"
 
 - **As written:** "Movement circulates synovial fluid, which is the only way
   your cartilage gets nutrients and clears out metabolic waste. Movement is
   'feeding' the joint."
-- **Replace with:** "Movement helps circulate the fluid inside the joint
-  (synovial fluid), which is how cartilage gets much of its nutrition
-  [CLAIM-NEW-1]. Many people also find that stiffness eases once they get
-  going."
-- **Why:** "the only way" is absolute.
+- **Replace with:** "Cartilage has no blood supply of its own. It gets its
+  nourishment from the fluid inside the joint (synovial fluid), and movement
+  helps that fluid move in and out of the cartilage (C18, Unproven-Bridge)."
+- **Why:** "the only way" is absolute. A second sentence about stiffness
+  easing was cut: it has no register row.
 
 ### F44. FAQ "Should I take ibuprofen or acetaminophen instead of exercising?"
 
 - **As written:** "...Exercise has moderate, durable effects on pain and
   function with fewer side effects than long-term medication use."
-- **Replace with:** "It doesn't have to be one or the other. International
-  guidelines list exercise as a core treatment, with medicines considered
-  alongside it depending on your health [CLAIM-C05] [CLAIM-C12]. Which
-  medicine, if any, suits you is a question for your doctor or pharmacist."
-- **Why:** the side-effect comparison has no claim behind it; medicine choice
-  is not ours to advise.
+- **Replace with:** "It doesn't have to be one or the other. OARSI guidelines
+  list exercise as a core treatment for knee and hip osteoarthritis (C05,
+  Established). In trials, exercise eased knee arthritis pain about as much as
+  anti-inflammatory tablets, and serious side effects from exercise were not
+  reported (C20, grade pending). Medicines depend on the joint and on your
+  other health conditions, so talk them through with your doctor (C12,
+  Established)."
 
 ### F45. FAQ "I've had a knee replacement; surely I should rest it?"
 
@@ -615,16 +668,18 @@ See F11.
   exercises after a knee replacement recover walking speed, strength, and range
   of motion faster than those who stick to conventional, passive rehab."
 - **Replace with:** "Rest has a place in the early days, and your surgical
-  team's plan comes first. After that, in one review of trials, people who did
-  resistance exercise after knee replacement did better on several measures,
-  including walking speed, than people who had usual rehab [CLAIM-C08]. Ask
-  your team when resistance work fits your recovery."
+  team's plan comes first. After that, a review of 14 trials found that
+  resistance exercise for the legs led to somewhat better walking speed, more
+  leg strength and a little more knee bend than standard exercise, though the
+  evidence was low quality (C08, Promising). Ask your team when resistance work
+  fits your recovery."
 
 ### F46. FAQ "What is the best exercise for my arthritis?"
 
 - **As written:** "Cycling, walking, yoga, and swimming all show benefits."
-- **Replace with:** "Cycling, walking, yoga and exercise in water have all been
-  studied, with benefits for pain and function [CLAIM-C07]."
+- **Replace with:** "In one analysis of trials in knee arthritis, all five
+  types of exercise studied helped, including cycling, water exercise and yoga
+  (C07, Promising). The best one is the one you will keep doing."
 
 ## Tool (reference only; A3 rebuilds it)
 
@@ -639,22 +694,22 @@ See F11.
   - Heading: "Your joint is living tissue, not a tire"
   - Body: "Many of us were told joints wear out like tires, one mile at a
     time. Cartilage is different from rubber: it is living tissue. It has no
-    blood supply of its own, so it relies on the squeeze and release of
-    movement to bring nutrients in [CLAIM-NEW-1]. Long stretches of rest are
-    not the protection they seem [CLAIM-NEW-2], though a short rest is right
-    for a hot, swollen joint or after surgery."
-  - Stat box: "3.5% compared with 10.2%. In one large review, recreational
-    runners had lower rates of hip and knee arthritis than people who did not
-    run. An association, not proof." [CLAIM-C01] [CLAIM-C11]
+    blood supply of its own, and movement helps circulate the joint fluid that
+    nourishes it (C18, Unproven-Bridge). A short rest is right for a hot,
+    swollen joint or after surgery. The problem is long stretches of rest as
+    the everyday default."
+  - Stat box: "3.5% compared with 10.2%. In one pooled analysis, that was the
+    share of recreational runners and of non-runners with hip or knee
+    arthritis. A link, not proof." (C11, Promising)
 - **Why:** "single most damaging myth" is an unsupported superlative; "starves
-  the cells" breaks R2; "moving intelligently" widens runners to everyone.
+  the cells" breaks R2; "roughly a third" is a relative figure (R3).
 
 ### F48. Belief answer C
 
 - **As written:** "Cartilage requires physiological mechanical stress to
   signal cells to rebuild and maintain joint structure."
-- **Replace with:** "Cartilage relies on regular movement to stay healthy."
-  [CLAIM-NEW-1]
+- **Replace with:** "Movement helps circulate the fluid that nourishes my
+  cartilage." (C18, Unproven-Bridge)
 
 ### F49. Core loading rules panel
 
@@ -669,23 +724,24 @@ See F11.
   "Active catabolic cascade pattern" flag are removed (see
   `scoring-direction.md`). The inflammatory flag is replaced by
   `inflammatory-arthritis-note.md`. The surgery flag is replaced by the short
-  `post-surgery-caveat.md`. The walking and running card becomes: "In one large
-  review, recreational runners had lower rates of arthritis than people who
-  did not run [CLAIM-C01]. Build back gradually using the acceptable pain
-  guide, especially after a break."
+  `post-surgery-caveat.md`. The GLP-1 flag uses F42. The walking and running
+  card becomes: "Recreational runners had lower rates of hip and knee
+  arthritis than non-runners in one analysis. That is a link, not proof (C21,
+  Promising). Build back gradually using the acceptable pain guide, especially
+  after a break."
 - **Brand:** "Muscle-Meta™ real-time reframe" becomes "Muscle-Meta Matrix™
   reframe".
 
-## Claims for A1 to add
+## Claims without a register row
 
-Claims used in this wording that are not in the seed list. A1 assigns each a
-register ID and a grade; the `[CLAIM-NEW-n]` tags are then replaced.
-
-| Tag | Claim as used here | Source as cited in the course | Where used |
+| Tag | Claim | Where used | What happens |
 |---|---|---|---|
-| CLAIM-NEW-1 | Cartilage has no blood supply of its own and gets much of its nutrition from joint fluid moved by loading and unloading | Gilbert 2021 (course) | F02, F05, F08, F13, F34, F35, F40, F43, F47, F48; scoring-direction |
-| CLAIM-NEW-2 | Long periods of rest or immobilisation are linked with changes in cartilage and surrounding muscle that reduce tolerance of load | none ("within days" unsourced) | F06, F07, F08, F35, F39, F47; scoring-direction |
-| CLAIM-NEW-3 | Pain intensity does not always match the amount of joint damage | none | F14; pain-rule-wording |
-| CLAIM-NEW-4 | Exercise is often part of care for rheumatoid and other inflammatory arthritis | none | inflammatory-arthritis-note |
-| CLAIM-NEW-5 | Exercise has not been shown to regrow cartilage in people; human trials show less pain and better function | none | R1 |
-| CLAIM-NEW-6 | Osteoarthritis affects the whole joint, not only cartilage | none | F34 |
+| UNREGISTERED-1 | Movement and strength work are often part of care for inflammatory arthritis | `inflammatory-arthritis-note.md` | A1 sources and grades it, or the sentence is cut |
+| UNREGISTERED-2 | Osteoarthritis affects the whole joint, not only cartilage | F34 | A1 sources and grades it, or the sentence is cut |
+
+## Mapping from the first draft
+
+For anyone comparing with the earlier commit: CLAIM-NEW-1 became C18,
+CLAIM-NEW-2 became C15 (with C10 for the muscle part), CLAIM-NEW-3 became C23,
+CLAIM-NEW-5 became C14, CLAIM-NEW-4 became UNREGISTERED-1 and CLAIM-NEW-6
+became UNREGISTERED-2.

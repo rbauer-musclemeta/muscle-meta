@@ -15,20 +15,26 @@ here does not fit a layout, ask for a shorter version rather than editing it.
 
 ## Status of this wording
 
-- **Draft. Not approved.** Only the second clinical reviewer named by Randy
-  (decision D6) can approve the red-flag questions, the clinician messages and
-  the clinical claims in these files. That reviewer has not yet been named.
-  Nothing here ships before that sign-off (Gate G1).
-- **Claims are placeholders.** The claims register from A1 had not merged when
-  this was written. Every clinical claim carries `[CLAIM-Cnn]`, keyed to the
-  seed IDs C01 to C13 in `docs/load-course/agents/A1-evidence.md`. Claims that
-  are not in the seed list carry `[CLAIM-NEW-n]`; the list of these is at the
-  end of `copy-fixes.md` so A1 can give each one a register ID. When the
-  register merges, a placeholder is replaced by its grade, or the sentence is
-  cut if the claim did not survive.
-- **No PMIDs.** None are cited here. Citations come from the register only.
-- **Placeholders must not reach a live page.** A placeholder in square brackets
-  is a build note, not reader copy. Remove it when the claim is resolved.
+- **Clinical reviewer.** Randy (Randall) Bauer, PT is the clinical reviewer
+  (decision D6). He signed off the red-flag screen on 2026-11-02 (see its
+  Approval section). Any change to safety wording goes back to him.
+- **Claims are mapped to A1's register** (`docs/load-course/evidence/claims-register.csv`
+  on `load-course/A1-evidence`, read 2026-11-02, including the
+  "decision_2026-11-02" section of `notes.md`). Each claim is written from the
+  register's safe wording, never stronger, and tagged with its ID and grade,
+  for example "(C06, Established)". Building agents render the tag as the
+  short note beside the claim and add the source author and year from the
+  register.
+- **Two claims have no register row** and stay as marked placeholders:
+  `[UNREGISTERED-1]` (inflammatory arthritis note) and `[UNREGISTERED-2]`
+  (`copy-fixes.md` F34). A placeholder in square brackets is a build note, not
+  reader copy. It must be sourced and graded, or its sentence cut, before
+  anything ships.
+- **One grade is open.** C20 is tagged "(C20, grade pending)" until Randy
+  confirms it.
+- **No PMIDs.** None are cited here. Never cite PMIDs 26564575, 34916210 or
+  29934429 (register: do not cite until the build confirms). C09 is a mismatch
+  and is not used.
 
 ## Shared rules this wording follows
 

@@ -1,13 +1,25 @@
 # Load as Medicine: status
 
 Maintained by the orchestrator. This is the only file the orchestrator writes.
-Branch: `feature/load-course-setup`. Last updated: 2026-11-01.
+Branch: `feature/load-course-setup`. Last updated: 2026-11-02.
 
 ## Current position
 
-- Phase: **P1**. Gate G0 passed 2026-11-01 (Randy confirmed all defaults).
-- Wave 1 (A1, A2, A3, A7, A10) all reported 2026-11-01. A3, A7, A10 done; A1 and A2 need Randy's decisions.
-- Next: Randy answers A1's 7 evidence decisions and A2's red-flag review; then A2 follow-up pass (map claims to register, apply red-flag edits) and A3 placeholder pass; then G1 is put to Randy. Wave 2 waits on G1.
+- Last updated 2026-11-02. Gates G0 and G1 passed. Wave 2 built, QA pass 1 clean, draft PRs #10 to #13 open with green Netlify previews.
+- In progress: A5 restructuring the four blog posts to Randy's house style (below).
+- G2 waits on Randy: preview review, activity-goal lines sign-off, counsel approval of the privacy page, Kit form numbers.
+- After G2: GLP-1 lead magnet, newsletter intro and blog draft (evidence done on `load-course/A1-glp1`).
+
+## House style for blog posts (Randy, 2026-11-02)
+
+Model: `content/blog/muscle-power-and-aging-why-speed-declines-faster-than-strength.md`. Applies to every post, including the GLP-1 blog draft.
+
+- Clean reading: not cited literature throughout. About 4 to 6 references per post; each cited once, inside a pull quote or after one highlighted sentence.
+- Pull quote: a markdown blockquote (mm.css gold callout) for the key finding.
+- Highlighted link: a plain link to the related site asset (check, download, category page).
+- Short paragraphs, bullets, H2 and H3.
+- One visual per post: an HTML snippet built from existing mm.css classes only, or an image Randy makes or approves.
+- Grades stay in the frontmatter references (shown in the build's reference list), never in the prose.
 
 ## Task table
 
@@ -184,6 +196,7 @@ Opened 2026-11-02 at Randy's request, as drafts against `main`, to get Netlify d
 | Date | Summary |
 |---|---|
 | 2026-11-01 | Setup read-through done; G0 question asked. |
+| 2026-11-02 | Randy set the blog house style; A5 restructuring the four posts. |
 | 2026-11-02 | Draft PRs #10–#13 opened for Netlify previews; orchestrator watching. |
 | 2026-11-02 | Randy: all as suggested (8 free-asset and 3 GLP-1 decisions). A5, A6, A1-glp1 follow-ups dispatched. |
 | 2026-11-02 | A1 GLP-1 evidence check reported: core claims verified, much of the report cut; 3 decisions for Randy. |

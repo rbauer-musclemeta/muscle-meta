@@ -9,6 +9,8 @@ newsletter: true
 pillar: exercise-mobility
 categories:
   - P1-C1
+image: ''
+image_alt: ''
 related_tool:
   url: /tools/joint-load-check/
   label: Try the free joint-load check
@@ -38,66 +40,81 @@ faq:
     a: The runner data does not show that running protects joints, so it is not a reason to take up running if you do not enjoy it. What is well established is that structured exercise is a core treatment for knee and hip osteoarthritis in the OARSI guidelines (2019). Choose a type of movement you will keep doing, and build it up gradually.
 ---
 
-"Isn't running bad for your knees?" Many of us grew up with that idea. If you used to run and stopped, or you walk a lot and wonder whether you are wearing something out, it is a fair question.
+"Isn't running bad for your knees?" Many of us grew up with that idea.
 
-There is a well-known set of numbers that gets quoted in answer. They are worth knowing, and so are their limits.
+If you used to run and stopped, or you walk a lot and wonder whether you are wearing something out, it is a fair question. A well-known set of numbers gets quoted in answer. They are worth knowing, and so are their limits.
 
-## The numbers
+## What do the numbers say?
 
-In a pooled analysis of 17 studies, 3.5% of recreational runners had hip or knee arthritis, compared with 10.2% of non-runners and 13.3% of competitive runners [1].
+> In a pooled analysis of 17 studies, 3.5% of recreational runners had hip or knee arthritis, compared with 10.2% of non-runners and 13.3% of competitive runners. The study could not tell whether running caused the difference [1].
 
 Recreational runners had the lowest rate of the three groups. How the study was done tells you how much weight that can carry.
 
-## How the study was done
+<div class="mm-card-grid">
+<div class="mm-asset pillar-1"><p class="kind">Recreational runners</p><h3>3.5%</h3><div>had hip or knee arthritis</div></div>
+<div class="mm-asset pillar-1"><p class="kind">Non-runners</p><h3>10.2%</h3><div>had hip or knee arthritis</div></div>
+</div>
 
-This was a systematic review and meta-analysis. The researchers searched for every study that had looked at hip or knee arthritis in runners, found 25 of them covering 125,810 people, and pooled 17 of those (114,829 people) to compare rates across groups [1].
+## How was the study done?
 
-The three groups were:
+The researchers searched for every study that had looked at hip or knee arthritis in runners. They found 25, covering 125,810 people, and pooled 17 of them to compare rates.
+
+### Who was compared
 
 - **Recreational runners:** people who ran as amateurs, not professionally.
 - **Competitive runners:** professional or elite athletes, or people who ran in international competitions.
 - **Non-runners:** sedentary people who did not run, used as the comparison group.
 
-The studies were all observational. They compared groups of people who already ran, or did not, and counted how many had arthritis. Nobody was assigned to run or not run.
+### What kind of studies
 
-## What the study cannot show
+All of them were observational. They compared groups of people who already ran, or did not, and counted how many had arthritis. Nobody was assigned to run or not run.
 
-**It cannot show cause.** The authors state that they could not tell whether running caused the difference [1]. People who keep running into later life may differ from people who do not in other ways, including past joint injuries, and studies like these cannot fully separate those things.
+## What can the study not show?
 
-**The gaps between groups are less certain than the percentages suggest.** When the researchers compared the odds of arthritis directly, the difference between recreational runners and non-runners was small enough that it could have been chance. The same was true for competitive runners compared with non-runners [1]. That is why I quote the two raw rates and do not turn them into a "percent less" figure.
+### It cannot show cause
 
-**"Non-runners" are not everyone who does not run.** The comparison group was sedentary people. The study does not tell us about people who walk, cycle or garden a lot but do not run.
+The authors state that they could not tell whether running caused the difference. People who keep running may differ from people who do not in other ways, including past joint injuries. Studies like these cannot fully separate those things.
 
-**It does not cover what happens to a joint that already has arthritis.** It counted how many people in each group had arthritis. It was not a study of whether running helps or harms a knee or hip that is already sore.
+### The gaps are less certain than the percentages suggest
 
-## What the study does show
+When the researchers compared the odds of arthritis directly, the difference between recreational runners and non-runners was small enough that it could have been chance. The same was true for competitive runners compared with non-runners. That is why I quote the two raw rates and never turn them into a "percent less" figure.
 
-It does not fit the idea that every step wears the joint down. If joints simply wore out with use, like tread on a tire, the people who ran for fun should have had more arthritis than people who did not run, not less. In this analysis they had the lowest rate. That is a link, not proof that running protects the joint [1].
+### Other limits worth knowing
 
-Movement is good for most people. It is also not the only evidence. International guidelines from OARSI (2019) list structured exercise as a core treatment for knee and hip osteoarthritis, recommended for essentially everyone with the condition [2]. Exercise is medicine for the joint, and running is one form of it, not a requirement.
+- **"Non-runners" were sedentary people.** The study does not tell us about people who walk, cycle or garden a lot but do not run.
+- **It counted arthritis; it did not follow sore joints.** It was not a study of whether running helps or harms a knee or hip that is already painful.
 
-## If running is part of your life
+## What does the study show?
 
-If you run, or want to return to it, build back gradually, especially after a break. Use the acceptable pain guide to judge your dose: many clinicians treat an ache up to about 5 out of 10 as acceptable during activity, as long as the joint is back to its usual by the next day. If it is not, do less next time. This is clinical guidance, not a tested safety limit.
+It does not fit the idea that every step wears the joint down. If joints simply wore out with use, like tread on a tire, people who ran for fun should have had more arthritis than people who did not run. In this analysis they had less. That is a link, not proof that running protects the joint.
+
+Movement is good for most people, and this is not the only evidence. International guidelines from OARSI list structured exercise as a core treatment for knee and hip osteoarthritis, recommended for essentially everyone with the condition [2]. Exercise is medicine for the joint, and running is one form of it, not a requirement.
+
+## What if running is part of your life?
+
+Build back gradually, especially after a break. Use the acceptable pain guide to judge your dose:
+
+- During activity, many clinicians treat an ache up to about 5 out of 10 as acceptable.
+- By the next day, the joint should be back to its usual.
+- If it is not, do less next time.
+
+This is clinical guidance, not a tested safety limit.
 
 A hot, swollen joint, one that gives way, or one that gets stuck so you can't fully bend or straighten it needs a clinician, not more running. After a joint replacement, your surgeon's or physical therapist's protocol comes first.
 
-## If running is not for you
+## What if running is not for you?
 
 You do not need to take up running. The runner data is not a reason to start, and it is not a reason to stop moving either. Walking, cycling, strength work and water exercise are all ways to keep moving. Pick the one you will keep doing.
 
 ## Your next step
 
-The [acceptable pain tracker](/downloads/acceptable-pain-tracker/) is a one-page log for rating the ache during activity and checking it the next day. The [free joint-load check](/tools/joint-load-check/) starts with a short safety screen, then helps you find a starting point. [Load as Medicine](/courses/load-course/) covers this evidence in its first lesson; it is an educational course, not treatment.
+Rate the ache during your next walk or run, and check it again the next morning. The [acceptable pain tracker](/downloads/acceptable-pain-tracker/) gives you a one-page log for both. The [free joint-load check](/tools/joint-load-check/) starts with a short safety screen, then helps you find a starting point.
 
-> **Medical disclaimer**
->
-> Everything on this site is educational. It does not provide medical advice, diagnosis, or treatment, and it is not a substitute for evaluation by a qualified clinician.
->
-> The assessments and calculators here estimate, they do not measure. Field tests carry meaningful error compared with laboratory testing, and normative bands describe populations rather than individuals. Treat any result as a starting point for a conversation with your own clinician.
->
-> Talk with your physician or physical therapist before beginning a new exercise program — particularly if you have a heart condition, chest pain on exertion, uncontrolled blood pressure, a recent surgery, or have been inactive for some time. Stop any test or session for chest pain, dizziness, or unusual shortness of breath.
->
-> Load as Medicine is an educational course, not treatment. After joint surgery, your surgeon's or physical therapist's protocol comes first. Stop and contact a clinician if a joint is hot, red or swollen with a fever, gives way or gets stuck, cannot take weight after a fall, or if your calf hurts or swells after a joint replacement.
->
-> [Read the full medical disclaimer](/legal/medical-disclaimer/)
+<div class="mm-article-disclaimer">
+<p><strong>Medical disclaimer</strong></p>
+<p>Everything on this site is educational. It does not provide medical advice, diagnosis, or treatment, and it is not a substitute for evaluation by a qualified clinician.</p>
+<p>The assessments and calculators here estimate, they do not measure. Field tests carry meaningful error compared with laboratory testing, and normative bands describe populations rather than individuals. Treat any result as a starting point for a conversation with your own clinician.</p>
+<p>Talk with your physician or physical therapist before beginning a new exercise program — particularly if you have a heart condition, chest pain on exertion, uncontrolled blood pressure, a recent surgery, or have been inactive for some time. Stop any test or session for chest pain, dizziness, or unusual shortness of breath.</p>
+<p>Load as Medicine is an educational course, not treatment. After joint surgery, your surgeon's or physical therapist's protocol comes first. Stop and contact a clinician if a joint is hot, red or swollen with a fever, gives way or gets stuck, cannot take weight after a fall, or if your calf hurts or swells after a joint replacement.</p>
+<p><a href="/legal/medical-disclaimer/">Read the full medical disclaimer</a></p>
+</div>

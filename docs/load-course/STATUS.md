@@ -15,7 +15,7 @@ Branch: `feature/load-course-setup`. Last updated: 2026-11-01.
 |---|---|---|---|---|---|---|
 | G0 | Orchestrator with Randy | 0 | none | `feature/load-course-setup` | done (2026-11-01) | |
 | A1 | Evidence | 1 | G0 | `load-course/A1-evidence` | done 2026-11-02, second follow-up (report checked, writes in scope) | 26 claims. C18 now sourced (Mauck 2003, Graham 2017), Unproven-Bridge, movement part worded "lab studies on cartilage samples suggest". C25 (exercise in inflammatory arthritis, EULAR 2018) and C26 (OA affects the whole joint, Loeser 2012) added, Established. Do not cite until build confirms: 17107655, 26564575, 34916210, 29934429. Open with Randy: C20 grade; C18 movement wording. |
-| A2 | Safety and clinical copy | 1 | G0 | `load-course/A2-safety` | follow-up done 2026-11-02 (report checked: required checks present, 73 claim tags verified against register, writes in scope); Randy's sign-off recorded | Waiting on: C20 grade (Randy); A1 to source C18 (cartilage nourished by joint fluid; Randy kept it, decision 6, but no citation yet), UNREGISTERED-1 (exercise in inflammatory arthritis), UNREGISTERED-2 (OA affects the whole joint), or those sentences are cut. Lesson 3 script timing (F23). |
+| A2 | Safety and clinical copy | 1 | G0 | `load-course/A2-safety` | second follow-up done 2026-11-02 (75 tags verified, writes in scope) | C18, C25, C26 tagged. Next pass: replace C20 with the C05 framing line and C27 once A1 grades it. Lesson 3 script timing (F23). |
 | A3 | Assessment tool | 1 | G0 | `load-course/A3-tool` | done 2026-11-01 (report checked: required checks present incl. 390px local render; orchestrator spot-check: no hex, no composite/tier, no storage; writes limited to `site/tools/joint-load-check/`) | Netlify preview URL not yet confirmed (checked locally only). TODO-A2 and TODO-A1 placeholders to replace after the A2 follow-up pass. TODO-A6: next step links /downloads/ until the sales page exists. Outside A3 scope: add to sitemap, /tools/ hub, P1-C1 page (A6). Shared header logo/nav under 44px site-wide (scoped fix on this page only). Decisions: stop screen offers only start over (allow going back?); keep GLP-1 question; "gets stuck" for locking (clinical). |
 | A7 | Email copy | 1 | G0 | `load-course/A7-email` | phase A done 2026-11-01 (report checked: required checks present, writes limited to `docs/load-course/emails/`) | 9 emails drafted, ran without `marketing:email-sequence`; `[CLAIM-Cnn]` and `[A2-...]` placeholders until A1/A2 merge; Kit footer placeholders (phase B); tracker and blog slugs to re-check after A4/A5; nurture exit on purchase needs a non-health purchase signal into Kit (phase B design). Decisions for Randy: approve copy (G5), sequence lengths 1/4/3/1, send days (welcome 1,3,6,10; nurture 14,18,22), newsletter extra links, nurture subscribers also get newsletter, price $37 |
 | A10 | Legal | 1 | G0 | `load-course/A10-legal` | done 2026-11-01 (report checked: required checks present, writes limited to 4 legal drafts) | 45 to-confirm items in `docs/load-course/legal/review-notes.md` (on branch); privacy page is still a placeholder and must be approved and live before any Kit capture (G2), not only before payment; payment must not open before counsel reviews terms and refunds; `[A2-red-flag-screen]` placeholder; existing `site/legal/*` pages use a literal hex colour (fix when approved text is applied) |
@@ -67,7 +67,8 @@ D4 (Randy on camera, about two minutes per lesson), D5 (core launch scope).
 - "Cut back to about half" kept, labelled as Randy Bauer, PT's clinical guidance.
 - Free check (A3): add "Go back and change an answer" to the stop screen; keep the GLP-1 question with its neutral prescriber line; "gets stuck so you can't fully bend or straighten it" approved in place of "locking".
 - C18 (Randy, 2026-11-02): use A1's wording, Unproven-Bridge, framed as part of joint metabolic health (synovial fluid, joint metabolism, chondral health). Movement part keeps "lab studies on cartilage samples suggest".
-- Still open: C20 grade (currently Unproven-Bridge; orchestrator suggests Promising).
+- C20 (Randy, 2026-11-02): retired. The tablet comparison is replaced by the framing line "Exercise is medicine for the joint", resting on C05 (Established, OARSI core treatment), plus "Metabolic health is part of joint health" as new claim C27, to be sourced and graded by A1 before use.
+- C23 ("pain during exercise does not by itself mean damage"): graded Unproven-Bridge but status needs-review; A1 asked to source it.
 
 ## Gates
 
@@ -144,6 +145,7 @@ wording, "unlocking", Lesson 3 timing, audience age), for A1 and A2:
 | Date | Summary |
 |---|---|
 | 2026-11-01 | Setup read-through done; G0 question asked. |
+| 2026-11-02 | Randy replaced C20 with "Exercise is medicine for the joint" (C05) and "Metabolic health is part of joint health" (new C27). A1 sourcing C27 and C23; A3 final-copy pass dispatched. |
 | 2026-11-02 | C18 kept, framed as joint metabolic health. A2 tagging pass dispatched. C20 grade still open. |
 | 2026-11-02 | Randy signed off the red-flag screen, the half rule and A3's three questions. A2 follow-up pass dispatched; A3 pass follows A2. |
 | 2026-11-02 | Randy answered A1's 7 evidence decisions (see table). Red-flag review (A2) and A3's 3 questions still open. |

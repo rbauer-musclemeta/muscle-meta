@@ -20,6 +20,7 @@ live check was not run here.
   - `needs-review`: a choice for Randy or the clinical reviewer, or part of the
     claim was not traced.
   - `not-found`: no source found.
+  - `retired`: withdrawn by Randy; kept for the record, never used in copy.
 - `grade` is the grade of the safe wording, using Rule 8: Established (human
   RCT or strong human evidence, guideline consensus), Promising (human
   observational or early or low-certainty human findings), Unproven-Bridge
@@ -69,14 +70,12 @@ not cover nutrient transport). On 2026-11-02 it was re-sourced (see
   one cohort association (McAlindon 1996), called preliminary by its authors.
   Protein for cartilage repair: not found. **Held, not for first release**
   (decision 2026-11-02). Row kept.
-- **C23 (pain as a protective alarm before harm).** Not traced to a PubMed
-  record. Partly backed by C14 (loading exercise does not appear to harm
-  cartilage). A2 bounds the wording.
 - **C24 (2 to 3 sessions a week).** The frequency was not traced. Treat as
   clinical guidance until sourced.
 
-C11 and C20 were needs-review on 2026-11-01 and are verified after the
-2026-11-02 decisions below.
+C11 and C20 were needs-review on 2026-11-01 and were verified after the
+2026-11-02 decisions below. C20 was then retired by Randy (third follow-up).
+C23 was needs-review until it was sourced in the third follow-up.
 
 ## Not-found rows
 
@@ -119,7 +118,7 @@ Five PMIDs added on 2026-11-02, each read in PubMed that day: 14618919
 Mauck, 28888900 Graham, 29997112 and 30622734 Rausch Osthoff, 22392533
 Loeser.
 
-Four PMIDs used in the register are **not** in the cache and are marked
+Five PMIDs used in the register are **not** in the cache and are marked
 **do not cite until build confirms**:
 
 - 26564575 Sandal (C02): PubMed record date 2015 (online); journal issue
@@ -130,6 +129,8 @@ Four PMIDs used in the register are **not** in the cache and are marked
   Med volume 53 (likely 2019)
 - 17107655 Zhang (C18): PubMed record date 2006 (online); issue Arch Biochem
   Biophys volume 457 (likely 2007)
+- 30584921 Courties (C27): PubMed record date 2018 (online); issue Joint Bone
+  Spine volume 86 (likely 2019)
 
 On 2026-11-02 I re-checked the first three with PubMed citation lookup using both
 candidate years. Lookup matched the same PMID for both years, so it does not
@@ -170,3 +171,27 @@ is still with Randy and was not changed.
 | C18: cartilage has no blood supply, is fed from joint fluid, and movement helps circulate that fluid | Re-sourced. The avascular, fed-by-diffusion part is well supported. Movement helping transport is shown only in lab cartilage samples and models, and mainly for larger molecules. Small nutrients such as glucose move mostly by diffusion, and one model (Gardiner 2007, PMID 17671860) found loading had a negligible long-term effect on IGF-I transport. Safe wording says "lab studies on cartilage samples suggest". Status changed from mismatch to verified; Gilbert 2021 stays rejected. | Unproven-Bridge | Mauck 2003 (14618919), Graham 2017 (28888900), Zhang 2006 (17107655, not cached) |
 | C25 (new, A2 UNREGISTERED-1): exercise is often part of care for inflammatory arthritis | EULAR 2018 advocates physical activity as an integral part of standard care for rheumatoid arthritis, spondyloarthritis and hip or knee OA. | Established | Rausch Osthoff 2018 (29997112, guideline); Rausch Osthoff 2018 (30622734, supporting meta-analysis) |
 | C26 (new, A2 UNREGISTERED-2): OA affects the whole joint, not just the cartilage | Loeser 2012 full text describes changes in cartilage, subchondral bone, synovium, ligaments, menisci and capsule and calls OA "a disease of the joint as an organ". Kraus 2015 (25865392) was read but its abstract does not give the definition, so it is not used. | Established | Loeser 2012 (22392533; no abstract in PubMed, full text read in PMC) |
+
+## Third follow-up, 2026-11-02
+
+Randy's decisions and the coordinator's requests. Six more PMIDs were read in
+PubMed and cached: 18764949 Bedson, 28072592 Courties, 29435358 Baudart,
+34461982 Kluzek, 26535137 Louati, 32060073 Khor. Two others were read but not
+cached: 30584921 Courties (year unresolved) and 35130571 Li (supporting
+only).
+
+| Claim | Result | Status, grade |
+|---|---|---|
+| C20 | Retired by Randy. Replaced by the framing line "Exercise is medicine for the joint", which rests on C05. Row kept. | retired; grade unchanged |
+| C05 | "Exercise is medicine for the joint" is recorded as an approved course framing that rests on this row, not as a new claim. | verified, Established (unchanged) |
+| C23 | Sourced. Pain and X-ray findings often do not match (Bedson 2008). Exercise did not raise cartilage-breakdown or inflammation markers (Bricca 2019). Trials reported only increased pain as an adverse effect and no serious harm (Fransen 2015). "Alarm system" stays an explanatory framing. Copy must not say pain never signals harm. | verified, Promising |
+| C27 (new) | "Metabolic health is part of joint health." Supported as an association: osteoarthritis is linked with high cholesterol at the knee and the hand, and in one cohort of women with PCOS the hand and knee links remained after excluding women with obesity. Weight-independent mechanisms rest on reviews and animal work. **Conflict:** diabetes is not an independent risk factor once body weight is accounted for (Khor 2020), so copy must not name diabetes or blood sugar as a cause. | verified, Promising |
+
+### What C27 copy must not imply
+
+- That diabetes, blood sugar or cholesterol causes osteoarthritis.
+- That improving metabolic health treats, protects, slows or reverses
+  osteoarthritis. No trial shows this.
+- That "metabolic osteoarthritis" is an established diagnosis or a type a
+  reader can be told they have.
+- Any effect of a diet, supplement or medicine on the joint.

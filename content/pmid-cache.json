@@ -282,5 +282,53 @@
     "journal": "Arthritis Rheum",
     "doi": "10.1002/art.34453",
     "verified": "2026-11-02"
+  },
+  "18764949": {
+    "firstAuthor": "Bedson",
+    "year": "2008",
+    "title": "The discordance between clinical and radiographic knee osteoarthritis: a systematic search and summary of the literature.",
+    "journal": "BMC Musculoskelet Disord",
+    "doi": "10.1186/1471-2474-9-116",
+    "verified": "2026-11-02"
+  },
+  "28072592": {
+    "firstAuthor": "Courties",
+    "year": "2017",
+    "title": "Metabolic syndrome-associated osteoarthritis.",
+    "journal": "Curr Opin Rheumatol",
+    "doi": "10.1097/BOR.0000000000000373",
+    "verified": "2026-11-02"
+  },
+  "29435358": {
+    "firstAuthor": "Baudart",
+    "year": "2017",
+    "title": "Association between osteoarthritis and dyslipidaemia: a systematic literature review and meta-analysis.",
+    "journal": "RMD Open",
+    "doi": "10.1136/rmdopen-2017-000442",
+    "verified": "2026-11-02"
+  },
+  "34461982": {
+    "firstAuthor": "Kluzek",
+    "year": "2021",
+    "title": "Accelerated osteoarthritis in women with polycystic ovary syndrome: a prospective nationwide registry-based cohort study.",
+    "journal": "Arthritis Res Ther",
+    "doi": "10.1186/s13075-021-02604-w",
+    "verified": "2026-11-02"
+  },
+  "26535137": {
+    "firstAuthor": "Louati",
+    "year": "2015",
+    "title": "Association between diabetes mellitus and osteoarthritis: systematic literature review and meta-analysis.",
+    "journal": "RMD Open",
+    "doi": "10.1136/rmdopen-2015-000077",
+    "verified": "2026-11-02"
+  },
+  "32060073": {
+    "firstAuthor": "Khor",
+    "year": "2020",
+    "title": "Diabetes mellitus is not a risk factor for osteoarthritis.",
+    "journal": "RMD Open",
+    "doi": "10.1136/rmdopen-2019-001030",
+    "verified": "2026-11-02"
   }
 }

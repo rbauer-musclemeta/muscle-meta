@@ -37,8 +37,15 @@ Left out on purpose:
   `content/pmid-cache.json` and may not be cited.
 - C09 (muscles as shock absorbers): cut everywhere.
 - The source's conventional rehab column and pain row in the Wei table (F25).
-- `pain-rule-wording.md` tags C23 as Unproven-Bridge; the register grades it
-  Promising. The PDFs use the register grade.
+- C23 is graded Promising in the register and, since A2's final pass
+  (5aa6000), in `pain-rule-wording.md` too. The PDFs use Promising.
+
+## Landing-page disclaimer (A9 pass 1 fix)
+
+Both entries end with the page version of the medical disclaimer from
+`disclaimer.md`, word for word, as a `## Medical disclaimer` section in the
+body, so the build renders it on each landing page above the generated
+footer line. The PDFs carry the download version on their last page.
 
 ## Frontmatter notes
 
@@ -83,8 +90,8 @@ page" and nothing is lost. If Randy wants a separate A4 file, render with `a4`.
 - Letter and A4 renders: 5 pages each, no overflowing elements, every page
   inspected as an image.
 - Disclaimer is the last block of each PDF.
-- No hex value, emoji, "Kajabi" or gate wording in the sources, the entries or
-  the PDF text.
+- No hex value, emoji, discontinued-platform name or gate wording in the
+  sources, the entries or the PDF text.
 - `node scripts/build-downloads.mjs`: passes; one warning (guide has no
   `kit_form_id`). `npm run build` stops earlier, in the blog build, because
   the existing blog post's PMIDs are not cached and PubMed is blocked from the

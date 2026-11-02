@@ -142,6 +142,7 @@ fieldset.jl-q .hint{display:block;font-size:var(--fs-body);color:var(--ink-muted
 body.jl-outcome .jl-page-disclaimer{display:none}
 
 .jl-gap{margin-top:var(--s-3)}
+.jl-next-links{display:flex;flex-wrap:wrap;gap:var(--s-3)}
 .jl-tagline{margin-top:6px}
 .jl-sr{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .jl-footer-line{margin-top:var(--s-4)}
@@ -649,8 +650,7 @@ body.jl-outcome .jl-page-disclaimer{display:none}
       <div class="jl-panel next">
         <h3>3. Your next step</h3>
         <p id="nextBody"></p>
-        <!-- TODO-A6: add a secondary "See the course" button linking /courses/load-course/ once the sales page exists. -->
-        <p class="jl-noprint jl-gap"><a class="mmm-btn mmm-btn-ghost mmm-btn-sm" href="/downloads/">Browse the free guides</a></p>
+        <p class="jl-noprint jl-gap jl-next-links"><a class="mmm-btn mmm-btn-ghost mmm-btn-sm" href="/downloads/">Browse the free guides</a> <a class="mmm-btn mmm-btn-ghost mmm-btn-sm" href="/courses/load-course/">See the course</a></p>
       </div>
 
       <div class="jl-disclaimer" data-disclaimer></div>
@@ -840,7 +840,7 @@ body.jl-outcome .jl-page-disclaimer{display:none}
   };
   const NOTES = {
     inflammatory: '<strong>Rheumatoid or other inflammatory arthritis?</strong> This course was built around osteoarthritis. Inflammatory arthritis flares differently, so use it alongside your rheumatology team\'s advice, not in place of it, and ask them whether the acceptable pain guide fits you. During a flare, check with them before loading a hot or swollen joint.',
-    surgery: '<strong>After surgery, check with your team first.</strong> Do these exercises only once your surgeon or physical therapist has cleared you for them, and follow their protocol if it differs from this guide. Get help now for calf pain or swelling, chest pain or sudden breathlessness. Contact your surgical team today for a red, hot or leaking wound, a fever, or a sudden increase in swelling or pain.',
+    surgery: '<strong>After surgery, check with your team first.</strong> Do these exercises only once your surgeon or physical therapist has given you the go-ahead for them, and follow their protocol if it differs from this guide. Get help now for calf pain or swelling, chest pain or sudden breathlessness. Contact your surgical team today for a red, hot or leaking wound, a fever, or a sudden increase in swelling or pain.',
     glp1: '<strong>GLP-1 medicine.</strong> GLP-1 weight-loss medicines lead to some loss of muscle along with fat. In older adults losing weight by diet, strength training and more protein helped keep more muscle. Those studies were not done in people taking GLP-1 medicines, so the benefit there is likely but not yet proven.' + C.C13 + ' Ask your clinician how strength work and protein fit your plan.',
     walkrun: '<strong>Walking or running.</strong> Recreational runners had lower rates of hip and knee arthritis than non-runners in one analysis. That is a link, not proof.' + C.C21 + ' Build back gradually using the acceptable pain guide, especially after a break.'
   };

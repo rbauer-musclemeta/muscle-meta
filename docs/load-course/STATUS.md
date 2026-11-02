@@ -19,9 +19,9 @@ Branch: `feature/load-course-setup`. Last updated: 2026-11-01.
 | A3 | Assessment tool | 1 | G0 | `load-course/A3-tool` | final-copy pass done 2026-11-02 (report checked: all required checks present; orchestrator spot-check clean; writes in scope) | All TODO-A1/A2 replaced; RF1–RF10, most-urgent message, go-back keeps answers. Netlify preview unconfirmed (no deploy status on branch; proxy blocks netlify.app). TODO-A6 course link; guide/tracker links point to /downloads/ until A4. Outside scope: sitemap, /tools/ hub, P1-C1 page; mm.css "Promising" chip fails AA contrast site-wide (fixed on this page only). Decisions for Randy: "cleared you" wording; raw % on results; activity goals wording. |
 | A7 | Email copy | 1 | G0 | `load-course/A7-email` | phase A done 2026-11-01 (report checked: required checks present, writes limited to `docs/load-course/emails/`) | 9 emails drafted, ran without `marketing:email-sequence`; `[CLAIM-Cnn]` and `[A2-...]` placeholders until A1/A2 merge; Kit footer placeholders (phase B); tracker and blog slugs to re-check after A4/A5; nurture exit on purchase needs a non-health purchase signal into Kit (phase B design). Decisions for Randy: approve copy (G5), sequence lengths 1/4/3/1, send days (welcome 1,3,6,10; nurture 14,18,22), newsletter extra links, nurture subscribers also get newsletter, price $37 |
 | A10 | Legal | 1 | G0 | `load-course/A10-legal` | done 2026-11-01 (report checked: required checks present, writes limited to 4 legal drafts) | 45 to-confirm items in `docs/load-course/legal/review-notes.md` (on branch); privacy page is still a placeholder and must be approved and live before any Kit capture (G2), not only before payment; payment must not open before counsel reviews terms and refunds; `[A2-red-flag-screen]` placeholder; existing `site/legal/*` pages use a literal hex colour (fix when approved text is applied) |
-| A4 | Downloads | 2 | G1 (A1, A2) | `load-course/A4` | not started | |
-| A5 | Blog | 2 | G1 (A1, A2) | `load-course/A5` | not started | |
-| A6 | Sales page and category hub | 2 | G1 (A1), A3 merged | `load-course/A6` | not started | |
+| A4 | Downloads | 2 | G1 (A1, A2) | `load-course/A4-downloads` | dispatched 2026-11-02 | |
+| A5 | Blog | 2 | G1 (A1, A2) | `load-course/A5-blog` | dispatched 2026-11-02 | |
+| A6 | Sales page and category hub | 2 | G1 (A1), A3 merged | `load-course/A6-sales` | dispatched 2026-11-02 | |
 | A9 | QA and verification | 3 | all wave 2 branches | `load-course/A9` | not started | |
 | M4 | Stripe checkout and entitlements | external | Randy's Stripe account | n/a | not started | Owner to be named |
 | A8 | Course in MatrixApp | 4 | M4 merged, G4 prerequisites | `load-course/A8` | not started (waiting on M4) | Dev Supabase `ikjadymjalaelkpivveh` only |
@@ -70,12 +70,20 @@ D4 (Randy on camera, about two minutes per lesson), D5 (core launch scope).
 - C20 (Randy, 2026-11-02): retired. The tablet comparison is replaced by the framing line "Exercise is medicine for the joint", resting on C05 (Established, OARSI core treatment), plus "Metabolic health is part of joint health" as new claim C27, to be sourced and graded by A1 before use.
 - C23 ("pain during exercise does not by itself mean damage"): graded Unproven-Bridge but status needs-review; A1 asked to source it.
 
+## Decisions, Randy 2026-11-02 (afternoon)
+
+- C27 metabolic health wording accepted (Promising, association only; no diabetes).
+- Post-surgery note: "has given you the go-ahead" replaces "has cleared you".
+- Results screen keeps the raw 3.5% and 10.2% figures as an association (not a score).
+- Activity goals: A2 drafts one or two lines each for pickleball, tennis, golf, hiking and everyday life, for Randy's sign-off; the question stays.
+- Randy: "move forward with build". Recorded as Gate G1 passed for the evidence register (A1) and the signed-off safety copy (A2). The activity-goal lines are a separate sign-off and affect only the free check (A3).
+
 ## Gates
 
 | Gate | Status |
 |---|---|
 | G0 | passed 2026-11-01 (Randy) |
-| G1 | not reached |
+| G1 | passed 2026-11-02 (Randy: "move forward with build"); activity-goal lines for A3 still need his sign-off |
 | G2 | not reached |
 | G3 | not reached |
 | G4 | not reached |
@@ -145,6 +153,7 @@ wording, "unlocking", Lesson 3 timing, audience age), for A1 and A2:
 | Date | Summary |
 |---|---|
 | 2026-11-01 | Setup read-through done; G0 question asked. |
+| 2026-11-02 | G1 passed. Wave 2 (A4, A5, A6) dispatched, branched from `load-course/A1-evidence` so the build has the verified PMID cache. A2 final pass dispatched (C27, go-ahead wording, activity lines). |
 | 2026-11-02 | Randy replaced C20 with "Exercise is medicine for the joint" (C05) and "Metabolic health is part of joint health" (new C27). A1 sourcing C27 and C23; A3 final-copy pass dispatched. |
 | 2026-11-02 | C18 kept, framed as joint metabolic health. A2 tagging pass dispatched. C20 grade still open. |
 | 2026-11-02 | Randy signed off the red-flag screen, the half rule and A3's three questions. A2 follow-up pass dispatched; A3 pass follows A2. |

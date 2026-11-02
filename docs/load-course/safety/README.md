@@ -19,22 +19,19 @@ here does not fit a layout, ask for a shorter version rather than editing it.
   (decision D6). He signed off the red-flag screen on 2026-11-02 (see its
   Approval section). Any change to safety wording goes back to him.
 - **Claims are mapped to A1's register** (`docs/load-course/evidence/claims-register.csv`
-  on `load-course/A1-evidence`, read 2026-11-02, including the
-  "decision_2026-11-02" section of `notes.md`). Each claim is written from the
-  register's safe wording, never stronger, and tagged with its ID and grade,
-  for example "(C06, Established)". Building agents render the tag as the
-  short note beside the claim and add the source author and year from the
-  register.
-- **Two claims have no register row** and stay as marked placeholders:
-  `[UNREGISTERED-1]` (inflammatory arthritis note) and `[UNREGISTERED-2]`
-  (`copy-fixes.md` F34). A placeholder in square brackets is a build note, not
-  reader copy. It must be sourced and graded, or its sentence cut, before
-  anything ships.
+  on `load-course/A1-evidence`, 26 rows, re-read 2026-11-02, including the
+  "decision_2026-11-02" and "Second follow-up, 2026-11-02" sections of
+  `notes.md`). Each claim is written from the register's safe wording, never
+  stronger, and tagged with its ID and grade, for example "(C06,
+  Established)". Building agents render the tag as the short note beside the
+  claim and add the source author and year from the register.
+- **Every claim has a register row.** The two earlier placeholders are now C25
+  (inflammatory arthritis note) and C26 (`copy-fixes.md` F34).
 - **One grade is open.** C20 is tagged "(C20, grade pending)" until Randy
-  confirms it.
-- **No PMIDs.** None are cited here. Never cite PMIDs 26564575, 34916210 or
-  29934429 (register: do not cite until the build confirms). C09 is a mismatch
-  and is not used.
+  decides it.
+- **No PMIDs.** None are cited here. Never cite PMIDs 17107655, 26564575,
+  34916210 or 29934429 (register: do not cite until the build confirms). C09
+  is a mismatch and is not used.
 
 ## Shared rules this wording follows
 

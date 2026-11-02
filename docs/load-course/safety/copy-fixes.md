@@ -12,15 +12,20 @@ Sources:
 
 Claim tags: "(C06, Established)" names the row in A1's claims register and its
 grade. Each replacement is written from that row's safe wording, in plain
-voice, and never says more. `[UNREGISTERED-n]` marks a claim with no register
-row: it must be sourced and graded, or its sentence cut, before it ships.
+voice, and never says more. No claim is left without a register row.
 "(C20, grade pending)" waits on Randy.
 
 Claims that are a mismatch or not found in the register are cut, except C02
-(kept by Randy as labelled clinical guidance), C17 (kept only as Randy Bauer,
-PT's labelled clinical guidance) and C18 (Randy kept "movement circulates the
-joint fluid that nourishes cartilage" on 2026-11-02; the "brittle" part is
-dropped and nothing is cited). C09 is cut everywhere.
+(kept by Randy as labelled clinical guidance) and C17 (kept only as Randy
+Bauer, PT's labelled clinical guidance). C09 is cut everywhere.
+
+C18 (joint fluid and cartilage nutrition) was confirmed by Randy on 2026-11-02
+and re-sourced by A1 to lab and modelling studies. It is graded
+Unproven-Bridge: every use says "lab studies on cartilage samples suggest" for
+the movement part. Randy frames it as part of joint metabolic health, so a
+C18 passage may add "this fluid exchange is part of how the joint's
+metabolism works", but nothing stronger. The "brittle" sponge claim stays
+dropped, and Gilbert 2021 is never cited for it.
 
 Quoted source text below sometimes contains words that are banned in this
 workstream ("unlocking", "gated", "safe signal"). They appear only inside the
@@ -109,9 +114,7 @@ them through with your doctor" (C12, Established).
   this. We now understand that cartilage is not a passive shock absorber, but a
   living, metabolic tissue that actually requires mechanical load to stay
   healthy."
-- **Replace with:** "The picture has changed. Cartilage is living tissue. It
-  has no blood supply of its own, and movement helps circulate the joint fluid
-  that nourishes it (C18, Unproven-Bridge). Lab and animal studies suggest its
+- **Replace with:** "The picture has changed. Cartilage is living tissue. Cartilage has no blood supply of its own. Its nutrients reach it mainly from the fluid inside the joint, and lab studies on cartilage samples suggest that movement and loading help move that fluid into the cartilage (C18, Unproven-Bridge). Lab and animal studies suggest its
   cells sense everyday loading and use it to balance building and breakdown
   (C03, Unproven-Bridge)."
 - **Why:** "completely overturned" overstates; "requires load" is stronger
@@ -152,8 +155,7 @@ them through with your doctor" (C12, Established).
   that joints simply wear out with use. This course offers a more useful
   picture, which we call 'load as medicine'. It is written for adults 50 and
   over with knee or hip osteoarthritis. Over three short lessons you will
-  learn how movement helps circulate the fluid that nourishes cartilage (C18,
-  Unproven-Bridge); how to rate your ache with a practical guideline many
+  learn how movement may help move the fluid that nourishes cartilage (C18, Unproven-Bridge); how to rate your ache with a practical guideline many
   clinicians use (C02, Unproven-Bridge); and how to choose a type of exercise to
   try first, from the options studied in knee arthritis (C07, Promising). By
   the end you will have a plan you can start this week, and a way to adjust
@@ -186,17 +188,13 @@ them through with your doctor" (C12, Established).
   2021). Without this movement, the tissue is effectively starved."
 - **As written (video hook):** "But as a physical therapist, I can tell you:
   resting your joint is actually like starving it."
-- **Replace text with:** "Cartilage has no blood supply of its own. It gets its
-  nourishment from the fluid inside the joint, and movement helps that fluid
-  move in and out of the cartilage (C18, Unproven-Bridge). Picture a sponge
-  being gently squeezed and let go. Short rest is the right call for a hot,
+- **Replace text with:** "Cartilage has no blood supply of its own. Its nutrients reach it mainly from the fluid inside the joint, and lab studies on cartilage samples suggest that movement and loading help move that fluid into the cartilage (C18, Unproven-Bridge). This fluid exchange is part of how the joint's metabolism works. Picture a sponge being gently squeezed and let go. Short rest is the right call for a hot,
   swollen joint, during a flare your clinician is managing, or when your
   surgical team has asked for it. The problem is long stretches of rest as the
   everyday default."
 - **Replace hook with:** "We've all been told that if our joints hurt, we
   should rest them so we don't end up 'bone on bone'. As a physical therapist,
-  I see it differently. A short rest has its place. But weeks of rest leave
-  your cartilage without the movement that circulates the fluid it lives on."
+  I see it differently. A short rest has its place. Cartilage gets its nourishment from the fluid in the joint, and lab studies suggest movement helps that fluid reach it. Weeks of rest take that movement away."
 - **Why:** R2. The "brittle" claim is dropped (Randy, 2026-11-02, C18).
   Gilbert 2021 is not cited for this claim (register: mismatch). The sponge is
   kept only as a picture of fluid moving, not as a claim about brittleness.
@@ -261,8 +259,7 @@ them through with your doctor" (C12, Established).
 
 - **As written:** "Every repetition is a vital nutrient delivery to your
   joints; you are retraining your body to choose rebuilding over breakdown."
-- **Replace with:** "Each easy repetition helps move fluid through the joint
-  (C18, Unproven-Bridge). Small, regular doses are how confidence and capacity
+- **Replace with:** "Lab studies on cartilage samples suggest that movement helps move joint fluid into cartilage (C18, Unproven-Bridge). Small, regular doses are how confidence and capacity
   build."
 - **Why:** R1.
 
@@ -530,12 +527,8 @@ See F11.
   a passive surface that thins with use. Instead, OA is better modeled as an
   active, whole-joint metabolic and inflammatory disease. ... chondrocytes rely
   on the mechanical pumping of joint movement ..."
-- **Replace with:** "[UNREGISTERED-2: Osteoarthritis is now seen as a
-  condition of the whole joint, not just thinning cartilage.] Cartilage has no
-  blood supply of its own, and movement helps circulate the joint fluid that
-  nourishes it (C18, Unproven-Bridge)."
-- **Why:** "refutes" overstates. The whole-joint sentence has no register row:
-  source and grade it, or cut it.
+- **Replace with:** "Osteoarthritis affects the whole joint, not just the cartilage. The bone under the cartilage, the joint lining, ligaments and, in the knee, the menisci can all change (C26, Established). Cartilage has no blood supply of its own. Its nutrients reach it mainly from the fluid inside the joint, and lab studies on cartilage samples suggest that movement and loading help move that fluid into the cartilage (C18, Unproven-Bridge)."
+- **Why:** "refutes" overstates; "metabolic and inflammatory disease" is replaced by the graded whole-joint wording (C26).
 
 ### F35. "Movement is a nutrient" and "within days"
 
@@ -612,8 +605,7 @@ See F11.
   are willing to do. In one study of people with arthritis, fear of movement
   was more closely linked with how well they managed daily activities than
   their X-ray findings were (C10, Promising). So the explanation comes before
-  the exercise plan: cartilage is living tissue, and movement helps circulate
-  the joint fluid that nourishes it (C18, Unproven-Bridge)."
+  the exercise plan: cartilage is living tissue. Cartilage has no blood supply of its own. Its nutrients reach it mainly from the fluid inside the joint, and lab studies on cartilage samples suggest that movement and loading help move that fluid into the cartilage (C18, Unproven-Bridge)."
 - **Why:** "gated" is on the 7.3 list. "Predicts" becomes "linked with"
   (cross-sectional study); MRI was not studied. "Requires load to survive"
   overstates.
@@ -644,9 +636,7 @@ See F11.
 - **As written:** "Movement circulates synovial fluid, which is the only way
   your cartilage gets nutrients and clears out metabolic waste. Movement is
   'feeding' the joint."
-- **Replace with:** "Cartilage has no blood supply of its own. It gets its
-  nourishment from the fluid inside the joint (synovial fluid), and movement
-  helps that fluid move in and out of the cartilage (C18, Unproven-Bridge)."
+- **Replace with:** "Cartilage has no blood supply of its own. Its nutrients reach it mainly from the fluid inside the joint (synovial fluid), and lab studies on cartilage samples suggest that movement and loading help move that fluid into the cartilage (C18, Unproven-Bridge). That fluid exchange is part of how the joint's metabolism works."
 - **Why:** "the only way" is absolute. A second sentence about stiffness
   easing was cut: it has no register row.
 
@@ -693,9 +683,7 @@ See F11.
 - **Keep the idea. Replace with:**
   - Heading: "Your joint is living tissue, not a tire"
   - Body: "Many of us were told joints wear out like tires, one mile at a
-    time. Cartilage is different from rubber: it is living tissue. It has no
-    blood supply of its own, and movement helps circulate the joint fluid that
-    nourishes it (C18, Unproven-Bridge). A short rest is right for a hot,
+    time. Cartilage is different from rubber: it is living tissue. Cartilage has no blood supply of its own. Its nutrients reach it mainly from the fluid inside the joint, and lab studies on cartilage samples suggest that movement and loading help move that fluid into the cartilage (C18, Unproven-Bridge). A short rest is right for a hot,
     swollen joint or after surgery. The problem is long stretches of rest as
     the everyday default."
   - Stat box: "3.5% compared with 10.2%. In one pooled analysis, that was the
@@ -708,8 +696,7 @@ See F11.
 
 - **As written:** "Cartilage requires physiological mechanical stress to
   signal cells to rebuild and maintain joint structure."
-- **Replace with:** "Movement helps circulate the fluid that nourishes my
-  cartilage." (C18, Unproven-Bridge)
+- **Replace with:** "Movement helps move the joint fluid that nourishes my cartilage." (C18, Unproven-Bridge)
 
 ### F49. Core loading rules panel
 
@@ -732,16 +719,15 @@ See F11.
 - **Brand:** "Muscle-Meta™ real-time reframe" becomes "Muscle-Meta Matrix™
   reframe".
 
-## Claims without a register row
+## Claims that had no register row (now resolved)
 
 | Tag | Claim | Where used | What happens |
 |---|---|---|---|
-| UNREGISTERED-1 | Movement and strength work are often part of care for inflammatory arthritis | `inflammatory-arthritis-note.md` | A1 sources and grades it, or the sentence is cut |
-| UNREGISTERED-2 | Osteoarthritis affects the whole joint, not only cartilage | F34 | A1 sources and grades it, or the sentence is cut |
+| UNREGISTERED-1 | Movement and strength work are often part of care for inflammatory arthritis | `inflammatory-arthritis-note.md` | Sourced 2026-11-02 as C25 (Established) |
+| UNREGISTERED-2 | Osteoarthritis affects the whole joint, not only cartilage | F34 | Sourced 2026-11-02 as C26 (Established) |
 
 ## Mapping from the first draft
 
 For anyone comparing with the earlier commit: CLAIM-NEW-1 became C18,
 CLAIM-NEW-2 became C15 (with C10 for the muscle part), CLAIM-NEW-3 became C23,
-CLAIM-NEW-5 became C14, CLAIM-NEW-4 became UNREGISTERED-1 and CLAIM-NEW-6
-became UNREGISTERED-2.
+CLAIM-NEW-5 became C14, CLAIM-NEW-4 became UNREGISTERED-1 and then C25, and CLAIM-NEW-6 became UNREGISTERED-2 and then C26.

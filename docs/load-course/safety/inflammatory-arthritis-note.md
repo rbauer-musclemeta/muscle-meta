@@ -22,10 +22,11 @@ described as "wear and tear". Rheumatoid arthritis and other inflammatory types 
 In these conditions the body's immune system drives swelling inside the joint,
 and that swelling can come and go in flares.
 
-[UNREGISTERED-1: Movement and strength work are often part of care for
-inflammatory arthritis too.] The right amount of movement, and the right time
-to do it, depend on how active the condition is, and that is something your
-rheumatology team tracks.
+European rheumatology recommendations (EULAR, 2018) advise that physical
+activity is part of standard care for people with inflammatory arthritis, such
+as rheumatoid arthritis (C25, Established). The right amount of movement, and
+the right time to do it, depend on how active the condition is, and that is
+something your rheumatology team tracks.
 
 So please:
 
@@ -51,6 +52,7 @@ So please:
 - Do not say the course "does not work" or "is not for" people with
   inflammatory arthritis. The point is coordination, not exclusion.
 - Do not name medicines or suggest changing them.
-- `[UNREGISTERED-1]` has no row in the claims register. It must not ship as
-  written. Either A1 sources and grades it, or the bracketed sentence is cut.
-  The rest of the note makes no research claim and stands without it.
+- The EULAR sentence is C25 (Established). It covers rheumatoid arthritis and
+  spondyloarthritis, not gout, lupus or other inflammatory conditions, so do
+  not extend it to those. Do not imply the course treats inflammatory
+  arthritis.

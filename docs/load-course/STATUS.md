@@ -166,11 +166,23 @@ wording, "unlocking", Lesson 3 timing, audience age), for A1 and A2:
   of the composite risk percentage and five-tier bar. A3 rebuilds from scratch;
   nothing is copied.
 
+## Draft pull requests (deploy previews only; Randy merges)
+
+| PR | Branch | Purpose |
+|---|---|---|
+| #10 | `load-course/A3-tool` | Free joint-load check |
+| #11 | `load-course/A4-downloads` | Loading guide and pain tracker |
+| #12 | `load-course/A5-blog` | Four blog drafts |
+| #13 | `load-course/A6-sales` | Sales page, pillar page, P1-C1 page, sitemap, hub cards |
+
+Opened 2026-11-02 at Randy's request, as drafts against `main`, to get Netlify deploy previews. The orchestrator watches them for build failures and review comments. Merging stays with Randy.
+
 ## Wave updates sent to Randy
 
 | Date | Summary |
 |---|---|
 | 2026-11-01 | Setup read-through done; G0 question asked. |
+| 2026-11-02 | Draft PRs #10–#13 opened for Netlify previews; orchestrator watching. |
 | 2026-11-02 | Randy: all as suggested (8 free-asset and 3 GLP-1 decisions). A5, A6, A1-glp1 follow-ups dispatched. |
 | 2026-11-02 | A1 GLP-1 evidence check reported: core claims verified, much of the report cut; 3 decisions for Randy. |
 | 2026-11-02 | A9 re-check clean. G2 waits on Randy: 9 decisions, Netlify previews, privacy page approval, Kit forms. |

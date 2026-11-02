@@ -175,7 +175,7 @@ wording, "unlocking", Lesson 3 timing, audience age), for A1 and A2:
 | #12 | `load-course/A5-blog` | Four blog drafts |
 | #13 | `load-course/A6-sales` | Sales page, pillar page, P1-C1 page, sitemap, hub cards |
 
-Netlify previews (main site `dynamic-duckanoo-9f7287`): #10 https://deploy-preview-10--dynamic-duckanoo-9f7287.netlify.app ready; #11 https://deploy-preview-11--dynamic-duckanoo-9f7287.netlify.app ready; #12 https://deploy-preview-12--dynamic-duckanoo-9f7287.netlify.app ready (blog build passed with live PubMed); #13 building. The `mm-matrixapp` previews cancel themselves (no app changes), which is expected.
+Netlify previews (main site `dynamic-duckanoo-9f7287`): #10 https://deploy-preview-10--dynamic-duckanoo-9f7287.netlify.app ready; #11 https://deploy-preview-11--dynamic-duckanoo-9f7287.netlify.app ready; #12 https://deploy-preview-12--dynamic-duckanoo-9f7287.netlify.app ready (blog build passed with live PubMed); #13 https://deploy-preview-13--dynamic-duckanoo-9f7287.netlify.app ready. All four main-site previews built green. The `mm-matrixapp` previews cancel themselves (no app changes), which is expected.
 
 Opened 2026-11-02 at Randy's request, as drafts against `main`, to get Netlify deploy previews. The orchestrator watches them for build failures and review comments. Merging stays with Randy.
 

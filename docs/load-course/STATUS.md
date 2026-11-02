@@ -66,6 +66,7 @@ D4 (Randy on camera, about two minutes per lesson), D5 (core launch scope).
 - RF2, RF3, RF4, RF7 approved as written.
 - "Cut back to about half" kept, labelled as Randy Bauer, PT's clinical guidance.
 - Free check (A3): add "Go back and change an answer" to the stop screen; keep the GLP-1 question with its neutral prescriber line; "gets stuck so you can't fully bend or straighten it" approved in place of "locking".
+- C18 (Randy, 2026-11-02): use A1's wording, Unproven-Bridge, framed as part of joint metabolic health (synovial fluid, joint metabolism, chondral health). Movement part keeps "lab studies on cartilage samples suggest".
 - Still open: C20 grade (currently Unproven-Bridge; orchestrator suggests Promising).
 
 ## Gates
@@ -143,6 +144,7 @@ wording, "unlocking", Lesson 3 timing, audience age), for A1 and A2:
 | Date | Summary |
 |---|---|
 | 2026-11-01 | Setup read-through done; G0 question asked. |
+| 2026-11-02 | C18 kept, framed as joint metabolic health. A2 tagging pass dispatched. C20 grade still open. |
 | 2026-11-02 | Randy signed off the red-flag screen, the half rule and A3's three questions. A2 follow-up pass dispatched; A3 pass follows A2. |
 | 2026-11-02 | Randy answered A1's 7 evidence decisions (see table). Red-flag review (A2) and A3's 3 questions still open. |
 | 2026-11-01 | Wave 1 reported: A3, A7, A10 done; A1, A2 need decisions (evidence and red-flag review). G1 pending. |

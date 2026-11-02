@@ -12,7 +12,8 @@ Four Joint Health posts, all `draft: true`, `pillar: exercise-mobility`,
 | `content/blog/what-the-runner-data-does-and-does-not-show.md` | What the runner data does and does not show | Framework section 4 |
 
 The Lesson 2 title says "pain guide", not "rule": `safety/pain-rule-wording.md`
-says not to call it a rule on its own. The slug keeps the spec's wording.
+says not to call it a rule on its own. Approved by Randy 2026-11-02; the slug
+keeps the spec's wording.
 
 ## Claims used, by post
 
@@ -23,7 +24,7 @@ the register's safe wording and A2's `copy-fixes.md`, `pain-rule-wording.md`,
 | Post | Claims | PMIDs cited (all in `content/pmid-cache.json`) |
 |---|---|---|
 | Rest | C01/C21, C15, C18, C03, C14, C26, C05, C06, C10 | 28504066, 15334465, 12209511, 14618919, 28888900, 34948394, 30320965, 16258919, 22392533, 31278997, 25569281, 15275772 |
-| 5 out of 10 | C23, C05, C06, C10, C25; C02 and C17 as labelled clinical guidance, uncited | 18764949, 30320965, 25569281, 31278997, 15275772, 24841177, 29997112 |
+| 5 out of 10 | C23, C05, C06, C10, C02, C25; C17 as labelled clinical guidance, uncited | 18764949, 30320965, 25569281, 31278997, 15275772, 24841177, 9413448, 17307888, 29997112 |
 | Modality | C05, C06, C07, C08 | 31278997, 25569281, 37346776, 39267026 |
 | Runner | C01, C11, C21, C05 | 28504066, 31278997 |
 
@@ -34,10 +35,22 @@ None of the do-not-cite PMIDs (17107655, 26564575, 29934429, 30584921,
 pain shrank over 8 weeks", so that sentence from `pain-rule-wording.md` is left
 out of the 5 out of 10 post.
 
-Grade note: `pain-rule-wording.md` tags C23 as Unproven-Bridge; the register
-grades C23 Promising (third follow-up). The post uses the register grade.
+## Follow-up, 2026-11-02 (Randy, via coordinator)
 
-## Build log summary (2026-11-02)
+- C02: the 5 out of 10 post now cites Thomeé 1997 (9413448) and Silbernagel
+  2007 (17307888) as the origin of pain monitoring, graded Unproven-Bridge.
+  The text says neither trial was in arthritis and neither tested the number,
+  and the guide stays labelled as clinical guidance, not a tested safety limit.
+  Citations spell "Thomeé" with the accent, as in the cache.
+- Effect sizes in the modality post stay as written: C06 and C08 only; C07
+  rankings without SUCRA percentages.
+- The runner post keeps its limits section.
+- Synced with A2's final pass (`5aa6000`): C23 is Promising in both the
+  register and `pain-rule-wording.md`; "Exercise is medicine for the joint"
+  (C05) is used in the rest and runner posts; post-surgery copy says "has
+  given you the go-ahead". No other change was needed.
+
+## Build log summary (2026-11-02, re-run after the follow-up with the same result)
 
 - `CONTEXT=deploy-preview npm run build`: the four new posts raised no errors.
   The build stopped only on the existing post

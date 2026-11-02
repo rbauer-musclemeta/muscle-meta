@@ -54,6 +54,16 @@ references:
     pmid: '24841177'
     citation: Holla JF, Sanchez-Ramirez DC, van der Leeden M, et al. The avoidance model in knee and hip osteoarthritis - a systematic review of the evidence. J Behav Med. 2014;37(6):1226-1241.
     url: ''
+  - claim: A pain-monitoring system, used to adjust activity during a 12-week training program, was part of a treatment approach tested in 40 young women with kneecap (patellofemoral) pain. Not a study of arthritis, and it does not test the 5 out of 10 number; the guideline is clinical guidance, not a tested safety limit.
+    grade: Unproven-Bridge
+    pmid: '9413448'
+    citation: Thomeé R. A comprehensive treatment approach for patellofemoral pain syndrome in young women. Phys Ther. 1997;77(12):1690-1703.
+    url: ''
+  - claim: In 38 adults with Achilles tendon pain, continuing running and jumping while using a pain-monitoring model showed no negative effects compared with stopping those activities. Not a study of arthritis, and it does not test the 5 out of 10 number; the guideline is clinical guidance, not a tested safety limit.
+    grade: Unproven-Bridge
+    pmid: '17307888'
+    citation: Silbernagel KG, Thomeé R, Eriksson BI, Karlsson J. Continued sports activity, using a pain-monitoring model, during rehabilitation in patients with Achilles tendinopathy - a randomized controlled study. Am J Sports Med. 2007;35(6):897-906.
+    url: ''
   - claim: European rheumatology recommendations (EULAR, 2018) advise that physical activity is part of standard care for people with inflammatory arthritis, such as rheumatoid arthritis, and for people with hip or knee osteoarthritis.
     grade: Established
     pmid: '29997112'
@@ -98,6 +108,8 @@ Physical therapists often use a simple guideline to help people keep moving with
 
 This is clinical guidance, not a tested safety limit for arthritis. On its own it cannot tell an ache from an injury. What it does is help you judge whether a dose of activity was one your joint recovered from.
 
+Using pain to guide how much to do comes from physical therapy trials in other conditions: kneecap pain in young women [8] and Achilles tendon pain [9]. Neither trial was in arthritis, and neither tested the 5 out of 10 number itself.
+
 ## How to read a flare
 
 A flare is a day when the joint is noticeably worse than your usual. The 24-hour check tells you what to do with it.
@@ -111,7 +123,7 @@ One harder day is information about the dose, not a sign you should stop moving.
 - **After surgery, your surgeon's or physical therapist's protocol comes first.** Use the pain levels and limits they give you, even if they differ from these.
 - **A hot, swollen joint, or one that catches and gets stuck so you can't fully bend or straighten it, is not an "acceptable ache".** Stop and see a clinician.
 - **Sharp, sudden or a new kind of pain** is a reason to stop that activity, even if it scores below 5.
-- **Rheumatoid or other inflammatory arthritis:** this guide was written with osteoarthritis in mind. European rheumatology recommendations advise that physical activity is part of standard care for inflammatory arthritis [8], but ask your rheumatology team whether this guide fits you.
+- **Rheumatoid or other inflammatory arthritis:** this guide was written with osteoarthritis in mind. European rheumatology recommendations advise that physical activity is part of standard care for inflammatory arthritis [10], but ask your rheumatology team whether this guide fits you.
 - **It does not replace advice from a clinician who knows your history.** If they have told you something different, follow them.
 
 **Stop and contact a clinician if**

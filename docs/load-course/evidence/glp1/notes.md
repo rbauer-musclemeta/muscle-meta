@@ -16,8 +16,12 @@ guidance (PMC11666732).
 | Status | Count |
 |---|---|
 | verified | 17 |
-| needs-review | 5 |
+| needs-review | 4 |
 | not-found | 9 |
+| dropped | 1 (C31, decision 2026-11-02) |
+
+`dropped` means Randy withdrew the claim. The row is kept for the record and
+is never used in copy.
 
 Of the 17 verified rows, 9 are Established, 5 are Promising and 3 are
 Unproven-Bridge: C47 (the Cell Metabolism mouse study), C48 (rat data) and
@@ -46,9 +50,6 @@ Use each row's safe wording. In short:
   the knee per step while walking (C39). Weight loss is linked with lower risk
   of developing knee arthritis (C41), and losing more than about 5% of body
   weight improved function in trials (C42).
-- One health-records study found fewer hip and knee replacements in the year
-  after a GLP-1 prescription. This is a link only, and the same study found
-  more new arthritis diagnoses in people without arthritis (C37).
 - Lab and mouse studies suggest GLP-1 medicines may act on joint tissue
   directly. This has not been shown in people (C47, C48).
 - If you take a GLP-1 and are planning surgery, tell your surgeon and
@@ -89,7 +90,7 @@ Use each row's safe wording. In short:
 |---|---|---|
 | "Conclusively demonstrates", "paradigm-shifting", "definitive", "unequivocal" | all | Overstatement; no source uses this language |
 | STEP 9 MCID "about 9 points (95% CI 6 to 12)" | C29 | Not in the abstract; not traced |
-| STEP 9 fewer steroid injections and painkillers | C31 | Not in the abstract; full text not available here (needs-review) |
+| STEP 9 fewer steroid injections and painkillers | C31 | Not in the abstract; dropped by Randy 2026-11-02 |
 | STEP 9 unblinding inflated pain scores | C32 | A critique with no source; can only be stated as a general limitation |
 | 25% to 40% of weight lost is "lean muscle"; "disastrous" | C34 | Lean mass is not all muscle; the figure is kept with the correct wording |
 | 1.2 to 1.6 g/kg protein, shakes, 3 to 4 meals; "must" | C36 | Range not sourced as stated; the target is for a clinician to set |
@@ -156,10 +157,15 @@ Cite the cached Surg Obes Relat Dis version (39482213, 2024).
 Already cached from earlier rows and reused: 28514618 Villareal, 26883880 Kim,
 42319968 Jobanputra (C13).
 
-## Decisions for Randy
+## decision_2026-11-02
 
-- STEP 9 secondary outcomes (fewer injections and painkillers, C31) need the
-  full NEJM paper. Should someone with access read it, or should the claim be
-  dropped?
-- Should the download mention the Porto 2025 cohort at all (C37)? It is the
-  only human evidence on joint replacement, but it cuts both ways.
+Randy decided on 2026-11-02, as suggested:
+
+| Item | Decision | Register change |
+|---|---|---|
+| C31: STEP 9 fewer injections and painkillers | Dropped by Randy, not verified in the abstract. | Status `dropped`; safe wording "Do not use." |
+| C37: Porto 2025 joint-replacement cohort | Not for the download. Blog draft only, and the blog must report both directions: fewer replacements in people with OA, and more new OA and more knee replacements in people without OA. Association only. | Note added; row stays verified, Promising |
+| Download scope (sections "What the download may say" and "What the download must not say or imply") | Approved as written. | No change |
+
+The C37 line was removed from "What the download may say" to match this
+decision.

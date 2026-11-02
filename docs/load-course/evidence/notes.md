@@ -51,39 +51,33 @@ not the guideline, and is not used.
   OA). Neither abstract states the number 5. The number is graded as clinical
   guidance (Unproven-Bridge). "Safe" and "does not signal joint damage"
   overstate it.
-- **C03 (pericellular matrix rebuild signals).** The source cited Jiang 2021;
-  the matching paper is Gilbert 2021. Swap the citation. Mechanism is from
-  cell and animal work, so Unproven-Bridge.
 - **C09 (muscles as shock absorbers).** Wei 2024 does not measure this.
   Re-sourced to Øiestad 2021 (quadriceps weakness associated with incident knee
   OA, low-quality evidence). The load-redistribution mechanism stays
   Unproven-Bridge.
 - **C18 (sponge, "brittle", mechanical pumping).** Gilbert 2021 does not
   discuss nutrient pumping or brittleness. No PMID was read that supports
-  load-driven nutrient transport, so the row has no PMID. Keep the sponge only
-  as a labelled analogy, drop "brittle".
+  load-driven nutrient transport, so the row has no PMID. "Brittle" is dropped
+  (decision 2026-11-02); the line kept is "movement circulates the joint fluid
+  that nourishes cartilage", Unproven-Bridge, uncited.
+
+C03 was a mismatch on 2026-11-01 (the source cited Jiang 2021). On 2026-11-02
+its cited source was changed to Gilbert 2021 and it is now verified.
 
 ## Needs-review rows
 
-- **C11 (movers have 60% less arthritis).** 60% is arithmetically wrong (crude
-  prevalence 3.5% vs 10.2% is about 66% lower), and the adjusted odds ratio for
-  recreational runners was not significant (0.86, 95% CI 0.69 to 1.07). Any
-  relative-reduction figure overstates the evidence. Recommendation: print the
-  two raw percentages with the association caveat and no percentage
-  reduction. Randy to choose.
 - **C19 (protein and vitamin C as substrates for matrix repair).** Vitamin C:
   one cohort association (McAlindon 1996), called preliminary by its authors.
-  Protein for cartilage repair: not found. Out of first-release scope unless
-  Randy wants it.
-- **C20 ("more durable and significantly safer than long-term
-  medication").** Fransen 2015 says exercise effects are comparable with
-  NSAIDs and smaller at 2 to 6 months. It has no head-to-head safety or
-  durability comparison. Replacement wording proposed; needs sign-off.
+  Protein for cartilage repair: not found. **Held, not for first release**
+  (decision 2026-11-02). Row kept.
 - **C23 (pain as a protective alarm before harm).** Not traced to a PubMed
-  record in this pass. Partly backed by C14 (loading exercise does not appear
-  to harm cartilage). A2 bounds the wording.
+  record. Partly backed by C14 (loading exercise does not appear to harm
+  cartilage). A2 bounds the wording.
 - **C24 (2 to 3 sessions a week).** The frequency was not traced. Treat as
   clinical guidance until sourced.
+
+C11 and C20 were needs-review on 2026-11-01 and are verified after the
+2026-11-02 decisions below.
 
 ## Not-found rows
 
@@ -119,17 +113,44 @@ Each is on its row; summarised here for A2 and the copy agents.
 ## PMID cache
 
 24 PMIDs added to `content/pmid-cache.json`, each read in PubMed on
-2026-11-01. Three PMIDs used in the register were **not** added, because the
-year PubMed returned is the online date and the journal issue year may differ,
-which would make the build's author-and-year check fail on a correct citation:
+2026-11-01. Gilbert 2021 (34948394) was re-read on 2026-11-02 for the C03
+change.
 
-- 26564575 Sandal (online 2015, issue likely 2016)
-- 34916210 Øiestad (online 2021, issue likely 2022)
-- 29934429 Bricca (online 2018, issue likely 2019)
+Three PMIDs used in the register are **not** in the cache and are marked
+**do not cite until build confirms**:
 
-When a copy agent cites one of these, let the build check it live, or confirm
-the issue year in PubMed before adding it to the cache.
+- 26564575 Sandal (C02): PubMed record date 2015 (online); journal issue
+  Osteoarthritis Cartilage volume 24 (likely 2016)
+- 34916210 Øiestad (C09): PubMed record date 2021 (online); issue Br J Sports
+  Med volume 56 (likely 2022)
+- 29934429 Bricca (C14): PubMed record date 2018 (online); issue Br J Sports
+  Med volume 53 (likely 2019)
+
+On 2026-11-02 I re-checked these with PubMed citation lookup using both
+candidate years. Lookup matched the same PMID for both years, so it does not
+settle which year PubMed's own citation uses, and the E-utilities summary
+that the build reads is blocked from this session. Caching a guessed year
+could make the build pass a wrong citation or fail a right one. The build
+checks these three live on the next run.
 
 Cache first-author names keep PubMed's accents (Thomeé, Bruyère,
 Fernández-Moreno). The build matches the first author as a substring of the
 citation text, so citations must spell these names with the same accents.
+
+## decision_2026-11-02
+
+Randy (owner and clinical reviewer) answered the seven A1 decisions on
+2026-11-02. Each is also recorded in the row's `notes` column.
+
+| Claim | Decision | Register change |
+|---|---|---|
+| C02 | Keep the 5/10 rule as labelled clinical guidance, Unproven-Bridge, with the A1 safe wording. | Status stays `mismatch` because Gilbert 2021 does not support it; the safe wording is approved as clinical guidance, not as a cited claim. |
+| C08 | Grade Promising confirmed. | Note added. |
+| C11 | Drop "60% less". Use the raw 3.5% vs 10.2% only, as an association. Randy's message to keep: movement is good. | Safe wording rewritten; status `verified`. |
+| C20 | Replacement wording approved. | Status `verified`. |
+| C13 | Include GLP-1 in the first release, graded Promising. | Note added. |
+| C19 | Protein and vitamin C held, not for first release. | Row kept; status stays `needs-review`. |
+| C03 | Cited source changed to Gilbert 2021. | PMID 34948394 re-read in PubMed: abstract says PCM components transduce mechanical signals to chondrocytes and physiological loading keeps building and breakdown in balance (animal and cell studies). Status `verified`, grade Unproven-Bridge. |
+| C18 | Drop the "brittle" sponge claim; keep "movement circulates joint fluid that nourishes cartilage" at its grade. | Safe wording rewritten; grade Unproven-Bridge, no PMID; status stays `mismatch` for Gilbert 2021. |
+| C12 | Approved by the clinical reviewer. Closing line ends "talk them through with your doctor", because a medical doctor prescribes medicines and joint injections. Name OARSI only. | Safe wording updated. |
+| Uncached PMIDs | Cache if read, or mark "do not cite until build confirms". | All three marked "do not cite until build confirms" (see PMID cache above). |

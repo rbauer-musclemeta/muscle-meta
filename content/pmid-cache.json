@@ -242,5 +242,45 @@
     "journal": "Arthritis Rheum",
     "doi": "10.1002/art.1780390417",
     "verified": "2026-11-01"
+  },
+  "14618919": {
+    "firstAuthor": "Mauck",
+    "year": "2003",
+    "title": "Modeling of neutral solute transport in a dynamically loaded porous permeable gel: implications for articular cartilage biosynthesis and tissue engineering.",
+    "journal": "J Biomech Eng",
+    "doi": "10.1115/1.1611512",
+    "verified": "2026-11-02"
+  },
+  "28888900": {
+    "firstAuthor": "Graham",
+    "year": "2017",
+    "title": "Sliding enhances fluid and solute transport into buried articular cartilage contacts.",
+    "journal": "Osteoarthritis Cartilage",
+    "doi": "10.1016/j.joca.2017.08.014",
+    "verified": "2026-11-02"
+  },
+  "29997112": {
+    "firstAuthor": "Rausch Osthoff",
+    "year": "2018",
+    "title": "2018 EULAR recommendations for physical activity in people with inflammatory arthritis and osteoarthritis.",
+    "journal": "Ann Rheum Dis",
+    "doi": "10.1136/annrheumdis-2018-213585",
+    "verified": "2026-11-02"
+  },
+  "30622734": {
+    "firstAuthor": "Rausch Osthoff",
+    "year": "2018",
+    "title": "Effects of exercise and physical activity promotion: meta-analysis informing the 2018 EULAR recommendations for physical activity in people with rheumatoid arthritis, spondyloarthritis and hip/knee osteoarthritis.",
+    "journal": "RMD Open",
+    "doi": "10.1136/rmdopen-2018-000713",
+    "verified": "2026-11-02"
+  },
+  "22392533": {
+    "firstAuthor": "Loeser",
+    "year": "2012",
+    "title": "Osteoarthritis: a disease of the joint as an organ.",
+    "journal": "Arthritis Rheum",
+    "doi": "10.1002/art.34453",
+    "verified": "2026-11-02"
   }
 }

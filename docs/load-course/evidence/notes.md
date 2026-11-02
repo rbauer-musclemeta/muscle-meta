@@ -55,14 +55,13 @@ not the guideline, and is not used.
   Re-sourced to Øiestad 2021 (quadriceps weakness associated with incident knee
   OA, low-quality evidence). The load-redistribution mechanism stays
   Unproven-Bridge.
-- **C18 (sponge, "brittle", mechanical pumping).** Gilbert 2021 does not
-  discuss nutrient pumping or brittleness. No PMID was read that supports
-  load-driven nutrient transport, so the row has no PMID. "Brittle" is dropped
-  (decision 2026-11-02); the line kept is "movement circulates the joint fluid
-  that nourishes cartilage", Unproven-Bridge, uncited.
 
 C03 was a mismatch on 2026-11-01 (the source cited Jiang 2021). On 2026-11-02
 its cited source was changed to Gilbert 2021 and it is now verified.
+
+C18 was a mismatch on 2026-11-01 (the source cited Gilbert 2021, which does
+not cover nutrient transport). On 2026-11-02 it was re-sourced (see
+"Second follow-up, 2026-11-02" below) and is now verified at Unproven-Bridge.
 
 ## Needs-review rows
 
@@ -116,7 +115,11 @@ Each is on its row; summarised here for A2 and the copy agents.
 2026-11-01. Gilbert 2021 (34948394) was re-read on 2026-11-02 for the C03
 change.
 
-Three PMIDs used in the register are **not** in the cache and are marked
+Five PMIDs added on 2026-11-02, each read in PubMed that day: 14618919
+Mauck, 28888900 Graham, 29997112 and 30622734 Rausch Osthoff, 22392533
+Loeser.
+
+Four PMIDs used in the register are **not** in the cache and are marked
 **do not cite until build confirms**:
 
 - 26564575 Sandal (C02): PubMed record date 2015 (online); journal issue
@@ -125,8 +128,10 @@ Three PMIDs used in the register are **not** in the cache and are marked
   Med volume 56 (likely 2022)
 - 29934429 Bricca (C14): PubMed record date 2018 (online); issue Br J Sports
   Med volume 53 (likely 2019)
+- 17107655 Zhang (C18): PubMed record date 2006 (online); issue Arch Biochem
+  Biophys volume 457 (likely 2007)
 
-On 2026-11-02 I re-checked these with PubMed citation lookup using both
+On 2026-11-02 I re-checked the first three with PubMed citation lookup using both
 candidate years. Lookup matched the same PMID for both years, so it does not
 settle which year PubMed's own citation uses, and the E-utilities summary
 that the build reads is blocked from this session. Caching a guessed year
@@ -154,3 +159,14 @@ Randy (owner and clinical reviewer) answered the seven A1 decisions on
 | C18 | Drop the "brittle" sponge claim; keep "movement circulates joint fluid that nourishes cartilage" at its grade. | Safe wording rewritten; grade Unproven-Bridge, no PMID; status stays `mismatch` for Gilbert 2021. |
 | C12 | Approved by the clinical reviewer. Closing line ends "talk them through with your doctor", because a medical doctor prescribes medicines and joint injections. Name OARSI only. | Safe wording updated. |
 | Uncached PMIDs | Cache if read, or mark "do not cite until build confirms". | All three marked "do not cite until build confirms" (see PMID cache above). |
+
+## Second follow-up, 2026-11-02
+
+The coordinator asked A1 to source three statements A2 still uses. C20's grade
+is still with Randy and was not changed.
+
+| Claim | Result | Grade | Sources (each read in PubMed) |
+|---|---|---|---|
+| C18: cartilage has no blood supply, is fed from joint fluid, and movement helps circulate that fluid | Re-sourced. The avascular, fed-by-diffusion part is well supported. Movement helping transport is shown only in lab cartilage samples and models, and mainly for larger molecules. Small nutrients such as glucose move mostly by diffusion, and one model (Gardiner 2007, PMID 17671860) found loading had a negligible long-term effect on IGF-I transport. Safe wording says "lab studies on cartilage samples suggest". Status changed from mismatch to verified; Gilbert 2021 stays rejected. | Unproven-Bridge | Mauck 2003 (14618919), Graham 2017 (28888900), Zhang 2006 (17107655, not cached) |
+| C25 (new, A2 UNREGISTERED-1): exercise is often part of care for inflammatory arthritis | EULAR 2018 advocates physical activity as an integral part of standard care for rheumatoid arthritis, spondyloarthritis and hip or knee OA. | Established | Rausch Osthoff 2018 (29997112, guideline); Rausch Osthoff 2018 (30622734, supporting meta-analysis) |
+| C26 (new, A2 UNREGISTERED-2): OA affects the whole joint, not just the cartilage | Loeser 2012 full text describes changes in cartilage, subchondral bone, synovium, ligaments, menisci and capsule and calls OA "a disease of the joint as an organ". Kraus 2015 (25865392) was read but its abstract does not give the definition, so it is not used. | Established | Loeser 2012 (22392533; no abstract in PubMed, full text read in PMC) |

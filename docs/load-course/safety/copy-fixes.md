@@ -13,7 +13,7 @@ Sources:
 Claim tags: "(C06, Established)" names the row in A1's claims register and its
 grade. Each replacement is written from that row's safe wording, in plain
 voice, and never says more. No claim is left without a register row.
-"(C20, grade pending)" waits on Randy.
+C20 is retired (Randy, 2026-11-02) and is not used. "Exercise is medicine for the joint" is an approved course framing tagged (C05, Established), not a new claim.
 
 Claims that are a mismatch or not found in the register are cut, except C02
 (kept by Randy as labelled clinical guidance) and C17 (kept only as Randy
@@ -273,13 +273,13 @@ them through with your doctor" (C12, Established).
 - **Replace title with:** "Lesson 2: The acceptable pain guide"
 - **Replace text with:** "Pain is your body's alarm system. With arthritis, a
   moderate ache during exercise does not by itself mean the joint is being
-  damaged (C23, Unproven-Bridge). To help people keep moving without guessing,
+  damaged (C23, Promising). To help people keep moving without guessing,
   many clinicians use a practical guideline, which we call the acceptable pain
   guide. It is clinical guidance, not a tested safety limit, and on its own it
   cannot tell an ache from an injury (C02, Unproven-Bridge). What it does is
   help you judge whether a dose of activity was one your joint recovered from."
 - **Why:** labelled as clinical guidance (Randy, 2026-11-02). "Way before any
-  actual harm" is not sourced (C23); "to rebuild a joint" breaks R1. Full
+  actual harm" as a rule is not supported, and copy never says pain cannot signal harm (C23); "to rebuild a joint" breaks R1. Full
   wording in `pain-rule-wording.md`.
 
 ### F15. Lesson 2, the OARSI sentence
@@ -325,13 +325,10 @@ them through with your doctor" (C12, Established).
   reduced knee arthritis pain by about 12 points and improved function by about
   10 points on a 0 to 100 scale, right after the programme. Smaller benefits,
   about 6 points for pain and 3 for function, were still there 2 to 6 months
-  later (C06, Established). In those trials, exercise eased pain about as much
-  as anti-inflammatory tablets do, and serious side effects from exercise were
-  not reported (C20, grade pending)."
+  later (C06, Established). Exercise is medicine for the joint (C05, Established)."
 - **Why:** the trials did not test the 5 out of 10 guideline, so "following
   this rule leads to" is removed. The 12 and 10 points are immediate, not
-  lasting. "More durable and significantly safer" is not supported; C20 gives
-  the approved replacement. R5.
+  lasting. "More durable and significantly safer" is not supported. C20 is retired (Randy, 2026-11-02); its place is taken by the framing line "Exercise is medicine for the joint", which rests on C05. C27 is not added here: a Lesson 2 pain segment is not the place for the metabolic link (see F38). R5.
 
 ### F18. Lesson 2 video, action
 
@@ -578,12 +575,12 @@ See F11.
 ### F38. Mitochondrial mechanotransduction and "Mitochondrial Crisis"
 
 - **As written:** "Mitochondrial dysfunction in chondrocytes is a primary
-  driver of OA pathogenesis." and the pattern name "Mitochondrial Crisis".
+  driver of OA pathogenesis."; "Consequently, joint health is increasingly viewed through a metabolic lens rather than a purely orthopedic one."; and the pattern name "Mitochondrial Crisis".
 - **Replace with:** "Scientists have found signs of poorly working
   mitochondria (the cell's energy centres) in cartilage cells from arthritic
   joints, and they are studying whether this helps drive the disease (C16,
-  Unproven-Bridge)." Then the AMPK lines from F09 (C04, Unproven-Bridge).
-  Rename the pattern "Mitochondrial signal (early research)".
+  Unproven-Bridge)." Then the AMPK lines from F09 (C04, Unproven-Bridge). Replace the "metabolic lens" sentence with C27, as Randy accepted it: "Joint health and metabolic health are linked. People with osteoarthritis more often also have high cholesterol, and the link shows up in the hands as well as the knees. Because hands do not carry body weight, researchers think whole-body factors such as low-grade inflammation may play a part, not just extra load. This is still being studied, and these studies show links, not proof that one causes the other (C27, Promising)." Rename the pattern "Mitochondrial signal (early research)".
+- **C27 limits:** never say or imply that diabetes, blood sugar or cholesterol causes osteoarthritis; that improving metabolic health treats, protects, slows or reverses it; that "metabolic osteoarthritis" is a diagnosis; or that any diet, supplement or medicine affects the joint.
 - **Why:** "primary driver" is never used (C16); "crisis" is reserved for real
   acute conditions (language guardrails).
 
@@ -646,9 +643,7 @@ See F11.
   function with fewer side effects than long-term medication use."
 - **Replace with:** "It doesn't have to be one or the other. OARSI guidelines
   list exercise as a core treatment for knee and hip osteoarthritis (C05,
-  Established). In trials, exercise eased knee arthritis pain about as much as
-  anti-inflammatory tablets, and serious side effects from exercise were not
-  reported (C20, grade pending). Medicines depend on the joint and on your
+  Established). Exercise is medicine for the joint (C05, Established). Medicines depend on the joint and on your
   other health conditions, so talk them through with your doctor (C12,
   Established)."
 

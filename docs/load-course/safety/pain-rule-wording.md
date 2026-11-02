@@ -27,7 +27,7 @@ How much ache is acceptable?
 
 When a joint hurts, it is natural to read every ache as a sign of harm. Pain is
 your body's alarm system. With arthritis, a moderate ache during exercise does
-not by itself mean the joint is being damaged (C23, Unproven-Bridge).
+not by itself mean the joint is being damaged (C23, Promising).
 Physical therapists often use a simple guideline to help people keep moving
 without guessing.
 

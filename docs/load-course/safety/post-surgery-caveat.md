@@ -20,8 +20,7 @@ Before you start: your surgical team comes first
 This guide is for people who have had a knee or hip replaced, or who are
 preparing for it. It is educational. It is not your rehab plan.
 
-- **Use these exercises only after your surgeon or physical therapist has
-  cleared you for them.** Every operation and every recovery is different, and
+- **Use these exercises only after your surgeon or physical therapist has given you the go-ahead for them.** Every operation and every recovery is different, and
   the timing that suits one person can be too early for another.
 - **Your team's protocol wins.** If their instructions differ from anything
   here, including the acceptable pain guide, follow theirs.
@@ -45,7 +44,7 @@ After surgery these can be signs of a blood clot, which needs urgent care.
 ## Short version (above each exercise block, and in email)
 
 > **After surgery, check with your team first.** Do these exercises only once
-> your surgeon or physical therapist has cleared you for them, and follow
+> your surgeon or physical therapist has given you the go-ahead for them, and follow
 > their protocol if it differs from this guide. Get help now for calf pain or
 > swelling, chest pain or sudden breathlessness. Contact your surgical team
 > today for a red, hot or leaking wound, a fever, or a sudden increase in
@@ -53,7 +52,7 @@ After surgery these can be signs of a blood clot, which needs urgent care.
 
 ## One-line version (exercise cards with no room)
 
-> Only with your surgeon's or physical therapist's clearance. Their protocol
+> Only once your surgeon or physical therapist has given you the go-ahead. Their protocol
 > comes first.
 
 ## Rules for copy around this caveat

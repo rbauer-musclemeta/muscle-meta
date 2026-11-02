@@ -11,6 +11,7 @@ here does not fit a layout, ask for a shorter version rather than editing it.
 | `inflammatory-arthritis-note.md` | A3 (results), A4, A8 | The note for rheumatoid and other inflammatory arthritis |
 | `disclaimer.md` | Every task | Page, download, email, lesson and footer versions |
 | `scoring-direction.md` | A3, A6, A9 | What the check shows instead of a percentage |
+| `activity-goals.md` | A3 (results), A8 | One short block per activity goal; pending Randy's sign-off |
 | `copy-fixes.md` | A4, A5, A6, A7, A8 | Each source sentence that must change, with its replacement |
 
 ## Status of this wording
@@ -27,8 +28,7 @@ here does not fit a layout, ask for a shorter version rather than editing it.
   claim and add the source author and year from the register.
 - **Every claim has a register row.** The two earlier placeholders are now C25
   (inflammatory arthritis note) and C26 (`copy-fixes.md` F34).
-- **One grade is open.** C20 is tagged "(C20, grade pending)" until Randy
-  decides it.
+- **C20 is retired** (Randy, 2026-11-02). Its two uses now carry the framing line "Exercise is medicine for the joint" (C05, Established). C27 (metabolic health and joint health, Promising) is used once, in `copy-fixes.md` F38.
 - **No PMIDs.** None are cited here. Never cite PMIDs 17107655, 26564575,
   34916210 or 29934429 (register: do not cite until the build confirms). C09
   is a mismatch and is not used.

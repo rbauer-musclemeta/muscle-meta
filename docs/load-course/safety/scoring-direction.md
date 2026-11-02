@@ -5,14 +5,17 @@ and A9 (QA).
 
 ## The rule
 
-The joint-load check gives the reader **three things and no number**:
+The joint-load check gives the reader **three things and no score**:
 
 1. **The red-flag outcome.**
 2. **A short reading of the belief and load answers**, in plain words.
 3. **One next step.**
 
 It never shows a composite percentage, a risk score, a tier, a coloured risk
-bar, or any number that rises as things look worse.
+bar, or any number that rises as things look worse. The one exception to "no
+percentage" is the published runner figures (3.5% and 10.2%), shown in the
+belief reading as an association (C11, C21). They describe a study, never the
+reader.
 
 ## Why
 
@@ -118,6 +121,6 @@ below it as a secondary button, labelled "See the course".
 
 ## Words A9 should search for on the results screen
 
-None of these may appear: `%`, "risk score", "composite", "tier", "minimal",
-"moderate risk", "high risk", "critical", "your joint is", "you have",
-"damage", "safe" used about the joint, "cleared".
+None of these may appear: "risk score", "composite", "tier", "minimal", "moderate risk", "high risk", "critical", "your joint is", "you have", "damage", "safe" used about the joint, "cleared" (the approved wording is "given you the go-ahead"), "clearance".
+
+Percentages: the only `%` allowed on the results screen is the raw runner figures, 3.5% and 10.2%, shown as an association with the C11 or C21 wording ("a link, not proof"). No score, percentage or other number that rises with risk may appear. A9 flags any other `%`.

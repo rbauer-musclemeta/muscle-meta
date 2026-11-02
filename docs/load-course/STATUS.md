@@ -87,6 +87,15 @@ D4 (Randy on camera, about two minutes per lesson), D5 (core launch scope).
 - Timing: right after core launch. Evidence checking starts now; build and QA after G2.
 - Rules: medicines and injections are prescribed by a medical doctor, so medication timing, doses and surgery holds become "talk to your doctor" points, not instructions.
 
+## Decisions, Randy 2026-11-02 ("all as suggested")
+
+- Tracker access open (no email). PDFs US Letter only.
+- Blog: effect sizes only for C06 and C08; rankings without percentages; cite Thomee 1997 and Silbernagel 2007 as origin of the 5/10 pain guide (Unproven-Bridge); title "pain guide"; runner post keeps its limits section.
+- Joint Health page keeps the GLP-1 paragraph (C13).
+- A6 may add the new pages to site/sitemap.xml (outside the build markers) and cards to site/tools/index.html and site/courses/index.html.
+- GLP-1 preview: drop C31 (STEP 9 injections and painkillers); leave the Porto 2025 cohort out of the download (blog draft may explain it); scope in glp1/notes.md approved (no dosing, no medicine advice, no "heals cartilage", no causation from cohort data, no protein number, no product, regulatory or cost figures).
+- Activity-goal lines: still to be confirmed explicitly (clinical sign-off).
+
 ## Gates
 
 | Gate | Status |
@@ -162,6 +171,7 @@ wording, "unlocking", Lesson 3 timing, audience age), for A1 and A2:
 | Date | Summary |
 |---|---|
 | 2026-11-01 | Setup read-through done; G0 question asked. |
+| 2026-11-02 | Randy: all as suggested (8 free-asset and 3 GLP-1 decisions). A5, A6, A1-glp1 follow-ups dispatched. |
 | 2026-11-02 | A1 GLP-1 evidence check reported: core claims verified, much of the report cut; 3 decisions for Randy. |
 | 2026-11-02 | A9 re-check clean. G2 waits on Randy: 9 decisions, Netlify previews, privacy page approval, Kit forms. |
 | 2026-11-02 | A9 pass 1: 4 small fails, sent back to A3, A4, A6. Re-check after fixes. |

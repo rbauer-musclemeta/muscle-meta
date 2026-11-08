@@ -1,7 +1,7 @@
 # Activity goals
 
-**Status: draft, pending Randy's sign-off.** Do not ship until Randy (Randall)
-Bauer, PT, as clinical reviewer, has approved this file.
+**Status: approved by Randy (Randall) Bauer, PT, clinical reviewer,
+2026-11-08.** Any change to this wording needs his sign-off again.
 
 Short guidance for each goal the reader can pick in the joint-load check
 ("What are you working toward?"). Shown in the results, after the next step,

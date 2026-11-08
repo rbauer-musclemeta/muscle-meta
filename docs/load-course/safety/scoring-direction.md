@@ -123,4 +123,11 @@ below it as a secondary button, labelled "See the course".
 
 None of these may appear: "risk score", "composite", "tier", "minimal", "moderate risk", "high risk", "critical", "your joint is", "you have", "damage", "safe" used about the joint, "cleared" (the approved wording is "given you the go-ahead"), "clearance".
 
+Exemption: the page disclaimer from `disclaimer.md`, shown verbatim on the
+results screen, contains "particularly if you have a heart condition". That
+sentence is exempt from the "you have" ban, because the legal text is kept
+word for word (orchestrator decision). The exemption covers only that
+disclaimer sentence; "you have" anywhere else on the results screen is still a
+fail.
+
 Percentages: the only `%` allowed on the results screen is the raw runner figures, 3.5% and 10.2%, shown as an association with the C11 or C21 wording ("a link, not proof"). No score, percentage or other number that rises with risk may appear. A9 flags any other `%`.

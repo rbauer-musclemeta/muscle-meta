@@ -11,7 +11,7 @@ here does not fit a layout, ask for a shorter version rather than editing it.
 | `inflammatory-arthritis-note.md` | A3 (results), A4, A8 | The note for rheumatoid and other inflammatory arthritis |
 | `disclaimer.md` | Every task | Page, download, email, lesson and footer versions |
 | `scoring-direction.md` | A3, A6, A9 | What the check shows instead of a percentage |
-| `activity-goals.md` | A3 (results), A8 | One short block per activity goal; pending Randy's sign-off |
+| `activity-goals.md` | A3 (results), A8 | One short block per activity goal; approved by Randy (Randall) Bauer, PT, clinical reviewer, 2026-11-08 |
 | `copy-fixes.md` | A4, A5, A6, A7, A8 | Each source sentence that must change, with its replacement |
 
 ## Status of this wording

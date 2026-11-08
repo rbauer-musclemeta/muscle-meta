@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Joint Health Assessment — Muscle-Meta Matrix™</title>
+<meta name="description" content="A comprehensive joint health risk and readiness assessment — medical history, risk factors, loading behavior, and sport-specific readiness for pickleball, tennis, golf, hiking, walking, and running.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<style>
+:root{
+ --teal:#009090;--teal-light:#00b3b3;--teal-dark:#006b6b;--teal-muted:#e6f5f5;
+ --gold:#D4AF37;--gold-dark:#B5952F;--gold-muted:#faf6e8;
+ --ink:#1a2332;--ink-soft:#344256;--ink-muted:#6b7b8f;--surface:#f7f6f3;--border:#e8e6e1;--white:#fff;
+ --green:#16a34a;--green-muted:#e9f7ef;--amber:#f59e0b;--amber-muted:#fef3e2;--red:#dc2626;--red-muted:#fbeaea;
+ --font-display:'Cormorant Garamond',Georgia,serif;--font-body:'Outfit','Helvetica Neue',Arial,sans-serif;
+ --shadow-sm:0 1px 3px rgba(26,35,50,.06),0 1px 2px rgba(26,35,50,.04);
+ --shadow-md:0 8px 24px rgba(26,35,50,.08);--shadow-lg:0 20px 50px rgba(26,35,50,.14);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-body);background:var(--surface);color:var(--ink-soft);line-height:1.6;min-height:100vh;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:var(--font-display);color:var(--ink);font-weight:700;line-height:1.16}
+a{color:inherit}
+.fade-in{animation:fadeIn .4s ease-out forwards}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+header.nav{background:rgba(255,255,255,.94);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:60;box-shadow:var(--shadow-sm)}
+.nav-inner{max-width:840px;margin:0 auto;padding:13px 20px;display:flex;align-items:center;gap:12px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-mark{width:36px;height:36px;background:var(--teal);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;position:relative;box-shadow:var(--shadow-sm)}
+.logo-mark::after{content:"";position:absolute;top:-3px;right:-3px;width:11px;height:11px;background:var(--gold);border-radius:3px;border:2px solid var(--white)}
+.logo-txt{font-family:var(--font-display);font-weight:700;font-size:16px;color:var(--ink)}
+.logo-txt small{display:block;font-family:var(--font-body);font-size:10.5px;font-weight:500;color:var(--ink-muted);letter-spacing:.06em;text-transform:uppercase}
+.byline{margin-left:auto;font-size:12px;color:var(--ink-muted)}
+
+main{flex:1;display:flex;align-items:flex-start;justify-content:center;padding:32px 16px 60px}
+.card{background:#fff;width:100%;max-width:720px;border-radius:20px;box-shadow:var(--shadow-lg);border:1px solid var(--border);padding:32px 30px}
+@media(max-width:600px){.card{padding:24px 18px}}
+
+.progress-wrap{width:100%;background:var(--surface);height:8px;border-radius:99px;margin-bottom:26px;overflow:hidden}
+.progress-bar{background:linear-gradient(90deg,var(--teal),var(--teal-light));height:100%;border-radius:99px;transition:width .5s ease;width:8%}
+.stepmeta{display:flex;justify-content:space-between;font-size:11px;color:var(--ink-muted);margin-top:-18px;margin-bottom:22px;letter-spacing:.03em}
+
+.step-pane{display:none}
+.step-pane.active{display:block}
+.kicker{display:inline-flex;align-items:center;gap:7px;background:var(--teal-muted);color:var(--teal-dark);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:5px 12px;border-radius:99px;margin-bottom:12px}
+.kicker.alt{background:var(--gold-muted);color:var(--gold-dark)}
+h2.qh{font-size:24px;margin-bottom:6px}
+p.qsub{font-size:14px;color:var(--ink-muted);margin-bottom:20px}
+
+label.field-label{display:block;font-size:13.5px;font-weight:600;color:var(--ink-soft);margin-bottom:8px}
+input[type=text]{width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--border);font-family:var(--font-body);font-size:15px;background:var(--surface)}
+input[type=text]:focus{outline:none;border-color:var(--teal);background:#fff}
+
+.opt-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.opt-grid{grid-template-columns:1fr}}
+.opt-card{border:2px solid var(--border);border-radius:14px;padding:14px 16px;display:flex;gap:10px;align-items:flex-start;cursor:pointer;transition:.15s}
+.opt-card:hover{border-color:var(--teal-light)}
+.opt-card input{margin-top:3px;accent-color:var(--teal)}
+.opt-card b{display:block;font-size:14px;color:var(--ink)}
+.opt-card span.d{display:block;font-size:12px;color:var(--ink-muted);margin-top:2px}
+.opt-card.checked{border-color:var(--teal);background:var(--teal-muted)}
+
+.choice-btn{width:100%;text-align:left;padding:16px 18px;border-radius:14px;border:1px solid var(--border);background:#fff;display:flex;gap:14px;align-items:flex-start;cursor:pointer;transition:.15s;margin-bottom:12px;font-family:var(--font-body)}
+.choice-btn:hover{border-color:var(--teal);box-shadow:var(--shadow-sm)}
+.choice-btn .tag{flex:0 0 auto;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px}
+.choice-btn.r .tag{background:var(--red-muted);color:var(--red)}
+.choice-btn.a .tag{background:var(--amber-muted);color:var(--amber)}
+.choice-btn.g .tag{background:var(--green-muted);color:var(--green)}
+.choice-btn b{display:block;font-size:14.5px;color:var(--ink)}
+.choice-btn span.d{display:block;font-size:12.5px;color:var(--ink-muted);margin-top:3px}
+
+.subq{margin-top:18px;padding:16px;background:var(--surface);border-radius:12px;border:1px dashed var(--border)}
+.subq.hidden{display:none}
+
+.check-list{display:grid;gap:10px;margin-top:6px}
+.check-item{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--border);border-radius:12px;padding:13px 15px;cursor:pointer;transition:.15s}
+.check-item:hover{border-color:var(--teal-light)}
+.check-item.checked{border-color:var(--teal);background:var(--teal-muted)}
+.check-item .box{flex:0 0 auto;width:20px;height:20px;border-radius:6px;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;margin-top:1px;font-size:11px;color:transparent}
+.check-item.checked .box{background:var(--teal);border-color:var(--teal);color:#fff}
+.check-item span.t{font-size:13.5px;color:var(--ink-soft)}
+
+.multi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:6px}
+@media(max-width:600px){.multi-grid{grid-template-columns:repeat(2,1fr)}}
+.multi-item{border:2px solid var(--border);border-radius:12px;padding:14px 8px;text-align:center;cursor:pointer;transition:.15s;font-size:12.5px;font-weight:600;color:var(--ink-soft)}
+.multi-item i{display:block;font-size:19px;margin-bottom:7px;color:var(--teal)}
+.multi-item.checked{border-color:var(--teal);background:var(--teal-muted);color:var(--teal-dark)}
+
+.nav-row{display:flex;justify-content:space-between;margin-top:26px}
+.btn{font-family:var(--font-body);font-weight:600;font-size:14.5px;padding:12px 24px;border-radius:10px;border:none;cursor:pointer;transition:.15s}
+.btn-primary{background:var(--teal);color:#fff}
+.btn-primary:hover{background:var(--teal-dark)}
+.btn-ghost{background:#fff;border:1px solid var(--border);color:var(--ink-soft)}
+.btn-ghost:hover{border-color:var(--teal);color:var(--teal)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+
+/* reframe panel */
+.reframe{background:var(--gold-muted);border-left:4px solid var(--gold);border-radius:0 16px 16px 0;padding:22px}
+.reframe .rt{display:flex;align-items:center;gap:8px;color:var(--gold-dark);font-weight:700;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}
+.reframe h3{font-size:20px;margin-bottom:10px}
+.reframe p{font-size:14px;color:var(--ink-soft);margin-bottom:10px}
+.statbox{background:#fff;border:1px solid rgba(212,175,55,.3);border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:14px;margin-top:8px;box-shadow:var(--shadow-sm)}
+.statbox .n{font-family:var(--font-display);font-size:32px;font-weight:700;color:var(--teal)}
+.statbox p{font-size:12px;color:var(--ink-muted);margin:0}
+
+/* results */
+.rgrid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+@media(max-width:640px){.rgrid3{grid-template-columns:1fr}}
+.rstat{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px;text-align:center}
+.rstat .lbl{font-size:10.5px;font-weight:700;color:var(--ink-muted);text-transform:uppercase;letter-spacing:.04em}
+.rstat .val{font-family:var(--font-display);font-size:28px;font-weight:700;margin-top:4px}
+.rstat .sub{font-size:11px;color:var(--ink-muted);margin-top:3px;text-transform:uppercase;font-weight:700;letter-spacing:.03em}
+
+.tierbar-wrap{background:var(--border);border-radius:99px;height:10px;margin:6px 0 22px;overflow:hidden}
+.tierbar{height:100%;border-radius:99px;transition:width .6s ease}
+
+.panel{border-radius:14px;padding:18px 20px;margin-bottom:14px;border:1px solid var(--border);background:#fff}
+.panel h4{font-size:16px;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.panel p{font-size:13.5px;color:var(--ink-soft)}
+.panel.flag{background:var(--red-muted);border-color:#f3caca}
+.panel.flag h4{color:var(--red)}
+.panel.caution{background:var(--amber-muted);border-color:#fbd9a5}
+.panel.caution h4{color:var(--amber)}
+.panel.good{background:var(--green-muted);border-color:#bfe6cd}
+.panel.good h4{color:var(--green)}
+.panel.info{background:var(--teal-muted);border-color:#b8e6e6}
+.panel.info h4{color:var(--teal-dark)}
+
+.sportcard{border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:10px;display:flex;gap:12px;align-items:flex-start}
+.sportcard i{color:var(--teal);font-size:18px;margin-top:2px}
+.sportcard b{display:block;font-size:14px;color:var(--ink)}
+.sportcard .rd{display:inline-block;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;padding:2px 9px;border-radius:99px;margin-left:8px;vertical-align:middle}
+.sportcard p{font-size:13px;color:var(--ink-soft);margin-top:3px}
+
+.cta-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.cta-row a.btn-primary,.cta-row button.btn-primary{text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+
+footer{background:var(--ink);color:rgba(255,255,255,.75);padding:22px 0;text-align:center;font-size:11.5px}
+
+@media print{
+ header.nav,.nav-row,.btn-print,footer .print-hide{display:none!important}
+ body{background:#fff}
+ .step-pane{display:none!important}
+ .step-pane#step-8{display:block!important}
+ .card{box-shadow:none;border:none;max-width:100%;padding:0}
+ main{padding:0}
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+ <div class="nav-inner">
+  <a class="logo" href="../Muscle Meta Research Assistant/01_Pillar_Exercise_Mobility/01_Joint_Health/MM-JointHealth-LoadAsMedicine-MiniCourse.html"><span class="logo-mark"><i class="fa-solid fa-bolt"></i></span><span class="logo-txt">Muscle-Meta Matrix™<small>Joint Health Assessment</small></span></a>
+  <span class="byline">Randy Bauer, PT · Founder</span>
+ </div>
+</header>
+
+<main>
+ <div class="card">
+
+  <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+  <div class="stepmeta"><span id="stepLabel">Step 1 of 8</span><span id="stepName">Welcome</span></div>
+
+  <!-- STEP 1: WELCOME / PROFILE -->
+  <div class="step-pane active fade-in" id="step-1">
+   <div class="kicker"><i class="fa-solid fa-clipboard-list"></i> Joint Health Assessment</div>
+   <h2 class="qh">Let's map your joint health risk and readiness</h2>
+   <p class="qsub">This takes about 5 minutes and covers your medical history, risk factors, movement beliefs, and the activities you're working toward. Nothing here replaces medical advice — it's a starting point for your plan.</p>
+
+   <label class="field-label">Your name</label>
+   <input type="text" id="clientName" placeholder="e.g. Jane Doe">
+
+   <div style="margin-top:20px">
+    <label class="field-label">Which joint is your primary concern?</label>
+    <div class="opt-grid">
+     <label class="opt-card" data-group="joint" data-val="Knee"><input type="radio" name="joint" value="Knee" checked><div><b>Knee</b><span class="d">One or both knees</span></div></label>
+     <label class="opt-card" data-group="joint" data-val="Hip"><input type="radio" name="joint" value="Hip"><div><b>Hip</b><span class="d">One or both hips</span></div></label>
+     <label class="opt-card" data-group="joint" data-val="Both"><input type="radio" name="joint" value="Both"><div><b>Both knee &amp; hip</b><span class="d">Concerns in both regions</span></div></label>
+     <label class="opt-card" data-group="joint" data-val="Other"><input type="radio" name="joint" value="Other"><div><b>Other joint</b><span class="d">Shoulder, ankle, or elsewhere</span></div></label>
+    </div>
+   </div>
+
+   <div style="margin-top:20px">
+    <label class="field-label">Are you currently using GLP-1 medication for weight management?</label>
+    <div class="opt-grid">
+     <label class="opt-card" data-group="glp1" data-val="yes"><input type="radio" name="glp1" value="yes"><div><b>Yes</b><span class="d">Currently taking</span></div></label>
+     <label class="opt-card" data-group="glp1" data-val="no"><input type="radio" name="glp1" value="no" checked><div><b>No</b></div></label>
+    </div>
+   </div>
+
+   <div class="nav-row"><span></span><button class="btn btn-primary" onclick="handleStep1()">Begin screening <i class="fa-solid fa-arrow-right"></i></button></div>
+  </div>
+
+  <!-- STEP 2: MEDICAL HISTORY -->
+  <div class="step-pane" id="step-2">
+   <div class="kicker"><i class="fa-solid fa-notes-medical"></i> Medical history</div>
+   <h2 class="qh">Have you had a significant injury to this joint?</h2>
+   <p class="qsub">Ligament tears, fractures, meniscus or labral tears, or other significant trauma.</p>
+   <div class="opt-grid" style="grid-template-columns:1fr">
+    <label class="opt-card" data-group="injury" data-val="0"><input type="radio" name="injury" value="0" checked><div><b>No significant injury history</b></div></label>
+    <label class="opt-card" data-group="injury" data-val="1"><input type="radio" name="injury" value="1"><div><b>Yes, but fully recovered</b><span class="d">Healed with no lasting limitation</span></div></label>
+    <label class="opt-card" data-group="injury" data-val="3"><input type="radio" name="injury" value="3"><div><b>Yes, with ongoing issues</b><span class="d">Still affects movement or causes pain</span></div></label>
+   </div>
+
+   <h2 class="qh" style="margin-top:26px">Have you had surgery on this joint?</h2>
+   <div class="opt-grid" style="grid-template-columns:1fr">
+    <label class="opt-card" data-group="surgery" data-val="0"><input type="radio" name="surgery" value="0" checked onclick="toggleReplacementSub(false)"><div><b>No surgery</b></div></label>
+    <label class="opt-card" data-group="surgery" data-val="1"><input type="radio" name="surgery" value="1" onclick="toggleReplacementSub(false)"><div><b>Minor procedure</b><span class="d">Arthroscopy / scope</span></div></label>
+    <label class="opt-card" data-group="surgery" data-val="2"><input type="radio" name="surgery" value="2" onclick="toggleReplacementSub(false)"><div><b>Major reconstruction</b><span class="d">Ligament repair, etc. (not joint replacement)</span></div></label>
+    <label class="opt-card" data-group="surgery" data-val="3"><input type="radio" name="surgery" value="3" onclick="toggleReplacementSub(true)"><div><b>Joint replacement</b><span class="d">Partial or total arthroplasty</span></div></label>
+   </div>
+
+   <div class="subq hidden" id="replacementSub">
+    <label class="field-label">Where are you in that process?</label>
+    <div class="opt-grid" style="grid-template-columns:1fr">
+     <label class="opt-card" data-group="replacement" data-val="1"><input type="radio" name="replacement" value="1" checked><div><b>Considering it</b><span class="d">Not yet scheduled</span></div></label>
+     <label class="opt-card" data-group="replacement" data-val="2"><input type="radio" name="replacement" value="2"><div><b>Scheduled</b><span class="d">Date is set</span></div></label>
+     <label class="opt-card" data-group="replacement" data-val="3"><input type="radio" name="replacement" value="3"><div><b>Completed, less than 6 months ago</b></div></label>
+     <label class="opt-card" data-group="replacement" data-val="1"><input type="radio" name="replacement" value="1"><div><b>Completed, 6+ months ago</b></div></label>
+    </div>
+   </div>
+
+   <h2 class="qh" style="margin-top:26px">Do you have a diagnosed joint condition?</h2>
+   <div class="opt-grid">
+    <label class="opt-card" data-group="condition" data-val="OA"><input type="radio" name="condition" value="OA" checked><div><b>Osteoarthritis</b></div></label>
+    <label class="opt-card" data-group="condition" data-val="Inflammatory"><input type="radio" name="condition" value="Inflammatory"><div><b>Rheumatoid or other inflammatory arthritis</b></div></label>
+    <label class="opt-card" data-group="condition" data-val="Undiagnosed"><input type="radio" name="condition" value="Undiagnosed"><div><b>Not formally diagnosed</b></div></label>
+    <label class="opt-card" data-group="condition" data-val="Other"><input type="radio" name="condition" value="Other"><div><b>Other / unsure</b></div></label>
+   </div>
+
+   <div class="nav-row"><button class="btn btn-ghost" onclick="goToStep(1)">Back</button><button class="btn btn-primary" onclick="handleStep2()">Continue <i class="fa-solid fa-arrow-right"></i></button></div>
+  </div>
+
+  <!-- STEP 3: RISK FACTORS -->
+  <div class="step-pane" id="step-3">
+   <div class="kicker"><i class="fa-solid fa-triangle-exclamation"></i> Risk factors</div>
+   <h2 class="qh">Which of these apply to you?</h2>
+   <p class="qsub">Select everything that's currently true. There's no penalty for a long list — this just shapes your plan.</p>
+   <div class="check-list" id="riskFactorList">
+    <div class="check-item" data-rf="occupational"><div class="box"><i class="fa-solid fa-check"></i></div><span class="t">My job or daily routine involves frequent kneeling, squatting, heavy lifting, or prolonged standing</span></div>
+    <div class="check-item" data-rf="weight"><div class="box"><i class="fa-solid fa-check"></i></div><span class="t">My current body weight adds noticeable strain to this joint</span></div>
+    <div class="check-item" data-rf="family"><div class="box"><i class="fa-solid fa-check"></i></div><span class="t">I have a family history of osteoarthritis or joint replacement</span></div>
+    <div class="check-item" data-rf="smoking"><div class="box"><i class="fa-solid fa-check"></i></div><span class="t">I currently smoke or use tobacco</span></div>
+    <div class="check-item" data-rf="metabolic"><div class="box"><i class="fa-solid fa-check"></i></div><span class="t">I have diabetes or a metabolic condition that affects healing</span></div>
+    <div class="check-item" data-rf="balance"><div class="box"><i class="fa-solid fa-check"></i></div><span class="t">I've had a fall or balance issue in the past year</span></div>
+    <div class="check-item" data-rf="sedentary"><div class="box"><i class="fa-solid fa-check"></i></div><span class="t">I've been mostly sedentary for an extended period (weeks or more)</span></div>
+   </div>
+   <div class="nav-row"><button class="btn btn-ghost" onclick="goToStep(2)">Back</button><button class="btn btn-primary" onclick="goToStep(4)">Continue <i class="fa-solid fa-arrow-right"></i></button></div>
+  </div>
+
+  <!-- STEP 4: BELIEF BARRIER -->
+  <div class="step-pane" id="step-4">
+   <div class="kicker"><i class="fa-solid fa-brain"></i> Movement beliefs</div>
+   <h2 class="qh">How do you believe exercise and mechanical load impact a painful joint?</h2>
+   <button class="choice-btn r" onclick="selectQ1(3)"><div class="tag">A</div><div><b>"Movement acts like sandpaper on a tire."</b><span class="d">Every load spends down joint cartilage, so I need to minimize weight-bearing exercise to avoid worsening the arthritis.</span></div></button>
+   <button class="choice-btn a" onclick="selectQ1(2)"><div class="tag">B</div><div><b>"Exercise is healthy, but rest is the safe default."</b><span class="d">I should skip loaded activities when my joint aches and default to rest and medication.</span></div></button>
+   <button class="choice-btn g" onclick="selectQ1(0)"><div class="tag">C</div><div><b>"Joint movement is the mechanism that feeds cartilage."</b><span class="d">Cartilage requires physiological mechanical stress to signal cells to rebuild and maintain joint structure.</span></div></button>
+  </div>
+
+  <!-- STEP 4-REFRAME -->
+  <div class="step-pane" id="step-4r">
+   <div class="reframe">
+    <div class="rt"><i class="fa-solid fa-lightbulb"></i> Muscle-Meta™ real-time reframe</div>
+    <h3>Your joint is living tissue — not a rubber tire.</h3>
+    <p>The single most damaging myth in joint health is that joints "wear and tear" from movement. Cartilage has no blood vessels of its own — it relies on the mechanical squeeze-and-release of joint movement to circulate nutrients in and waste out.</p>
+    <p><b style="color:var(--teal-dark)">Complete rest doesn't protect your joint. It starves the cells that maintain it.</b></p>
+    <div class="statbox"><div class="n">3.5%</div><p><b>OA prevalence in recreational movers</b> vs. 10.2% in sedentary adults. Moving intelligently is linked to roughly a third of the arthritis risk.<br><span style="color:var(--ink-muted)">Alentorn-Geli et al., 2017 · n=125,810</span></p></div>
+   </div>
+   <div class="nav-row"><span></span><button class="btn btn-primary" onclick="goToStep(5)">I understand, continue <i class="fa-solid fa-arrow-right"></i></button></div>
+  </div>
+
+  <!-- STEP 5: PASSIVE MANAGEMENT DEFAULT -->
+  <div class="step-pane" id="step-5">
+   <div class="kicker"><i class="fa-solid fa-clipboard-check"></i> Management strategy</div>
+   <h2 class="qh">What's your go-to strategy when this joint flares up?</h2>
+   <button class="choice-btn r" onclick="selectQ2(3)"><div class="tag">A</div><div><b>Total rest &amp; heavy medication</b><span class="d">I stop moving entirely and rely on regular NSAIDs, acetaminophen, or injections.</span></div></button>
+   <button class="choice-btn a" onclick="selectQ2(2)"><div class="tag">B</div><div><b>Voluntary activity reduction</b><span class="d">I pull back from exercise and wait indefinitely for the flare to resolve.</span></div></button>
+   <button class="choice-btn g" onclick="selectQ2(0)"><div class="tag">C</div><div><b>Controlled, progressive modification</b><span class="d">I keep moving, adjusting frequency or range while staying under a safe pain boundary.</span></div></button>
+  </div>
+
+  <!-- STEP 6: FUNCTIONAL LOAD TOLERANCE -->
+  <div class="step-pane" id="step-6">
+   <div class="kicker"><i class="fa-solid fa-gauge-high"></i> Joint capacity</div>
+   <h2 class="qh">How does your joint respond to 20 minutes of continuous, low-impact loading?</h2>
+   <p class="qsub">Low-impact loading = flat walking, aquatic movement, or stationary cycling.</p>
+   <button class="choice-btn r" onclick="selectQ3(3)"><div class="tag">A</div><div><b>Can't tolerate it</b><span class="d">Pain spikes past 5/10 quickly and stays severe for days.</span></div></button>
+   <button class="choice-btn a" onclick="selectQ3(2)"><div class="tag">B</div><div><b>Tolerable, but flares linger</b><span class="d">I get through it, but pain often exceeds 5/10 or lasts over 24 hours.</span></div></button>
+   <button class="choice-btn g" onclick="selectQ3(0)"><div class="tag">C</div><div><b>Highly tolerable</b><span class="d">Any ache stays at or below 5/10 and settles within 24 hours.</span></div></button>
+  </div>
+
+  <!-- STEP 7: GOALS & SPORT-SPECIFIC READINESS -->
+  <div class="step-pane" id="step-7">
+   <div class="kicker"><i class="fa-solid fa-flag-checkered"></i> Your goals</div>
+   <h2 class="qh">What are you working toward?</h2>
+   <p class="qsub">Select every activity that applies — this shapes your readiness guidance below.</p>
+   <div class="multi-grid" id="goalGrid">
+    <div class="multi-item" data-goal="pickleball"><i class="fa-solid fa-table-tennis-paddle-ball"></i>Pickleball</div>
+    <div class="multi-item" data-goal="tennis"><i class="fa-solid fa-baseball-bat-ball"></i>Tennis</div>
+    <div class="multi-item" data-goal="golf"><i class="fa-solid fa-golf-ball-tee"></i>Golf</div>
+    <div class="multi-item" data-goal="hiking"><i class="fa-solid fa-person-hiking"></i>Hiking</div>
+    <div class="multi-item" data-goal="walkrun"><i class="fa-solid fa-person-running"></i>Walking / running</div>
+    <div class="multi-item" data-goal="daily"><i class="fa-solid fa-stairs"></i>Daily function<br>(stairs, standing)</div>
+   </div>
+
+   <h2 class="qh" style="margin-top:26px">Where are you today with your top activity?</h2>
+   <div class="opt-grid" style="grid-template-columns:1fr">
+    <label class="opt-card" data-group="level" data-val="stopped"><input type="radio" name="level" value="stopped" checked><div><b>Stopped doing it because of joint pain</b></div></label>
+    <label class="opt-card" data-group="level" data-val="limited"><input type="radio" name="level" value="limited"><div><b>Doing it, but significantly limited</b></div></label>
+    <label class="opt-card" data-group="level" data-val="mild"><input type="radio" name="level" value="mild"><div><b>Doing it with mild limitation</b></div></label>
+    <label class="opt-card" data-group="level" data-val="none"><input type="radio" name="level" value="none"><div><b>No limitation — optimizing further</b></div></label>
+   </div>
+
+   <div class="nav-row"><button class="btn btn-ghost" onclick="goToStep(6)">Back</button><button class="btn btn-primary" onclick="finishAssessment()">See my results <i class="fa-solid fa-arrow-right"></i></button></div>
+  </div>
+
+  <!-- STEP 8: RESULTS -->
+  <div class="step-pane" id="step-8">
+   <div class="kicker"><i class="fa-solid fa-chart-simple"></i> Your results</div>
+   <h2 class="qh" id="resultName">Your Joint Health Report</h2>
+   <p class="qsub">Composite risk reflects your medical history, risk factors, and loading behavior — not a diagnosis. Bring this summary to your PT or physician if you're High or Critical tier, or preparing for surgery.</p>
+
+   <div class="rgrid3">
+    <div class="rstat"><div class="lbl">Composite risk</div><div class="val" id="riskPct">--%</div><div class="sub" id="riskTierLabel">--</div></div>
+    <div class="rstat"><div class="lbl">Medical context</div><div class="val" style="font-size:16px" id="medContext">--</div><div class="sub">Surgical / diagnosis status</div></div>
+    <div class="rstat"><div class="lbl">Risk factors</div><div class="val" id="rfCount">0</div><div class="sub">Selected</div></div>
+   </div>
+   <div class="tierbar-wrap"><div class="tierbar" id="tierbar" style="width:0%"></div></div>
+
+   <div id="flagsWrap"></div>
+   <div id="sportsWrap"></div>
+
+   <div class="panel info">
+    <h4><i class="fa-solid fa-list-check"></i> Core loading rules, every tier</h4>
+    <p><b>The 5/10 pain boundary:</b> joint ache during loaded exercise should never exceed 5 out of 10.<br><b>The 24-hour rule:</b> any post-exercise ache should fully settle back to baseline within 24 hours.</p>
+   </div>
+
+   <div class="cta-row print-hide">
+    <a href="../Muscle Meta Research Assistant/01_Pillar_Exercise_Mobility/01_Joint_Health/MM-JointHealth-LoadAsMedicine-MiniCourse.html" class="btn btn-primary"><i class="fa-solid fa-graduation-cap"></i> Start the 3-lesson course</a>
+    <a href="../Muscle Meta Research Assistant/01_Pillar_Exercise_Mobility/01_Joint_Health/MM-JointHealth-OsteoarthritisLoadingGuide.html" class="btn btn-ghost"><i class="fa-solid fa-book-medical"></i> Open the Loading Guide</a>
+    <button class="btn btn-ghost" onclick="window.print()"><i class="fa-solid fa-print"></i> Print / Save as PDF</button>
+    <button class="btn btn-ghost" onclick="resetTool()"><i class="fa-solid fa-rotate-left"></i> Restart</button>
+   </div>
+  </div>
+
+ </div>
+</main>
+
+<footer>&copy; 2026 Muscle-Meta Matrix™. Educational tool, not medical advice. Developed by Randy Bauer, PT.</footer>
+
+<script>
+/* ===================== STATE ===================== */
+let state = {
+  name:'', joint:'Knee', glp1:false,
+  injuryScore:0, surgeryScore:0, replacementScore:0, condition:'OA',
+  riskFactors:[], // array of keys
+  q1:0, q2:0, q3:0,
+  goals:[], level:'stopped'
+};
+const steps = ['step-1','step-2','step-3','step-4','step-4r','step-5','step-6','step-7','step-8'];
+const stepNames = {1:'Welcome',2:'Medical history',3:'Risk factors',4:'Movement beliefs','4r':'Reframe',5:'Management strategy',6:'Joint capacity',7:'Your goals',8:'Results'};
+const stepOrder = [1,2,3,4,'4r',5,6,7,8];
+
+/* ===================== NAV ===================== */
+function goToStep(n){
+  steps.forEach(id=>document.getElementById(id).classList.remove('active'));
+  document.getElementById('step-'+n).classList.add('active');
+  document.getElementById('step-'+n).classList.add('fade-in');
+  const idx = stepOrder.indexOf(n);
+  const pct = Math.round(((idx+1)/stepOrder.length)*100);
+  document.getElementById('progressBar').style.width = pct+'%';
+  document.getElementById('stepLabel').textContent = 'Step '+(idx+1)+' of '+stepOrder.length;
+  document.getElementById('stepName').textContent = stepNames[n];
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* selection card highlighting for radio-style opt-cards */
+document.addEventListener('click', e=>{
+  const card = e.target.closest('.opt-card');
+  if(card){
+    const group = card.dataset.group;
+    document.querySelectorAll(`.opt-card[data-group="${group}"]`).forEach(c=>c.classList.remove('checked'));
+    card.classList.add('checked');
+  }
+});
+
+function toggleReplacementSub(show){
+  document.getElementById('replacementSub').classList.toggle('hidden', !show);
+}
+
+/* risk factor checklist toggling */
+document.querySelectorAll('.check-item').forEach(item=>{
+  item.addEventListener('click', ()=>{
+    item.classList.toggle('checked');
+    const rf = item.dataset.rf;
+    const i = state.riskFactors.indexOf(rf);
+    if(item.classList.contains('checked') && i===-1) state.riskFactors.push(rf);
+    if(!item.classList.contains('checked') && i>-1) state.riskFactors.splice(i,1);
+  });
+});
+
+/* goal multi-select */
+document.querySelectorAll('.multi-item').forEach(item=>{
+  item.addEventListener('click', ()=>{
+    item.classList.toggle('checked');
+    const g = item.dataset.goal;
+    const i = state.goals.indexOf(g);
+    if(item.classList.contains('checked') && i===-1) state.goals.push(g);
+    if(!item.classList.contains('checked') && i>-1) state.goals.splice(i,1);
+  });
+});
+
+/* ===================== STEP HANDLERS ===================== */
+function handleStep1(){
+  state.name = document.getElementById('clientName').value.trim() || 'Your';
+  state.joint = document.querySelector('input[name="joint"]:checked').value;
+  state.glp1 = document.querySelector('input[name="glp1"]:checked').value === 'yes';
+  goToStep(2);
+}
+
+function handleStep2(){
+  state.injuryScore = parseInt(document.querySelector('input[name="injury"]:checked').value);
+  state.surgeryScore = parseInt(document.querySelector('input[name="surgery"]:checked').value);
+  const repEl = document.querySelector('input[name="replacement"]:checked');
+  state.replacementScore = (state.surgeryScore===3 && repEl) ? parseInt(repEl.value) : 0;
+  state.replacementStatusLabel = (state.surgeryScore===3 && repEl) ? repEl.closest('.opt-card').querySelector('b').textContent : null;
+  state.condition = document.querySelector('input[name="condition"]:checked').value;
+  goToStep(3);
+}
+
+function selectQ1(score){
+  state.q1 = score;
+  if(score >= 2){ goToStep('4r'); } else { goToStep(5); }
+}
+function selectQ2(score){ state.q2 = score; goToStep(6); }
+function selectQ3(score){ state.q3 = score; goToStep(7); }
+
+function finishAssessment(){
+  state.level = document.querySelector('input[name="level"]:checked').value;
+  goToStep(8);
+  renderResults();
+}
+
+/* ===================== SCORING ENGINE ===================== */
+/* 5-tier model per Muscle-Meta Matrix assessment ecosystem standard:
+   Minimal 0-20% | Low 21-40% | Moderate 41-60% | High 61-80% | Critical 81-100% */
+function computeResults(){
+  const medHistory = Math.min(10, state.injuryScore + state.surgeryScore + state.replacementScore); // 0-10
+  const riskFactorPts = state.riskFactors.length; // 0-7
+  const behaviorPts = state.q1 + state.q2 + state.q3; // 0-9
+  const raw = medHistory + riskFactorPts + behaviorPts; // max 26
+  const pct = Math.round((raw/26)*100);
+
+  let tier, tierColor;
+  if(pct <= 20){ tier='MINIMAL'; tierColor='var(--green)'; }
+  else if(pct <= 40){ tier='LOW'; tierColor='var(--teal)'; }
+  else if(pct <= 60){ tier='MODERATE'; tierColor='var(--amber)'; }
+  else if(pct <= 80){ tier='HIGH'; tierColor='var(--red)'; }
+  else { tier='CRITICAL'; tierColor='var(--red)'; }
+
+  return {medHistory, riskFactorPts, behaviorPts, raw, pct, tier, tierColor};
+}
+
+function renderResults(){
+  const r = computeResults();
+  document.getElementById('resultName').textContent = state.name + "'s Joint Health Report";
+  document.getElementById('riskPct').textContent = r.pct + '%';
+  document.getElementById('riskPct').style.color = r.tierColor;
+  document.getElementById('riskTierLabel').textContent = r.tier + ' RISK';
+  document.getElementById('riskTierLabel').style.color = r.tierColor;
+  document.getElementById('rfCount').textContent = state.riskFactors.length;
+  document.getElementById('tierbar').style.width = r.pct+'%';
+  document.getElementById('tierbar').style.background = r.tierColor;
+
+  let medLabel = state.surgeryScore===3 ? (state.replacementStatusLabel || 'Joint replacement') : (state.surgeryScore===2 ? 'Major reconstruction' : state.surgeryScore===1 ? 'Minor procedure' : 'No surgery');
+  document.getElementById('medContext').textContent = medLabel;
+
+  const flags = [];
+
+  // Inflammatory arthritis caution
+  if(state.condition === 'Inflammatory'){
+    flags.push({type:'caution', icon:'fa-user-doctor', title:'Coordinate with your rheumatologist', body:'This course and guide are built around osteoarthritis mechanisms. Inflammatory arthritis (rheumatoid or other) has different flare patterns and loading considerations — use this content alongside your rheumatologist\'s guidance, not in place of it.'});
+  }
+
+  // GLP-1 modifier
+  if(state.glp1){
+    flags.push({type:'caution', icon:'fa-syringe', title:'GLP-1 muscle preservation', body:'Rapid weight loss reduces mechanical load on the joint — a real benefit. But losing lean muscle mass can reduce the quadriceps/hip strength that safely distributes that load. Prioritize resistance training and adequate protein alongside your medication.'});
+  }
+
+  // Surgery scheduled / recent + high demand goal
+  const highPivot = state.goals.includes('pickleball') || state.goals.includes('tennis');
+  if((state.surgeryScore===3) && (state.replacementScore===2 || state.replacementScore===3) ){
+    const when = state.replacementScore===2 ? 'scheduled' : 'completed in the last 6 months';
+    flags.push({type:'flag', icon:'fa-calendar-check', title:'Surgery ' + when + ' — pace accordingly', body:'Get PT or surgeon clearance before progressing load' + (highPivot ? ', especially before returning to pivoting sports like pickleball or tennis.' : '.') + ' The Loading Guide\'s pre-surgery / post-surgery sections are built for exactly this window.'});
+  }
+
+  // Compound catabolic cascade flag
+  if(r.pct >= 61 && state.q1 >= 2 && state.riskFactors.length >= 3){
+    flags.push({type:'flag', icon:'fa-triangle-exclamation', title:'Active catabolic cascade pattern', body:'High fear-avoidance, multiple risk factors, and elevated composite risk together suggest your joint may be in an unloading spiral. Priority: belief-reframing (Lesson 1) plus a gentle, tolerable modality — not more rest.'});
+  }
+
+  // Good baseline
+  if(r.pct <= 20){
+    flags.push({type:'good', icon:'fa-circle-check', title:'Strong baseline', body:'Your history, risk factors, and loading behavior all point the same direction: you\'re well positioned to progress toward your goals with a standard, progressive plan.'});
+  }
+
+  document.getElementById('flagsWrap').innerHTML = flags.map(f=>`
+    <div class="panel ${f.type}"><h4><i class="fa-solid ${f.icon}"></i> ${f.title}</h4><p>${f.body}</p></div>
+  `).join('');
+
+  // Sport-specific readiness
+  const readinessByTier = {
+    MINIMAL:{label:'Ready to progress', color:'var(--green)'},
+    LOW:{label:'Ready to progress', color:'var(--green)'},
+    MODERATE:{label:'Building phase', color:'var(--amber)'},
+    HIGH:{label:'Foundation phase', color:'var(--red)'},
+    CRITICAL:{label:'Not yet — build first', color:'var(--red)'}
+  };
+  const rd = readinessByTier[r.tier];
+
+  const sportCopy = {
+    pickleball: {icon:'fa-table-tennis-paddle-ball', name:'Pickleball', note:'High-pivot, directional loading. Build a season-long quadriceps/hip strength base before ramping up play frequency, not after symptoms start.'},
+    tennis: {icon:'fa-baseball-bat-ball', name:'Tennis', note:'Similar directional/pivoting demand to pickleball — the same quad/hip strength base applies before increasing court time.'},
+    golf: {icon:'fa-golf-ball-tee', name:'Golf', note:'Rotational load through the hips and spine. Build hip mobility and rotational strength gradually, and apply the acceptable pain rule to full-swing practice volume.'},
+    hiking: {icon:'fa-person-hiking', name:'Hiking', note:'Sustained, variable-terrain load. Build time-on-feet gradually; if risk is elevated, trekking poles reduce load on descents.'},
+    walkrun: {icon:'fa-person-running', name:'Walking / running', note:'Recreational-dose walking and running is linked to lower arthritis risk than sitting. Reintroduce gradually using the acceptable pain rule, especially if returning after a layoff.'},
+    daily: {icon:'fa-stairs', name:'Daily function', note:'Stairs, standing tolerance, and getting up from a chair all trace back to the same quadriceps/hip strengthening progression in the Loading Guide.'}
+  };
+
+  let sportsHtml = '';
+  if(state.goals.length){
+    sportsHtml += '<h4 style="font-family:var(--font-display);font-size:18px;margin:18px 0 4px">Sport &amp; goal-specific readiness</h4>';
+    state.goals.forEach(g=>{
+      const s = sportCopy[g];
+      if(!s) return;
+      sportsHtml += `<div class="sportcard"><i class="fa-solid ${s.icon}"></i><div><b>${s.name}<span class="rd" style="background:${rd.color}22;color:${rd.color}">${rd.label}</span></b><p>${s.note}</p></div></div>`;
+    });
+  }
+  document.getElementById('sportsWrap').innerHTML = sportsHtml;
+}
+
+function resetTool(){
+  state = {name:'',joint:'Knee',glp1:false,injuryScore:0,surgeryScore:0,replacementScore:0,condition:'OA',riskFactors:[],q1:0,q2:0,q3:0,goals:[],level:'stopped'};
+  document.getElementById('clientName').value='';
+  document.querySelectorAll('.opt-card').forEach(c=>c.classList.remove('checked'));
+  document.querySelectorAll('.check-item').forEach(c=>c.classList.remove('checked'));
+  document.querySelectorAll('.multi-item').forEach(c=>c.classList.remove('checked'));
+  document.getElementById('replacementSub').classList.add('hidden');
+  goToStep(1);
+}
+</script>
+</body>
+</html>

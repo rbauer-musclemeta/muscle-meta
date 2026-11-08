@@ -116,6 +116,9 @@ fieldset.jl-q .hint{display:block;font-size:var(--fs-body);color:var(--ink-muted
 .jl-panel.next{border-left:4px solid var(--gold);background:var(--gold-muted)}
 .jl-panel .note{margin-top:var(--s-4);padding:var(--s-4);border-radius:var(--r-2);background:var(--teal-tint)}
 .jl-panel .note strong{color:var(--ink)}
+.jl-goal{margin-top:var(--s-4);padding-top:var(--s-4);border-top:1px dashed var(--border)}
+.jl-goal h4{font-size:20px;margin-bottom:var(--s-2)}
+.jl-goal .label{display:block;margin-top:var(--s-2);font-style:italic;color:var(--ink-muted)}
 .jl-panel .box-h{margin-top:var(--s-4);font-weight:var(--fw-semi);color:var(--ink)}
 
 .jl-stop{border-left:4px solid var(--tier-5);background:var(--tier-5-muted);border-radius:0 var(--r-3) var(--r-3) 0;padding:var(--s-5)}
@@ -519,7 +522,7 @@ body.jl-outcome .jl-page-disclaimer{display:none}
     <section class="jl-step" id="step-reframe" data-name="A different way to see it" data-progress="5" aria-labelledby="h-reframe">
       <div class="jl-reframe">
         <span class="jl-kicker plain">Muscle-Meta Matrix™ reframe</span>
-        <h2 id="h-reframe" tabindex="-1">Your joint is living tissue, not a tire</h2>
+        <h2 id="h-reframe" tabindex="-1">A joint is living tissue, not a tire</h2>
         <p>Many of us were told joints wear out like tires, one mile at a time. Cartilage is different from rubber: it is living tissue. Cartilage has no blood supply of its own. Its nutrients reach it mainly from the fluid inside the joint, and lab studies on cartilage samples suggest that movement and loading help move that fluid into the cartilage. <span class="jl-cite">(Mauck 2003; Graham 2017<span class="mm-grade grade-unproven-bridge">Unproven-Bridge</span>)</span></p>
         <p>A short rest is right for a hot, swollen joint or after surgery. The problem is long stretches of rest as the everyday default.</p>
         <div class="jl-stat">
@@ -651,6 +654,16 @@ body.jl-outcome .jl-page-disclaimer{display:none}
         <h3>3. Your next step</h3>
         <p id="nextBody"></p>
         <p class="jl-noprint jl-gap jl-next-links"><a class="mmm-btn mmm-btn-ghost mmm-btn-sm" href="/downloads/">Browse the free guides</a> <a class="mmm-btn mmm-btn-ghost mmm-btn-sm" href="/courses/load-course/">See the course</a></p>
+      </div>
+
+      <!-- Activity goals: docs/load-course/safety/activity-goals.md
+           (approved by Randy as clinical reviewer, 2026-11-08). One block per
+           goal selected, after the next step. No readiness label. -->
+      <div class="jl-panel jl-goals" id="goalsPanel" hidden>
+        <h3>For the activities you chose</h3>
+        <p>After a knee or hip replacement, check with your surgeon or physical therapist before going back to any of these, especially pickleball and tennis. Their go-ahead comes first.</p>
+        <p>For any of these goals, the acceptable pain guide helps you judge each session: an ache up to about 5 out of 10, back to your usual by the next day. This is clinical guidance, not a tested safety limit. <span class="jl-cite">(Clinical guidance<span class="mm-grade grade-unproven-bridge">Unproven-Bridge</span>)</span></p>
+        <div id="goalBlocks"></div>
       </div>
 
       <div class="jl-disclaimer" data-disclaimer></div>
@@ -841,9 +854,19 @@ body.jl-outcome .jl-page-disclaimer{display:none}
   const NOTES = {
     inflammatory: '<strong>Rheumatoid or other inflammatory arthritis?</strong> This course was built around osteoarthritis. Inflammatory arthritis flares differently, so use it alongside your rheumatology team\'s advice, not in place of it, and ask them whether the acceptable pain guide fits you. During a flare, check with them before loading a hot or swollen joint.',
     surgery: '<strong>After surgery, check with your team first.</strong> Do these exercises only once your surgeon or physical therapist has given you the go-ahead for them, and follow their protocol if it differs from this guide. Get help now for calf pain or swelling, chest pain or sudden breathlessness. Contact your surgical team today for a red, hot or leaking wound, a fever, or a sudden increase in swelling or pain.',
-    glp1: '<strong>GLP-1 medicine.</strong> GLP-1 weight-loss medicines lead to some loss of muscle along with fat. In older adults losing weight by diet, strength training and more protein helped keep more muscle. Those studies were not done in people taking GLP-1 medicines, so the benefit there is likely but not yet proven.' + C.C13 + ' Ask your clinician how strength work and protein fit your plan.',
-    walkrun: '<strong>Walking or running.</strong> Recreational runners had lower rates of hip and knee arthritis than non-runners in one analysis. That is a link, not proof.' + C.C21 + ' Build back gradually using the acceptable pain guide, especially after a break.'
+    glp1: '<strong>GLP-1 medicine.</strong> GLP-1 weight-loss medicines lead to some loss of muscle along with fat. In older adults losing weight by diet, strength training and more protein helped keep more muscle. Those studies were not done in people taking GLP-1 medicines, so the benefit there is likely but not yet proven.' + C.C13 + ' Ask your clinician how strength work and protein fit your plan.'
   };
+
+  /* Activity goals: activity-goals.md (approved 2026-11-08); walking or running is copy-fixes.md F50. */
+  const RPT = '<span class="label">Randy Bauer, PT\'s clinical guidance.</span>';
+  const GOALS = [
+    ['pickleball', 'Pickleball', 'Pickleball means quick starts, stops and side-to-side lunges, so your knees and hips take load from many directions. Build a strength base in your thighs and hips first, then add games a little at a time, and let the next-day check tell you when to add more.' + RPT],
+    ['tennis', 'Tennis', 'Tennis has the same quick changes of direction as pickleball, over a bigger court. Start with strength work for your thighs and hips, then build court time gradually, for example shorter sessions or doubles before singles.' + RPT],
+    ['golf', 'Golf', 'The swing asks your hips and knees to turn and take your weight, and a full round is a long walk. Start with range sessions or nine holes, and see how the joint feels the next day before playing more.' + RPT],
+    ['hiking', 'Hiking', 'Downhill stretches tend to ask more of the knees than flat ground. Build time on your feet on easier, flatter trails first, and try trekking poles on the way down if they help you feel steadier.' + RPT],
+    ['walkrun', 'Walking or running', 'Recreational runners had lower rates of hip and knee arthritis than non-runners in one analysis. That is a link, not proof.' + C.C21 + ' Build back gradually using the acceptable pain guide, especially after a break.'],
+    ['daily', 'Everyday life', 'These everyday tasks are the main goal for many people. Exercise is medicine for the joint,' + C.C05 + ' and the most direct practice for these tasks is the tasks themselves: a few chair sit-to-stands or a step-up on the bottom stair, built up slowly.' + RPT]
+  ];
 
   function renderResults() {
     const a = {
@@ -868,7 +891,6 @@ body.jl-outcome .jl-page-disclaimer{display:none}
     const replacementDoneOrBooked = a.surgery === 'replacement' && ['scheduled', 'recent', 'healed'].includes(a.replacement);
     if (replacementDoneOrBooked) notes.push(NOTES.surgery);
     if (a.glp1 === 'yes') notes.push(NOTES.glp1);
-    if (a.goals.includes('walkrun')) notes.push(NOTES.walkrun);
     $('#contextNotes').innerHTML = notes.map(n => '<div class="note"><p>' + n + '</p></div>').join('');
 
     /* One next step. First match wins. */
@@ -885,6 +907,11 @@ body.jl-outcome .jl-page-disclaimer{display:none}
       next = 'Pick one activity you enjoy and book three 15-minute sessions this week. Use the tracker to log how each one settles.';
     }
     $('#nextBody').textContent = next;
+
+    /* One block per goal selected, after the next step (constant strings only). */
+    const chosen = GOALS.filter(g => a.goals.includes(g[0]));
+    $('#goalBlocks').innerHTML = chosen.map(g => '<div class="jl-goal"><h4>' + g[1] + '</h4><p>' + g[2] + '</p></div>').join('');
+    $('#goalsPanel').hidden = chosen.length === 0;
   }
 })();
 </script>

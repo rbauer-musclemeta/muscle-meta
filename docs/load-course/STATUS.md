@@ -20,6 +20,8 @@ Model: `content/blog/muscle-power-and-aging-why-speed-declines-faster-than-stren
 - Short paragraphs, bullets, H2 and H3.
 - One visual per post: an HTML snippet built from existing mm.css classes only, or an image Randy makes or approves.
 - Grades stay in the frontmatter references (shown in the build's reference list), never in the prose.
+- Route (Randy, 2026-11-08): every post goes through his mm-blog-publish skill and ends in the Sveltia CMS with `draft: true`, where he edits and switches Draft off. mm-humanizer-voice is a required step before hand-off. Updated skill file given to Randy to upload (adds the humanizer step, house style and Sveltia hand-off).
+- The four Joint Health posts reach Sveltia when Randy merges PR #12 (drafts only; nothing public changes).
 
 ## Task table
 
@@ -196,6 +198,7 @@ Opened 2026-11-02 at Randy's request, as drafts against `main`, to get Netlify d
 | Date | Summary |
 |---|---|
 | 2026-11-01 | Setup read-through done; G0 question asked. |
+| 2026-11-08 | Blog route set: skill, then Sveltia, humanizer required. Updated mm-blog-publish skill handed to Randy. |
 | 2026-11-02 | Randy set the blog house style; A5 restructuring the four posts. |
 | 2026-11-02 | Draft PRs #10–#13 opened for Netlify previews; orchestrator watching. |
 | 2026-11-02 | Randy: all as suggested (8 free-asset and 3 GLP-1 decisions). A5, A6, A1-glp1 follow-ups dispatched. |

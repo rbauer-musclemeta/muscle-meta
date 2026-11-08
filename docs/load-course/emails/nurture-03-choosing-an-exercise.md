@@ -9,9 +9,10 @@
 | Subject | The best exercise for a sore knee or hip |
 | Preview text | The one you will keep doing. Here is how to find it. |
 | Call to action | Link: "See what lesson 3 covers" to `https://muscle-meta.com/courses/load-course/` |
-| Claims | C07, C09 |
-| Placeholders | `[CLAIM-C07]`, `[CLAIM-C09]`, `[A2-disclaimer]`, `[KIT-FOOTER-UNSUBSCRIBE]`, `[KIT-FOOTER-ADDRESS]` |
-| Status | Draft copy. Not in Kit. |
+| Claims | C07 (Promising) |
+| Safety copy | A2 `disclaimer.md` email version |
+| Placeholders left | `[KIT-FOOTER-UNSUBSCRIBE]`, `[KIT-FOOTER-ADDRESS]` (phase B) |
+| Status | Draft copy, refreshed 2026-11-08. Not in Kit. |
 
 ## Body
 
@@ -19,9 +20,9 @@ Hello,
 
 Walking, swimming, cycling, yoga, weights. When a knee or hip is sore, the choice can be enough to stop you starting at all.
 
-The short answer is that the best exercise is the one you will keep doing. Several types have been studied in people with knee and hip arthritis, including cycling, water exercise, yoga and strength training. In one analysis that compared them, some ranked higher for pain and others for stiffness. [CLAIM-C07] That gives you room to pick by what bothers you most and what you enjoy.
+The short answer is that the best exercise is the one you will keep doing. In one network analysis of 39 trials in knee arthritis, all five exercise types studied helped. Cycling ranked highest for one pain score and walking distance, water exercise for another pain score, yoga for stiffness and daily function, and resistance training for overall symptoms. These rankings are options studied, not proof that one type is best for you.
 
-Strength work around the thigh and hip deserves a place in most plans, because those muscles help share the load a joint carries. [CLAIM-C09]
+That gives you room to pick by what bothers you most and what you enjoy.
 
 Lesson 3 of Load as Medicine goes through the options one by one, with what each was tested for, and helps you set up three short sessions a week that fit your week.
 
@@ -33,16 +34,19 @@ Randy
 
 ## Footer
 
-[A2-disclaimer]
+This email is educational. It is not medical advice, diagnosis or treatment. Talk with your clinician before changing your exercise plan, especially after surgery. Full disclaimer: muscle-meta.com/legal/medical-disclaimer/
 
 [KIT-FOOTER-UNSUBSCRIBE]
 
 [KIT-FOOTER-ADDRESS]
 
-## Humanizer run
+## Claims used
 
-- Run: 2026-11-01, `anthropic-skills:mm-humanizer-voice`, prose only.
-- Removed: "most effective" and "your best bet" from the source (a network ranking is not a verdict); "treat these as non-negotiable appointments" (pressure); bold labels on each exercise type.
-- Check: "three short sessions a week" comes from the source Short Step. No number, study or ranking detail added. No em dashes.
-- For mm-research-validator: C07, C09 (A1 pending). Name which exercise ranked higher for which outcome only if A1 verifies it.
-- To confirm: the line "you will still hear from me" assumes these subscribers also get the newsletter. If they do not, cut the second sentence of that paragraph.
+| ID | Grade | Source | Where |
+|---|---|---|---|
+| C07 | Promising | Mo 2023 | Second paragraph, register safe wording verbatim. Knee arthritis only |
+
+## Humanizer runs
+
+- 2026-11-01, `anthropic-skills:mm-humanizer-voice`, prose only. Removed "most effective", "your best bet", "non-negotiable appointments", and bold labels on each exercise type.
+- 2026-11-08, `anthropic-skills:mm-humanizer-voice`, prose only, after the evidence refresh. "Studied in people with knee and hip arthritis" corrected to knee only (C07 population). The vague "some ranked higher for pain and others for stiffness" now uses the register's safe wording, which names the rankings and carries its own limit. The C09 paragraph (thigh and hip muscles sharing load) is removed: C09 is not used. "You will still hear from me" kept: Randy confirmed nurture subscribers get the newsletter. No em dashes.

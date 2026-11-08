@@ -7,10 +7,11 @@
 | Kit tag | `dl-joint-guide` (applied by the form) |
 | Subject | Your post-surgery loading guide |
 | Preview text | Confirm your email and the guide opens. One note to read first. |
-| Call to action | Button: "Confirm and get the guide". In Kit, the incentive points to `https://muscle-meta.com/downloads/files/post-arthroplasty-loading-guide.pdf` |
-| Claims | C08 |
-| Placeholders | `[CLAIM-C08]`, `[A2-post-surgery-caveat]`, `[A2-disclaimer]`, `[KIT-FOOTER-UNSUBSCRIBE]`, `[KIT-FOOTER-ADDRESS]` |
-| Status | Draft copy. Not in Kit. |
+| Call to action | Button: "Confirm and get the guide". In Kit, the incentive points to the file `https://muscle-meta.com/downloads/files/post-arthroplasty-loading-guide.pdf` (A4). |
+| Claims | C08 (Promising) |
+| Safety copy | A2 `post-surgery-caveat.md` short version; A2 `disclaimer.md` email version |
+| Placeholders left | `[KIT-FOOTER-UNSUBSCRIBE]`, `[KIT-FOOTER-ADDRESS]` (phase B) |
+| Status | Draft copy, refreshed 2026-11-08 with A1 and A2 approved wording. Not in Kit. |
 
 ## Body
 
@@ -22,9 +23,9 @@ Thanks for asking for the Post-Arthroplasty Loading Guide. Confirm your email ad
 
 Before you start, one note matters more than anything inside the guide:
 
-[A2-post-surgery-caveat]
+**After surgery, check with your team first.** Do these exercises only once your surgeon or physical therapist has given you the go-ahead for them, and follow their protocol if it differs from this guide. Get help now for calf pain or swelling, chest pain or sudden breathlessness. Contact your surgical team today for a red, hot or leaking wound, a fever, or a sudden increase in swelling or pain.
 
-After a joint replacement, the early goal is protection. The guide is about what comes next. It describes the kind of strength exercise that has been compared with standard rehab after knee replacement, what changed for people in those studies, and the questions to take to your surgeon or physical therapist. [CLAIM-C08]
+After a knee replacement, getting strength back in the leg is a big part of recovery. A review of 14 trials, covering 880 people after knee replacement, found that resistance exercise for the legs led to somewhat better walking speed, a slightly faster sit-stand-walk test (about 1 second), more leg strength and a little more knee bend (about 3 degrees) than standard exercise, measured right after the program. The overall quality of the evidence was low. The guide sets out those results and the questions to take to your surgeon or physical therapist.
 
 Print it or keep it on your phone. It is written to bring to your next appointment.
 
@@ -34,15 +35,19 @@ Randy Bauer, PT
 
 ## Footer
 
-[A2-disclaimer]
+This email is educational. It is not medical advice, diagnosis or treatment. Talk with your clinician before changing your exercise plan, especially after surgery. Full disclaimer: muscle-meta.com/legal/medical-disclaimer/
 
 [KIT-FOOTER-UNSUBSCRIBE]
 
 [KIT-FOOTER-ADDRESS]
 
-## Humanizer run
+## Claims used
 
-- Run: 2026-11-01, `anthropic-skills:mm-humanizer-voice`, prose only (table, placeholders and URL unchanged).
-- Removed: a staged run-up before the button ("Here's what you need to know"); a one-line closer after the sign-off paragraph; the guide's three benefits rewritten from a bold-labelled list into one sentence.
-- Check: no number, study name or date added. Safety caveat placeholder kept above the guide description. No em dashes.
-- For mm-research-validator: C08 (A1 pending). The sentence about the guide's contents must match A1's safe wording for C08.
+| ID | Grade | Source | Where |
+|---|---|---|---|
+| C08 | Promising | Wei 2024 | Knee replacement paragraph, from the register's safe wording and A2 `copy-fixes.md` F24 |
+
+## Humanizer runs
+
+- 2026-11-01, `anthropic-skills:mm-humanizer-voice`, prose only. Removed a staged run-up before the button, a one-line closer, and a bold-labelled benefits list.
+- 2026-11-08, `anthropic-skills:mm-humanizer-voice`, prose only, after the evidence refresh. Removed "the early goal is protection" (A2: protection is not the opposite of exercise); kept the C08 sentence close to the register wording rather than smoothing it, so it says no more than the evidence. A2 caveat pasted verbatim, not edited. No new number, study or date beyond the register. No em dashes.

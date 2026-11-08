@@ -198,6 +198,7 @@ Opened 2026-11-02 at Randy's request, as drafts against `main`, to get Netlify d
 | Date | Summary |
 |---|---|
 | 2026-11-01 | Setup read-through done; G0 question asked. |
+| 2026-11-08 | Randy approved the activity-goal lines (clinical sign-off). A3 adding them to the free check (PR #10). Randy confirmed Kajabi is fully retired; muscle-meta.com is the only site. |
 | 2026-11-08 | Orchestrator ran mm-humanizer-voice on the four PR #12 posts at Randy's request (11a11af): prose only, 3 posts edited, runner post needed no change. Build passes. |
 | 2026-11-08 | Blog route set: skill, then Sveltia, humanizer required. Updated mm-blog-publish skill handed to Randy. |
 | 2026-11-02 | Randy set the blog house style; A5 restructuring the four posts. |

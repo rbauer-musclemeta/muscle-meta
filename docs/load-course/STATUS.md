@@ -198,6 +198,7 @@ Opened 2026-11-02 at Randy's request, as drafts against `main`, to get Netlify d
 | Date | Summary |
 |---|---|
 | 2026-11-01 | Setup read-through done; G0 question asked. |
+| 2026-11-08 | Orchestrator ran mm-humanizer-voice on the four PR #12 posts at Randy's request (11a11af): prose only, 3 posts edited, runner post needed no change. Build passes. |
 | 2026-11-08 | Blog route set: skill, then Sveltia, humanizer required. Updated mm-blog-publish skill handed to Randy. |
 | 2026-11-02 | Randy set the blog house style; A5 restructuring the four posts. |
 | 2026-11-02 | Draft PRs #10–#13 opened for Netlify previews; orchestrator watching. |

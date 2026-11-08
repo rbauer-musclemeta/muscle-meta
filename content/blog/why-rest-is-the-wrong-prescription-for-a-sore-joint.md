@@ -63,7 +63,7 @@ Sometimes that is the right call. As an everyday default, though, long stretches
 
 Many of us were told that osteoarthritis is "wear and tear". Joints wear out like car tires, one mile at a time. If that were true, every step would spend cartilage you cannot get back.
 
-It is one of the most common beliefs about joints, and one of the least helpful. Cartilage is not rubber. It is living tissue, and it responds to how it is used.
+It is a common belief, and an unhelpful one. Cartilage is not rubber. It is living tissue, and it responds to how it is used.
 
 ## What happens when a joint is barely loaded?
 
@@ -85,11 +85,11 @@ Lab studies on cartilage samples suggest that movement and loading help move tha
 
 ### What exercise does not do
 
-Exercise has not been shown to regrow cartilage that has been lost. In people with or at risk of knee arthritis, exercise that loads the knee does not appear to harm cartilage [3]. What movement builds back is strength, confidence and capacity.
+Exercise has not been shown to regrow cartilage that has been lost. In people with or at risk of knee arthritis, exercise that loads the knee does not appear to harm cartilage [3]. What it does build is strength, and confidence in using the joint.
 
 ## Short rest or long rest?
 
-Rest has a place. What matters is how long, and for what.
+Short rest has a place. Weeks of rest as your everyday default is a different matter.
 
 After joint surgery, your surgeon's or physical therapist's protocol comes first. If their instructions differ from anything here, follow theirs.
 
@@ -102,7 +102,7 @@ After joint surgery, your surgeon's or physical therapist's protocol comes first
 
 International guidelines from OARSI (the Osteoarthritis Research Society International) list arthritis education and structured exercise as core treatments for knee and hip osteoarthritis [4]. They recommend it for essentially everyone with the condition.
 
-> In a Cochrane review of 54 trials, exercise on land eased knee arthritis pain by about 12 points and improved function by about 10 points on a 0 to 100 scale, right after the programme. Smaller benefits were still there 2 to 6 months later [5].
+> In a Cochrane review of 54 trials, exercise on land eased knee arthritis pain by about 12 points and improved function by about 10 points on a 0 to 100 scale, right after the program. Smaller benefits were still there 2 to 6 months later [5].
 
 That is what I mean when I say exercise is medicine for the joint.
 
@@ -128,7 +128,7 @@ Start with five minutes of gentle movement a day:
 
 - Sit on a chair and slowly straighten and bend your knees.
 - Or stand holding a counter and make slow hip circles.
-- Sit or stand tall, with your weight centred, to help spread the load evenly through the joint.
+- Sit or stand tall, with your weight centered, to help spread the load evenly through the joint.
 
 If it aches, rate it from 0 to 10. Many clinicians treat an ache up to about 5 out of 10 as acceptable during activity, as long as the joint is back to its usual by the next day. That is clinical guidance, not a tested safety limit.
 

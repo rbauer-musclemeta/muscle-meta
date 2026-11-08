@@ -96,7 +96,7 @@ Physical therapists often use a simple guideline for this. I call it the accepta
 
 ### Where the idea comes from
 
-This is clinical guidance, not a tested safety limit for arthritis. On its own it cannot tell an ache from an injury. What it does is help you judge whether a dose of activity was one your joint recovered from.
+This is clinical guidance, not a tested safety limit for arthritis. On its own it cannot tell an ache from an injury. It helps you judge whether your joint recovered from a dose of activity.
 
 Using pain to guide how much to do comes from physical therapy trials in other conditions, such as kneecap pain [4] and Achilles tendon pain [5]. Neither trial was in arthritis, and neither tested the 5 out of 10 number itself.
 
@@ -140,7 +140,7 @@ These signs are worth checking before you exercise. They are not a diagnosis.
 
 Do five chair sit-to-stands: sit down and stand back up, weight in your heels, knees in line with your toes. Rate the ache during it, then again the next morning.
 
-If it stayed at about 5 or below and was back to your usual by the next day, that was a dose your joint recovered from. That is your starting point.
+If it stayed at about 5 or below and was back to your usual by the next day, your joint recovered from that dose. Use it as your starting point.
 
 Log it in the [acceptable pain tracker](/downloads/acceptable-pain-tracker/). The [free joint-load check](/tools/joint-load-check/) starts with a short safety screen, then helps you find where to begin.
 

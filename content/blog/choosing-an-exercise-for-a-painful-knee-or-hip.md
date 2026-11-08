@@ -58,9 +58,9 @@ There is no single correct exercise for everyone. Several types have been tested
 
 Yes, for most people with knee or hip osteoarthritis. International guidelines from OARSI list structured exercise as a core treatment, recommended for essentially everyone with the condition [1].
 
-> In a Cochrane review of 54 trials, exercise on land eased knee arthritis pain by about 12 points and improved function by about 10 points on a 0 to 100 scale, right after the programme. About 6 and 3 points were still there 2 to 6 months later [2].
+> In a Cochrane review of 54 trials, exercise on land eased knee arthritis pain by about 12 points and improved function by about 10 points on a 0 to 100 scale, right after the program. About 6 and 3 points were still there 2 to 6 months later [2].
 
-So the real question is not whether to exercise. It is which kind you will keep doing, week after week.
+The question that matters is which kind you will keep doing, week after week.
 
 ## Which types have been studied?
 
@@ -99,7 +99,7 @@ Choose an activity you can do regularly, start small and watch how the joint set
 
 After surgery, your surgeon's or physical therapist's protocol comes first. Do new exercises only once your surgeon or physical therapist has given you the go-ahead.
 
-For knees, a review of 14 trials (880 people) compared resistance exercise for the legs with standard exercise after a knee replacement [4]. Right after the programme, the resistance groups had:
+For knees, a review of 14 trials (880 people) compared resistance exercise for the legs with standard exercise after a knee replacement [4]. Right after the program, the resistance groups had:
 
 - somewhat better walking speed;
 - a slightly faster sit-stand-walk test, by about 1 second;

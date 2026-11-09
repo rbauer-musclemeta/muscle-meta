@@ -22,7 +22,7 @@ keywords:
   - GLP-1 muscle loss
   - GLP-1 and joint replacement
 references:
-  - claim: In a 68-week trial of 407 adults with obesity (average BMI 40) and painful knee arthritis, weekly semaglutide plus diet and activity counselling led to about 14% weight loss versus about 3% on placebo. Knee pain scores fell about 42 points versus about 28 on a 100-point scale, and physical function improved more (12 versus 6.5 points). About 7 in 100 stopped the medicine because of side effects, mostly stomach-related, versus 3 in 100 on placebo. The trial did not measure cartilage.
+  - claim: In a 68-week trial of 407 adults with obesity (average BMI 40) and painful knee arthritis, weekly semaglutide plus diet and activity counseling led to about 14% weight loss versus about 3% on placebo. Knee pain scores fell about 42 points versus about 28 on a 100-point scale, and physical function improved more (12 versus 6.5 points). About 7 in 100 stopped the medicine because of side effects, mostly stomach-related, versus 3 in 100 on placebo. The trial did not measure cartilage.
     grade: Established
     pmid: '39476339'
     citation: Bliddal H, Bays H, Czernichow S, et al. Once-weekly semaglutide in persons with obesity and knee osteoarthritis. N Engl J Med. 2024;391(17):1573-1583.
@@ -67,7 +67,7 @@ Some of the findings are encouraging. Others are early, or point in more than on
 
 ## What did the knee trial find?
 
-The largest trial so far followed 407 adults with obesity and painful knee arthritis for 68 weeks. Everyone got diet and activity counselling. Two in three also got a weekly GLP-1 medicine, semaglutide; the rest got a placebo.
+The largest trial so far followed 407 adults with obesity and painful knee arthritis for 68 weeks. Everyone got diet and activity counseling. Two in three also got a weekly GLP-1 medicine, semaglutide; the rest got a placebo.
 
 > People on the medicine lost about 14% of their body weight, compared with about 3% on placebo. Knee pain scores fell about 42 points on a 100-point scale, compared with about 28 points on placebo [1].
 

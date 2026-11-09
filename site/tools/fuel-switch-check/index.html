@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Fuel Switch Self-Check — Muscle-Meta Matrix™</title>
+<meta name="description" content="A free 3-minute self-check for adults 45+. Twelve yes/no questions show how well your body switches between burning sugar and fat, and where to start.">
+<link rel="canonical" href="https://muscle-meta.com/tools/fuel-switch-check/">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<meta property="og:site_name" content="Muscle-Meta Matrix">
+<meta property="og:type" content="website">
+<meta property="og:title" content="The Fuel Switch Self-Check">
+<meta property="og:description" content="Where is your dimmer set? Twelve questions, three minutes, and a clear first step.">
+<meta property="og:url" content="https://muscle-meta.com/tools/fuel-switch-check/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/mm.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "The Fuel Switch Self-Check",
+  "url": "https://muscle-meta.com/tools/fuel-switch-check/",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "Any",
+  "isAccessibleForFree": true,
+  "description": "A 12-question educational self-check of everyday signs of metabolic flexibility, for adults 45+.",
+  "author": { "@type": "Person", "name": "Randy Bauer, PT" },
+  "publisher": { "@type": "Organization", "name": "Muscle-Meta Matrix" },
+  "about": { "@type": "Thing", "name": "Metabolic flexibility" }
+}
+</script>
+<style>
+/* Page layout only. Every color, font and size comes from /assets/mm.css. */
+.fs-hero{padding:var(--s-8) 0 var(--s-6)}
+.fs-hero h1{font-size:var(--fs-h2);margin:var(--s-3) 0 var(--s-4)}
+.fs-hero h1 .accent{color:var(--teal);white-space:nowrap}
+.fs-meta{display:flex;flex-wrap:wrap;gap:var(--s-2);margin-bottom:var(--s-4)}
+.fs-chip{font-size:11px;font-weight:var(--fw-semi);letter-spacing:.12em;text-transform:uppercase;padding:6px 12px;border-radius:var(--r-pill);border:1px solid var(--border);background:var(--white);color:var(--ink-soft)}
+.fs-chip.pillar-2{border-color:var(--gold);color:var(--ink)}
+.fs-how{margin-top:var(--s-5);background:var(--gold-muted);border-left:3px solid var(--gold);border-radius:0 var(--r-2) var(--r-2) 0;padding:var(--s-4) var(--s-5)}
+.fs-how p{color:var(--ink)}
+.fs-dimmer{margin-top:var(--s-5);background:var(--teal-muted);border-radius:var(--r-3);padding:var(--s-4) var(--s-5)}
+.fs-dimmer .bar{height:12px;border-radius:var(--r-pill);background:linear-gradient(90deg,var(--tier-4-muted),var(--gold-muted) 45%,var(--teal));margin:var(--s-3) 0 var(--s-2)}
+.fs-dimmer .labels{display:flex;justify-content:space-between;font-size:var(--fs-micro);font-weight:var(--fw-semi);color:var(--ink-soft)}
+
+.fs-progress{position:sticky;top:0;z-index:40;background:var(--surface);padding:var(--s-3) 0;border-bottom:1px solid var(--border)}
+.fs-progress .track{height:6px;background:var(--border);border-radius:var(--r-pill);overflow:hidden}
+.fs-progress .fill{height:100%;width:0;background:var(--teal);transition:width var(--dur-base) var(--ease-out)}
+.fs-progress p{font-size:var(--fs-micro);color:var(--ink-muted);margin-top:6px}
+
+.fs-area{margin-top:var(--s-6);background:var(--white);border:1px solid var(--border);border-radius:var(--r-3);padding:var(--s-5) var(--s-5) var(--s-3)}
+.fs-area legend{padding:0}
+.fs-area h2{font-size:var(--fs-h4);display:flex;align-items:baseline;gap:var(--s-2);flex-wrap:wrap}
+.fs-area h2 .n{font-family:var(--font-body);font-size:15px;font-weight:var(--fw-semi);color:var(--teal)}
+.fs-area .sub{font-size:var(--fs-micro);color:var(--ink-muted);margin-top:2px}
+.fs-q{display:grid;grid-template-columns:1fr auto;gap:var(--s-3) var(--s-4);align-items:center;padding:var(--s-4) 0;border-top:1px solid var(--border-soft)}
+.fs-q:first-of-type{margin-top:var(--s-3)}
+.fs-q .text{display:flex;gap:var(--s-3);align-items:flex-start}
+.fs-q .num{flex:0 0 28px;height:28px;border-radius:50%;background:var(--teal);color:var(--white);font-size:13px;font-weight:var(--fw-semi);display:flex;align-items:center;justify-content:center;margin-top:1px}
+.fs-q .text p{color:var(--ink-soft)}
+.fs-q .text strong{color:var(--ink)}
+.fs-yn{display:flex;gap:var(--s-2)}
+.fs-yn input{position:absolute;opacity:0;width:1px;height:1px}
+.fs-yn label{min-width:64px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;border:1.5px solid var(--border);border-radius:var(--r-pill);font-size:15px;font-weight:var(--fw-semi);color:var(--ink-soft);background:var(--surface-tint);cursor:pointer;transition:all var(--dur-fast) var(--ease-out)}
+.fs-yn label:hover{border-color:var(--teal)}
+.fs-yn input:focus-visible+label{outline:2px solid var(--teal);outline-offset:2px}
+.fs-yn input.yes:checked+label{background:var(--teal);border-color:var(--teal);color:var(--white)}
+.fs-yn input.no:checked+label{background:var(--ink);border-color:var(--ink);color:var(--white)}
+.fs-missing{outline:2px solid var(--gold);outline-offset:4px;border-radius:var(--r-1)}
+@media(max-width:560px){.fs-q{grid-template-columns:1fr}.fs-yn{padding-left:40px}}
+
+.fs-actions{display:flex;flex-wrap:wrap;gap:var(--s-3);margin-top:var(--s-6);align-items:center}
+.fs-actions .note{font-size:var(--fs-micro);color:var(--ink-muted)}
+
+.fs-result{display:none;margin-top:var(--s-7)}
+.fs-result.show{display:block}
+.fs-score{display:grid;grid-template-columns:200px 1fr;gap:var(--s-5);align-items:stretch}
+@media(max-width:700px){.fs-score{grid-template-columns:1fr}}
+.fs-total{background:var(--teal);color:var(--white);border-radius:var(--r-3);padding:var(--s-5);text-align:center;display:flex;flex-direction:column;justify-content:center}
+.fs-total .label{font-size:var(--fs-eyebrow);letter-spacing:var(--tr-eyebrow);text-transform:uppercase;font-weight:var(--fw-semi)}
+.fs-total .big{font-size:56px;font-weight:var(--fw-semi);line-height:1.1;margin-top:var(--s-1)}
+.fs-total .big small{font-size:24px;font-weight:var(--fw-medium)}
+.fs-level{border-radius:var(--r-3);padding:var(--s-5);border-top:4px solid var(--teal);background:var(--teal-muted)}
+.fs-level.inbetween{border-top-color:var(--gold);background:var(--gold-muted)}
+.fs-level.dim{border-top-color:var(--tier-4);background:var(--tier-4-muted)}
+.fs-level .range{font-size:var(--fs-eyebrow);letter-spacing:var(--tr-eyebrow);text-transform:uppercase;font-weight:var(--fw-semi);color:var(--ink-muted)}
+.fs-level h3{margin-top:var(--s-1)}
+.fs-level p{margin-top:var(--s-2)}
+.fs-level .tier{margin-top:var(--s-3);font-weight:var(--fw-semi);color:var(--ink)}
+
+.fs-areas{margin-top:var(--s-6);display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s-4)}
+@media(max-width:700px){.fs-areas{grid-template-columns:1fr}}
+.fs-arow{background:var(--white);border:1px solid var(--border);border-radius:var(--r-2);padding:var(--s-3) var(--s-4)}
+.fs-arow.weakest{border-color:var(--gold);box-shadow:var(--shadow-gold)}
+.fs-arow .top{display:flex;justify-content:space-between;font-weight:var(--fw-semi);color:var(--ink)}
+.fs-arow .pips{display:flex;gap:6px;margin-top:var(--s-2)}
+.fs-arow .pip{flex:1;height:8px;border-radius:var(--r-pill);background:var(--border)}
+.fs-arow .pip.on{background:var(--teal)}
+.fs-arow .tag{font-size:13px;font-weight:var(--fw-semi);color:var(--teal-dark);margin-top:var(--s-2);min-height:1em}
+
+.fs-start{margin-top:var(--s-6);background:var(--white);border:1px solid var(--border);border-left:4px solid var(--teal);border-radius:var(--r-2);padding:var(--s-5)}
+.fs-start h3{font-size:var(--fs-h4)}
+.fs-start p{margin-top:var(--s-2)}
+.fs-start ul{margin:var(--s-3) 0 0;padding-left:var(--s-5)}
+.fs-start li{margin-bottom:var(--s-2)}
+
+.fs-next{margin-top:var(--s-6);display:grid;grid-template-columns:1fr 1fr;gap:var(--s-5)}
+@media(max-width:700px){.fs-next{grid-template-columns:1fr}}
+.fs-next .box{background:var(--white);border:1px solid var(--border);border-radius:var(--r-3);padding:var(--s-5)}
+.fs-next .box.kit{border:1.5px solid var(--gold)}
+.fs-next h3{font-size:var(--fs-h4)}
+.fs-next p{margin-top:var(--s-2)}
+.fs-next .mmm-btn{margin-top:var(--s-4)}
+
+.fs-safety{margin-top:var(--s-7);background:var(--white);border:1px solid var(--border);border-radius:var(--r-2);padding:var(--s-4) var(--s-5)}
+.fs-safety h2{font-size:var(--fs-h4)}
+.fs-safety ul{margin:var(--s-3) 0 0;padding-left:var(--s-5)}
+.fs-refs{margin-top:var(--s-7);padding-top:var(--s-5);border-top:1px solid var(--border)}
+.fs-refs h2{font-size:var(--fs-h3)}
+.fs-refs ol{padding-left:var(--s-5);margin-top:var(--s-4)}
+.fs-refs li{margin-bottom:var(--s-4)}
+.fs-refs .claim{color:var(--ink);font-weight:var(--fw-medium)}
+.fs-refs .cite{font-size:14px;color:var(--ink-muted);margin-top:var(--s-1)}
+.fs-print-head{display:none}
+
+@media print{
+  @page{margin:10mm}
+  .fs-result h2{font-size:16pt !important;margin:2pt 0 6pt !important}
+  .fs-total,.fs-level{padding:8pt 12pt}
+  .fs-level p{font-size:9.5pt;margin-top:3pt}
+  .fs-arow{padding:5pt 8pt;font-size:9.5pt}
+  main,.mmm-container{padding-bottom:0}
+  .fs-hero .lede,.fs-dimmer,.fs-how,.fs-progress,.fs-actions,.fs-next,.fs-refs,.mm-footer,.fs-intro-extra{display:none !important}
+  .fs-print-head{display:block;font-size:10pt;margin-bottom:6pt}
+  .fs-meta,.fs-area .sub{display:none !important}
+  .mmm-section-sm{display:none !important}
+  .fs-hero{padding:0 0 6pt}
+  .fs-hero h1{font-size:20pt;margin:0 0 4pt}
+  .fs-area{margin-top:6pt;padding:6pt 10pt;break-inside:avoid;border:1px solid var(--ink-faint)}
+  .fs-area h2{font-size:12pt}
+  .fs-q{padding:2pt 0;grid-template-columns:1fr auto;font-size:9pt;line-height:1.35}
+  .fs-q:first-of-type{margin-top:2pt}
+  .fs-q .num{flex:0 0 16pt;height:16pt;font-size:8pt;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .fs-yn{padding-left:0}
+  .fs-yn label{min-height:0;min-width:34pt;padding:2pt 6pt;font-size:8.5pt;border:1px solid var(--ink-faint)}
+  .fs-yn input:checked+label{border:2px solid var(--ink);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .fs-result{margin-top:0;break-before:page}
+  .fs-total,.fs-level,.fs-arow .pip.on{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .fs-total .big{font-size:30pt}
+  .fs-areas{grid-template-columns:repeat(2,1fr);gap:6pt;margin-top:8pt}
+  .fs-start,.fs-safety{margin-top:8pt;padding:6pt 10pt;font-size:9.5pt}
+  .fs-safety{break-before:avoid}
+  .fs-safety ul{margin-top:2pt}
+  a[href^="http"]::after{content:""}
+}
+</style>
+</head>
+<body>
+
+<header class="mm-nav">
+  <div class="mm-nav-inner">
+    <a href="/" class="mm-logo">Muscle-Meta Matrix<sup style="color:var(--teal);font-size:55%">™</sup><span>Clinical intelligence for active aging</span></a>
+    <button class="mm-navtoggle" aria-label="Menu" aria-expanded="false"><span></span></button>
+    <nav class="mm-navlinks">
+      <a href="/courses/">Courses</a>
+      <a href="/tools/">Tools</a>
+      <a href="/learn/">Learn</a>
+      <a href="/blog/">Articles</a>
+      <a href="/downloads/">Free guides</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="mmm-container" style="max-width:860px">
+
+    <section class="fs-hero">
+      <p class="fs-print-head">Muscle-Meta Matrix™ · The Fuel Switch Self-Check · <span id="fs-print-date"></span></p>
+      <div class="fs-meta">
+        <span class="fs-chip">Free tool</span>
+        <span class="fs-chip pillar-2">Nutrition &amp; Metabolism</span>
+        <span class="fs-chip">P2-C7 Metabolic Flexibility</span>
+      </div>
+      <h1>The Fuel Switch <span class="accent">Self-Check</span></h1>
+      <p class="lede">Where is your dimmer set? In about three minutes, see how well your body switches between burning sugar and burning fat, and where to start turning it back up.</p>
+      <p class="fs-intro-extra" style="margin-top:var(--s-4)">When that switch works, you can go a few hours without food and feel fine, walk before breakfast without feeling shaky, and recover overnight. When it sticks, your body leans on sugar, runs low fast, and recovery slows down. That is a skill your body can relearn at any age.</p>
+      <div class="fs-dimmer">
+        <span class="eyebrow">Think dimmer switch, not on/off</span>
+        <div class="bar" aria-hidden="true"></div>
+        <div class="labels"><span>Dim</span><span>In-between</span><span>Bright</span></div>
+      </div>
+      <div class="fs-how">
+        <p><strong>How it works:</strong> answer Yes or No for a typical week in the last month. Go with your first answer. Each Yes is 1 point. Your answers stay on this device.</p>
+      </div>
+    </section>
+
+    <div class="fs-progress" aria-hidden="true">
+      <div class="track"><div class="fill" id="fs-fill"></div></div>
+      <p id="fs-count">0 of 12 answered</p>
+    </div>
+
+    <form id="fs-form" novalidate>
+
+      <fieldset class="fs-area" data-area="1" style="border:1px solid var(--border)">
+        <legend><h2><span class="n">Area 1</span> Energy between meals</h2></legend>
+        <p class="sub">Can your body run on stored fuel when food isn't coming in?</p>
+        <div class="fs-q" data-q="1"><div class="text"><span class="num">1</span><p>Can you go <strong>4–5 hours between meals</strong> without feeling shaky, foggy, or irritable?</p></div>
+          <div class="fs-yn"><input class="yes" type="radio" id="q1y" name="q1" value="1"><label for="q1y">Yes</label><input class="no" type="radio" id="q1n" name="q1" value="0"><label for="q1n">No</label></div></div>
+        <div class="fs-q" data-q="2"><div class="text"><span class="num">2</span><p>Do you wake up with steady energy, <strong>without needing food or coffee right away</strong> to feel normal?</p></div>
+          <div class="fs-yn"><input class="yes" type="radio" id="q2y" name="q2" value="1"><label for="q2y">Yes</label><input class="no" type="radio" id="q2n" name="q2" value="0"><label for="q2n">No</label></div></div>
+        <div class="fs-q" data-q="3"><div class="text"><span class="num">3</span><p>Can you get through the afternoon <strong>without a 2–3 PM energy crash</strong> or a strong urge for something sweet?</p></div>
+          <div class="fs-yn"><input class="yes" type="radio" id="q3y" name="q3" value="1"><label for="q3y">Yes</label><input class="no" type="radio" id="q3n" name="q3" value="0"><label for="q3n">No</label></div></div>
+      </fieldset>
+
+      <fieldset class="fs-area" data-area="2" style="border:1px solid var(--border)">
+        <legend><h2><span class="n">Area 2</span> Fuel for movement</h2></legend>
+        <p class="sub">Can your body tap fat for easy effort and switch to sugar when things get hard?</p>
+        <div class="fs-q" data-q="4"><div class="text"><span class="num">4</span><p>Can you take a <strong>30-minute walk or easy bike ride before breakfast</strong> without feeling weak or lightheaded?</p></div>
+          <div class="fs-yn"><input class="yes" type="radio" id="q4y" name="q4" value="1"><label for="q4y">Yes</label><input class="no" type="radio" id="q4n" name="q4" value="0"><label for="q4n">No</label></div></div>
+        <div class="fs-q" data-q="5"><div class="text"><span class="num">5</span><p>Can you keep up an <strong>easy, conversational pace for 45 minutes or more</strong> without hitting a wall?</p></div>
+          <div class="fs-yn"><input class="yes" type="radio" id="q5y" name="q5" value="1"><label for="q5y">Yes</label><input class="no" type="radio" id="q5n" name="q5" value="0"><label for="q5n">No</label></div></div>
+        <div class="fs-q" data-q="6"><div class="text"><span class="num">6</span><p>When you push hard (climbing stairs, a fast rally, a heavy lift), do you <strong>bounce back within a few minutes</strong>?</p></div>
+          <div class="fs-yn"><input class="yes" type="radio" id="q6y" name="q6" value="1"><label for="q6y">Yes</label><input class="no" type="radio" id="q6n" name="q6" value="0"><label for="q6n">No</label></div></div>
+      </fieldset>
+
+      <fieldset class="fs-area" data-area="3" style="border:1px solid var(--border)">
+        <legend><h2><span class="n">Area 3</span> Food flexibility</h2></legend>
+        <p class="sub">Does your energy stay steady when your meals change?</p>
+        <div class="fs-q" data-q="7"><div class="text"><span class="num">7</span><p>If a meal is <strong>an hour or two late</strong>, do you stay calm and focused instead of getting "hangry"?</p></div>
+          <div class="fs-yn"><input class="yes" type="radio" id="q7y" name="q7" value="1"><label for="q7y">Yes</label><input class="no" type="radio" id="q7n" name="q7" value="0"><label for="q7n">No</label></div></div>
+        <div class="fs-q" data-q="8"><div class="text"><span class="num">8</span><p>Can you have a <strong>lower-carb day</strong> (more protein, vegetables, and healthy fats) without feeling drained?</p></div>
+          <div class="fs-yn"><input class="yes" type="radio" id="q8y" name="q8" value="1"><label for="q8y">Yes</label><input class="no" type="radio" id="q8n" name="q8" value="0"><label for="q8n">No</label></div></div>
+        <div class="fs-q" data-q="9"><div class="text"><span class="num">9</span><p>After a <strong>carb-heavy meal</strong> (pasta, bread, dessert), do you feel fine instead of sleepy or sluggish within an hour?</p></div>
+          <div class="fs-yn"><input class="yes" type="radio" id="q9y" name="q9" value="1"><label for="q9y">Yes</label><input class="no" type="radio" id="q9n" name="q9" value="0"><label for="q9n">No</label></div></div>
+      </fieldset>
+
+      <fieldset class="fs-area" data-area="4" style="border:1px solid var(--border)">
+        <legend><h2><span class="n">Area 4</span> Recovery signals</h2></legend>
+        <p class="sub">Does your body have the fuel to repair itself?</p>
+        <div class="fs-q" data-q="10"><div class="text"><span class="num">10</span><p>After a workout, a match, or a long active day, is your <strong>soreness mostly gone within 24–48 hours</strong>?</p></div>
+          <div class="fs-yn"><input class="yes" type="radio" id="q10y" name="q10" value="1"><label for="q10y">Yes</label><input class="no" type="radio" id="q10n" name="q10" value="0"><label for="q10n">No</label></div></div>
+        <div class="fs-q" data-q="11"><div class="text"><span class="num">11</span><p>Do you usually <strong>sleep through the night</strong> without waking up hungry, wired, or sweaty?</p></div>
+          <div class="fs-yn"><input class="yes" type="radio" id="q11y" name="q11" value="1"><label for="q11y">Yes</label><input class="no" type="radio" id="q11n" name="q11" value="0"><label for="q11n">No</label></div></div>
+        <div class="fs-q" data-q="12"><div class="text"><span class="num">12</span><p>Do you <strong>hold onto your strength and muscle</strong> without your training needing more and more effort just to stay even?</p></div>
+          <div class="fs-yn"><input class="yes" type="radio" id="q12y" name="q12" value="1"><label for="q12y">Yes</label><input class="no" type="radio" id="q12n" name="q12" value="0"><label for="q12n">No</label></div></div>
+      </fieldset>
+
+      <div class="fs-actions">
+        <button type="submit" class="mmm-btn mmm-btn-primary mmm-btn-lg">See my result</button>
+        <button type="button" class="mmm-btn mmm-btn-ghost" id="fs-reset">Start over</button>
+        <span class="note" id="fs-note" role="status"></span>
+      </div>
+    </form>
+
+    <section class="fs-result" id="fs-result" aria-live="polite">
+      <span class="eyebrow">Your result</span>
+      <h2 style="font-size:var(--fs-h3);margin:var(--s-2) 0 var(--s-5)">Where your dimmer is set today</h2>
+      <div class="fs-score">
+        <div class="fs-total"><span class="label">Your total</span><span class="big"><span id="fs-total">0</span><small> / 12</small></span></div>
+        <div class="fs-level" id="fs-level">
+          <span class="range" id="fs-range"></span>
+          <h3 id="fs-level-name"></h3>
+          <p id="fs-level-text"></p>
+          <p class="tier" id="fs-tier"></p>
+        </div>
+      </div>
+
+      <div class="fs-areas" id="fs-areas"></div>
+
+      <div class="fs-start" id="fs-start">
+        <span class="eyebrow" style="color:var(--teal-dark)">Your starting point</span>
+        <h3 id="fs-start-title" style="margin-top:var(--s-2)"></h3>
+        <p id="fs-start-why"></p>
+        <ul id="fs-start-do"></ul>
+      </div>
+
+      <div class="fs-actions">
+        <button type="button" class="mmm-btn mmm-btn-primary" id="fs-print">Print my results</button>
+        <span class="note">Choose "Save as PDF" in the print window to keep a copy. Retake this check in 4 weeks.</span>
+      </div>
+
+      <div class="fs-next">
+        <div class="box">
+          <h3>Tell me your number</h3>
+          <p>Reply to the newsletter with two numbers: your total score, and how many hours you can go between meals before your energy crashes. I'll send the protocol that matches your result.</p>
+        </div>
+        <div class="box kit">
+          <h3>The Fuel Switch Kit</h3>
+          <p>A printable copy of this check plus a one-page guide, "Metabolic Flexibility, Explained", covering your three energy pathways and who benefits most. $17.</p>
+          <!-- KIT-PRODUCT: replace href with the Kit product URL once the product is live -->
+          <a class="mmm-btn mmm-btn-gold" href="#kit-product-url" id="fs-kit-link">Get the kit</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="fs-safety">
+      <h2>Before you change anything</h2>
+      <p style="margin-top:var(--s-2)">This is an educational self-check, not a medical test or diagnosis. It can't measure your metabolism directly. Talk with your doctor before changing meal timing or exercise if you:</p>
+      <ul>
+        <li>take medication for blood sugar (including insulin or GLP-1 medications) or blood pressure</li>
+        <li>are pregnant or breastfeeding</li>
+        <li>have a history of disordered eating</li>
+        <li>have a heart condition or have been told to limit exercise</li>
+        <li>have surgery scheduled</li>
+      </ul>
+      <p style="margin-top:var(--s-3)"><strong>Get checked</strong> if going without food often leaves you dizzy, faint, confused, or with a racing heart. Those aren't normal "crash" signs. See the <a href="/legal/medical-disclaimer/">medical disclaimer</a>.</p>
+    </section>
+
+    <section class="fs-refs">
+      <h2>Why this matters</h2>
+      <ol>
+        <li id="ref-1"><p class="claim">In 585 adults tested before major surgery, those whose bodies switched fuels best had fewer complications and a median hospital stay about 4 days shorter (9 vs 13 days). <span class="mm-grade grade-promising">Promising</span></p>
+          <p class="cite">Arina P, et al. Metabolic Flexibility as a Candidate Mechanism for the Development of Postoperative Morbidity. Anesth Analg. 2025. PMID <a href="https://pubmed.ncbi.nlm.nih.gov/40175163/">40175163</a>. Observational, single centre.</p></li>
+        <li id="ref-2"><p class="claim">Adults in their 60s and 70s burned about 33% more fat during exercise after 16 weeks of endurance training. <span class="mm-grade grade-promising">Promising</span></p>
+          <p class="cite">Sial S, et al. Training-induced alterations in fat and carbohydrate metabolism during exercise in elderly subjects. Am J Physiol. 1998. PMID <a href="https://pubmed.ncbi.nlm.nih.gov/9612234/">9612234</a>.</p></li>
+        <li id="ref-3"><p class="claim">People with metabolic syndrome burn less fat during exercise and shift to sugar earlier than fitter people. <span class="mm-grade grade-established">Established</span></p>
+          <p class="cite">San-Millán I, Brooks GA. Assessment of Metabolic Flexibility by Means of Measuring Blood Lactate, Fat, and Carbohydrate Oxidation Responses to Exercise. Sports Med. 2018. PMID <a href="https://pubmed.ncbi.nlm.nih.gov/28623613/">28623613</a>.</p></li>
+        <li id="ref-4"><p class="claim">The 12 questions and score bands are a teaching tool built from these everyday signs, not a validated clinical test. <span class="mm-grade grade-unproven-bridge">Unproven-Bridge</span></p>
+          <p class="cite">Muscle-Meta Matrix clinical education, Randy Bauer, PT.</p></li>
+      </ol>
+    </section>
+
+    <section class="mmm-section-sm">
+      <div class="mm-capture">
+        <div>
+          <h3 style="font-size:var(--fs-h4)">Get the newsletter</h3>
+          <p style="margin-top:var(--s-2)">One evidence-based idea a week for staying strong, steady, and energized after 45.</p>
+        </div>
+        <div>
+          <!-- KIT-FORM: set data-kit-form to the newsletter form id -->
+          <form data-kit-form="">
+            <input type="email" name="email_address" placeholder="Your email" required aria-label="Email address">
+            <button class="mmm-btn mmm-btn-primary" type="submit">Subscribe</button>
+          </form>
+          <p class="status" role="status"></p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer class="mm-footer">
+  <div class="mmm-container">
+    <span class="wordmark">Muscle-Meta Matrix&trade;</span>
+    <p style="margin-top:6px">Clinical intelligence for active aging &middot; Randy Bauer, PT</p>
+    <p style="margin-top:var(--s-4)"><a href="/legal/privacy/">Privacy</a> &middot; <a href="/legal/terms/">Terms</a> &middot; <a href="/legal/medical-disclaimer/">Medical disclaimer</a></p>
+  </div>
+</footer>
+
+<script src="/assets/mm.js"></script>
+<script>
+(() => {
+  const form = document.getElementById('fs-form');
+  const KEY = 'mm-fuel-switch-check-v1';
+  const AREAS = [
+    { n: 1, name: 'Energy between meals', qs: [1, 2, 3] },
+    { n: 2, name: 'Fuel for movement',    qs: [4, 5, 6] },
+    { n: 3, name: 'Food flexibility',     qs: [7, 8, 9] },
+    { n: 4, name: 'Recovery signals',     qs: [10, 11, 12] }
+  ];
+  const LEVELS = [
+    { min: 9, cls: 'bright', range: '9–12', name: 'Bright', tier: 'Sharpen',
+      text: 'Your fuel switch works well. Your body moves between sugar and fat without much fuss, which gives you a real edge when you need to recover. Keep your easy cardio and strength work, and use carb matching to fine-tune.' },
+    { min: 5, cls: 'inbetween', range: '5–8', name: 'In-between', tier: 'Build',
+      text: 'Your switch works, but it sticks. You probably feel fine on good days and notice crashes, cravings, or slow recovery when life gets busy or stressful. This is the most common result, and the one that responds fastest to small changes.' },
+    { min: 0, cls: 'dim', range: '0–4', name: 'Dim', tier: 'Gentle start',
+      text: "Your switch is stuck on dim. Your body leans hard on sugar and struggles to tap stored fat, which is why energy drops quickly and recovery drags. This isn't a willpower problem, and it isn't permanent. Go gently and build from small doses." }
+  ];
+  const STARTS = {
+    1: { title: 'Start with the overnight fuel break',
+         why: 'Your body has trouble running on stored fuel between meals. A longer overnight gap gives it regular practice.',
+         by: { 'Gentle start': ['12 hours between dinner and breakfast, 2 nights a week'],
+               'Build': ['12 to 13 hours between dinner and breakfast, 3 nights a week'],
+               'Sharpen': ['13 to 14 hours, 3 nights a week', 'One of those mornings, an easy 20-minute walk before breakfast'] } },
+    2: { title: 'Start with easy cardio that builds your engine',
+         why: 'Your fat-burning engine is under-trained. Easy, conversational-pace cardio (Zone 2) trains exactly that system.',
+         by: { 'Gentle start': ['Easy 20- to 30-minute walks, 2 to 3 times a week', 'Work up to one 45-minute session by week 4'],
+               'Build': ['One 45- to 60-minute Zone 2 session a week', 'Add a second 30- to 45-minute session by week 3'],
+               'Sharpen': ['Two 45- to 60-minute Zone 2 sessions a week', 'Plus one short interval session, if your doctor has cleared you for hard effort'] } },
+    3: { title: 'Start by matching your carbs to your day',
+         why: 'Your body overreacts to changes in what and when you eat. Matching carbs to activity teaches it to use sugar when it needs it and fat when it doesn\'t.',
+         by: { 'Gentle start': ['Move most of your carbs to the meal right after you\'re active'],
+               'Build': ['Use training-day and rest-day plates 2 to 3 days a week'],
+               'Sharpen': ['Follow the pattern every day, with most carbs around your harder sessions'] } },
+    4: { title: 'Start with easy cardio, then add the overnight break',
+         why: 'Your body is short on fuel for repair. Building your aerobic engine first gives healing a steadier fuel supply.',
+         by: { 'Gentle start': ['Easy 20- to 30-minute walks, 2 to 3 times a week', 'In week 3, add a 12-hour overnight break 2 nights a week'],
+               'Build': ['One 45- to 60-minute Zone 2 session a week', 'In week 3, add a 12- to 13-hour overnight break 3 nights a week'],
+               'Sharpen': ['Two Zone 2 sessions a week', 'In week 3, add a 13- to 14-hour overnight break 3 nights a week'] } }
+  };
+
+  const answers = () => {
+    const a = {};
+    for (let i = 1; i <= 12; i++) {
+      const c = form.querySelector(`input[name="q${i}"]:checked`);
+      if (c) a[i] = Number(c.value);
+    }
+    return a;
+  };
+  const updateProgress = () => {
+    const n = Object.keys(answers()).length;
+    document.getElementById('fs-fill').style.width = (n / 12 * 100) + '%';
+    document.getElementById('fs-count').textContent = `${n} of 12 answered`;
+  };
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(answers())); } catch (e) {} };
+  const restore = () => {
+    try {
+      const a = JSON.parse(localStorage.getItem(KEY) || '{}');
+      Object.entries(a).forEach(([q, v]) => {
+        const el = form.querySelector(`input[name="q${q}"][value="${v}"]`);
+        if (el) el.checked = true;
+      });
+    } catch (e) {}
+  };
+
+  const el = (tag, attrs = {}, text = '') => {
+    const e = document.createElement(tag);
+    Object.entries(attrs).forEach(([k, v]) => e.setAttribute(k, v));
+    if (text) e.textContent = text;
+    return e;
+  };
+
+  const render = a => {
+    const total = Object.values(a).reduce((s, v) => s + v, 0);
+    const level = LEVELS.find(l => total >= l.min);
+    const scores = AREAS.map(ar => ({ ...ar, score: ar.qs.reduce((s, q) => s + (a[q] || 0), 0) }));
+    const lowest = Math.min(...scores.map(s => s.score));
+    const weakest = scores.find(s => s.score === lowest); // ties go to the area listed first
+
+    document.getElementById('fs-total').textContent = total;
+    const lv = document.getElementById('fs-level');
+    lv.className = 'fs-level ' + level.cls;
+    document.getElementById('fs-range').textContent = level.range;
+    document.getElementById('fs-level-name').textContent = level.name;
+    document.getElementById('fs-level-text').textContent = level.text;
+    document.getElementById('fs-tier').textContent = 'Your pace for the next 4 weeks: ' + level.tier;
+
+    const wrap = document.getElementById('fs-areas');
+    wrap.replaceChildren();
+    scores.forEach(s => {
+      const row = el('div', { class: 'fs-arow' + (s === weakest ? ' weakest' : '') });
+      const top = el('div', { class: 'top' });
+      top.append(el('span', {}, `Area ${s.n} · ${s.name}`), el('span', {}, `${s.score} / 3`));
+      const pips = el('div', { class: 'pips', 'aria-hidden': 'true' });
+      for (let i = 0; i < 3; i++) pips.append(el('span', { class: 'pip' + (i < s.score ? ' on' : '') }));
+      row.append(top, pips, el('div', { class: 'tag' }, s === weakest ? 'Your starting point' : ''));
+      wrap.append(row);
+    });
+
+    const st = STARTS[weakest.n];
+    document.getElementById('fs-start-title').textContent = st.title;
+    document.getElementById('fs-start-why').textContent = st.why + ` Here is your ${level.tier.toLowerCase()} version:`;
+    const ul = document.getElementById('fs-start-do');
+    ul.replaceChildren();
+    st.by[level.tier].forEach(t => ul.append(el('li', {}, t)));
+
+    const res = document.getElementById('fs-result');
+    res.classList.add('show');
+    res.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  form.addEventListener('change', () => {
+    updateProgress(); save();
+    document.querySelectorAll('.fs-missing').forEach(q => {
+      if (q.querySelector('input:checked')) q.classList.remove('fs-missing');
+    });
+  });
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const a = answers();
+    const missing = [];
+    for (let i = 1; i <= 12; i++) if (!(i in a)) missing.push(i);
+    const note = document.getElementById('fs-note');
+    document.querySelectorAll('.fs-q').forEach(q => q.classList.toggle('fs-missing', missing.includes(Number(q.dataset.q))));
+    if (missing.length) {
+      note.textContent = `Answer ${missing.length === 1 ? 'question ' + missing[0] : missing.length + ' more questions'} to see your result.`;
+      document.querySelector(`.fs-q[data-q="${missing[0]}"]`).scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+    note.textContent = '';
+    render(a);
+  });
+  document.getElementById('fs-reset').addEventListener('click', () => {
+    form.reset();
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    document.getElementById('fs-result').classList.remove('show');
+    document.querySelectorAll('.fs-missing').forEach(q => q.classList.remove('fs-missing'));
+    document.getElementById('fs-note').textContent = '';
+    updateProgress();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  document.getElementById('fs-print').addEventListener('click', () => window.print());
+  document.getElementById('fs-print-date').textContent = new Date().toLocaleDateString();
+
+  restore(); updateProgress();
+  if (Object.keys(answers()).length === 12) render(answers());
+})();
+</script>
+</body>
+</html>

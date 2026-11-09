@@ -56,3 +56,17 @@
   [headers.values]
     X-Robots-Tag = "noindex, nofollow"
     Cache-Control = "private, no-store"
+
+# Buyer pages (/kit/<product>/) are unlisted: reached from a Kit receipt
+# email, never indexed. Paid files are delivered by Kit, not stored here.
+[[headers]]
+  for = "/kit/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
+# The Fuel Switch Self-Check is embedded in Notion pages. CSP frame-ancestors
+# takes precedence over the site-wide X-Frame-Options in modern browsers.
+[[headers]]
+  for = "/tools/fuel-switch-check/*"
+  [headers.values]
+    Content-Security-Policy = "frame-ancestors 'self' https://www.notion.so https://app.notion.com https://*.notion.com https://*.notion.site"

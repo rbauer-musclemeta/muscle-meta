@@ -69,4 +69,4 @@
 [[headers]]
   for = "/tools/fuel-switch-check/*"
   [headers.values]
-    Content-Security-Policy = "frame-ancestors 'self' https://www.notion.so https://*.notion.site"
+    Content-Security-Policy = "frame-ancestors 'self' https://www.notion.so https://app.notion.com https://*.notion.com https://*.notion.site"

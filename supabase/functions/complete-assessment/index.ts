@@ -5,17 +5,28 @@
    1. Verifies the caller and that the session is theirs.
    2. Reads the STORED answers and orientation (never answers sent by the
       browser), so a result cannot be forged from the client.
-   3. Refuses if the session's pinned algorithm differs from this build's
-      engine: a historical session is never scored by a newer algorithm.
+   3. Picks the engine by the session's pinned algorithm version and refuses
+      any version this build does not carry: a historical session is never
+      scored by a newer algorithm.
    4. Scores with the shared engine (./engine, copied from app/src/engine by
       app/scripts/sync-engine.mjs; a test fails if the copies drift).
    5. Inserts the result once. A retry returns the existing result.
+
+   Engines: flr-readiness-alg-1.0.0 (Program 1; orientation supplies the
+   safety answer and goal) and mm-4p-alg-1.0.0 (Muscle-Meta Matrix™ full
+   assessment; the safety answer is its own first question). The 4P result,
+   its scores and its flags are written in one transaction by
+   public.record_assessment_result.
 
    The service-role key is provided by the Supabase runtime and never leaves
    this function. */
 
 import { createClient } from 'npm:@supabase/supabase-js@2';
 import { scoreReadiness, answerFingerprint, ALGORITHM_VERSION } from './engine/scoring.ts';
+import { scoreMM4P, mm4pFingerprint, MM4P_ALGORITHM_VERSION } from './engine/mm-4p-01.ts';
+import { CATEGORIES } from './engine/framework.ts';
+
+const PILLAR_CODE: Record<number, string> = { 1: 'E', 2: 'N', 3: 'R', 4: 'B' };
 
 const ALLOWED_ORIGIN = /^(https:\/\/(app\.muscle-meta\.com|[a-z0-9-]+--[a-z0-9-]+\.netlify\.app|[a-z0-9-]+\.netlify\.app)|http:\/\/localhost:\d+)$/;
 
@@ -59,8 +70,55 @@ Deno.serve(async (req) => {
 
   // deno-lint-ignore no-explicit-any
   const version = (session as any).assessment_versions as { algorithm_version: string };
+
+  if (version.algorithm_version === MM4P_ALGORITHM_VERSION) {
+    const { data: rows, error: respErr } = await admin.from('assessment_responses')
+      .select('question_code, value').eq('session_id', sessionId);
+    if (respErr) return reply(500, { error: 'read_failed' });
+    const all = Object.fromEntries((rows ?? []).map(r => [r.question_code, r.value]));
+    const { safety_review_status: safety, ...answers } = all;
+    const input = { answers, safety };
+    const scored = scoreMM4P(input);
+    if (scored.status !== 'complete') {
+      return reply(422, { error: 'insufficient_information', missing: scored.missing, invalid: scored.invalid });
+    }
+    const family = scored.scoreFamily;
+    const scores = [
+      { scope: 'total', ref: 'total', score: scored.total.score, tier_label: scored.total.tier, score_family: family },
+      ...Object.entries(scored.pillars).map(([id, p]) =>
+        ({ scope: 'pillar', ref: PILLAR_CODE[Number(id)], score: p.score, tier_label: p.tier, score_family: family })),
+      ...Object.keys(CATEGORIES).map(k =>
+        ({ scope: 'category', ref: k, score: scored.categories[k as keyof typeof CATEGORIES].score,
+           tier_label: scored.categories[k as keyof typeof CATEGORIES].tier, score_family: family }))
+    ];
+    const result = {
+      session_id: sessionId,
+      user_id: userId,
+      assessment_version_id: session.assessment_version_id,
+      algorithm_version: scored.algorithmVersion,
+      answer_fingerprint: mm4pFingerprint(input),
+      safety_review_status: safety,
+      safety_route: scored.safetyRoute,
+      ability_score: scored.startingLevel.abilityScore,
+      ability_level_calculated: scored.startingLevel.calculated,
+      ability_level: scored.startingLevel.level,
+      reason_codes: { level: scored.startingLevel.reasons },
+      score_family: family,
+      detail: {
+        core_focus: scored.coreFocus, secondary: scored.secondary, strengths: scored.strengths,
+        next_actions: scored.nextActions, physical_activity_withheld: scored.physicalActivityWithheld,
+        item_scores: scored.itemScores
+      }
+    };
+    const { data: written, error: rpcErr } = await admin.rpc('record_assessment_result',
+      { p_result: result, p_scores: scores, p_flags: scored.flags });
+    if (rpcErr || !written) return reply(500, { error: 'write_failed' });
+    return reply(200, { result: written, replay: false });
+  }
+
   if (version.algorithm_version !== ALGORITHM_VERSION) {
-    return reply(409, { error: 'algorithm_mismatch', pinned: version.algorithm_version, engine: ALGORITHM_VERSION });
+    return reply(409, { error: 'algorithm_mismatch', pinned: version.algorithm_version,
+      engines: [ALGORITHM_VERSION, MM4P_ALGORITHM_VERSION] });
   }
 
   const { data: orientation } = await admin.from('orientation_sessions')
@@ -100,7 +158,8 @@ Deno.serve(async (req) => {
     secondary_lens: scored.lenses.secondary,
     pillar1_priorities: { ranked: scored.pillar1.ranked, power_need: scored.pillar1.powerNeed },
     baseline_metrics: scored.baselineMetrics,
-    reason_codes: { ability: scored.ability.reasons, readiness: scored.readiness.reasons }
+    reason_codes: { ability: scored.ability.reasons, readiness: scored.readiness.reasons },
+    score_family: null
   };
 
   const { data: inserted, error: insErr } = await admin.from('assessment_results')

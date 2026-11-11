@@ -1,0 +1,758 @@
+DRAFT — UNREVIEWED — NOT CANONICAL. Do not apply to main without review.
+
+FLR_READINESS_01 scoring engine draft from the 2026-09-26 planning session.
+Recreated 2026-11-01 from the session record; its 47 tests pass (node --test).
+
+Known required changes (plan v2 §E, approved 2026-09-26):
+  - remove the 75% coverage rule and renormalisation;
+  - unanswered safety gate must refuse to finalise (incomplete_safety_review),
+    not route to professional_review;
+  - remove INSUFFICIENT_DATA / insufficient_data paths;
+  - split into validateDraft() and scoreFLR() (throws IncompleteAssessmentError).
+
+Superseded? main already has a server-side engine at
+supabase/functions/complete-assessment/engine/scoring.ts. Compare before reusing.
+The original patch also carried a copy of docs/program-1/00-PROGRAM-1-HANDOFF.md;
+that file is already on main, so it is omitted here.
+
+Apply (from repo root, on a scratch branch):  git apply docs/plans/drafts/flr-readiness-01-scoring-engine-DRAFT.patch
+Lines above the first "diff --git" are ignored by git apply.
+
+diff --git a/packages/scoring-engine/package.json b/packages/scoring-engine/package.json
+new file mode 100644
+index 0000000..70b3f82
+--- /dev/null
++++ b/packages/scoring-engine/package.json
+@@ -0,0 +1,12 @@
++{
++  "name": "@muscle-meta/scoring-engine",
++  "version": "1.0.0",
++  "private": true,
++  "type": "module",
++  "description": "Versioned, pure scoring and routing for Muscle-Meta assessments. No runtime dependencies.",
++  "exports": { "./flr-readiness-01": "./src/flr-readiness-01.ts" },
++  "engines": { "node": ">=22.18" },
++  "scripts": {
++    "test": "node --test \"test/**/*.test.ts\""
++  }
++}
+diff --git a/packages/scoring-engine/src/flr-readiness-01.ts b/packages/scoring-engine/src/flr-readiness-01.ts
+new file mode 100644
+index 0000000..8c3b68a
+--- /dev/null
++++ b/packages/scoring-engine/src/flr-readiness-01.ts
+@@ -0,0 +1,349 @@
++/* =============================================================================
++   FLR_READINESS_01 — Four-Lens Readiness & Ability Check, scoring + routing.
++
++   Pure function, no I/O, no clock. Given the raw responses and the safety-gate
++   answer it returns every derived value plus the reason codes that produced
++   it, stamped with the instrument and algorithm versions. Persist the whole
++   object; never recompute a stored result with a later ALGORITHM_VERSION.
++
++   Scales run in two directions on purpose — keep them explicit:
++     raw     0-3   higher = greater limitation (what the member answers)
++     need    0-100 higher = greater need        (Four Lenses, Pillar 1 profile)
++     ability 0-100 higher = better              (Ability Score, Readiness Index)
++
++   Bands are pilot operational routing thresholds, not validated clinical
++   cut points. The Four Lenses are measurement domains, not pillars, and none
++   of these numbers feed the MM™ Health Score.
++
++   Spec: docs/program-1/05-scoring-routing-spec.md
++   ========================================================================== */
++
++export const INSTRUMENT_CODE = 'FLR_READINESS_01';
++export const INSTRUMENT_VERSION = 1;
++export const ALGORITHM_VERSION = '1.0.0';
++
++/** Item order is the question order, Q1..Q10. */
++export const ITEM_KEYS = [
++  'recent_health_change',         // Q1
++  'structure_change',             // Q2
++  'joint_limitation',             // Q3
++  'strength_task_limit',          // Q4
++  'rapid_force_limit',            // Q5
++  'endurance_limit',              // Q6
++  'mobility_limit',               // Q7
++  'independence_limit',           // Q8
++  'balance_confidence_limit',     // Q9
++  'recovery_participation_limit'  // Q10
++] as const;
++
++export type ItemKey = typeof ITEM_KEYS[number];
++export type Raw = 0 | 1 | 2 | 3;
++/** A skipped item is null or absent. */
++export type Responses = Partial<Record<ItemKey, Raw | null>>;
++export type SafetyStatus = 'no' | 'yes' | 'not_sure';
++
++export type AbilityLevel = 'performance' | 'building' | 'foundation';
++export type ReadinessRoute = 'standard_start' | 'modified_start' | 'professional_review';
++export type Lens = 'structure' | 'capacity' | 'function' | 'experience';
++export type LensProfile = 'focused' | 'balanced' | 'insufficient_data';
++
++/** Canonical lens order. Also the tie-break order when two lenses score equal. */
++export const LENSES: readonly Lens[] = ['structure', 'capacity', 'function', 'experience'];
++
++/** A weighted composite is withheld when less than this share of its weight
++    was answered. Below it the renormalised value is not representative. */
++export const MIN_COVERAGE = 0.75;
++
++type Weights = Partial<Record<ItemKey, number>>;
++
++const W = {
++  ability: {
++    strength_task_limit: 0.20, rapid_force_limit: 0.15, endurance_limit: 0.15,
++    mobility_limit: 0.20, independence_limit: 0.30
++  },
++  readiness: {
++    recent_health_change: 0.15, structure_change: 0.10, joint_limitation: 0.15,
++    endurance_limit: 0.15, independence_limit: 0.20, balance_confidence_limit: 0.15,
++    recovery_participation_limit: 0.10
++  },
++  lens: {
++    structure: { structure_change: 1 },
++    capacity: { strength_task_limit: 0.40, rapid_force_limit: 0.30, endurance_limit: 0.30 },
++    function: {
++      joint_limitation: 0.10, strength_task_limit: 0.10, rapid_force_limit: 0.10,
++      mobility_limit: 0.20, independence_limit: 0.35, balance_confidence_limit: 0.15
++    },
++    experience: {
++      recent_health_change: 0.20, joint_limitation: 0.25,
++      balance_confidence_limit: 0.15, recovery_participation_limit: 0.40
++    }
++  } satisfies Record<Lens, Weights>,
++  strength: { strength_task_limit: 0.60, rapid_force_limit: 0.40 }
++} as const;
++
++const ABILITY_ITEMS: readonly ItemKey[] = Object.keys(W.ability) as ItemKey[];
++const READINESS_ITEMS: readonly ItemKey[] = Object.keys(W.readiness) as ItemKey[];
++/** Readiness items whose value of 3 routes to professional review on its own. */
++const PRO_REVIEW_SOLO_ITEMS: readonly ItemKey[] = ['structure_change', 'balance_confidence_limit'];
++
++export const need = (raw: Raw): number => (raw / 3) * 100;
++export const ability = (raw: Raw): number => ((3 - raw) / 3) * 100;
++
++/** One decimal place. Bands are applied to the rounded value so the number a
++    member sees always agrees with the band they are shown. */
++const round1 = (n: number): number => Math.round(n * 10) / 10;
++
++function composite(r: Responses, weights: Weights, transform: (raw: Raw) => number): number | null {
++  let total = 0, answered = 0, sum = 0;
++  for (const [key, w] of Object.entries(weights) as [ItemKey, number][]) {
++    total += w;
++    const raw = r[key];
++    if (raw === null || raw === undefined) continue;
++    answered += w;
++    sum += w * transform(raw);
++  }
++  if (answered === 0 || answered / total < MIN_COVERAGE - 1e-9) return null;
++  return round1(sum / answered);
++}
++
++/* ---------------------------------------------------------------- Ability */
++
++export type AbilityReason =
++  | 'INSUFFICIENT_DATA'
++  | 'FORCE_FOUNDATION_INDEPENDENCE_SIGNIFICANT'   // Q8 = 3
++  | 'FORCE_FOUNDATION_THREE_MODERATE'             // >=3 of Q4-Q8 are >=2
++  | 'CAP_BUILDING_SIGNIFICANT_ITEM';              // any Q4-Q8 = 3
++
++export interface AbilityResult {
++  score: number | null;
++  calculated_level: AbilityLevel | null;
++  level: AbilityLevel;
++  reasons: AbilityReason[];
++}
++
++export function abilityBand(score: number): AbilityLevel {
++  if (score >= 80) return 'performance';
++  if (score >= 55) return 'building';
++  return 'foundation';
++}
++
++const ABILITY_RANK: Record<AbilityLevel, number> = { foundation: 0, building: 1, performance: 2 };
++
++function scoreAbility(r: Responses): AbilityResult {
++  const score = composite(r, W.ability, ability);
++  const calculated = score === null ? null : abilityBand(score);
++  const reasons: AbilityReason[] = [];
++  const answered = ABILITY_ITEMS.map(k => r[k]).filter((v): v is Raw => v !== null && v !== undefined);
++
++  if (score === null) reasons.push('INSUFFICIENT_DATA');
++  if (r.independence_limit === 3) reasons.push('FORCE_FOUNDATION_INDEPENDENCE_SIGNIFICANT');
++  if (answered.filter(v => v >= 2).length >= 3) reasons.push('FORCE_FOUNDATION_THREE_MODERATE');
++
++  // Reason codes record every rule that fired. A forced Foundation makes the
++  // Building cap moot, so the cap is only evaluated when nothing forced.
++  let level: AbilityLevel;
++  if (reasons.length) {
++    level = 'foundation';
++  } else {
++    level = calculated as AbilityLevel;
++    if (answered.some(v => v === 3)) {
++      reasons.push('CAP_BUILDING_SIGNIFICANT_ITEM');
++      if (ABILITY_RANK[level] > ABILITY_RANK.building) level = 'building';
++    }
++  }
++  return { score, calculated_level: calculated, level, reasons };
++}
++
++/* -------------------------------------------------------------- Readiness */
++
++export type ReadinessReason =
++  | 'INSUFFICIENT_DATA'
++  | 'SAFETY_YES'
++  | 'SAFETY_NOT_SURE'
++  | 'SAFETY_UNANSWERED'
++  | 'STRUCTURE_SIGNIFICANT'                       // Q2 = 3
++  | 'BALANCE_CONFIDENCE_SIGNIFICANT'              // Q9 = 3
++  | 'RECENT_CHANGE_WITH_INDEPENDENCE_LIMIT'       // Q1 = 3 and Q8 >= 2
++  | 'RECENT_CHANGE_WITH_PARTICIPATION_LIMIT'      // Q1 = 3 and Q10 >= 2
++  | 'MULTIPLE_SIGNIFICANT_LIMITS'                 // >=2 of Q3/Q6/Q8/Q10 = 3
++  | 'TWO_OR_MORE_MODERATE_READINESS_ITEMS'        // any two readiness items >= 2
++  | 'SIGNIFICANT_READINESS_ITEM';                 // one non-override readiness item = 3
++
++export interface ReadinessResult {
++  index: number | null;
++  calculated_route: ReadinessRoute | null;
++  route: ReadinessRoute;
++  reasons: ReadinessReason[];
++}
++
++export function readinessBand(index: number): ReadinessRoute {
++  if (index >= 75) return 'standard_start';
++  if (index >= 50) return 'modified_start';
++  return 'professional_review';
++}
++
++const ROUTE_RANK: Record<ReadinessRoute, number> = { standard_start: 0, modified_start: 1, professional_review: 2 };
++const worseRoute = (a: ReadinessRoute, b: ReadinessRoute) => (ROUTE_RANK[a] >= ROUTE_RANK[b] ? a : b);
++
++function scoreReadiness(r: Responses, safety: SafetyStatus | null): ReadinessResult {
++  const index = composite(r, W.readiness, ability);
++  const calculated = index === null ? null : readinessBand(index);
++
++  const pro: ReadinessReason[] = [];
++  if (safety === 'yes') pro.push('SAFETY_YES');
++  if (safety === 'not_sure') pro.push('SAFETY_NOT_SURE');
++  if (safety === null) pro.push('SAFETY_UNANSWERED');
++  if (r.structure_change === 3) pro.push('STRUCTURE_SIGNIFICANT');
++  if (r.balance_confidence_limit === 3) pro.push('BALANCE_CONFIDENCE_SIGNIFICANT');
++  if (r.recent_health_change === 3 && (r.independence_limit ?? -1) >= 2) pro.push('RECENT_CHANGE_WITH_INDEPENDENCE_LIMIT');
++  if (r.recent_health_change === 3 && (r.recovery_participation_limit ?? -1) >= 2) pro.push('RECENT_CHANGE_WITH_PARTICIPATION_LIMIT');
++  const significantCore = (['joint_limitation', 'endurance_limit', 'independence_limit', 'recovery_participation_limit'] as ItemKey[])
++    .filter(k => r[k] === 3).length;
++  if (significantCore >= 2) pro.push('MULTIPLE_SIGNIFICANT_LIMITS');
++
++  if (pro.length) {
++    return { index, calculated_route: calculated, route: 'professional_review', reasons: pro };
++  }
++
++  const reasons: ReadinessReason[] = [];
++  const moderate = READINESS_ITEMS.filter(k => (r[k] ?? -1) >= 2).length;
++  if (moderate >= 2) reasons.push('TWO_OR_MORE_MODERATE_READINESS_ITEMS');
++  if (READINESS_ITEMS.some(k => !PRO_REVIEW_SOLO_ITEMS.includes(k) && r[k] === 3)) reasons.push('SIGNIFICANT_READINESS_ITEM');
++  if (index === null) reasons.push('INSUFFICIENT_DATA');
++
++  let route: ReadinessRoute = calculated ?? 'modified_start';
++  if (reasons.length) route = worseRoute(route, 'modified_start');
++  return { index, calculated_route: calculated, route, reasons };
++}
++
++/* ------------------------------------------------------------ Four Lenses */
++
++export interface LensResult {
++  needs: Record<Lens, number | null>;
++  profile: LensProfile;
++  primary: Lens | null;
++  secondary: Lens | null;
++  /** True when the primary was chosen by the canonical tie-break order. */
++  primary_tied: boolean;
++}
++
++export const BALANCED_CEILING = 25;
++export const SECONDARY_GAP = 15;
++export const SECONDARY_FLOOR = 40;
++
++function scoreLenses(r: Responses): LensResult {
++  const needs = Object.fromEntries(
++    LENSES.map(l => [l, composite(r, W.lens[l], need)])
++  ) as Record<Lens, number | null>;
++
++  // Stable sort keeps canonical order among equal values.
++  const ranked = LENSES.filter(l => needs[l] !== null)
++    .map(l => ({ lens: l, v: needs[l] as number }))
++    .sort((a, b) => b.v - a.v);
++
++  if (!ranked.length) return { needs, profile: 'insufficient_data', primary: null, secondary: null, primary_tied: false };
++  if (ranked.every(x => x.v < BALANCED_CEILING)) return { needs, profile: 'balanced', primary: null, secondary: null, primary_tied: false };
++
++  const [first, second] = ranked;
++  const secondary = second && (first.v - second.v <= SECONDARY_GAP || second.v >= SECONDARY_FLOOR) ? second.lens : null;
++  return {
++    needs, profile: 'focused', primary: first.lens, secondary,
++    primary_tied: !!second && second.v === first.v
++  };
++}
++
++/* ------------------------------------------------ Pillar 1 priority profile */
++
++/** Priority signals, NOT the canonical Pillar 1 Health Score. Category keys
++    follow CLAUDE.md (P#-C#). Power is a sub-signal of Strength, not a category. */
++export const PILLAR1_SIGNALS = [
++  { key: 'joint_health',            category_key: 'P1-C1', subsignal: false },
++  { key: 'functional_independence', category_key: 'P1-C2', subsignal: false },
++  { key: 'mobility',                category_key: 'P1-C3', subsignal: false },
++  { key: 'strength',                category_key: 'P1-C4', subsignal: false },
++  { key: 'endurance',               category_key: 'P1-C5', subsignal: false },
++  { key: 'power',                   category_key: 'P1-C4', subsignal: true }
++] as const;
++
++export type Pillar1Key = typeof PILLAR1_SIGNALS[number]['key'];
++
++export interface Pillar1Entry {
++  key: Pillar1Key;
++  category_key: string;
++  subsignal: boolean;
++  need: number | null;
++  rank: number | null;
++}
++
++function scorePillar1(r: Responses): Pillar1Entry[] {
++  const one = (k: ItemKey) => composite(r, { [k]: 1 }, need);
++  const values: Record<Pillar1Key, number | null> = {
++    joint_health: one('joint_limitation'),
++    functional_independence: one('independence_limit'),
++    mobility: one('mobility_limit'),
++    endurance: one('endurance_limit'),
++    strength: composite(r, W.strength, need),
++    power: one('rapid_force_limit')
++  };
++  const entries: Pillar1Entry[] = PILLAR1_SIGNALS.map(s => ({ ...s, need: values[s.key], rank: null }));
++  const ranked = entries.filter(e => e.need !== null).sort((a, b) => (b.need as number) - (a.need as number));
++  ranked.forEach((e, i) => { e.rank = i + 1; });
++  return [...ranked, ...entries.filter(e => e.need === null)];
++}
++
++/* ------------------------------------------------------------------ Entry */
++
++export interface FLRInput {
++  responses: Responses;
++  /** Orientation safety gate. null = not answered, handled conservatively. */
++  safety: SafetyStatus | null;
++}
++
++export interface FLRResult {
++  instrument_code: typeof INSTRUMENT_CODE;
++  instrument_version: typeof INSTRUMENT_VERSION;
++  algorithm_version: typeof ALGORITHM_VERSION;
++  responses: Record<ItemKey, Raw | null>;
++  safety: SafetyStatus | null;
++  answered_count: number;
++  ability: AbilityResult;
++  readiness: ReadinessResult;
++  lenses: LensResult;
++  pillar1: Pillar1Entry[];
++}
++
++export class InvalidResponseError extends Error {}
++
++function normalise(input: Responses): Record<ItemKey, Raw | null> {
++  for (const k of Object.keys(input)) {
++    if (!(ITEM_KEYS as readonly string[]).includes(k)) throw new InvalidResponseError(`unknown item "${k}"`);
++  }
++  const out = {} as Record<ItemKey, Raw | null>;
++  for (const k of ITEM_KEYS) {
++    const v = input[k];
++    if (v === null || v === undefined) { out[k] = null; continue; }
++    if (!Number.isInteger(v) || v < 0 || v > 3) throw new InvalidResponseError(`"${k}" must be 0-3, got ${String(v)}`);
++    out[k] = v;
++  }
++  return out;
++}
++
++const SAFETY_VALUES: readonly SafetyStatus[] = ['no', 'yes', 'not_sure'];
++
++export function scoreFLR(input: FLRInput): FLRResult {
++  const responses = normalise(input.responses);
++  const safety = input.safety ?? null;
++  if (safety !== null && !SAFETY_VALUES.includes(safety)) throw new InvalidResponseError(`invalid safety status "${String(safety)}"`);
++  return {
++    instrument_code: INSTRUMENT_CODE,
++    instrument_version: INSTRUMENT_VERSION,
++    algorithm_version: ALGORITHM_VERSION,
++    responses,
++    safety,
++    answered_count: ITEM_KEYS.filter(k => responses[k] !== null).length,
++    ability: scoreAbility(responses),
++    readiness: scoreReadiness(responses, safety),
++    lenses: scoreLenses(responses),
++    pillar1: scorePillar1(responses)
++  };
++}
+diff --git a/packages/scoring-engine/test/flr-readiness-01.test.ts b/packages/scoring-engine/test/flr-readiness-01.test.ts
+new file mode 100644
+index 0000000..116fc74
+--- /dev/null
++++ b/packages/scoring-engine/test/flr-readiness-01.test.ts
+@@ -0,0 +1,339 @@
++import { test, describe } from 'node:test';
++import assert from 'node:assert/strict';
++import {
++  scoreFLR, abilityBand, readinessBand, need, ability, InvalidResponseError,
++  ALGORITHM_VERSION, INSTRUMENT_CODE, ITEM_KEYS,
++  type Responses, type SafetyStatus
++} from '../src/flr-readiness-01.ts';
++
++/** Q-number shorthand so cases read like the spec. Unlisted items = 0. */
++const Q = (qs: Partial<Record<number, 0 | 1 | 2 | 3 | null>> = {}): Responses =>
++  Object.fromEntries(ITEM_KEYS.map((k, i) => [k, (i + 1) in qs ? qs[i + 1] : 0])) as Responses;
++const run = (qs: Partial<Record<number, 0 | 1 | 2 | 3 | null>> = {}, safety: SafetyStatus | null = 'no') =>
++  scoreFLR({ responses: Q(qs), safety });
++
++describe('transforms', () => {
++  test('need and ability run in opposite directions', () => {
++    assert.equal(need(0), 0);   assert.equal(need(3), 100);
++    assert.equal(ability(0), 100); assert.equal(ability(3), 0);
++    assert.equal(Math.round(need(1) * 100) / 100, 33.33);
++    assert.equal(Math.round(ability(1) * 100) / 100, 66.67);
++  });
++});
++
++describe('ability score and bands', () => {
++  test('band edges', () => {
++    assert.equal(abilityBand(100), 'performance');
++    assert.equal(abilityBand(80), 'performance');
++    assert.equal(abilityBand(79.9), 'building');
++    assert.equal(abilityBand(55), 'building');
++    assert.equal(abilityBand(54.9), 'foundation');
++    assert.equal(abilityBand(0), 'foundation');
++  });
++
++  test('no limitation = 100 performance', () => {
++    const r = run();
++    assert.equal(r.ability.score, 100);
++    assert.equal(r.ability.level, 'performance');
++    assert.deepEqual(r.ability.reasons, []);
++  });
++
++  test('Q8=2 alone lands exactly on 80.0 performance', () => {
++    const r = run({ 8: 2 });
++    assert.equal(r.ability.score, 80);
++    assert.equal(r.ability.level, 'performance');
++  });
++
++  test('Q4=2, Q8=2 = 66.7 building (two moderates is not three)', () => {
++    const r = run({ 4: 2, 8: 2 });
++    assert.equal(r.ability.score, 66.7);
++    assert.equal(r.ability.level, 'building');
++    assert.deepEqual(r.ability.reasons, []);
++  });
++
++  test('Q4=2, Q5-7=1, Q8=2 = 50.0 foundation by score', () => {
++    const r = run({ 4: 2, 5: 1, 6: 1, 7: 1, 8: 2 });
++    assert.equal(r.ability.score, 50);
++    assert.equal(r.ability.calculated_level, 'foundation');
++    assert.equal(r.ability.level, 'foundation');
++    assert.deepEqual(r.ability.reasons, []);
++  });
++});
++
++describe('ability overrides', () => {
++  test('Q8=3 forces foundation over a calculated building', () => {
++    const r = run({ 8: 3 });
++    assert.equal(r.ability.score, 70);
++    assert.equal(r.ability.calculated_level, 'building');
++    assert.equal(r.ability.level, 'foundation');
++    assert.deepEqual(r.ability.reasons, ['FORCE_FOUNDATION_INDEPENDENCE_SIGNIFICANT']);
++  });
++
++  test('three of Q4-Q8 at >=2 forces foundation', () => {
++    const r = run({ 4: 2, 5: 2, 6: 2 });
++    assert.equal(r.ability.score, 66.7);
++    assert.equal(r.ability.level, 'foundation');
++    assert.deepEqual(r.ability.reasons, ['FORCE_FOUNDATION_THREE_MODERATE']);
++  });
++
++  test('any Q4-Q8 = 3 caps a calculated performance at building', () => {
++    const r = run({ 7: 3 });
++    assert.equal(r.ability.score, 80);
++    assert.equal(r.ability.calculated_level, 'performance');
++    assert.equal(r.ability.level, 'building');
++    assert.deepEqual(r.ability.reasons, ['CAP_BUILDING_SIGNIFICANT_ITEM']);
++  });
++
++  test('cap records but does not raise a calculated foundation', () => {
++    const r = run({ 4: 3, 5: 3, 6: 1, 7: 1 });
++    assert.equal(r.ability.calculated_level, 'foundation');
++    assert.equal(r.ability.level, 'foundation');
++    assert.deepEqual(r.ability.reasons, ['CAP_BUILDING_SIGNIFICANT_ITEM']);
++  });
++});
++
++describe('readiness index and bands', () => {
++  test('band edges', () => {
++    assert.equal(readinessBand(75), 'standard_start');
++    assert.equal(readinessBand(74.9), 'modified_start');
++    assert.equal(readinessBand(50), 'modified_start');
++    assert.equal(readinessBand(49.9), 'professional_review');
++  });
++
++  test('no limitation = 100 standard start', () => {
++    const r = run();
++    assert.equal(r.readiness.index, 100);
++    assert.equal(r.readiness.route, 'standard_start');
++    assert.deepEqual(r.readiness.reasons, []);
++  });
++
++  test('Q1=1 = 95 standard', () => {
++    assert.equal(run({ 1: 1 }).readiness.index, 95);
++  });
++
++  test('every item mild = 66.7 modified by band, no override', () => {
++    const r = run({ 1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 6: 1, 7: 1, 8: 1, 9: 1, 10: 1 });
++    assert.equal(r.readiness.index, 66.7);
++    assert.equal(r.readiness.calculated_route, 'modified_start');
++    assert.equal(r.readiness.route, 'modified_start');
++    assert.deepEqual(r.readiness.reasons, []);
++  });
++
++  test('every readiness item moderate = 33.3 professional review by band', () => {
++    const r = run({ 1: 2, 2: 2, 3: 2, 6: 2, 8: 2, 9: 2, 10: 2 });
++    assert.equal(r.readiness.index, 33.3);
++    assert.equal(r.readiness.route, 'professional_review');
++    assert.deepEqual(r.readiness.reasons, ['TWO_OR_MORE_MODERATE_READINESS_ITEMS']);
++  });
++
++  test('one moderate item stays standard', () => {
++    const r = run({ 3: 2 });
++    assert.equal(r.readiness.index, 90);
++    assert.equal(r.readiness.route, 'standard_start');
++  });
++});
++
++describe('readiness professional-review overrides', () => {
++  const cases: [string, Partial<Record<number, 0 | 1 | 2 | 3>>, SafetyStatus | null, string][] = [
++    ['safety = yes', {}, 'yes', 'SAFETY_YES'],
++    ['safety = not sure', {}, 'not_sure', 'SAFETY_NOT_SURE'],
++    ['safety unanswered', {}, null, 'SAFETY_UNANSWERED'],
++    ['Q2 = 3', { 2: 3 }, 'no', 'STRUCTURE_SIGNIFICANT'],
++    ['Q9 = 3', { 9: 3 }, 'no', 'BALANCE_CONFIDENCE_SIGNIFICANT'],
++    ['Q1 = 3 and Q8 >= 2', { 1: 3, 8: 2 }, 'no', 'RECENT_CHANGE_WITH_INDEPENDENCE_LIMIT'],
++    ['Q1 = 3 and Q10 >= 2', { 1: 3, 10: 2 }, 'no', 'RECENT_CHANGE_WITH_PARTICIPATION_LIMIT'],
++    ['two of Q3/Q6/Q8/Q10 = 3', { 3: 3, 6: 3 }, 'no', 'MULTIPLE_SIGNIFICANT_LIMITS']
++  ];
++  for (const [name, qs, safety, code] of cases) {
++    test(name, () => {
++      const r = run(qs, safety);
++      assert.equal(r.readiness.route, 'professional_review');
++      assert.ok(r.readiness.reasons.includes(code as never), `expected ${code} in ${r.readiness.reasons}`);
++    });
++  }
++
++  test('safety = yes overrides a perfect index', () => {
++    const r = run({}, 'yes');
++    assert.equal(r.readiness.index, 100);
++    assert.equal(r.readiness.calculated_route, 'standard_start');
++    assert.equal(r.readiness.route, 'professional_review');
++  });
++
++  test('Q1 = 3 with Q8 = 1 is not professional review', () => {
++    assert.notEqual(run({ 1: 3, 8: 1 }).readiness.route, 'professional_review');
++  });
++});
++
++describe('readiness modified-start overrides', () => {
++  test('two readiness items >= 2 force modified over a standard index', () => {
++    const r = run({ 3: 2, 10: 2 });
++    assert.equal(r.readiness.index, 83.3);
++    assert.equal(r.readiness.calculated_route, 'standard_start');
++    assert.equal(r.readiness.route, 'modified_start');
++    assert.deepEqual(r.readiness.reasons, ['TWO_OR_MORE_MODERATE_READINESS_ITEMS']);
++  });
++
++  test('one non-override readiness item = 3 forces modified', () => {
++    const r = run({ 3: 3 });
++    assert.equal(r.readiness.index, 85);
++    assert.equal(r.readiness.route, 'modified_start');
++    assert.deepEqual(r.readiness.reasons, ['SIGNIFICANT_READINESS_ITEM']);
++  });
++
++  test('Q1 = 3 with Q8 = 1 is modified, not professional review', () => {
++    const r = run({ 1: 3, 8: 1 });
++    assert.equal(r.readiness.index, 78.3);
++    assert.equal(r.readiness.route, 'modified_start');
++    assert.deepEqual(r.readiness.reasons, ['SIGNIFICANT_READINESS_ITEM']);
++  });
++
++  test('ability-only items (Q4, Q5, Q7) do not trigger readiness overrides', () => {
++    const r = run({ 4: 3, 5: 3, 7: 2 });
++    assert.equal(r.readiness.route, 'standard_start');
++    assert.deepEqual(r.readiness.reasons, []);
++  });
++});
++
++describe('four lenses', () => {
++  test('capacity-dominant, no secondary when second is far and < 40', () => {
++    const r = run({ 4: 3, 5: 3, 6: 3 });
++    assert.deepEqual(r.lenses.needs, { structure: 0, capacity: 100, function: 20, experience: 0 });
++    assert.equal(r.lenses.profile, 'focused');
++    assert.equal(r.lenses.primary, 'capacity');
++    assert.equal(r.lenses.secondary, null);
++  });
++
++  test('function formula weights', () => {
++    const r = run({ 8: 3 });
++    assert.equal(r.lenses.needs.function, 35);
++    assert.equal(r.lenses.primary, 'function');
++  });
++
++  test('experience formula weights', () => {
++    const r = run({ 1: 3, 3: 3, 9: 3, 10: 3 });
++    assert.equal(r.lenses.needs.experience, 100);
++    assert.equal(run({ 10: 3 }).lenses.needs.experience, 40);
++  });
++
++  test('secondary when within 15 points of primary', () => {
++    const r = run({ 2: 1, 10: 2 });
++    assert.equal(r.lenses.needs.structure, 33.3);
++    assert.equal(r.lenses.needs.experience, 26.7);
++    assert.equal(r.lenses.primary, 'structure');
++    assert.equal(r.lenses.secondary, 'experience');
++  });
++
++  test('secondary when second is >= 40 even if far behind', () => {
++    const r = run({ 2: 3, 10: 3 });
++    assert.equal(r.lenses.primary, 'structure');
++    assert.equal(r.lenses.needs.experience, 40);
++    assert.equal(r.lenses.secondary, 'experience');
++  });
++
++  test('no secondary when gap > 15 and second < 40', () => {
++    const r = run({ 2: 2, 10: 2 });
++    assert.equal(r.lenses.primary, 'structure');
++    assert.equal(r.lenses.secondary, null);
++  });
++
++  test('tie resolves by canonical lens order and is flagged', () => {
++    const r = run({ 2: 3, 4: 3, 5: 3, 6: 3 });
++    assert.equal(r.lenses.needs.structure, 100);
++    assert.equal(r.lenses.needs.capacity, 100);
++    assert.equal(r.lenses.primary, 'structure');
++    assert.equal(r.lenses.secondary, 'capacity');
++    assert.equal(r.lenses.primary_tied, true);
++  });
++
++  test('all lenses < 25 returns balanced profile with no primary', () => {
++    const r = run({ 10: 1, 3: 1 });
++    assert.equal(r.lenses.profile, 'balanced');
++    assert.equal(r.lenses.primary, null);
++    assert.equal(r.lenses.secondary, null);
++  });
++});
++
++describe('pillar 1 priority profile', () => {
++  test('ranked by need, ties keep canonical category order, power is a strength sub-signal', () => {
++    const r = run({ 3: 2, 4: 3 });
++    const byKey = Object.fromEntries(r.pillar1.map(e => [e.key, e]));
++    assert.equal(byKey.strength.need, 60);
++    assert.equal(byKey.joint_health.need, 66.7);
++    assert.deepEqual(r.pillar1.map(e => e.key),
++      ['joint_health', 'strength', 'functional_independence', 'mobility', 'endurance', 'power']);
++    assert.deepEqual(r.pillar1.map(e => e.rank), [1, 2, 3, 4, 5, 6]);
++    assert.equal(byKey.power.category_key, 'P1-C4');
++    assert.equal(byKey.power.subsignal, true);
++    assert.equal(byKey.endurance.category_key, 'P1-C5');
++  });
++});
++
++describe('missing / skipped responses', () => {
++  test('skipping Q8 withholds ability (coverage 0.70) and forces foundation', () => {
++    const r = run({ 8: null });
++    assert.equal(r.answered_count, 9);
++    assert.equal(r.ability.score, null);
++    assert.equal(r.ability.level, 'foundation');
++    assert.deepEqual(r.ability.reasons, ['INSUFFICIENT_DATA']);
++  });
++
++  test('skipping Q8 still scores readiness by renormalising (coverage 0.80)', () => {
++    const r = run({ 8: null });
++    assert.equal(r.readiness.index, 100);
++    assert.equal(r.readiness.route, 'standard_start');
++  });
++
++  test('skipping Q4 renormalises ability over answered weight', () => {
++    const r = run({ 4: null, 8: 2 });
++    assert.equal(r.ability.score, 75); // (15 + 15 + 20 + 10) / 0.80
++    assert.equal(r.ability.level, 'building');
++  });
++
++  test('skipped items never trigger an override', () => {
++    const r = run({ 1: 3, 8: null, 10: null });
++    assert.ok(!r.readiness.reasons.includes('RECENT_CHANGE_WITH_INDEPENDENCE_LIMIT'));
++    assert.ok(!r.readiness.reasons.includes('RECENT_CHANGE_WITH_PARTICIPATION_LIMIT'));
++    assert.equal(r.readiness.route, 'modified_start');
++  });
++
++  test('a lens missing too much weight is null and excluded from ranking', () => {
++    const r = run({ 8: null, 2: 1 });
++    assert.equal(r.lenses.needs.function, null);
++    assert.equal(r.lenses.primary, 'structure');
++    const fi = r.pillar1.find(e => e.key === 'functional_independence')!;
++    assert.equal(fi.need, null);
++    assert.equal(fi.rank, null);
++    assert.equal(r.pillar1.at(-1)!.key, 'functional_independence');
++  });
++
++  test('nothing answered: conservative routes, no primary lens', () => {
++    const r = scoreFLR({ responses: {}, safety: 'no' });
++    assert.equal(r.answered_count, 0);
++    assert.equal(r.ability.level, 'foundation');
++    assert.equal(r.readiness.index, null);
++    assert.equal(r.readiness.route, 'modified_start');
++    assert.deepEqual(r.readiness.reasons, ['INSUFFICIENT_DATA']);
++    assert.equal(r.lenses.profile, 'insufficient_data');
++  });
++});
++
++describe('validation and reproducibility', () => {
++  test('rejects out-of-range, non-integer and unknown items', () => {
++    assert.throws(() => scoreFLR({ responses: { joint_limitation: 4 as never }, safety: 'no' }), InvalidResponseError);
++    assert.throws(() => scoreFLR({ responses: { joint_limitation: 1.5 as never }, safety: 'no' }), InvalidResponseError);
++    assert.throws(() => scoreFLR({ responses: { joint_limitation: '2' as never }, safety: 'no' }), InvalidResponseError);
++    assert.throws(() => scoreFLR({ responses: { grip: 1 } as never, safety: 'no' }), InvalidResponseError);
++    assert.throws(() => scoreFLR({ responses: {}, safety: 'maybe' as never }), InvalidResponseError);
++  });
++
++  test('same input gives an identical, versioned result and does not mutate input', () => {
++    const input = { responses: Q({ 1: 2, 4: 1, 9: 2 }), safety: 'no' as const };
++    const frozen = JSON.stringify(input);
++    const a = scoreFLR(input), b = scoreFLR(input);
++    assert.deepEqual(a, b);
++    assert.equal(JSON.stringify(input), frozen);
++    assert.equal(a.instrument_code, INSTRUMENT_CODE);
++    assert.equal(a.algorithm_version, ALGORITHM_VERSION);
++    assert.equal(a.responses.recent_health_change, 2);
++  });
++});
+diff --git a/packages/scoring-engine/tsconfig.json b/packages/scoring-engine/tsconfig.json
+new file mode 100644
+index 0000000..404299f
+--- /dev/null
++++ b/packages/scoring-engine/tsconfig.json
+@@ -0,0 +1,14 @@
++{
++  "compilerOptions": {
++    "target": "ES2022",
++    "module": "NodeNext",
++    "moduleResolution": "NodeNext",
++    "strict": true,
++    "noEmit": true,
++    "allowImportingTsExtensions": true,
++    "verbatimModuleSyntax": true,
++    "erasableSyntaxOnly": true,
++    "types": ["node"]
++  },
++  "include": ["src", "test"]
++}

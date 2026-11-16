@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { requireMember, hasAccess, getJourney, programDay } from '@/lib/program';
 import { PROGRAMS, programHome, stepPath } from '@/programs/registry';
 import { PUBLIC_SITE_URL } from '@/lib/env';
+import { getCourse } from '@/lib/course';
 
 /* MatrixApp home: every program the member has, with where they are in it,
    followed by the programs they could add. Programs come from the registry;
@@ -12,6 +13,11 @@ export default async function MyPrograms() {
   const others = PROGRAMS.filter(p => !hasAccess(member, p.access));
 
   const cards = await Promise.all(mine.map(async p => {
+    if (p.kind === 'course') {
+      const c = await getCourse(member.id, p);
+      const status = c.done === 0 ? 'Not started' : c.done === c.total ? 'Completed' : `${c.done} of ${c.total} lessons`;
+      return { p, status, href: programHome(p), cta: c.done === 0 ? 'Start' : 'Continue' };
+    }
     const j = await getJourney(member.id, p);
     const day = programDay(j.enrolledOn);
     const total = p.durationDays;

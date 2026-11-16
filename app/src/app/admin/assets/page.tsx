@@ -28,6 +28,8 @@ export default async function AdminAssets({ searchParams }: { searchParams: Prom
         <UploadAsset
           programId={program.id}
           programRoute={config.route}
+          programSlug={config.dbSlug}
+          programTitle={config.title}
           modules={(modules ?? []).map(m => ({ id: m.id, title: m.title }))}
           lessons={(lessons ?? []).filter(l => modules?.some(m => m.id === l.module_id)).map(l => ({ id: l.id, title: l.title, module_id: l.module_id }))}
         />

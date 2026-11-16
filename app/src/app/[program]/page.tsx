@@ -2,6 +2,8 @@ import Link from 'next/link';
 import { getJourney, programDay, requireProgram } from '@/lib/program';
 import { stepPath } from '@/programs/registry';
 import { GOAL_LABEL } from '@/lib/copy';
+import { getCourse } from '@/lib/course';
+import { CourseHome } from '@/components/course/CourseHome';
 
 const NEXT_COPY = {
   orientation: { title: 'Start with orientation', body: 'Four short questions about what brings you here and what matters most. Nothing here is scored.', cta: 'Begin orientation' },
@@ -12,10 +14,13 @@ const NEXT_COPY = {
   dashboard: { title: 'Your dashboard', body: 'Your profile, your baseline and your next step.', cta: 'Open dashboard' }
 } as const;
 
-export default async function Home({ params, searchParams }: { params: Promise<{ program: string }>; searchParams: Promise<{ saved?: string }> }) {
+export default async function Home({ params, searchParams }: { params: Promise<{ program: string }>; searchParams: Promise<{ saved?: string; finished?: string }> }) {
   const { member, program } = await requireProgram((await params).program);
+  const { saved, finished } = await searchParams;
+  if (program.kind === 'course') {
+    return <CourseHome program={program} outline={await getCourse(member.id, program)} finished={!!finished} />;
+  }
   const j = await getJourney(member.id, program);
-  const { saved } = await searchParams;
   const next = NEXT_COPY[j.next];
   const day = programDay(j.enrolledOn);
   const total = program.durationDays ?? 30;

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { PROGRAMS, RESERVED_ROUTES, GRANTABLE_KEYS, programByRoute, stepPath } from '../src/programs/registry';
+import { PROGRAMS, RESERVED_ROUTES, GRANTABLE_KEYS, programByRoute, stepPath, lessonPath } from '../src/programs/registry';
 
 describe('program registry', () => {
   it('gives every program a unique, URL-safe route that is not reserved', () => {
@@ -22,5 +22,22 @@ describe('program registry', () => {
   });
   it('returns null for unknown routes', () => {
     expect(programByRoute('nope')).toBeNull();
+  });
+});
+
+describe('course programs', () => {
+  it('gives every course a course slug and no assessment code', () => {
+    for (const p of PROGRAMS.filter(x => x.kind === 'course')) {
+      expect(p.courseSlug).toBeTruthy();
+      expect(p.assessmentCode).toBeUndefined();
+    }
+  });
+  it('maps metabolic-health to its course, entitlement and Personal Session add-on', () => {
+    const p = programByRoute('metabolic-health')!;
+    expect(p.kind).toBe('course');
+    expect(p.dbSlug).toBe('metabolic-health-matrix');
+    expect(p.access).toBe('course:metabolic-health');
+    expect(GRANTABLE_KEYS.has('coaching:metabolic-health-1to1')).toBe(true);
+    expect(lessonPath(p, 'start-here')).toBe('/metabolic-health/lessons/start-here');
   });
 });

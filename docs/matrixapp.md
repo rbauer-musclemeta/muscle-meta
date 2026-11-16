@@ -49,16 +49,34 @@ program route.
 | --- | --- |
 | `route` | Web address segment: `/app/<route>/` |
 | `dbSlug` | `programs.slug` in the database (may differ from `route`) |
-| `kind` | Which template drives it. Today: `assessment-journey` |
+| `kind` | Which template drives it: `assessment-journey` or `course` |
 | `access` | Entitlement key that unlocks it (checked again by RLS) |
 | `addOns` | Extra entitlements, e.g. one-to-one coaching |
 | `assessmentCode` | For assessment journeys: `assessments.code` |
+| `courseSlug` | For courses: `courses.slug` |
 | `durationDays` | Program length, or null for open-ended |
 | `salesPath` | The public page on muscle-meta.com that sells it |
 
 Adding a program of an existing kind is **database rows plus one registry
-entry**. New behaviour is a new `kind` (planned: `course`, `download`,
+entry**. New behaviour is a new `kind` (planned: `download`,
 `assessment-only`) or a new versioned engine module with its own fixtures.
+
+### The `course` kind
+
+A self-directed course: `/app/<route>/` shows the outline and progress,
+`/app/<route>/lessons/<lesson-slug>` shows one lesson (big idea, question
+dropdowns with numbered citations, graded evidence cards, myth-or-fact cards,
+a Foundation / Builder / Performer plan, safety guidance, the worksheet and
+graded references). Completion and the member's track are stored in
+`lesson_progress` (own rows only).
+
+Lesson text is paid content, so it is not in this repository. Staff load a
+content bundle (`mm-course-content/1` JSON) at `/app/admin/course-content`;
+the import refuses anything that fails `validateBundle`
+(`app/src/course/content.ts`) or the PubMed check (`app/src/course/pubmed.ts`),
+then upserts `lessons` on `(module_id, slug)` under the staff session. The
+same screen bulk-uploads worksheets to the private `program-assets` bucket and
+attaches each to its lesson. First course: `docs/courses/metabolic-health-matrix.md`.
 
 ## Selling (M4, Stripe)
 

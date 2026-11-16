@@ -107,6 +107,9 @@ export type Journey = {
 
 /* Everything the member app needs to decide the member's next step. */
 export async function getJourney(userId: string, config: ProgramConfig): Promise<Journey> {
+  // The journey screens exist only for assessment journeys; a course has its
+  // own reader (lib/course.ts).
+  if (config.kind !== 'assessment-journey') notFound();
   const supabase = await supabaseServer();
   const { data: program } = await supabase.from('programs').select('id, title').eq('slug', config.dbSlug).single();
   if (!program) throw new Error(`Program ${config.dbSlug} is not published`);

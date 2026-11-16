@@ -209,6 +209,7 @@ Outside `site/` (never published by the public site):
 app/                  MatrixApp, the member app → muscle-meta.com/app/ (Next.js; see docs/matrixapp.md)
 app/src/programs/     program registry: every /app/<program>/ and how it is wired
 app/src/engine/       scoring + routing engine: pure TS, fixture-tested, versioned
+app/src/course/       course content model and import checks (lesson text itself lives in Supabase)
 supabase/migrations/  every schema change, in order; apply through a migration only
 supabase/functions/   edge functions (complete-assessment writes results)
 supabase/tests/       SQL access tests; run after any schema change

@@ -5,7 +5,8 @@ import { METRICS } from '@/engine/definitions';
 import { GOAL_LABEL } from '@/lib/copy';
 import ResultView from '@/components/ResultView';
 import { formatValue } from '@/lib/format';
-import { addOverride } from '../../actions';
+import { addOverride, grantAccess, revokeAccess } from '../../actions';
+import { PROGRAMS } from '@/programs/registry';
 
 export default async function AdminMember({ params, searchParams }: {
   params: Promise<{ id: string }>; searchParams: Promise<{ saved?: string; error?: string }>;
@@ -17,13 +18,16 @@ export default async function AdminMember({ params, searchParams }: {
   const m = (members ?? []).find((x: { user_id: string }) => x.user_id === id) as { email: string } | undefined;
   if (!m) notFound();
 
-  const [orientation, sessions, results, cycles, audit] = await Promise.all([
+  const [orientation, sessions, results, cycles, audit, ents] = await Promise.all([
     supabase.from('orientation_sessions').select('*').eq('user_id', id).order('created_at', { ascending: false }),
     supabase.from('assessment_sessions').select('id, status, started_at, completed_at, assessment_versions(version_label, algorithm_version)').eq('user_id', id).order('started_at', { ascending: false }),
     supabase.from('assessment_results').select('*').eq('user_id', id).order('derived_at', { ascending: false }),
     supabase.from('progress_cycles').select('id, kind, selected_metrics, started_at').eq('user_id', id),
-    supabase.from('audit_log').select('action, entity, created_at').eq('detail->new->>user_id', id).order('created_at', { ascending: false }).limit(20)
+    supabase.from('audit_log').select('action, entity, created_at').eq('detail->new->>user_id', id).order('created_at', { ascending: false }).limit(20),
+    supabase.from('entitlements').select('feature_key').eq('user_id', id).is('revoked_at', null)
   ]);
+  const has = new Set((ents.data ?? []).map((e: { feature_key: string }) => e.feature_key));
+  const grants = PROGRAMS.flatMap(p => [{ key: p.access, label: p.title }, ...p.addOns.map(a => ({ key: a.key, label: a.label }))]);
   const latest = (results.data?.[0] ?? null) as ResultRow | null;
   const [responses, measurements, overrides] = await Promise.all([
     latest ? supabase.from('assessment_responses').select('question_code, raw_value, answered_at').eq('session_id', latest.session_id) : Promise.resolve({ data: [] }),
@@ -37,6 +41,23 @@ export default async function AdminMember({ params, searchParams }: {
       <h1 className="app-h1">{m.email}</h1>
       {saved && <p className="app-note">Override recorded. The original result is unchanged and both are visible to the member.</p>}
       {error && <p className="app-note error">The override did not save. The reason must be at least ten characters.</p>}
+
+      <div className="app-card">
+        <h2>Access</h2>
+        <ul className="cr-admin-list">
+          {grants.map(g => (
+            <li key={g.key}>
+              <form action={has.has(g.key) ? revokeAccess : grantAccess} className="app-input-row">
+                <input type="hidden" name="user_id" value={id} />
+                <input type="hidden" name="feature" value={g.key} />
+                <span className={`app-pill${has.has(g.key) ? '' : ' grey'}`}>{has.has(g.key) ? 'Has access' : 'No access'}</span>
+                <span>{g.label}</span>
+                <button className="app-small-btn" type="submit">{has.has(g.key) ? 'Remove' : 'Give access'}</button>
+              </form>
+            </li>
+          ))}
+        </ul>
+      </div>
 
       <div className="app-card">
         <h2>Orientation</h2>

@@ -13,6 +13,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
       <nav className="app-nav-links" aria-label="Admin" style={{ margin: 'var(--s-3) 0 var(--s-2)' }}>
         <Link href="/admin">Members</Link>
         <Link href="/admin/assets">Assets</Link>
+        <Link href="/admin/course-content">Course content</Link>
       </nav>
       <p className="app-muted">Coming in later milestones: {LATER.join(' · ')}</p>
       {children}

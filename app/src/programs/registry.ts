@@ -16,7 +16,7 @@
    which screens to show. Entitlements attach to products, never to a pillar
    or category (CLAUDE.md, "Gating is REMOVED"). */
 
-export type ProgramKind = 'assessment-journey';
+export type ProgramKind = 'assessment-journey' | 'course';
 
 export type ProgramConfig = {
   route: string;          // URL segment: /app/<route>/
@@ -28,6 +28,7 @@ export type ProgramConfig = {
   access: string;         // entitlement feature_key that unlocks it
   addOns: { key: string; label: string }[]; // extra entitlements (e.g. one-to-one)
   assessmentCode?: string; // assessment-journey only
+  courseSlug?: string;     // course only: courses.slug whose modules and lessons it shows
   salesPath: string;      // public page on muscle-meta.com that sells it
 };
 
@@ -43,6 +44,19 @@ export const PROGRAMS: readonly ProgramConfig[] = [
     addOns: [{ key: 'coaching:four-lens-1to1', label: 'one-to-one' }],
     assessmentCode: 'FLR_READINESS_01',
     // Becomes /programs/four-lens/ once its sales page ships with Stripe (M4).
+    salesPath: '/courses/'
+  },
+  {
+    route: 'metabolic-health',
+    dbSlug: 'metabolic-health-matrix',
+    kind: 'course',
+    title: 'The Muscle-Metabolic Health Matrix',
+    summary: 'Four modules over four weeks: mitochondria, Zone 2, intervals and your own plan, each lesson matched to your Readiness Check track.',
+    durationDays: 28,
+    access: 'course:metabolic-health',
+    addOns: [{ key: 'coaching:metabolic-health-1to1', label: 'Personal Session' }],
+    courseSlug: 'metabolic-health-matrix',
+    // Becomes /courses/metabolic-health-matrix/ once its sales page ships (M4).
     salesPath: '/courses/'
   }
 ];
@@ -70,4 +84,9 @@ export function stepPath(program: ProgramConfig, step: JourneyStep): string {
 
 export function programHome(program: ProgramConfig): string {
   return `/${program.route}`;
+}
+
+/* Course reader paths, relative to the program: /app/<route>/lessons/<slug>. */
+export function lessonPath(program: ProgramConfig, lessonSlug: string): string {
+  return `/${program.route}/lessons/${lessonSlug}`;
 }

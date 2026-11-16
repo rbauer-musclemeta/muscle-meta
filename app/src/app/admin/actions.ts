@@ -14,7 +14,7 @@ export async function grantAccess(form: FormData) {
   if (!GRANTABLE_KEYS.has(feature)) return;
   const supabase = await supabaseServer();
   await supabase.from('entitlements').insert({ user_id: userId, feature_key: feature, source: 'manual' });
-  revalidatePath('/admin');
+  revalidatePath('/admin', 'layout');
 }
 
 export async function revokeAccess(form: FormData) {
@@ -24,7 +24,7 @@ export async function revokeAccess(form: FormData) {
   const supabase = await supabaseServer();
   await supabase.from('entitlements').update({ revoked_at: new Date().toISOString() })
     .eq('user_id', userId).eq('feature_key', feature).is('revoked_at', null);
-  revalidatePath('/admin');
+  revalidatePath('/admin', 'layout');
 }
 
 export async function addOverride(form: FormData) {

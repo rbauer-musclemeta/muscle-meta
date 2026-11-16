@@ -8,8 +8,8 @@ type Opt = { id: string; title: string };
 /* Uploads straight from the browser to the private bucket (the storage
    policy allows staff only), then records the asset and where it belongs.
    Going direct avoids the serverless request-size limit on large files. */
-export default function UploadAsset({ programId, programRoute, modules, lessons }: {
-  programId: string; programRoute: string; modules: Opt[]; lessons: (Opt & { module_id: string })[];
+export default function UploadAsset({ programId, programRoute, programSlug, programTitle, modules, lessons }: {
+  programId: string; programRoute: string; programSlug: string; programTitle: string; modules: Opt[]; lessons: (Opt & { module_id: string })[];
 }) {
   const [status, setStatus] = useState<{ kind: 'idle' | 'busy' | 'ok' | 'error'; text?: string }>({ kind: 'idle' });
   const [moduleId, setModuleId] = useState('');
@@ -23,7 +23,7 @@ export default function UploadAsset({ programId, programRoute, modules, lessons 
     if (!file || !file.size || !title) { setStatus({ kind: 'error', text: 'Choose a file and give it a title.' }); return; }
     setStatus({ kind: 'busy', text: 'Uploading…' });
     const safe = file.name.toLowerCase().replace(/[^a-z0-9.]+/g, '-').replace(/^-+|-+$/g, '');
-    const path = `four-lens-30/${Date.now()}-${safe}`;
+    const path = `${programSlug}/${Date.now()}-${safe}`;
     const { error } = await supabaseBrowser().storage.from('program-assets').upload(path, file, { contentType: file.type || undefined, upsert: false });
     if (error) { setStatus({ kind: 'error', text: `Upload failed: ${error.message}` }); return; }
     const reg = new FormData();
@@ -57,7 +57,7 @@ export default function UploadAsset({ programId, programRoute, modules, lessons 
       <div className="app-field">
         <label htmlFor="module_id">Assign to</label>
         <select id="module_id" name="module_id" className="app-input" value={moduleId} onChange={e => setModuleId(e.target.value)}>
-          <option value="">30-Day Four-Lens Program (whole program)</option>
+          <option value="">{programTitle} (whole program)</option>
           {modules.map(m => <option key={m.id} value={m.id}>{m.title}</option>)}
         </select>
       </div>

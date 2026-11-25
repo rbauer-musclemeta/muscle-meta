@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Joint health risk assessment — Muscle-Meta Matrix™</title>
+<meta name="description" content="A scored joint health risk assessment for adults over 40: past injuries, metabolic health, muscle, function, weight change, medications and symptoms.">
+<link rel="canonical" href="https://muscle-meta.com/tools/joint-health-risk/">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<meta property="og:site_name" content="Muscle-Meta Matrix">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Joint health risk assessment">
+<meta property="og:description" content="Seven areas, one Joint Risk Score from 0 to 100, and a clear first step. Scored on your device.">
+<meta property="og:url" content="https://muscle-meta.com/tools/joint-health-risk/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/mm.css">
+<style>
+/* Joint health risk assessment. Tokens only, from /assets/mm.css. */
+[hidden]{display:none!important}
+.jh-tm{color:var(--teal);font-size:55%}
+/* Hit targets on the shared header, scoped to this page. */
+.mm-nav .mm-logo{display:inline-block;padding:4px 0}
+@media(min-width:901px){.mm-navlinks a{display:inline-flex;align-items:center;min-height:44px}}
+.jh-wrap{max-width:var(--content-narrow);margin:0 auto;padding:var(--s-6) var(--gutter) var(--s-7)}
+.jh-intro h1{font-size:var(--fs-h2);margin:var(--s-3) 0 var(--s-4)}
+.jh-intro .lede{max-width:680px}
+
+.jh-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-4);box-shadow:var(--shadow-md);padding:var(--s-6);margin-top:var(--s-6)}
+
+.jh-progress{display:none;margin-bottom:var(--s-5)}
+.jh-progress.show{display:block}
+.jh-progress-track{height:8px;border-radius:var(--r-pill);background:var(--border-soft);overflow:hidden}
+.jh-progress-fill{display:block;height:100%;width:0;background:var(--teal);border-radius:var(--r-pill);transition:width var(--dur-slow) var(--ease-out)}
+.jh-progress-meta{display:flex;justify-content:space-between;gap:var(--s-3);flex-wrap:wrap;font-size:var(--fs-body);color:var(--ink-soft);margin-top:var(--s-2)}
+
+.jh-step{display:none}
+.jh-step.active{display:block;animation:jhIn var(--dur-slow) var(--ease-out)}
+@keyframes jhIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.jh-step.active{animation:none}.jh-progress-fill{transition:none}}
+
+.jh-kicker{display:inline-block;font-size:var(--fs-micro);font-weight:var(--fw-semi);letter-spacing:.12em;text-transform:uppercase;color:var(--teal-dark);background:var(--teal-muted);padding:6px 12px;border-radius:var(--r-pill)}
+.jh-kicker.gold{color:var(--ink);background:var(--gold-muted)}
+.jh-kicker.plain{color:var(--ink);background:var(--white)}
+.jh-step h2{font-size:var(--fs-h3);margin:var(--s-3) 0 var(--s-3);outline:none}
+.jh-step h3{font-size:var(--fs-h4);margin:0 0 var(--s-2)}
+.jh-sub{font-size:var(--fs-body);color:var(--ink-soft);margin-bottom:var(--s-5)}
+.jh-step p + p{margin-top:var(--s-3)}
+
+.jh-notice{background:var(--teal-tint);border-left:3px solid var(--teal);border-radius:0 var(--r-2) var(--r-2) 0;padding:var(--s-5);margin:var(--s-5) 0}
+.jh-notice h3{font-size:var(--fs-h4)}
+.jh-notice ul{margin:var(--s-3) 0 0;padding-left:var(--s-5)}
+.jh-notice li{margin-bottom:var(--s-2)}
+.jh-clear{background:var(--teal-tint);border-left:3px solid var(--teal);border-radius:0 var(--r-2) var(--r-2) 0;padding:var(--s-4) var(--s-5);margin-bottom:var(--s-5)}
+
+fieldset.jh-q{border:0;margin:0 0 var(--s-6);padding:0;min-width:0}
+fieldset.jh-q legend{font-family:var(--font-display);font-size:var(--fs-h4);font-weight:var(--fw-bold);color:var(--ink);line-height:1.25;padding:0;margin-bottom:var(--s-2)}
+fieldset.jh-q .hint{display:block;font-size:var(--fs-body);color:var(--ink-soft);margin-bottom:var(--s-3)}
+.jh-opt-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-3)}
+.jh-opt-grid.one{grid-template-columns:1fr}
+@media(max-width:600px){.jh-opt-grid{grid-template-columns:1fr}}
+.jh-opt{display:flex;gap:var(--s-3);align-items:flex-start;min-height:56px;padding:var(--s-3) var(--s-4);border:1.5px solid var(--border);border-radius:var(--r-3);background:var(--white);cursor:pointer;transition:border-color var(--dur-fast) var(--ease-out),background var(--dur-fast) var(--ease-out)}
+.jh-opt:hover{border-color:var(--teal)}
+.jh-opt input{flex-shrink:0;width:22px;height:22px;margin:2px 0 0;accent-color:var(--teal);cursor:pointer}
+.jh-opt .t{display:block;font-size:var(--fs-body);font-weight:var(--fw-semi);color:var(--ink);line-height:1.45}
+.jh-opt .d{display:block;font-size:var(--fs-body);color:var(--ink-soft);line-height:1.5;margin-top:2px}
+.jh-opt:has(input:checked){border-color:var(--teal);background:var(--teal-tint)}
+.jh-opt:has(input:focus-visible){outline:2px solid var(--teal);outline-offset:2px}
+
+/* Red-flag questions: yes / no / not sure */
+.jh-yn{border-top:1px solid var(--border-soft);padding:var(--s-4) 0}
+.jh-yn:first-of-type{border-top:0}
+.jh-yn legend{font-family:var(--font-body)!important;font-size:var(--fs-body)!important;font-weight:var(--fw-semi)!important;color:var(--ink);line-height:1.5}
+.jh-yn .jh-opt-grid{grid-template-columns:repeat(3,1fr);max-width:480px;margin-top:var(--s-3)}
+@media(max-width:480px){.jh-yn .jh-opt-grid{grid-template-columns:1fr}}
+.jh-yn .jh-opt{min-height:48px;align-items:center}
+.jh-yn .jh-opt input{margin-top:0}
+
+.jh-field label{display:block;font-family:var(--font-display);font-size:var(--fs-h4);font-weight:var(--fw-bold);color:var(--ink);margin-bottom:var(--s-2)}
+.jh-field .hint{display:block;font-size:var(--fs-body);color:var(--ink-soft);margin-bottom:var(--s-3)}
+.jh-field input[type=text]{width:100%;max-width:420px;min-height:48px;padding:12px 14px;border:1.5px solid var(--border);border-radius:var(--r-2);font-family:var(--font-body);font-size:var(--fs-body);color:var(--ink);background:var(--surface-tint)}
+.jh-field input[type=text]:focus{outline:none;border-color:var(--teal);background:var(--white)}
+.jh-field{margin-bottom:var(--s-6)}
+
+.jh-sub-q{display:none;margin:calc(-1 * var(--s-3)) 0 var(--s-6);padding:var(--s-4);border:1px dashed var(--border);border-radius:var(--r-3);background:var(--surface)}
+.jh-sub-q.show{display:block}
+.jh-sub-q fieldset.jh-q{margin-bottom:0}
+
+.jh-error{display:none;margin-top:var(--s-4);padding:var(--s-3) var(--s-4);border-left:3px solid var(--tier-5);background:var(--tier-5-muted);border-radius:0 var(--r-2) var(--r-2) 0;color:var(--ink);font-weight:var(--fw-semi)}
+.jh-error.show{display:block}
+
+.jh-nav{display:flex;justify-content:space-between;align-items:center;gap:var(--s-3);flex-wrap:wrap;margin-top:var(--s-6)}
+.jh-nav .spacer{flex:1}
+
+.jh-reframe{background:var(--gold-muted);border-left:4px solid var(--gold);border-radius:0 var(--r-3) var(--r-3) 0;padding:var(--s-5)}
+.jh-reframe h2{margin-top:var(--s-3)}
+.jh-stat{display:flex;gap:var(--s-4);align-items:center;flex-wrap:wrap;margin-top:var(--s-4);padding:var(--s-4);background:var(--white);border:1px solid var(--border);border-radius:var(--r-2)}
+.jh-stat .n{font-family:var(--font-display);font-size:var(--fs-h3);font-weight:var(--fw-bold);color:var(--teal-dark);line-height:1.1;white-space:nowrap}
+.jh-stat p{flex:1 1 220px}
+
+/* Evidence note beside each claim: source and grade from the claims register. */
+.jh-cite{display:inline;font-size:var(--fs-body);color:var(--ink-soft);white-space:normal}
+.jh-cite .mm-grade{font-size:12px;margin-left:4px}
+.jh-cite .grade-promising{color:var(--ink)}
+
+.jh-panel{border:1px solid var(--border);border-radius:var(--r-3);padding:var(--s-5);margin-top:var(--s-5);background:var(--white)}
+.jh-panel h3{font-size:var(--fs-h4)}
+.jh-panel ul{margin:var(--s-3) 0 0;padding-left:var(--s-5)}
+.jh-panel li{margin-bottom:var(--s-2)}
+.jh-panel.safe{border-left:4px solid var(--teal)}
+.jh-panel.next{border-left:4px solid var(--gold);background:var(--gold-muted)}
+.jh-panel .note{margin-top:var(--s-4);padding:var(--s-4);border-radius:var(--r-2);background:var(--teal-tint)}
+.jh-panel .note strong{color:var(--ink)}
+.jh-goal{margin-top:var(--s-4);padding-top:var(--s-4);border-top:1px dashed var(--border)}
+.jh-goal h4{font-size:20px;margin-bottom:var(--s-2)}
+.jh-goal .label{display:block;margin-top:var(--s-2);font-style:italic;color:var(--ink-soft)}
+.jh-panel .box-h{margin-top:var(--s-4);font-weight:var(--fw-semi);color:var(--ink)}
+
+.jh-stop{border-left:4px solid var(--tier-5);background:var(--tier-5-muted);border-radius:0 var(--r-3) var(--r-3) 0;padding:var(--s-5)}
+.jh-stop h2{margin-top:var(--s-3)}
+.jh-stop-msg{display:none}
+.jh-stop-msg.show{display:block}
+.jh-stop .closing{margin-top:var(--s-4);padding-top:var(--s-4);border-top:1px solid var(--border)}
+
+.jh-stop-actions{list-style:none;margin:var(--s-5) 0 0;padding:0;display:grid;gap:var(--s-4)}
+.jh-stop-actions li{display:flex;flex-direction:column;align-items:flex-start;gap:var(--s-2)}
+.jh-stop-actions .help{color:var(--ink-soft);max-width:560px}
+
+.jh-keep{display:flex;gap:var(--s-4);align-items:center;justify-content:space-between;flex-wrap:wrap;margin-top:var(--s-5);padding:var(--s-5);border:1.5px solid var(--gold);border-radius:var(--r-3);background:var(--white)}
+.jh-keep .actions{display:flex;gap:var(--s-3);flex-wrap:wrap}
+.jh-keep p.k{font-weight:var(--fw-semi);color:var(--ink)}
+.jh-keep p.micro{font-size:var(--fs-body);margin-top:4px}
+
+.jh-meta{font-size:var(--fs-body);color:var(--ink-soft);margin-top:var(--s-2)}
+.jh-disclaimer{margin-top:var(--s-5);padding:var(--s-4) var(--s-5);background:var(--surface);border:1px solid var(--border);border-radius:var(--r-2);font-size:var(--fs-body);color:var(--ink-soft)}
+.jh-disclaimer h3{font-size:var(--fs-h4);margin-bottom:var(--s-2)}
+.jh-disclaimer p + p{margin-top:var(--s-3)}
+.jh-disclaimer a,.jh-panel a:not(.mmm-btn),.jh-notice a{text-decoration:underline;text-underline-offset:3px}
+.jh-page-disclaimer{margin-top:var(--s-6)}
+body.jh-outcome .jh-page-disclaimer{display:none}
+
+.jh-gap{margin-top:var(--s-3)}
+.jh-next-links{display:flex;flex-wrap:wrap;gap:var(--s-3)}
+.jh-tagline{margin-top:6px}
+.jh-sr{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+.jh-footer-line{margin-top:var(--s-4)}
+.jh-row{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-4);max-width:520px}
+.jh-row.three{grid-template-columns:1fr 1fr 1fr}
+@media(max-width:480px){.jh-row,.jh-row.three{grid-template-columns:1fr}}
+.jh-field input[type=number],.jh-field select,.jh-inj select,.jh-inj input[type=number]{width:100%;min-height:48px;padding:10px 14px;border:1.5px solid var(--border);border-radius:var(--r-2);font-family:var(--font-body);font-size:var(--fs-body);color:var(--ink);background:var(--surface-tint)}
+.jh-field input:focus,.jh-field select:focus,.jh-inj select:focus,.jh-inj input:focus{outline:2px solid var(--teal);outline-offset:1px;border-color:var(--teal);background:var(--white)}
+.jh-small-label{display:block;font-size:var(--fs-body);font-weight:var(--fw-semi);color:var(--ink);margin-bottom:var(--s-2)}
+.jh-check{display:flex;gap:var(--s-3);align-items:center;min-height:48px;padding:var(--s-2) 0;cursor:pointer;font-size:var(--fs-body);color:var(--ink)}
+.jh-check input{width:22px;height:22px;flex-shrink:0;accent-color:var(--teal)}
+.jh-inj{border:1px solid var(--border);border-radius:var(--r-3);padding:var(--s-5);margin-bottom:var(--s-4);background:var(--surface-tint)}
+.jh-inj-head{display:flex;justify-content:space-between;align-items:center;gap:var(--s-3);margin-bottom:var(--s-4)}
+.jh-inj-head h3{margin:0}
+.jh-inj .jh-row{max-width:none;margin-bottom:var(--s-4)}
+.jh-inj .full{margin-bottom:var(--s-4)}
+.jh-howto{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-2);padding:var(--s-4) var(--s-5);margin-bottom:var(--s-5)}
+.jh-howto ol{margin:var(--s-2) 0 0;padding-left:var(--s-5)}
+.jh-howto li{margin-bottom:var(--s-2)}
+
+/* Results */
+.jh-score{display:flex;gap:var(--s-5);align-items:center;flex-wrap:wrap;padding:var(--s-5);border-radius:var(--r-3);border:1px solid var(--border);border-left:6px solid var(--tier-c);background:var(--tier-m)}
+.jh-score .n{font-family:var(--font-display);font-size:var(--fs-h1);font-weight:var(--fw-bold);line-height:1;color:var(--ink)}
+.jh-score .n small{font-size:var(--fs-h4);color:var(--ink-soft);font-weight:var(--fw-regular)}
+.jh-score .t{flex:1 1 240px}
+.jh-score .tier{font-family:var(--font-display);font-size:var(--fs-h3);font-weight:var(--fw-bold);color:var(--ink);line-height:1.1}
+.jh-score p{margin-top:var(--s-2);color:var(--ink-soft)}
+.jh-tier-1{--tier-c:var(--tier-1);--tier-m:var(--tier-1-muted)}
+.jh-tier-2{--tier-c:var(--tier-2);--tier-m:var(--tier-2-muted)}
+.jh-tier-3{--tier-c:var(--tier-3);--tier-m:var(--tier-3-muted)}
+.jh-tier-4{--tier-c:var(--tier-4);--tier-m:var(--tier-4-muted)}
+.jh-flags{border-left:4px solid var(--tier-5);background:var(--tier-5-muted);border-radius:0 var(--r-3) var(--r-3) 0;padding:var(--s-5);margin-top:var(--s-5)}
+.jh-flags h3{font-size:var(--fs-h4)}
+.jh-flags ul{margin:var(--s-3) 0 0;padding-left:var(--s-5)}
+.jh-flags li{margin-bottom:var(--s-2)}
+.jh-bars{list-style:none;margin:var(--s-4) 0 0;padding:0;display:grid;gap:var(--s-3)}
+.jh-bar{display:grid;grid-template-columns:minmax(0,1fr) 56px;gap:var(--s-2) var(--s-3);align-items:center}
+.jh-bar .lbl{font-size:var(--fs-body);color:var(--ink);font-weight:var(--fw-medium)}
+.jh-bar .val{font-size:var(--fs-body);font-weight:var(--fw-bold);text-align:right;color:var(--ink)}
+.jh-bar .track{grid-column:1 / -1;height:10px;border-radius:var(--r-pill);background:var(--border-soft);overflow:hidden}
+.jh-bar .fill{display:block;height:100%;border-radius:var(--r-pill);background:var(--teal)}
+.jh-bar.pri .fill{background:var(--gold-dark)}
+.jh-bar.pri .lbl::after{content:" · priority";color:var(--ink);font-weight:var(--fw-semi)}
+.jh-pri{border:1px solid var(--border);border-left:4px solid var(--gold);border-radius:0 var(--r-3) var(--r-3) 0;padding:var(--s-5);margin-top:var(--s-4);background:var(--white)}
+.jh-pri h4{font-size:var(--fs-h4);margin-bottom:var(--s-2)}
+.jh-pri ul{margin:var(--s-2) 0 0;padding-left:var(--s-5)}
+.jh-pri li{margin-bottom:var(--s-2)}
+.jh-ev{margin-top:var(--s-3);font-size:var(--fs-body);color:var(--ink-soft)}
+.jh-ev li{margin-bottom:var(--s-2)}
+.jh-grade{display:inline-block;font-size:var(--fs-body);font-weight:var(--fw-semi);padding:0 8px;border-radius:var(--r-pill);margin-left:4px}
+.jh-grade.established{background:var(--teal-muted);color:var(--teal-dark)}
+.jh-grade.promising{background:var(--gold-muted);color:var(--ink)}
+.jh-grade.bridge{background:var(--purple-muted);color:var(--purple-dark)}
+.jh-ev a{text-decoration:underline;text-underline-offset:3px}
+
+/* Saved results */
+.jh-save{margin-top:var(--s-5);padding:var(--s-5);border:1.5px solid var(--gold);border-radius:var(--r-3);background:var(--white)}
+.jh-save h3{font-size:var(--fs-h4)}
+.jh-save .actions{display:flex;gap:var(--s-3);flex-wrap:wrap;margin-top:var(--s-4)}
+.jh-status{margin-top:var(--s-3);font-weight:var(--fw-semi);color:var(--ink)}
+.jh-table-wrap{position:relative;overflow-x:auto;margin-top:var(--s-4);-webkit-overflow-scrolling:touch}
+table.jh-log{width:100%;border-collapse:collapse;font-size:var(--fs-body);min-width:560px}
+table.jh-log th,table.jh-log td{padding:10px 8px;border-bottom:1px solid var(--border);text-align:left;vertical-align:middle}
+table.jh-log th{font-weight:var(--fw-semi);color:var(--ink);background:var(--surface)}
+table.jh-log td.num{text-align:right;font-variant-numeric:tabular-nums}
+table.jh-log .del{min-height:44px;min-width:44px;padding:8px 14px;border:1.5px solid var(--border);border-radius:var(--r-pill);background:var(--white);font-family:var(--font-body);font-size:var(--fs-body);color:var(--ink);cursor:pointer}
+table.jh-log .del:hover{border-color:var(--tier-5)}
+.jh-trend{margin-top:var(--s-3);color:var(--ink-soft)}
+.jh-link-btn{background:none;border:0;padding:0;min-height:44px;font-family:var(--font-body);font-size:var(--fs-body);color:var(--teal-dark);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+
+@media(max-width:768px){
+  .jh-wrap{padding:var(--s-5) var(--gutter-mobile) var(--s-7)}
+  .jh-card{padding:var(--s-5) var(--s-4)}
+  .jh-intro h1{font-size:34px}
+  .jh-step h2{font-size:26px}
+  .mmm-btn{padding:13px 22px}
+  .jh-nav .mmm-btn{flex:1 1 auto}
+  .jh-score .n{font-size:56px}
+}
+@media print{
+  .mm-nav,.jh-intro,.jh-progress,.jh-nav,.jh-noprint,.jh-save,.mm-footer{display:none!important}
+  body{background:var(--white)}
+  .jh-wrap{padding:0;max-width:100%}
+  .jh-card{box-shadow:none;border:0;padding:0;margin:0}
+  .jh-step{display:none!important}
+  .jh-step.active#step-results,.jh-step.active#step-stop{display:block!important;animation:none}
+}
+</style>
+</head>
+<body data-category="P1-C1">
+
+<header class="mm-nav">
+  <div class="mm-nav-inner">
+    <a href="/" class="mm-logo">Muscle-Meta Matrix<sup class="jh-tm">™</sup><span>Clinical intelligence for active aging</span></a>
+    <button class="mm-navtoggle" aria-label="Menu" aria-expanded="false"><span></span></button>
+    <nav class="mm-navlinks">
+      <a href="/courses/">Courses</a>
+      <a href="/tools/">Tools</a>
+      <a href="/learn/">Learn</a>
+      <a href="/blog/">Articles</a>
+      <a href="/downloads/">Free guides</a>
+    </nav>
+  </div>
+</header>
+
+<main class="jh-wrap" id="top">
+
+  <section class="jh-intro">
+    <span class="eyebrow">Exercise &amp; Mobility · Joint Health</span>
+    <h1>Joint health risk assessment</h1>
+    <p class="lede">A free, scored check for adults 40 and over. It looks at seven areas that shape how your joints hold up over time: past injuries, metabolic health, muscle, function, weight change, medications and current symptoms. You get a 0 to 100 Joint Risk Score, an action tier, your priority areas and a log you can use to track retests.</p>
+  </section>
+
+  <div class="jh-card">
+
+    <div class="jh-progress" id="progress" aria-hidden="true">
+      <div class="jh-progress-track"><span class="jh-progress-fill" id="progressFill"></span></div>
+      <div class="jh-progress-meta"><span id="progressLabel">Step 1 of 9</span><span id="progressName">Safety check</span></div>
+    </div>
+
+    <noscript><p class="jh-notice">This assessment needs JavaScript to score your answers. Nothing is sent anywhere.</p></noscript>
+
+    <!-- START -->
+    <section class="jh-step active" id="step-start" data-name="Before you start" aria-labelledby="h-start">
+      <span class="jh-kicker">Before you start</span>
+      <h2 id="h-start" tabindex="-1">What this assessment asks, and where your answers go</h2>
+      <p class="jh-sub">It takes about 12 minutes, including a 30-second chair test. It is an educational tool. It does not diagnose arthritis or any other condition, and the score is a guide to action, not a prediction.</p>
+
+      <div class="jh-notice" id="privacy">
+        <!-- DRAFT privacy copy: pending counsel review before release (JHRA v1.0, Part 8 data handling). -->
+        <h3>Your privacy</h3>
+        <p>What we ask:</p>
+        <ul>
+          <li>Seven safety questions about warning signs that need a clinician first.</li>
+          <li>Your age and sex, past joint injuries, height, weight and a few health conditions.</li>
+          <li>Medications that can affect joints, tendons, muscle or bone, and your current joint symptoms.</li>
+        </ul>
+        <p class="jh-gap">Where your answers go: your score is worked out <strong>in this browser</strong>. Nothing is sent to us while you answer. At the end you choose what to keep:</p>
+        <ul>
+          <li><strong>Save on this device.</strong> Keeps the date, your score, tier, the seven area scores and any flag codes in this browser so you can compare retests. It does not keep your answers. You can delete any entry, or all of them, at any time.</li>
+          <li><strong>Save to my account</strong> (when you are signed in). Sends your answers, including medication and health-condition answers, to your Muscle-Meta account so your results are kept with your other assessments. Only you and staff supporting your account can see them.</li>
+          <li><strong>Neither.</strong> Close the page and nothing is kept. You can still print the summary.</li>
+        </ul>
+      </div>
+
+      <div class="jh-nav">
+        <span class="spacer"></span>
+        <button type="button" class="mmm-btn mmm-btn-primary" data-go="safety">Start with the safety check</button>
+      </div>
+      <p class="jh-meta jh-noprint" id="historyHint" hidden><button type="button" class="jh-link-btn" data-go="results-history">See your saved results on this device</button></p>
+    </section>
+
+    <!-- SAFETY -->
+    <section class="jh-step" id="step-safety" data-name="Safety check" data-progress="1" aria-labelledby="h-safety">
+      <span class="jh-kicker gold">Safety check</span>
+      <h2 id="h-safety" tabindex="-1">Before we start: a quick safety check</h2>
+      <p class="jh-sub">Some signs point to a problem that needs a clinician to look at it first, not an exercise plan. If you answer yes to any of these, we will stop here and suggest who to see.</p>
+      <form id="form-safety" novalidate><div data-render="safety"></div></form>
+      <div class="jh-error" role="alert" id="err-safety">Please answer every question.</div>
+      <div class="jh-nav">
+        <button type="button" class="mmm-btn mmm-btn-ghost" data-go="start">Back</button>
+        <button type="button" class="mmm-btn mmm-btn-primary" data-next="safety">Continue</button>
+      </div>
+    </section>
+
+    <!-- ABOUT YOU -->
+    <section class="jh-step" id="step-about" data-name="About you" data-progress="2" aria-labelledby="h-about">
+      <span class="jh-kicker">About you</span>
+      <h2 id="h-about" tabindex="-1">Age and sex</h2>
+      <p class="jh-sub">Age and sex affect joint risk but cannot be changed, so they add a small adjustment rather than a full area score.</p>
+      <form id="form-about" novalidate>
+        <div class="jh-field">
+          <label for="jh_age">Your age</label>
+          <span class="hint">Designed for adults 40 and over.</span>
+          <input type="number" id="jh_age" name="jh_age" inputmode="numeric" min="18" max="110" step="1" autocomplete="off" style="max-width:160px">
+        </div>
+        <div data-render="jh_sex"></div>
+        <div class="jh-sub-q" id="sub-menopause"><div data-render="jh_postmenopausal"></div></div>
+      </form>
+      <div class="jh-error" role="alert" id="err-about">Please enter an age between 18 and 110 and choose an answer for sex.</div>
+      <div class="jh-nav">
+        <button type="button" class="mmm-btn mmm-btn-ghost" data-back>Back</button>
+        <button type="button" class="mmm-btn mmm-btn-primary" data-next="about">Continue</button>
+      </div>
+    </section>
+
+    <!-- A. INJURY -->
+    <section class="jh-step" id="step-A" data-name="Past injuries" data-progress="3" aria-labelledby="h-A">
+      <span class="jh-kicker">Area A of 7</span>
+      <h2 id="h-A" tabindex="-1">Past joint injuries</h2>
+      <p class="jh-sub">A past joint injury is one of the strongest known risk factors for later osteoarthritis, and the extra risk lasts for decades. List up to five injuries, old or recent.</p>
+      <form id="form-A" novalidate>
+        <fieldset class="jh-q">
+          <legend>Have you ever had a joint injury, joint surgery or a joint replacement?</legend>
+          <div class="jh-opt-grid">
+            <label class="jh-opt"><input type="radio" name="ui_has_injury" value="yes"><span class="t">Yes</span></label>
+            <label class="jh-opt"><input type="radio" name="ui_has_injury" value="no"><span class="t">No</span></label>
+          </div>
+        </fieldset>
+        <div id="injuryList" hidden>
+          <div id="injuries"></div>
+          <button type="button" class="mmm-btn mmm-btn-ghost" id="addInjury">Add another injury</button>
+          <p class="jh-meta" id="injuryCount"></p>
+        </div>
+      </form>
+      <div class="jh-error" role="alert" id="err-A">Please answer the question, and for each injury choose the joint, side and type.</div>
+      <div class="jh-nav">
+        <button type="button" class="mmm-btn mmm-btn-ghost" data-back>Back</button>
+        <button type="button" class="mmm-btn mmm-btn-primary" data-next="A">Continue</button>
+      </div>
+    </section>
+
+    <!-- B. METABOLIC -->
+    <section class="jh-step" id="step-B" data-name="Metabolic health" data-progress="4" aria-labelledby="h-B">
+      <span class="jh-kicker">Area B of 7</span>
+      <h2 id="h-B" tabindex="-1">Metabolic health</h2>
+      <p class="jh-sub">Metabolic health affects joints through extra load and through inflammation. Your body mass index (BMI) is worked out from your height and weight.</p>
+      <form id="form-B" novalidate>
+        <fieldset class="jh-q">
+          <legend>Units</legend>
+          <div class="jh-opt-grid">
+            <label class="jh-opt"><input type="radio" name="ui_units" value="us" checked><span class="t">Feet, inches and pounds</span></label>
+            <label class="jh-opt"><input type="radio" name="ui_units" value="metric"><span class="t">Centimeters and kilograms</span></label>
+          </div>
+        </fieldset>
+        <div class="jh-field" id="units-us">
+          <span class="jh-small-label" id="lbl-us">Height and weight</span>
+          <div class="jh-row three" role="group" aria-labelledby="lbl-us">
+            <div><label class="jh-small-label" for="h_ft">Feet</label><input type="number" id="h_ft" inputmode="numeric" min="3" max="7" step="1"></div>
+            <div><label class="jh-small-label" for="h_in">Inches</label><input type="number" id="h_in" inputmode="numeric" min="0" max="11" step="1"></div>
+            <div><label class="jh-small-label" for="w_lb">Pounds</label><input type="number" id="w_lb" inputmode="decimal" min="66" max="660" step="0.1"></div>
+          </div>
+        </div>
+        <div class="jh-field" id="units-metric" hidden>
+          <span class="jh-small-label" id="lbl-metric">Height and weight</span>
+          <div class="jh-row" role="group" aria-labelledby="lbl-metric">
+            <div><label class="jh-small-label" for="h_cm">Centimeters</label><input type="number" id="h_cm" inputmode="decimal" min="120" max="230" step="0.1"></div>
+            <div><label class="jh-small-label" for="w_kg">Kilograms</label><input type="number" id="w_kg" inputmode="decimal" min="30" max="300" step="0.1"></div>
+          </div>
+        </div>
+        <p class="jh-meta" id="bmiOut" aria-live="polite"></p>
+        <div data-render="jh_waist,jh_glucose,jh_bp,jh_lipids,jh_gout"></div>
+      </form>
+      <div class="jh-error" role="alert" id="err-B">Please enter your height and weight and answer every question.</div>
+      <div class="jh-nav">
+        <button type="button" class="mmm-btn mmm-btn-ghost" data-back>Back</button>
+        <button type="button" class="mmm-btn mmm-btn-primary" data-next="B">Continue</button>
+      </div>
+    </section>
+
+    <!-- C. MUSCLE -->
+    <section class="jh-step" id="step-C" data-name="Muscle health" data-progress="5" aria-labelledby="h-C">
+      <span class="jh-kicker">Area C of 7</span>
+      <h2 id="h-C" tabindex="-1">Muscle health</h2>
+      <p class="jh-sub">Muscles absorb and control force before it reaches cartilage and bone. Weak thigh muscles are linked with a higher chance of developing knee osteoarthritis.</p>
+      <form id="form-C" novalidate><div data-render="jh_strength_days,jh_chair_arms,jh_grip,jh_thigh_deficit"></div></form>
+      <div class="jh-error" role="alert" id="err-C">Please answer every question.</div>
+      <div class="jh-nav">
+        <button type="button" class="mmm-btn mmm-btn-ghost" data-back>Back</button>
+        <button type="button" class="mmm-btn mmm-btn-primary" data-next="C">Continue</button>
+      </div>
+    </section>
+
+    <!-- D. FUNCTION -->
+    <section class="jh-step" id="step-D" data-name="Fitness and function" data-progress="6" aria-labelledby="h-D">
+      <span class="jh-kicker">Area D of 7</span>
+      <h2 id="h-D" tabindex="-1">Fitness and function</h2>
+      <p class="jh-sub">Simple tests show how your joints and muscles work together under everyday demand.</p>
+      <div class="jh-howto">
+        <h3>The 30-second chair stand</h3>
+        <ol>
+          <li>Use a sturdy, standard-height chair with its back against a wall, and a counter within reach.</li>
+          <li>Sit in the middle of the seat, feet flat, arms crossed over your chest.</li>
+          <li>For 30 seconds, stand up fully and sit back down as many times as you can. Count each full stand.</li>
+          <li>Stop if pain goes above 5 out of 10 or you feel unsteady.</li>
+        </ol>
+      </div>
+      <form id="form-D" novalidate>
+        <div class="jh-field">
+          <label for="chairCount">Number of full stands in 30 seconds</label>
+          <input type="number" id="chairCount" inputmode="numeric" min="0" max="60" step="1" style="max-width:160px">
+          <label class="jh-check"><input type="checkbox" id="chairUnable"> I cannot stand up from the chair without using my arms</label>
+        </div>
+        <div data-render="jh_single_leg,jh_stairs,jh_activity_min,jh_walk10"></div>
+      </form>
+      <div class="jh-error" role="alert" id="err-D">Please enter your chair-stand count (or tick the box) and answer every question.</div>
+      <div class="jh-nav">
+        <button type="button" class="mmm-btn mmm-btn-ghost" data-back>Back</button>
+        <button type="button" class="mmm-btn mmm-btn-primary" data-next="D">Continue</button>
+      </div>
+    </section>
+
+    <!-- E. WEIGHT CHANGE -->
+    <section class="jh-step" id="step-E" data-name="Weight change" data-progress="7" aria-labelledby="h-E">
+      <span class="jh-kicker">Area E of 7</span>
+      <h2 id="h-E" tabindex="-1">Weight change</h2>
+      <p class="jh-sub">Your weight history matters, and so does what kind of weight you lose. Losing weight while keeping muscle helps joints most.</p>
+      <form id="form-E" novalidate><div data-render="jh_gain_since25,jh_weight_12m"></div></form>
+      <div class="jh-error" role="alert" id="err-E">Please answer every question.</div>
+      <div class="jh-nav">
+        <button type="button" class="mmm-btn mmm-btn-ghost" data-back>Back</button>
+        <button type="button" class="mmm-btn mmm-btn-primary" data-next="E">Continue</button>
+      </div>
+    </section>
+
+    <!-- F. MEDICATIONS -->
+    <section class="jh-step" id="step-F" data-name="Medications" data-progress="8" aria-labelledby="h-F">
+      <span class="jh-kicker">Area F of 7</span>
+      <h2 id="h-F" tabindex="-1">Medications and treatments</h2>
+      <p class="jh-sub">Some medications ease joint pain or reduce load; others can affect tendons, cartilage, bone or muscle. <strong>Do not stop or change any medication based on this assessment.</strong> Bring your results to the clinician who prescribes it.</p>
+      <form id="form-F" novalidate><div data-render="jh_steroid_oral,jh_injections,jh_fluoroquinolone,jh_aromatase,jh_dpp4,jh_diuretic,jh_glp1,jh_other_meds"></div></form>
+      <div class="jh-error" role="alert" id="err-F">Please answer every question. The last one is optional.</div>
+      <div class="jh-nav">
+        <button type="button" class="mmm-btn mmm-btn-ghost" data-back>Back</button>
+        <button type="button" class="mmm-btn mmm-btn-primary" data-next="F">Continue</button>
+      </div>
+    </section>
+
+    <!-- G. CURRENT STATUS -->
+    <section class="jh-step" id="step-G" data-name="Current symptoms" data-progress="9" aria-labelledby="h-G">
+      <span class="jh-kicker">Area G of 7</span>
+      <h2 id="h-G" tabindex="-1">Current joint symptoms</h2>
+      <p class="jh-sub">Current symptoms show whether risk has already become a day-to-day problem, and they guide how fast to progress.</p>
+      <form id="form-G" novalidate><div data-render="jh_pain_days,jh_stiffness,jh_swelling,jh_giving_way"></div></form>
+      <div class="jh-error" role="alert" id="err-G">Please answer every question.</div>
+      <div class="jh-nav">
+        <button type="button" class="mmm-btn mmm-btn-ghost" data-back>Back</button>
+        <button type="button" class="mmm-btn mmm-btn-primary" data-next="G">See my results</button>
+      </div>
+    </section>
+
+    <!-- SAFETY STOP -->
+    <section class="jh-step" id="step-stop" data-name="See a clinician first" aria-labelledby="h-stop">
+      <div class="jh-stop">
+        <span class="jh-kicker plain">Please pause here</span>
+        <h2 id="h-stop" tabindex="-1">See a healthcare professional before going further</h2>
+        <p id="stopCopy"></p>
+        <ul id="stopList" class="jh-gap"></ul>
+        <p class="closing">This is not a diagnosis. It means these signs are worth a professional look before you start a new exercise program or use the rest of this assessment. No score was produced and nothing was saved.</p>
+      </div>
+      <div class="jh-nav">
+        <button type="button" class="mmm-btn mmm-btn-ghost" data-go="safety">Back to the safety check</button>
+        <button type="button" class="mmm-btn mmm-btn-ghost" onclick="window.print()">Print this page</button>
+      </div>
+    </section>
+
+    <!-- RESULTS -->
+    <section class="jh-step" id="step-results" data-name="Your results" aria-labelledby="h-results">
+      <span class="jh-kicker">Your results</span>
+      <h2 id="h-results" tabindex="-1">Your Joint Risk Score</h2>
+      <p class="jh-meta" id="resultDate"></p>
+      <div id="resultBody"></div>
+
+      <div class="jh-save" id="save">
+        <h3>Keep your results</h3>
+        <p>Retest in the same way to see whether your plan is working. Area A (past injuries) usually stays the same; progress shows up in the other six areas.</p>
+        <div class="actions">
+          <button type="button" class="mmm-btn mmm-btn-primary" id="saveLocal">Save on this device</button>
+          <button type="button" class="mmm-btn mmm-btn-ghost" id="saveAccount" hidden>Save to my account</button>
+          <button type="button" class="mmm-btn mmm-btn-ghost" id="signIn" hidden>Sign in to save to your account</button>
+          <button type="button" class="mmm-btn mmm-btn-ghost" onclick="window.print()">Print or save as PDF</button>
+        </div>
+        <p class="jh-status" id="saveStatus" role="status" aria-live="polite"></p>
+        <p class="jh-meta" id="accountNote"></p>
+      </div>
+
+      <div class="jh-panel" id="historyPanel" hidden>
+        <h3>Saved on this device</h3>
+        <p class="jh-trend" id="trend"></p>
+        <div class="jh-table-wrap"><table class="jh-log" id="historyTable"><caption class="jh-sr">Saved Joint Risk Scores on this device</caption><thead></thead><tbody></tbody></table></div>
+        <div class="jh-nav"><button type="button" class="mmm-btn mmm-btn-ghost" id="clearHistory">Delete all saved results on this device</button></div>
+      </div>
+
+      <div class="jh-panel" id="accountPanel" hidden>
+        <h3>Saved to your account</h3>
+        <div class="jh-table-wrap"><table class="jh-log" id="accountTable"><caption class="jh-sr">Joint Risk Scores saved to your account</caption><thead></thead><tbody></tbody></table></div>
+      </div>
+
+      <div class="jh-disclaimer">
+        <h3>About this assessment</h3>
+        <p>This assessment is for education only. It does not diagnose, treat or predict any medical condition, and it is not a substitute for an evaluation by a physician, physical therapist or other qualified healthcare professional. Do not start, stop or change any medication based on your results.</p>
+        <p>The point values are educational weightings informed by research, not a validated clinical prediction model. They rank relative importance; they do not calculate your personal chance of developing arthritis. Version 1.0.0, pilot.</p>
+      </div>
+      <div class="jh-nav jh-noprint">
+        <button type="button" class="mmm-btn mmm-btn-ghost" id="restart">Start a new assessment</button>
+        <a class="mmm-btn mmm-btn-ghost" href="/tools/">More free tools</a>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer class="mm-footer">
+  <div class="mmm-container">
+    <span class="wordmark">Muscle-Meta Matrix&trade;</span>
+    <p class="jh-tagline">Clinical intelligence for active aging &middot; Randy Bauer, PT</p>
+    <p class="jh-footer-line">Educational, not medical advice. <a href="/legal/medical-disclaimer/">Medical disclaimer</a></p>
+    <p class="jh-footer-line"><a href="/legal/privacy/">Privacy</a> &middot; <a href="/legal/terms/">Terms</a></p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="/assets/mm.js"></script>
+<script src="jhra-01.js"></script>
+<script src="jhra-page.js"></script>
+</body>
+</html>

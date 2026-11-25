@@ -377,8 +377,18 @@
     $('#saveStatus').textContent = writeStore(h.slice(-50)) ? 'Saved on this device. Only the scores were kept, not your answers.' : 'This browser would not let us save. Try printing instead.';
     renderHistory();
   });
+  // two-step confirm in the page itself (native dialogs can be blocked)
+  let clearArmed = false;
   $('#clearHistory').addEventListener('click', () => {
-    if (!window.confirm('Delete every saved Joint Risk Score on this device? This cannot be undone.')) return;
+    const btn = $('#clearHistory');
+    if (!clearArmed) {
+      clearArmed = true;
+      btn.textContent = 'Select again to delete all. This cannot be undone.';
+      setTimeout(() => { clearArmed = false; btn.textContent = 'Delete all saved results on this device'; }, 6000);
+      return;
+    }
+    clearArmed = false;
+    btn.textContent = 'Delete all saved results on this device';
     try { localStorage.removeItem(STORE); } catch { /* ignore */ }
     renderHistory();
     $('#saveStatus').textContent = 'All saved results on this device were deleted.';

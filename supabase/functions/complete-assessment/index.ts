@@ -14,8 +14,10 @@
 
    Engines: flr-readiness-alg-1.0.0 (Program 1; orientation supplies the
    safety answer and goal) and mm-4p-alg-1.0.0 (Muscle-Meta Matrix™ full
-   assessment; the safety answer is its own first question). The 4P result,
-   its scores and its flags are written in one transaction by
+   assessment; the safety answer is its own first question) and
+   jhra-alg-1.0.0 (Joint health risk assessment; seven safety questions come
+   first and any yes stops before scoring). The 4P and JHRA results, their
+   scores and their flags are written in one transaction by
    public.record_assessment_result.
 
    The service-role key is provided by the Supabase runtime and never leaves
@@ -25,10 +27,11 @@ import { createClient } from 'npm:@supabase/supabase-js@2';
 import { scoreReadiness, answerFingerprint, ALGORITHM_VERSION } from './engine/scoring.ts';
 import { scoreMM4P, mm4pFingerprint, MM4P_ALGORITHM_VERSION } from './engine/mm-4p-01.ts';
 import { CATEGORIES } from './engine/framework.ts';
+import { scoreJHRA, jhraFingerprint, JHRA_ALGORITHM_VERSION } from './engine/jhra-01.ts';
 
 const PILLAR_CODE: Record<number, string> = { 1: 'E', 2: 'N', 3: 'R', 4: 'B' };
 
-const ALLOWED_ORIGIN = /^(https:\/\/(app\.muscle-meta\.com|[a-z0-9-]+--[a-z0-9-]+\.netlify\.app|[a-z0-9-]+\.netlify\.app)|http:\/\/localhost:\d+)$/;
+const ALLOWED_ORIGIN = /^(https:\/\/((www\.|app\.)?muscle-meta\.com|[a-z0-9-]+--[a-z0-9-]+\.netlify\.app|[a-z0-9-]+\.netlify\.app)|http:\/\/localhost:\d+)$/;
 
 function cors(origin: string | null) {
   const allow = origin && ALLOWED_ORIGIN.test(origin) ? origin : 'https://app.muscle-meta.com';
@@ -116,9 +119,45 @@ Deno.serve(async (req) => {
     return reply(200, { result: written, replay: false });
   }
 
+  if (version.algorithm_version === JHRA_ALGORITHM_VERSION) {
+    const { data: rows, error: respErr } = await admin.from('assessment_responses')
+      .select('question_code, value').eq('session_id', sessionId);
+    if (respErr) return reply(500, { error: 'read_failed' });
+    const input = { answers: Object.fromEntries((rows ?? []).map(r => [r.question_code, r.value])) };
+    const scored = scoreJHRA(input);
+    // A safety stop is never stored as a result: the page shows who to see.
+    if (scored.status === 'safety_stop') return reply(422, { error: 'safety_stop', triggered: scored.triggered });
+    if (scored.status !== 'complete') {
+      return reply(422, { error: 'insufficient_information', missing: scored.missing, invalid: scored.invalid });
+    }
+    const family = scored.scoreFamily;
+    // result_scores refs are limited to total / pillar / category, so the
+    // seven domain scores live in detail.
+    const scores = [{ scope: 'total', ref: 'total', score: scored.total.score, tier_label: scored.total.tier, score_family: family }];
+    const result = {
+      session_id: sessionId,
+      user_id: userId,
+      assessment_version_id: session.assessment_version_id,
+      algorithm_version: scored.algorithmVersion,
+      answer_fingerprint: jhraFingerprint(input),
+      safety_review_status: 'no',
+      safety_route: 'clear',
+      reason_codes: { context: scored.context.reasons },
+      score_family: family,
+      detail: {
+        domains: scored.domains, priorities: scored.priorities, weighted_subtotal: scored.weightedSubtotal,
+        context: scored.context, bmi: scored.bmi, chair_stand: scored.chairStand, injury_points: scored.injuryPoints
+      }
+    };
+    const { data: written, error: rpcErr } = await admin.rpc('record_assessment_result',
+      { p_result: result, p_scores: scores, p_flags: scored.flags });
+    if (rpcErr || !written) return reply(500, { error: 'write_failed' });
+    return reply(200, { result: written, replay: false });
+  }
+
   if (version.algorithm_version !== ALGORITHM_VERSION) {
     return reply(409, { error: 'algorithm_mismatch', pinned: version.algorithm_version,
-      engines: [ALGORITHM_VERSION, MM4P_ALGORITHM_VERSION] });
+      engines: [ALGORITHM_VERSION, MM4P_ALGORITHM_VERSION, JHRA_ALGORITHM_VERSION] });
   }
 
   const { data: orientation } = await admin.from('orientation_sessions')
